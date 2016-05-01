@@ -15,3 +15,8 @@
 *.PDF	 diff=astextplain
 *.rtf	 diff=astextplain
 *.RTF	 diff=astextplain
+
+# Tex File
+*.tex diff=astextplain
+*.cls diff=astextplain
+*.cfg diff=astextplain
