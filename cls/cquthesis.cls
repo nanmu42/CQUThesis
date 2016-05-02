@@ -57,7 +57,7 @@
 \ProcessKeyvalOptions*
 \PassOptionsToPackage{no-math}{fontspec}
 % 为CtexBook定义选项
-\LoadClass[a4paper,oneside,openany,UTF8,zihao=-4,scheme=plain]{ctexbook}
+\LoadClass[a4paper,oneside,openany,UTF8,zihao=-4,scheme=plain,linespread=1.39]{ctexbook}
 
 % 用户必须提供用户类型
 \if@usermadechoice\relax\else
@@ -74,6 +74,8 @@
 \RequirePackage{xparse}						%更好的命令定义
 \RequirePackage[defaultsups]{newtxtext}		%英文字体支持
 \RequirePackage{newtxmath}					%数学字体支持
+\RequirePackage[labelformat=simple]{subcaption}
+\RequirePackage{longtable}					%两个环境，用于解决caption定制、子caption和长表格
 \RequirePackage{tgcursor}
 \RequirePackage{graphicx}
 \RequirePackage{pdfpages}					%pdfpages用于插入扫描的PDF文档
@@ -142,7 +144,7 @@
 % 2. 仅显示页码（用于章节开头）
 \fancypagestyle{style@justPageNum}{%
 	\fancyhead{}
-	\fancyfoot[C]{\zihao{5}\thepage}
+	\fancyfoot[C]{\zihao{-5}\thepage}
 	\renewcommand{\headrulewidth}{0pt}
 	\renewcommand{\footrulewidth}{0pt}}
 % 3. 页眉页脚齐全（用于一般正文页面）
@@ -157,12 +159,18 @@
 \pagestyle{style@normal} % 开发用
 
 % 定义正文字号，小四号（12bp），行距为固定值20bp
-\abovedisplayskip = 20bp \@plus 2bp \@minus 2bp
-\abovedisplayshortskip = 20bp \@plus 2bp \@minus 2bp
-\belowdisplayskip = \abovedisplayskip
-\belowdisplayshortskip = \abovedisplayshortskip
+%\abovedisplayskip = 20bp \@plus 2bp \@minus 2bp
+%\abovedisplayshortskip = 20bp \@plus 2bp \@minus 2bp
+%\belowdisplayskip = \abovedisplayskip
+%\belowdisplayshortskip = \abovedisplayshortskip
 
 % 段落
+% LaTeX使用\if@afterindent来决定要不要让标题后的第一个自然段缩进，中文环境下好像并没有
+% 个人喜好之类的问题，我们这里让它一直为True. 感谢indentfirst.
+\let\@afterindentfalse\@afterindenttrue
+\@afterindenttrue
+% 每个自然段之间空1/10行距，增加可读性
+\setlength{\parskip}{0.1\baselineskip}
 % 全文首行缩进两字符，开明标点，去掉列表中项目之间的额外间隔（enumitem）
 \ctexset{%
 	punct=kaiming,
@@ -172,25 +180,78 @@
 
 % 脚注
 % 用带圈的数字作为脚注，由于字体限制，最多能在单页上处理10个脚注
-%\def\circlenum#1{%
-%	(#1)
-%%	\ifnum\value{#1} >10
-%%		\ClassError{cquthesis}%
-%%			{In a single page, Footnotes more than 10 are not supported.}
-%%	\fi
-%	\ding{\numexpr171+\value{#1}}%
-%	\ding{\numexpr171+\value{#1}}%
-%}
-\def\circleNum#1{%
-	\ifnum\value{#1} >9
-	\ClassError{thuthesis}%
-	{Too many footnotes in this page.}{Keep footnote less than 10.}
+\def\@circlenum#1{%
+	\ifnum \value{#1} >10
+		\ClassError{cquthesis}%
+			{In a single page, Footnotes more than 10 are not supported.}
 	\fi
-	\ifthu@pifootnote%
-	\ding{\numexpr171+\value{#1}}%
-	\else%
-	\textcircled{\xiaoliu\arabic{#1}}%
-	\fi}
+	\ding{\numexpr171+ \value{#1}}%
+}
+% 注意这里\@circlenum要接受的是counter里的值，所以需要\value{}来处理，如果用数字直接做\@circlenum
+% 的参数，要去掉\value才能编译通过
+\renewcommand{\thefootnote}{\@circlenum{footnote}}
+\renewcommand{\thempfootnote}{\@circlenum{mpfootnote}}
+% 设置分割线、字号和悬挂缩进
+\def\footnoterule{\vskip-3\p@\hrule\@width0.3\textwidth\@height0.4\p@\vskip2.6\p@}
+\let\cqu@footnotesize\footnotesize
+\renewcommand{\footnotesize}{\cqu@footnotesize\zihao{-5}}
+\footnotemargin1.5em\relax
+% 脚注部分将标注换为正文大小，这个过程是动态的
+\let\cqu@makefnmark\@makefnmark
+\def\cqu@@makefnmark{\hbox{{\normalfont\@thefnmark}}}
+\pretocmd{\@makefntext}{\let\@makefnmark\cqu@@makefnmark}{}{}
+\apptocmd{\@makefntext}{\let\@makefnmark\cqu@makefnmark}{}{}
+
+% 数学相关
+\allowdisplaybreaks[4]
+% TODO: 部分公式编码中“式”无法正确显示出来
+%\patchcmd{\theequation}{.}{--}{}{}	 重大的式子标注为“式（3.2）”，这里记下这个经典的用法（但是不用）
+\let\cqu@tagform@\tagform@
+\renewcommand{\tagform@}[1]{式\cqu@tagform@{#1}}
+\renewcommand{\eqref}[1]{式\textup{(\ref{#1})}}
+
+% 定理环境相关
+\theorembodyfont{\rmfamily\songti}
+\theoremheaderfont{\rmfamily\heiti}
+% 定理环境中文定义在.cfg中完成
+
+% 浮动对象管理
+% 设定浮动对象与文字的间距
+\setlength{\floatsep}{20bp \@plus4pt \@minus1pt}
+\setlength{\intextsep}{20bp \@plus4pt \@minus2pt}
+\setlength{\textfloatsep}{20bp \@plus4pt \@minus2pt}
+\setlength{\@fptop}{0bp \@plus1.0fil}
+\setlength{\@fpsep}{12bp \@plus2.0fil}
+\setlength{\@fpbot}{0bp \@plus1.0fil}
+
+% 让浮动对象缺省值更宽松
+\renewcommand{\textfraction}{0.15}
+\renewcommand{\topfraction}{0.85}
+\renewcommand{\bottomfraction}{0.65}
+\renewcommand{\floatpagefraction}{0.60}
+
+% 定制表格和插图的题注样式
+\def\cqu@tabular{\zihao{5}\@tabular}
+\DeclareCaptionLabelFormat{cqu}{{\zihao{5}\songti #1~\rmfamily #2}}
+\DeclareCaptionLabelSeparator{cqu}{\hspace{\ccwd}}
+\DeclareCaptionFont{cqu}{\zihao{5}}
+\captionsetup{labelformat=cqu,labelsep=cqu,font=cqu}
+% 两个skip设置都是正确的，已检测
+\captionsetup[table]{position=top,belowskip={12bp-\intextsep},aboveskip=6bp}
+\captionsetup[figure]{position=bottom,belowskip={12bp-\intextsep},aboveskip=6bp}
+\captionsetup[sub]{font=cqu,skip=6bp}
+\renewcommand{\thesubfigure}{(\alph{subfigure})}
+\renewcommand{\thesubtable}{(\alph{subtable})}
+% longtable方面也需要做设置
+\let\cqu@LT@array\LT@array
+\def\LT@array{\zihao{5}\cqu@LT@array}
+
+
+
+
+
+
+
 
 
 \AtEndOfClass{\input{cquthesis.cfg}}
