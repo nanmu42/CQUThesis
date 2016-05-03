@@ -34,6 +34,8 @@
 *.tdo
 *.thm
 *.bib
+*.html
+*.htm
 .Rproj.user
 cquthesis.Rproj
 todo.md~

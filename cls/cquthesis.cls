@@ -18,14 +18,14 @@
 	prefix=cqu@,
 	setkeys=\kvsetkeys}
 % 定义用户类型
-\newif\if@usermadechoice
 \newif\ifcqu@bachelor
 \newif\ifcqu@master
 \newif\ifcqu@doctor
+\cqu@bachelorfalse\cqu@masterfalse\cqu@doctorfalse
 \define@key{cqu}{type}{%
-	\expandafter\csname cqu@#1true\endcsname
-	\@usermadechoicetrue}
+	\expandafter\csname cqu@#1true\endcsname}
 % 论文是单面打印还是双面打印（默认：自动，手动模式一般不用）
+\DeclareBoolOption{liberalformat}
 \newif\if@twosideprint
 \newif\if@autoprint
 \@autoprinttrue
@@ -60,10 +60,14 @@
 \LoadClass[a4paper,oneside,openany,UTF8,zihao=-4,scheme=plain,linespread=1.39]{ctexbook}
 
 % 用户必须提供用户类型
-\if@usermadechoice\relax\else
-	\ClassError{cquthesis}%
-		{Specified thesis type is obligatory: \MessageBreak
-			type=[bachelor|master|doctor]}{}
+\ifcqu@bachelor\relax\else
+	\ifcqu@master\relax\else
+		\ifcqu@doctor\relax\else
+			\ClassError{cquthesis}%
+				{Specified thesis type is obligatory: \MessageBreak
+					type=[bachelor|master|doctor]}{}
+		\fi
+	\fi
 \fi
 
 
@@ -88,8 +92,9 @@
 %定理宏包，兼容模式
 \RequirePackage[amsmath,thmmarks,hyperref]{ntheorem}
 %参考文献引用宏包
-\RequirePackage[numbers,super,sort&compress]{natbib}
+\RequirePackage[square,comma,super,sort&compress]{natbib}
 \RequirePackage{hyperref}
+\RequirePackage{tocloft}
 \ifxetex
 	\hypersetup{%
 		CJKbookmarks=true}
@@ -110,6 +115,29 @@
 \urlstyle{same}
 %TODO: 提升：在hyperref之后在正文手动载入breakurl，处理dvips模式下的网址断字问题
 % ----- MAIN CODE ------
+% 定义清空页面（另开右页）功能和页面的三种形态
+% 注意这里另开右页对于单页打印模式来说没有意义，需要做个判断，按条件调整\cleardoublepage的意思。
+\let \cqu@cleardoublepage \cleardoublepage
+\renewcommand{\cleardoublepage}{\clearpage{\pagestyle{style@empty}}\cqu@cleardoublepage}
+
+\newif\if@mainmatter
+\renewcommand{\frontmatter}{%
+	\@mainmatterfalse
+	\clearpage
+	\pagenumbering{Roman}
+	\pagestyle{style@empty}
+}
+\renewcommand{\mainmatter}{%
+	\@mainmattertrue
+	\cleardoublepage
+	\pagenumbering{arabic}
+	\pagestyle{style@normal}
+}
+\renewcommand{\backmatter}{%
+	\@mainmattertrue
+	\cleardoublepage
+}
+
 % 定义页面，页眉页脚，先建立页面环境，完成分页再决定单双面打印
 \RequirePackage{geometry}
 \geometry{
@@ -134,29 +162,37 @@
 % 定义页眉页脚
 \RequirePackage{fancyhdr}
 
-% TODO: 轮廓：页眉页脚需要根据文档类型和单双页相应变动
 % 定制页眉页脚模式，全部以style@开头
 % 1. 页眉页脚全空（用于标题页、主体部分另页右开等）
 \fancypagestyle{style@empty}{%
 	\fancyhf{}
 	\renewcommand{\headrulewidth}{0pt}
 	\renewcommand{\footrulewidth}{0pt}}
-% 2. 仅显示页码（用于章节开头）
+% 2. 仅显示页码（用于目录等页面）
 \fancypagestyle{style@justPageNum}{%
 	\fancyhead{}
 	\fancyfoot[C]{\zihao{-5}\thepage}
 	\renewcommand{\headrulewidth}{0pt}
 	\renewcommand{\footrulewidth}{0pt}}
-% 3. 页眉页脚齐全（用于一般正文页面）
+% 3. 页眉页脚齐全（用于一般正文页面，这里自动判定用户类型和打印单双面）
 \fancypagestyle{style@normal}{%
 	\fancyhead{}
-	\fancyhead[C]{\zihao{-5}\songti\rightmark}
+	\if@twosideprint
+		\fancyhead[OC]{\zihao{-5}\songti\cqu@thesisname}
+		\fancyhead[EC]{\zihao{-5}\songti\leftmark}
+	\else
+		\fancyhead[L]{\zihao{-5}\songti\cqu@thesisname}
+		\fancyhead[R]{\zihao{-5}\songti\leftmark}
+	\fi
 	\fancyfoot{}
 	\fancyfoot[C]{\zihao{-5}\thepage}
 	\renewcommand{\headrulewidth}{0.4pt}
 	\renewcommand{\footrulewidth}{0pt}}
 
-\pagestyle{style@normal} % 开发用
+%\pagestyle{style@normal} % 开发用
+\AtBeginDocument{%
+	\pagestyle{style@empty}
+	\renewcommand{\chaptermark}[1]{\@mkboth{\CTEXthechapter\hskip\ccwd#1}{}}}
 
 % 定义正文字号，小四号（12bp），行距为固定值20bp
 %\abovedisplayskip = 20bp \@plus 2bp \@minus 2bp
@@ -179,6 +215,7 @@
 \setlist{nosep}
 
 % 脚注
+% TODO: 尝试使用\tikz来解决脚注数目不足的问题
 % 用带圈的数字作为脚注，由于字体限制，最多能在单页上处理10个脚注
 \def\@circlenum#1{%
 	\ifnum \value{#1} >10
@@ -204,11 +241,10 @@
 
 % 数学相关
 \allowdisplaybreaks[4]
-% TODO: 部分公式编码中“式”无法正确显示出来
 %\patchcmd{\theequation}{.}{--}{}{}	 重大的式子标注为“式（3.2）”，这里记下这个经典的用法（但是不用）
 \let\cqu@tagform@\tagform@
-\renewcommand{\tagform@}[1]{式\cqu@tagform@{#1}}
-\renewcommand{\eqref}[1]{式\textup{(\ref{#1})}}
+%\renewcommand{\tagform@}[1]{{式\cqu@tagform@{#1}}}
+\renewcommand{\eqref}[1]{\cqueqshortname\textup{(\ref{#1})}}
 
 % 定理环境相关
 \theorembodyfont{\rmfamily\songti}
@@ -246,7 +282,10 @@
 \let\cqu@LT@array\LT@array
 \def\LT@array{\zihao{5}\cqu@LT@array}
 
-
+% 设置目录
+\renewcommand{\cfttoctitlefont}{\songti\zihao{-2}}
+\renewcommand{\cftloftitlefont}{\songti\zihao{-2}}
+\renewcommand{\cftlottitlefont}{\songti\zihao{-2}}
 
 
 
