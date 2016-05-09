@@ -5,7 +5,7 @@
 
 % ----- INITIAL CODE -----
 \hyphenation{Cqu-Thesis}
-\def\cquthesis\textsc{CquThesis}
+\newcommand{\cquthesis}{\textsc{CquThesis}}
 \def\version{0.0.2}
 
 
@@ -314,6 +314,7 @@
 \cqu@def@term{esupervisor}
 \cqu@def@term{cmajor}
 \cqu@def@term{emajor}
+\cqu@def@term{edgree}
 
 % 底部的学院名称和日期
 \cqu@def@term{cdepartment}
