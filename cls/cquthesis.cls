@@ -73,6 +73,7 @@
 
 % ----- PACKAGE LOADING ------  
 \RequirePackage{etoolbox}					%.cls工具
+\RequirePackage{calc}
 \RequirePackage{ifxetex}
 \RequirePackage{amsmath}					%更好的数学公式支持
 \RequirePackage{xparse}						%更好的命令定义
@@ -94,6 +95,11 @@
 %参考文献引用宏包
 \RequirePackage[square,comma,super,sort&compress]{natbib}
 \RequirePackage{hyperref}
+\RequirePackage{CJKfntef}
+\ifxetex
+\def\CJK@null{\kern\CJKnullspace\Unicode{48}{7}\kern\CJKnullspace}
+\defaultfontfeatures{Mapping=tex-text}
+\fi
 \RequirePackage{tocloft}
 \ifxetex
 	\hypersetup{%
@@ -111,7 +117,7 @@
 	breaklinks=true,
 	colorlinks=false,
 	plainpages=false,
-	pdfborder= 0 0 0}
+	pdfborder=0 0 0}
 \urlstyle{same}
 %TODO: 提升：在hyperref之后在正文手动载入breakurl，处理dvips模式下的网址断字问题
 % ----- MAIN CODE ------
@@ -123,7 +129,7 @@
 \newif\if@mainmatter
 \renewcommand{\frontmatter}{%
 	\@mainmatterfalse
-	\clearpage
+	\cleardoublepage
 	\pagenumbering{Roman}
 	\pagestyle{style@empty}
 }
@@ -157,7 +163,9 @@
 	\fi
 \fi
 % 决定单页/双页打印
-\if@twosideprint \geometry{twoside}\fi
+\newcommand{\cqu@recoverprint}{%
+\if@twosideprint \geometry{twoside}\fi}
+\cqu@recoverprint
 
 % 定义页眉页脚
 \RequirePackage{fancyhdr}
@@ -207,9 +215,9 @@
 \@afterindenttrue
 % 每个自然段之间空1/10行距，增加可读性
 \setlength{\parskip}{0.1\baselineskip}
-% 全文首行缩进两字符，开明标点，去掉列表中项目之间的额外间隔（enumitem）
+% 全文首行缩进两字符，全角标点，去掉列表中项目之间的额外间隔（enumitem）
 \ctexset{%
-	punct=kaiming,
+	punct=quanjiao,
 	autoindent=true,
 	space=auto}
 \setlist{nosep}
@@ -287,10 +295,182 @@
 \renewcommand{\cftloftitlefont}{\songti\zihao{-2}}
 \renewcommand{\cftlottitlefont}{\songti\zihao{-2}}
 
+% 封面
+\def\cqu@def@term #1{%
+	\define@key{cqu}{#1}{\csname #1\endcsname{##1}}
+	\expandafter\gdef\csname #1\endcsname##1{%
+		\expandafter\gdef\csname cqu@#1\endcsname{##1}}
+	\csname #1\endcsname{}}
 
+% 论文的中英文题目（封面第二行）
+\cqu@def@term{ctitle}
+\cqu@def@term{etitle}
 
+% 作者部分的信息（校徽下方）
+\cqu@def@term{cauthor}
+\cqu@def@term{eauthor}
+\cqu@def@term{studentid}
+\cqu@def@term{csupervisor}
+\cqu@def@term{esupervisor}
+\cqu@def@term{cmajor}
+\cqu@def@term{emajor}
 
+% 底部的学院名称和日期
+\cqu@def@term{cdepartment}
+\cqu@def@term{edepartment}
+\cqu@def@term{cdate}
+\cqu@def@term{edate}
 
+% 论文的中英文摘要
+\newcommand{\cqu@@cabstract}[1]{\long\gdef\cqu@cabstract{#1}}
+\newenvironment{cabstract}{\Collect@Body\cqu@@cabstract}{}
+\newcommand{\cqu@@eabstract}[1]{\long\gdef\cqu@eabstract{#1}}
+\newenvironment{eabstract}{\Collect@Body\cqu@@eabstract}{}
 
+% 收集关键词并且做关键词分割
+\def\cqu@parse@keywords#1{
+	\define@key{cqu}{#1}{\csname #1\endcsname{##1}}
+	\expandafter\gdef\csname cqu@#1\endcsname{}
+	\expandafter\gdef\csname #1\endcsname##1{
+		\@for\reserved@a:=##1\do{
+			\expandafter\ifx\csname cqu@#1\endcsname\@empty\else
+			\expandafter\g@addto@macro\csname cqu@#1\endcsname{%
+				\ignorespaces\csname cqu@#1@separator\endcsname}
+			\fi
+			\expandafter\expandafter\expandafter\g@addto@macro%
+			\expandafter\csname cqu@#1\expandafter\endcsname\expandafter{\reserved@a}}}}
+\cqu@parse@keywords{ckeywords}
+\cqu@parse@keywords{ekeywords}
 
+% 使用kvoptions提供key=value格式支持
+\def\cqusetup{\kvsetkeys{cqu}}
+
+% 绘制中文封面
+\newcommand{\make@cover@CN}{%
+	\thispagestyle{style@empty}
+	\begin{center}
+		% 用来调整
+		\rule{0mm}{15mm}
+		\heiti
+		\zihao{-2}\cqu@thesistypenameCN
+		\\	\vspace{\stretch{1}}
+		\zihao{2}\cqu@ctitle
+		\\	\vspace{\stretch{2}}
+		\includegraphics[width=5cm]{CQUbandage.pdf}
+		\\	\vspace{\stretch{2}}
+		\ifcqu@doctor
+			\begin{minipage}{6\ccwd}
+				\zihao{3}
+			\begin{CJKfilltwosides}{6\ccwd}
+				\cqu@studentCN\cqu@title@separatorCN\\
+				\ifcqu@bachelor\cqu@studentnumCN\cqu@title@separatorCN\\\fi
+				\cqu@supervisorCN\cqu@title@separatorCN\\					\cqu@majorCN\cqu@title@separatorCN
+			\end{CJKfilltwosides}
+			\end{minipage}
+		\else
+			\begin{minipage}{5\ccwd}
+				\zihao{3}
+			\begin{CJKfilltwosides}{5\ccwd}
+				\cqu@studentCN\cqu@title@separatorCN\\
+				\ifcqu@bachelor\cqu@studentnumCN\cqu@title@separatorCN\\\fi
+				\cqu@supervisorCN\cqu@title@separatorCN\\
+				\cqu@majorCN\cqu@title@separatorCN
+			\end{CJKfilltwosides}
+			\end{minipage}
+		\fi
+		% 不换行，左右并列
+		\begin{minipage}{\widthof{\cqu@cmajor}}
+			\zihao{3}
+			\mbox{\cqu@cauthor}\\
+			\ifcqu@bachelor\mbox{\cqu@studentid}\\\fi
+			\mbox{\cqu@csupervisor}\\
+			\mbox{\cqu@cmajor}
+		\end{minipage}
+		\\	\vspace{\stretch{2}}
+		\zihao{-2}\cqu@universitynameCN\cqu@cdepartment\\[1mm]
+		\zihao{3}\cdate
+		\vspace{20mm}
+	\end{center}}
+
+\newcommand{\make@cover@EN}{%
+	\cleardoublepage
+	\thispagestyle{style@empty}
+	\begin{center}
+		% 用来调整
+		\rule{0mm}{15mm}
+		\sffamily
+		\ifcqu@master
+		% 硕士生的封面
+			\zihao{-1}\textbf{\cqu@etitle}
+			\\	\vspace{\stretch{2}}
+			\includegraphics[width=5cm]{CQUbandage.pdf}
+			\\	\vspace{\stretch{2}}
+			\zihao{3}\cqu@thesistypenameEN
+			\\[1mm]
+			\cqu@workby
+			\\[2mm]
+			\zihao{3}\mbox{\cqu@eauthor}
+			\\	\vspace{\stretch{1}}
+			\cqu@supervisorEN\cqu@title@separatorEN\mbox{\cqu@esupervisor}\\					\cqu@majorEN\cqu@title@separatorEN\mbox{\cqu@emajor}
+		\else
+		% 本科生和博士生的封面高度相似
+			\zihao{-2}\cqu@thesistypenameEN
+			\\	\vspace{\stretch{2}}
+			\zihao{-1}\textbf{\cqu@etitle}
+			\\	\vspace{\stretch{1}}
+			\includegraphics[width=5cm]{CQUbandage.pdf}
+			\\	\vspace{\stretch{2}}
+			\zihao{3}\cqu@studentEN\cqu@title@separatorEN\mbox{\cqu@eauthor}\\
+			\cqu@supervisorEN\cqu@title@separatorEN\mbox{\cqu@esupervisor}\\
+			\cqu@majorEN\cqu@title@separatorEN\mbox{\cqu@emajor}
+		\fi
+		\\ \vspace{\stretch{2}}
+		\zihao{-2}\cqu@universitynameEN\\\cqu@edepartment\\[1mm]
+		\edate
+		\vspace{20mm}
+	\end{center}}
+
+% 开发用
+%\let\testbachelorCN\make@cover@CN
+%\let\testbachelorEN\make@cover@EN
+
+\def\makecover{%
+	\hypersetup{%
+		pdftitle = {\cqu@ctitle},
+		pdfauthor = {\cqu@cauthor},
+		pdfsubject = {\cqu@thesistypenameCN},
+		pdfkeywords = {\cqu@ckeywords},
+		pdfcreator = {CQUThesis--v\version, a LaTeX template.}
+		}
+	\phantomsection
+	\pdfbookmark[-1]{\cqu@ctitle}{ctitle}
+	\make@cover@CN
+	\make@cover@EN
+	\normalsize
+	\cqu@makeabstract
+	}
+% 摘要
+% 排版关键字
+\newbox\cqu@kw
+\newcommand{\cqu@put@kw}[2]{%
+	\begingroup
+	\setbox\cqu@kw=\hbox{#1}
+	\noindent\hangindent\wd\cqu@kw\hangafter1
+	\box\cqu@kw#2\par
+	\endgroup}
+% 中文摘要
+\newcommand{\cqu@makeabstract}{%
+	\clearpage
+	\chapter*{\cqu@cabstract@name}
+	\pagestyle{style@normal}
+	\pagenumbering{Roman}
+	\cqu@cabstract
+	\vskip12bp
+	\cqu@put@kw{\heiti\cqu@ckw@title\cqu@title@separatorCN}{\cqu@ckeywords}
+	\chapter*{\sffamily\textbf{\cqu@eabstract@name}}
+	\cqu@eabstract
+	\vskip12bp
+	\cqu@put@kw{\textbf{\cqu@ekw@title\cqu@title@separatorEN}}{\cqu@ekeywords}
+	}
+	
 \AtEndOfClass{\input{cquthesis.cfg}}
