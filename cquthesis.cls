@@ -81,8 +81,7 @@
 \RequirePackage{tgcursor}
 \RequirePackage{graphicx}
 \RequirePackage{pdfpages}					%pdfpages用于插入扫描的PDF文档
-\includepdfset{fitpaper=true}
-\RequirePackage[shortlabels]{enumitem}		%中文更友好的列表环境
+\RequirePackage[shortlabels,inline]{enumitem}		%中文更友好的列表环境
 \RequirePackage{environ}					%提供另一种环境定义方式
 \RequirePackage[bottom,perpage,hang]{footmisc}
 \raggedbottom								%脚注控制，脚注每页重新编号
@@ -120,8 +119,8 @@
 % ----- MAIN CODE ------
 % 定义清空页面（另开右页）功能和页面的三种形态
 % 注意这里另开右页对于单页打印模式来说没有意义，需要做个判断，按条件调整\cleardoublepage的意思。
-\let \cqu@cleardoublepage \cleardoublepage
-\renewcommand{\cleardoublepage}{\clearpage{\pagestyle{style@empty}}\cqu@cleardoublepage}
+%\let \cqu@cleardoublepage \cleardoublepage
+%\renewcommand{\cleardoublepage}{\clearpage{\pagestyle{style@empty}}\cqu@cleardoublepage}
 
 \newif\if@mainmatter
 \renewcommand{\frontmatter}{%
@@ -217,7 +216,10 @@
 	punct=quanjiao,
 	autoindent=true,
 	space=auto}
-\setlist{nosep}
+\setlist{
+	nosep,
+	itemjoin = {{；}}
+}%setlist
 
 % 脚注
 % TODO: 尝试使用\tikz来解决脚注数目不足的问题
@@ -286,11 +288,6 @@
 % longtable方面也需要做设置
 \let\cqu@LT@array\LT@array
 \def\LT@array{\zihao{5}\cqu@LT@array}
-
-% 设置目录
-\renewcommand{\cfttoctitlefont}{\songti\zihao{-2}}
-\renewcommand{\cftloftitlefont}{\songti\zihao{-2}}
-\renewcommand{\cftlottitlefont}{\songti\zihao{-2}}
 
 % 封面
 \def\cqu@def@term #1{%
@@ -473,31 +470,32 @@
 	}
 	
 % 绘制独创性声明和授权书页面
-\newcommand{\cqu@makeauth}{%
+\NewDocumentCommand{\cqu@makeauth}{o}{%
 	\clearpage
 	\thispagestyle{style@empty}
-	\rule{0mm}{5mm}
-	\begin{center}
+	\IfNoValueTF{#1}{%
+		\rule{0mm}{5mm}
+		\begin{center}
 		\zihao{3}
 		\begin{CJKfilltwosides}{6\ccwd}
 			\heiti{}独创性声明
 		\end{CJKfilltwosides}
-	\end{center}
-	\vspace{2mm}
-	\zihao{-4}
-	\par\cqu@innobody
-	\\[5mm]
-	\par\cqu@innosignature\hfill\cqu@signdate
-	\vspace{15mm}
-	\begin{center}
+		\end{center}
+		\vspace{2mm}
+		\zihao{-4}
+		\par\cqu@innobody
+		\\[5mm]
+		\par\cqu@innosignature\hfill\cqu@signdate
+		\vspace{15mm}
+		\begin{center}
 		\zihao{3}\heiti
 		学位论文版权使用授权书
-	\end{center}
-	\vspace{2mm}
-	\zihao{-4}
-	\par\cqu@authbody
-	\\[15mm]
-	\begin{minipage}{\textwidth}
+		\end{center}
+		\vspace{2mm}
+		\zihao{-4}
+		\par\cqu@authbody
+		\\[15mm]
+		\begin{minipage}{\textwidth}
 			\begin{minipage}{15\ccwd}
 				\cqu@authsignaturestu\\[10mm]
 				\cqu@signdate
@@ -507,9 +505,47 @@
 				\cqu@authsignaturesup\\[10mm]
 				\cqu@signdate
 			\end{minipage}
-	\end{minipage}
+		\end{minipage}
+	}{
+		\includepdf{#1}
+	}
 }%\cqu@makeauth
-
 \let\cquauthpage\cqu@makeauth
-	
+
+% 主要符号对照表
+\newlist{cqu@denotation}{description}{1}
+\setlist[cqu@denotation]{%
+	nosep,
+	font	=	\normalfont,
+	align	=	left,
+	leftmargin	=	!,
+	labelindent = 0mm,
+	labelwidth	=	25mm,
+	labelsep*		=	5mm,
+	itemindent	=	0mm,
+}%\setlist
+\NewDocumentEnvironment{denotation}{O{20mm} O{30mm}}{%
+	\chapter*{\cqu@denotation@name}
+	\zihao{-4}\begin{cqu@denotation}[labelindent = #1,labelwidth=#2,]
+	}{
+\end{cqu@denotation}}%\denotation
+
+% 设置目录
+\renewcommand{\cfttoctitlefont}{\heiti\zihao{3}}
+\renewcommand{\cftloftitlefont}{\heiti\zihao{3}}
+\renewcommand{\cftlottitlefont}{\heiti\zihao{3}}
+
+% 公式索引
+\newlistof[chapter]{equations}{cqu}{\listofequationsname}
+\newcommand{\listeq}[1]{%
+	\addcontentsline{cqu}{equations}{\protect\numberline{\theequation}#1}\par}
+\setlength{\cftequationsnumwidth}{2.5em}
+\renewcommand{\cftcqutitlefont}{\heiti\zihao{3}}
+
+% 重写使用tocloft宏包情况下的目录和索引生成，每次生成新开一页
+\pretocmd{\tableofcontents}{\clearpage}{}{}
+\pretocmd{\listoffigures}{\clearpage}{}{}
+\pretocmd{\listoftables}{\clearpage}{}{}
+\pretocmd{\listofequations}{\clearpage}{}{}
+
 \AtEndOfClass{\input{cquthesis.cfg}}
