@@ -1,13 +1,10 @@
-% ----- INDENTIFICATION ------
 \NeedsTeXFormat{LaTeX2e}[1999/12/01]
-\ProvidesClass{cquthesis}[2016/04/03 0.0.2 Chongqing University Thesis Template]
+\ProvidesClass{cquthesis}[2016/05/10 0.5.2 Chongqing University Thesis Template]
 
-
-% ----- INITIAL CODE -----
+% -----开发用常量------
 \hyphenation{Cqu-Thesis}
 \newcommand{\cquthesis}{\textsc{CquThesis}}
-\def\version{0.0.2}
-
+\def\version{0.5.2}
 
 % ----- DECLARATION OF OPTIONS ------
 % 使用Key=Value方式进行选项设置，定义前缀和族
@@ -357,11 +354,11 @@
 		\\	\vspace{\stretch{1}}
 		\zihao{2}\cqu@ctitle
 		\\	\vspace{\stretch{2}}
-		\includegraphics[width=5cm]{CQUbandage.pdf}
+		\includegraphics[width=6cm]{CQUbandage.pdf}
 		\\	\vspace{\stretch{2}}
 		\ifcqu@doctor
+			\zihao{3}
 			\begin{minipage}{6\ccwd}
-				\zihao{3}
 			\begin{CJKfilltwosides}{6\ccwd}
 				\cqu@studentCN\cqu@title@separatorCN\\
 				\ifcqu@bachelor\cqu@studentnumCN\cqu@title@separatorCN\\\fi
@@ -369,8 +366,8 @@
 			\end{CJKfilltwosides}
 			\end{minipage}
 		\else
+			\zihao{3}
 			\begin{minipage}{5\ccwd}
-				\zihao{3}
 			\begin{CJKfilltwosides}{5\ccwd}
 				\cqu@studentCN\cqu@title@separatorCN\\
 				\ifcqu@bachelor\cqu@studentnumCN\cqu@title@separatorCN\\\fi
@@ -380,8 +377,9 @@
 			\end{minipage}
 		\fi
 		% 不换行，左右并列
+		\hskip.5\ccwd
+		\zihao{3}
 		\begin{minipage}{\widthof{\cqu@cmajor}}
-			\zihao{3}
 			\mbox{\cqu@cauthor}\\
 			\ifcqu@bachelor\mbox{\cqu@studentid}\\\fi
 			\mbox{\cqu@csupervisor}\\
@@ -390,7 +388,7 @@
 		\\	\vspace{\stretch{2}}
 		\zihao{-2}\cqu@universitynameCN\cqu@cdepartment\\[1mm]
 		\zihao{3}\cdate
-		\vspace{20mm}
+		\vspace{10mm}
 	\end{center}}
 
 \newcommand{\make@cover@EN}{%
@@ -421,14 +419,14 @@
 			\\	\vspace{\stretch{1}}
 			\includegraphics[width=5cm]{CQUbandage.pdf}
 			\\	\vspace{\stretch{2}}
-			\zihao{3}\cqu@studentEN\cqu@title@separatorEN\mbox{\cqu@eauthor}\\
+			\zihao{3}\textbf{\cqu@studentEN\cqu@title@separatorEN\mbox{\cqu@eauthor}}\\
 			\cqu@supervisorEN\cqu@title@separatorEN\mbox{\cqu@esupervisor}\\
 			\cqu@majorEN\cqu@title@separatorEN\mbox{\cqu@emajor}
 		\fi
 		\\ \vspace{\stretch{2}}
 		\zihao{-2}\cqu@universitynameEN\\\cqu@edepartment\\[1mm]
-		\edate
-		\vspace{20mm}
+		\textbf{\edate}
+		\vspace{10mm}
 	\end{center}}
 
 % 开发用
@@ -473,5 +471,45 @@
 	\vskip12bp
 	\cqu@put@kw{\textbf{\cqu@ekw@title\cqu@title@separatorEN}}{\cqu@ekeywords}
 	}
+	
+% 绘制独创性声明和授权书页面
+\newcommand{\cqu@makeauth}{%
+	\clearpage
+	\thispagestyle{style@empty}
+	\rule{0mm}{5mm}
+	\begin{center}
+		\zihao{3}
+		\begin{CJKfilltwosides}{6\ccwd}
+			\heiti{}独创性声明
+		\end{CJKfilltwosides}
+	\end{center}
+	\vspace{2mm}
+	\zihao{-4}
+	\par\cqu@innobody
+	\\[5mm]
+	\par\cqu@innosignature\hfill\cqu@signdate
+	\vspace{15mm}
+	\begin{center}
+		\zihao{3}\heiti
+		学位论文版权使用授权书
+	\end{center}
+	\vspace{2mm}
+	\zihao{-4}
+	\par\cqu@authbody
+	\\[15mm]
+	\begin{minipage}{\textwidth}
+			\begin{minipage}{15\ccwd}
+				\cqu@authsignaturestu\\[10mm]
+				\cqu@signdate
+			\end{minipage}
+			\hfill
+			\begin{minipage}{15\ccwd}
+				\cqu@authsignaturesup\\[10mm]
+				\cqu@signdate
+			\end{minipage}
+	\end{minipage}
+}%\cqu@makeauth
+
+\let\cquauthpage\cqu@makeauth
 	
 \AtEndOfClass{\input{cquthesis.cfg}}
