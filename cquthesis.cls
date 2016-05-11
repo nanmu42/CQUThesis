@@ -125,11 +125,11 @@
 	\clearpage{\pagestyle{style@empty}\cqu@cleardoublepage}
 }%\cleardoublepage
 
-% 用来在单页模式下强制完成空页工作
+% 用来在单页模式下强制完成空页工作，
+% 这里的pagestyle调整有些坑
 \newcommand\cqu@addblankpage{%
-	\afterpage{\null\newpage}
-	\thispagestyle{empty}%
-	\addtocounter{page}{-1}}
+	\afterpage{%
+		\null\pagestyle{style@empty}\clearpage}}
 
 \newif\if@mainmatter
 \renewcommand{\frontmatter}{%
@@ -157,6 +157,7 @@
 	bindingoffset=10mm, head=16mm, headsep=5mm, foot=15mm, footnotesep=5mm}
 
 % 重大的单双面打印和论文实际页数有关，此处读取最大页码，自动判断是否需要双面打印。
+% TODO: Pageslts的统计结果似乎更准
 \usepackage{totcount}
 \regtotcounter[auxfile=maxpage.aux]{page}
 %\usetotcountfile{maxpage.aux}	%测试用
@@ -247,7 +248,6 @@
 }%setlist
 
 % 脚注
-% TODO: 尝试使用\tikz来解决脚注数目不足的问题
 % 用带圈的数字作为脚注，由于字体限制，最多能在单页上处理10个脚注
 \def\@circlenum#1{%
 	\ifnum \value{#1} >10
@@ -586,5 +586,52 @@
 	\renewcommand{\@cfttocstart}{\clearpage}
 	\renewcommand{\@cfttocfinish}{\clearpage}
 \fi
+%% 定义自己的章节命令\chapternonum
+\newcommand{\chapternonum}[1]{%
+	\chapter*{#1}%
+	\phantomsection
+	\@mkboth{#1}{}
+	\addcontentsline{toc}{chapter}{#1}}
+
+%% 参考文献
+% 定义\inlinecite{}\onlinecite{}
+\bibpunct{[}{]}{,}{s}{}{,}
+\renewcommand\NAT@citesuper[3]{\ifNAT@swa%
+	\unskip\kern\p@\textsuperscript{\NAT@@open #1\NAT@@close}%
+	\if*#3*\else\ (#3)\fi\else #1\fi\endgroup}
+\DeclareRobustCommand\inlinecite{\@inlinecite}
+\def\@inlinecite#1{\begingroup\let\@cite\NAT@citenum\citep{#1}\endgroup}
+\let\onlinecite\inlinecite
+% 将参考文献加入目录和pdf书签中
+\pretocmd{\bibliography}{%
+	\clearpage\phantomsection\addcontentsline{toc}{chapter}{\cqu@bib@name}}{}{}
+% 减少参考文献占用的空间
+\renewcommand\@biblabel[1]{\zihao{5}[#1]}
+\renewenvironment{thebibliography}[1]
+{\chapter*{\cqu@bib@name
+		\@mkboth{\cqu@bib@name}{}}%
+	\list{\@biblabel{\@arabic\c@enumiv}}%
+	{\settowidth\labelwidth{\@biblabel{#1}}%
+		\leftmargin\labelwidth
+		\advance\leftmargin\labelsep
+		\setlength{\parsep}{1mm}
+		\setlength{\labelsep}{0.5em}
+		\setlength{\itemsep}{0.05pc}
+		\setlength{\listparindent}{0in}
+		\setlength{\itemindent}{0in}
+		\setlength{\rightmargin}{0in}
+		\@openbib@code
+		\usecounter{enumiv}%
+		\let\p@enumiv\@empty
+		\renewcommand\theenumiv{\@arabic\c@enumiv}}%
+	\sloppy
+	\clubpenalty4000
+	\@clubpenalty\clubpenalty
+	\widowpenalty4000%
+	\sfcode`\.\@m
+	}{%
+	\def\@noitemerr
+	{\@latex@warning{Empty `thebibliography' environment}}%
+	\endlist \vskip.2in}
 
 \AtEndOfClass{\input{cquthesis.cfg}}

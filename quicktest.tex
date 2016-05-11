@@ -1,5 +1,5 @@
 % !TeX encoding = UTF-8
-\documentclass[type=bachelor]{cquthesis}
+\documentclass[type=bachelor,printmode=twoside]{cquthesis}
 \usepackage{cquthesis}
 \graphicspath{{figures/}}
 
@@ -52,7 +52,16 @@
 	
 	\cquauthpage[contents/acktest.pdf]
 	
-	之后的内容呢？
+	之后的内容呢\cite{r1,z2,r2}
+	之后的内容呢\cite{r3}
 	
-	English?
+	English?\inlinecite{r5}
+	English?\onlinecite{r7,r8,r9}
+	
+	中文参考文献。\cite{z2}
+	
+	文献\onlinecite{z1,z3}中提到……
+	
+\bibliographystyle{cqunumerical.bst}		%另有cquauthoryear供硕士博士生选用
+\bibliography{ref/refs}
 \end{document}
