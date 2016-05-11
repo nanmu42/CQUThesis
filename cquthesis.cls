@@ -82,6 +82,7 @@
 \RequirePackage{pdfpages}					%pdfpages用于插入扫描的PDF文档
 \RequirePackage[shortlabels,inline]{enumitem}		%中文更友好的列表环境
 \RequirePackage{environ}					%提供另一种环境定义方式
+\RequirePackage{changepage}				%用来修复双页打印模式时的索引页眉
 \RequirePackage{afterpage}
 \RequirePackage[bottom,perpage,hang]{footmisc}
 \raggedbottom								%脚注控制，脚注每页重新编号
@@ -118,10 +119,11 @@
 %TODO: 提升：在hyperref之后在正文手动载入breakurl，处理dvips模式下的网址断字问题
 % ----- MAIN CODE ------
 % 定义清空页面（另开右页）功能和页面的三种形态
-% TODO: 好像已经有自动判定了
-% 注意这里另开右页对于单页打印模式来说没有意义，需要做个判断，按条件调整\cleardoublepage的意思。
-%\let \cqu@cleardoublepage \cleardoublepage
-%\renewcommand{\cleardoublepage}{\clearpage{\pagestyle{style@empty}}\cqu@cleardoublepage}
+% 首页右开的时候，全空的左页不留页眉页脚
+\let\cqu@cleardoublepage\cleardoublepage
+\renewcommand{\cleardoublepage}{%
+	\clearpage{\pagestyle{style@empty}\cqu@cleardoublepage}
+}%\cleardoublepage
 
 % 用来在单页模式下强制完成空页工作
 \newcommand\cqu@addblankpage{%
@@ -179,11 +181,13 @@
 	\fancyhf{}
 	\renewcommand{\headrulewidth}{0pt}
 	\renewcommand{\footrulewidth}{0pt}}
-% 2. 仅显示页码（用于目录等页面）
-\fancypagestyle{style@justPageNum}{%
+% 2. 用来修正双页打印时的页眉遮挡问题（右开的索引页眉不再是\cqu@thesisname）
+\fancypagestyle{style@fixhead}{%
 	\fancyhead{}
+	\fancyhead[C]{\zihao{-5}\songti\leftmark}
+	\fancyfoot{}
 	\fancyfoot[C]{\zihao{-5}\thepage}
-	\renewcommand{\headrulewidth}{0pt}
+	\renewcommand{\headrulewidth}{0.4pt}
 	\renewcommand{\footrulewidth}{0pt}}
 % 3. 页眉页脚齐全（用于一般正文页面，这里自动判定用户类型和打印单双面）
 \fancypagestyle{style@normal}{%
@@ -199,18 +203,25 @@
 	\fancyfoot[C]{\zihao{-5}\thepage}
 	\renewcommand{\headrulewidth}{0.4pt}
 	\renewcommand{\footrulewidth}{0pt}}
+% 修正页眉遮挡，这个命令要在标题生成的地方使用
+\newcommand{\cqu@fixhead}{%
+	\if@twosideprint	%仅双页打印需要修正
+		\checkoddpage
+		\ifoddpage
+			\thispagestyle{style@fixhead}
+		\fi
+	\fi
+}%\cqu@fixhead
 
-%\pagestyle{style@normal} % 开发用
+% 修正fancyhdr的问题，同时让页眉不显示第0章的编号
 \AtBeginDocument{%
 	\pagestyle{style@empty}
-	\renewcommand{\chaptermark}[1]{\@mkboth{\CTEXthechapter\hskip\ccwd#1}{}}}
-% 页眉不显示第0章的编号
-%\renewcommand{\chaptermark}[1]{%
-%	\ifnum\value{chapter}>0
-%	\markboth{\thechapter{}\hskip\ccwd{}#1}{}%
-%	\else
-%	\markboth{#1}{}%
-%	\fi}
+	\renewcommand{\chaptermark}[1]{%
+		\ifnum\value{chapter}>0%
+			\@mkboth{\CTEXthechapter\hskip\ccwd#1}{}%
+		\else
+			\@mkboth{#1}{}%
+		\fi}}%\chaptermark
 
 % 定义正文字号，小四号（12bp），行距为固定值20bp
 %\abovedisplayskip = 20bp \@plus 2bp \@minus 2bp
@@ -459,7 +470,7 @@
 	\make@cover@EN
 	\if@onesideprint\cqu@addblankpage\fi
 }%makecover
-%% 形成摘要
+%% 生成摘要的命令
 \def\makeabstract{%
 	\cleardoublepage
 	\normalsize
@@ -479,11 +490,13 @@
 	\clearpage
 	\chapter[\cqu@cabstract@tocname]{\cqu@cabstract@name}
 	\pagestyle{style@normal}
+	\cqu@fixhead
 	\pagenumbering{Roman}
 	\cqu@cabstract
 	\vskip12bp
 	\cqu@put@kw{\heiti\cqu@ckw@title\cqu@title@separatorCN}{\cqu@ckeywords}
 	\chapter[\cqu@eabstract@tocname]{\sffamily\textbf{\cqu@eabstract@name}}
+	\cqu@fixhead
 	\cqu@eabstract
 	\vskip12bp
 	\cqu@put@kw{\textbf{\cqu@ekw@title\cqu@title@separatorEN}}{\cqu@ekeywords}
@@ -546,6 +559,7 @@
 }%\setlist
 \NewDocumentEnvironment{denotation}{O{20mm} O{30mm}}{%
 	\chapter*{\cqu@denotation@name}
+	\chaptermark{\cqu@denotation@name}\cqu@fixhead
 	\zihao{-4}\begin{cqu@denotation}[labelindent = #1,labelwidth=#2,]
 	}{
 \end{cqu@denotation}}%\denotation
@@ -558,11 +572,11 @@
 \setlength{\cftequationsnumwidth}{2.5em}
 % 正确输出页眉页脚
 \tocloftpagestyle{style@normal}
-% 目录和索引标题居中
-\renewcommand{\cfttoctitlefont}{\hfill\heiti\zihao{3}}
-\renewcommand{\cftloftitlefont}{\hfill\heiti\zihao{3}}
-\renewcommand{\cftlottitlefont}{\hfill\heiti\zihao{3}}
-\renewcommand{\cftequtitlefont}{\hfill\heiti\zihao{3}}
+% 目录和索引标题居中，包含fixhead
+\renewcommand{\cfttoctitlefont}{\cqu@fixhead\hfill\heiti\zihao{3}}
+\renewcommand{\cftloftitlefont}{\cqu@fixhead\hfill\heiti\zihao{3}}
+\renewcommand{\cftlottitlefont}{\cqu@fixhead\hfill\heiti\zihao{3}}
+\renewcommand{\cftequtitlefont}{\cqu@fixhead\hfill\heiti\zihao{3}}
 \renewcommand{\cftaftertoctitle}{\hfill}
 \renewcommand{\cftafterloftitle}{\hfill}
 \renewcommand{\cftafterlottitle}{\hfill}
