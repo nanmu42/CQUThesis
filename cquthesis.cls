@@ -21,36 +21,25 @@
 \cqu@bachelorfalse\cqu@masterfalse\cqu@doctorfalse
 \define@key{cqu}{type}{%
 	\expandafter\csname cqu@#1true\endcsname}
-% 论文是单面打印还是双面打印（默认：自动，手动模式一般不用）
+% 定义是否使用本科文学类论文标题格式
 \DeclareBoolOption{liberalformat}
+% 论文是单面打印还是双面打印（默认：自动，手动模式一般不用）
+\newif\if@onesideprint
 \newif\if@twosideprint
 \newif\if@autoprint
-\@autoprinttrue
-%TODO: 问题：这一段并没有按计划进行
+\@onesideprintfalse\@twosideprintfalse\@autoprintfalse
 \define@key{cqu}{printmode}{%
-	\if #1 auto \relax
-	\else
-		\@autoprintfalse
-		\if #1 oneside \relax @twosideprintfalse
-		\else
-			\if #1 twoside \relax @twosideprinttrue
-			\else
-				\@autoprinttrue
-				\ClassWarning{cquthesis}%
-					{Unexpected printmode, process with AUTO anyway. \MessageBreak
-					printmode=[auto|oneside|twoside]}{}
-			\fi
-		\fi
-	\fi}
+	\expandafter\csname @#1printtrue\endcsname}
 % 论文是否保密（默认：关）
+% TODO：未支持，在计划中
 \DeclareBoolOption{secret}
-% 目录中首级标题是否使用Arial字体（默认：开）
-\DeclareBoolOption{arialtitle}
+%	目录和索引不会自动新开一页，适用于索引内容较少时
+\DeclareBoolOption{continuoustoc}
 % 传递选项给CTEXBOOK
 \DeclareDefaultOption{\PassOptionsToClass{\CurrentOption}{ctexbook}}
 % 打开默认选项
 \kvsetkeys{cqu}{%
-	arialtitle}
+	}
 \ProcessKeyvalOptions*
 \PassOptionsToPackage{no-math}{fontspec}
 % 为CtexBook定义选项
@@ -66,7 +55,17 @@
 		\fi
 	\fi
 \fi
-
+% 如果没有指定合适的打印方式则缺省使用自动模式
+\if@autoprint\relax\else
+	\if@onesideprint\relax\else
+		\if@twosideprint\relax\else
+			\ClassWarning{cquthesis}%
+			{Unexpected or missing print mode, processing with AUTO: \MessageBreak
+				printmode=[oneside|twoside|auto]}{}
+			\@autoprinttrue
+		\fi
+	\fi
+\fi
 
 % ----- PACKAGE LOADING ------  
 \RequirePackage{etoolbox}					%.cls工具
@@ -83,6 +82,7 @@
 \RequirePackage{pdfpages}					%pdfpages用于插入扫描的PDF文档
 \RequirePackage[shortlabels,inline]{enumitem}		%中文更友好的列表环境
 \RequirePackage{environ}					%提供另一种环境定义方式
+\RequirePackage{afterpage}
 \RequirePackage[bottom,perpage,hang]{footmisc}
 \raggedbottom								%脚注控制，脚注每页重新编号
 \RequirePackage{pifont}						%带圈数字，后面还需要处理
@@ -118,16 +118,23 @@
 %TODO: 提升：在hyperref之后在正文手动载入breakurl，处理dvips模式下的网址断字问题
 % ----- MAIN CODE ------
 % 定义清空页面（另开右页）功能和页面的三种形态
+% TODO: 好像已经有自动判定了
 % 注意这里另开右页对于单页打印模式来说没有意义，需要做个判断，按条件调整\cleardoublepage的意思。
 %\let \cqu@cleardoublepage \cleardoublepage
 %\renewcommand{\cleardoublepage}{\clearpage{\pagestyle{style@empty}}\cqu@cleardoublepage}
+
+% 用来在单页模式下强制完成空页工作
+\newcommand\cqu@addblankpage{%
+	\afterpage{\null\newpage}
+	\thispagestyle{empty}%
+	\addtocounter{page}{-1}}
 
 \newif\if@mainmatter
 \renewcommand{\frontmatter}{%
 	\@mainmatterfalse
 	\cleardoublepage
 	\pagenumbering{Roman}
-	\pagestyle{style@empty}
+	\pagestyle{style@normal}
 }
 \renewcommand{\mainmatter}{%
 	\@mainmattertrue
@@ -136,7 +143,7 @@
 	\pagestyle{style@normal}
 }
 \renewcommand{\backmatter}{%
-	\@mainmattertrue
+	\@mainmatterfalse
 	\cleardoublepage
 }
 
@@ -153,15 +160,15 @@
 %\usetotcountfile{maxpage.aux}	%测试用
 \if@autoprint
 	\ifcqu@bachelor
-		\ifnum\totvalue{page}>70 \@twosideprinttrue\fi	%很有趣，本科生想要双面打印比硕士生还难
+		\ifnum\totvalue{page}>70 \@twosideprinttrue\else\@onesideprinttrue\fi	%很有趣，本科生想要双面打印比硕士生还难
 	\else
-		\ifnum \totvalue{page}>60 \@twosideprinttrue\fi
+		\ifnum \totvalue{page}>60 \@twosideprinttrue\else\@onesideprinttrue\fi %立flag用来配合\cqu@addblankpage
 	\fi
 \fi
 % 决定单页/双页打印
-\newcommand{\cqu@recoverprint}{%
-\if@twosideprint \geometry{twoside}\fi}
-\cqu@recoverprint
+\if@onesideprint\relax\else
+	\if@twosideprint \geometry{twoside}\fi
+\fi
 
 % 定义页眉页脚
 \RequirePackage{fancyhdr}
@@ -197,6 +204,13 @@
 \AtBeginDocument{%
 	\pagestyle{style@empty}
 	\renewcommand{\chaptermark}[1]{\@mkboth{\CTEXthechapter\hskip\ccwd#1}{}}}
+% 页眉不显示第0章的编号
+%\renewcommand{\chaptermark}[1]{%
+%	\ifnum\value{chapter}>0
+%	\markboth{\thechapter{}\hskip\ccwd{}#1}{}%
+%	\else
+%	\markboth{#1}{}%
+%	\fi}
 
 % 定义正文字号，小四号（12bp），行距为固定值20bp
 %\abovedisplayskip = 20bp \@plus 2bp \@minus 2bp
@@ -405,9 +419,9 @@
 			\\[1mm]
 			\cqu@workby
 			\\[2mm]
-			\zihao{3}\mbox{\cqu@eauthor}
+			\zihao{3}\mbox{\textbf{\cqu@eauthor}}
 			\\	\vspace{\stretch{1}}
-			\cqu@supervisorEN\cqu@title@separatorEN\mbox{\cqu@esupervisor}\\					\cqu@majorEN\cqu@title@separatorEN\mbox{\cqu@emajor}
+			\textbf{\cqu@supervisorEN\cqu@title@separatorEN}\mbox{\textbf{\cqu@esupervisor}}\\					\textbf{\cqu@majorEN\cqu@title@separatorEN}\mbox{\textbf{\cqu@emajor}}
 		\else
 		% 本科生和博士生的封面高度相似
 			\zihao{-2}\cqu@thesistypenameEN
@@ -441,10 +455,16 @@
 	\phantomsection
 	\pdfbookmark[-1]{\cqu@ctitle}{ctitle}
 	\make@cover@CN
+	\if@onesideprint\cqu@addblankpage\fi
 	\make@cover@EN
+	\if@onesideprint\cqu@addblankpage\fi
+}%makecover
+%% 形成摘要
+\def\makeabstract{%
+	\cleardoublepage
 	\normalsize
 	\cqu@makeabstract
-	}
+}%makeabstract
 % 摘要
 % 排版关键字
 \newbox\cqu@kw
@@ -457,13 +477,13 @@
 % 中文摘要
 \newcommand{\cqu@makeabstract}{%
 	\clearpage
-	\chapter*{\cqu@cabstract@name}
+	\chapter[\cqu@cabstract@tocname]{\cqu@cabstract@name}
 	\pagestyle{style@normal}
 	\pagenumbering{Roman}
 	\cqu@cabstract
 	\vskip12bp
 	\cqu@put@kw{\heiti\cqu@ckw@title\cqu@title@separatorCN}{\cqu@ckeywords}
-	\chapter*{\sffamily\textbf{\cqu@eabstract@name}}
+	\chapter[\cqu@eabstract@tocname]{\sffamily\textbf{\cqu@eabstract@name}}
 	\cqu@eabstract
 	\vskip12bp
 	\cqu@put@kw{\textbf{\cqu@ekw@title\cqu@title@separatorEN}}{\cqu@ekeywords}
@@ -530,22 +550,27 @@
 	}{
 \end{cqu@denotation}}%\denotation
 
-% 设置目录
-\renewcommand{\cfttoctitlefont}{\heiti\zihao{3}}
-\renewcommand{\cftloftitlefont}{\heiti\zihao{3}}
-\renewcommand{\cftlottitlefont}{\heiti\zihao{3}}
-
+%% 设置目录
 % 公式索引
-\newlistof[chapter]{equations}{cqu}{\listofequationsname}
+\newlistof[chapter]{equations}{equ}{\listofequationsname}
 \newcommand{\listeq}[1]{%
-	\addcontentsline{cqu}{equations}{\protect\numberline{\theequation}#1}\par}
+	\addcontentsline{equ}{equations}{\protect\numberline{\theequation}#1}\par}
 \setlength{\cftequationsnumwidth}{2.5em}
-\renewcommand{\cftcqutitlefont}{\heiti\zihao{3}}
-
+% 正确输出页眉页脚
+\tocloftpagestyle{style@normal}
+% 目录和索引标题居中
+\renewcommand{\cfttoctitlefont}{\hfill\heiti\zihao{3}}
+\renewcommand{\cftloftitlefont}{\hfill\heiti\zihao{3}}
+\renewcommand{\cftlottitlefont}{\hfill\heiti\zihao{3}}
+\renewcommand{\cftequtitlefont}{\hfill\heiti\zihao{3}}
+\renewcommand{\cftaftertoctitle}{\hfill}
+\renewcommand{\cftafterloftitle}{\hfill}
+\renewcommand{\cftafterlottitle}{\hfill}
+\renewcommand{\cftafterequtitle}{\hfill}
 % 重写使用tocloft宏包情况下的目录和索引生成，每次生成新开一页
-\pretocmd{\tableofcontents}{\clearpage}{}{}
-\pretocmd{\listoffigures}{\clearpage}{}{}
-\pretocmd{\listoftables}{\clearpage}{}{}
-\pretocmd{\listofequations}{\clearpage}{}{}
+\ifcqu@continuoustoc\relax\else
+	\renewcommand{\@cfttocstart}{\clearpage}
+	\renewcommand{\@cfttocfinish}{\clearpage}
+\fi
 
 \AtEndOfClass{\input{cquthesis.cfg}}
