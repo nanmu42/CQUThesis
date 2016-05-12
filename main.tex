@@ -1,5 +1,5 @@
 % !TeX encoding = UTF-8
-\documentclass[type=bachelor,printmode=twoside,]{cquthesis}
+\documentclass[type=master,printmode=twoside,]{cquthesis}
 % 选项：
 % type=[bachelor|master|doctor],			% 毕业论文类型，必选
 %	printmode=[oneside|twoside|auto],		% 可选，一般默认采用auto按页数要求自动判定
@@ -22,7 +22,7 @@
 %%% 封面部分
 \makecover
 
-\frontmatter
+\frontmatter %封面之后，绪论之前的所有部分
 %% 摘要
 \makeabstract
 %% 目录
@@ -47,7 +47,7 @@
 \include{contents/conclusion}
 
 
-%%% 后置部分(致谢开始)
+%%% 后置部分(致谢、参考文献、附录等)
 \backmatter
 
 %% 致谢

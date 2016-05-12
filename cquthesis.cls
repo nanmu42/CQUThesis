@@ -43,7 +43,7 @@
 \ProcessKeyvalOptions*
 \PassOptionsToPackage{no-math}{fontspec}
 % 为CtexBook定义选项
-\LoadClass[a4paper,oneside,openany,UTF8,zihao=-4,scheme=plain,linespread=1.39]{ctexbook}
+\LoadClass[a4paper,oneside,openany,UTF8,zihao=-4,scheme=plain,linespread=1.39,space=auto]{ctexbook}
 
 % 用户必须提供用户类型
 \ifcqu@bachelor\relax\else
@@ -131,22 +131,28 @@
 	\afterpage{%
 		\null\pagestyle{style@empty}\clearpage}}
 
-\newif\if@mainmatter
+\newif\if@backmatter
 \renewcommand{\frontmatter}{%
-	\@mainmatterfalse
+	\@backmatterfalse
 	\cleardoublepage
 	\pagenumbering{Roman}
 	\pagestyle{style@normal}
+	\ctexset{chapter/numbering = false,}
 }
 \renewcommand{\mainmatter}{%
-	\@mainmattertrue
+	\@backmatterfalse
 	\cleardoublepage
 	\pagenumbering{arabic}
 	\pagestyle{style@normal}
+	\ctexset{chapter/numbering = true,}
 }
 \renewcommand{\backmatter}{%
-	\@mainmatterfalse
+	\@backmattertrue
 	\cleardoublepage
+	\ctexset{chapter/numbering = false,
+					 section/number		 = \Alph{section},
+					 section/name		 = {,.},
+					 subsection/number = \CTEXthesection{}\arabic{subsection},}
 }
 
 % 定义页面，页眉页脚，先建立页面环境，完成分页再决定单双面打印
@@ -157,15 +163,15 @@
 	bindingoffset=10mm, head=16mm, headsep=5mm, foot=15mm, footnotesep=5mm}
 
 % 重大的单双面打印和论文实际页数有关，此处读取最大页码，自动判断是否需要双面打印。
-% TODO: Pageslts的统计结果似乎更准
+% TODO: Pageslts的统计结果似乎更准，目前手动刨除了前置部分的8页(估计值)
 \usepackage{totcount}
 \regtotcounter[auxfile=maxpage.aux]{page}
 %\usetotcountfile{maxpage.aux}	%测试用
 \if@autoprint
 	\ifcqu@bachelor
-		\ifnum\totvalue{page}>70 \@twosideprinttrue\else\@onesideprinttrue\fi	%很有趣，本科生想要双面打印比硕士生还难
+		\ifnum\totvalue{page}>62 \@twosideprinttrue\else\@onesideprinttrue\fi	%很有趣，本科生70页想要双面打印比硕士生60页还难
 	\else
-		\ifnum \totvalue{page}>60 \@twosideprinttrue\else\@onesideprinttrue\fi %立flag用来配合\cqu@addblankpage
+		\ifnum \totvalue{page}>52 \@twosideprinttrue\else\@onesideprinttrue\fi %立flag用来配合\cqu@addblankpage
 	\fi
 \fi
 % 决定单页/双页打印
@@ -223,12 +229,6 @@
 		\else
 			\@mkboth{#1}{}%
 		\fi}}%\chaptermark
-
-% 定义正文字号，小四号（12bp），行距为固定值20bp
-%\abovedisplayskip = 20bp \@plus 2bp \@minus 2bp
-%\abovedisplayshortskip = 20bp \@plus 2bp \@minus 2bp
-%\belowdisplayskip = \abovedisplayskip
-%\belowdisplayshortskip = \abovedisplayshortskip
 
 % 段落
 % LaTeX使用\if@afterindent来决定要不要让标题后的第一个自然段缩进，中文环境下好像并没有
@@ -586,8 +586,9 @@
 	\renewcommand{\@cfttocstart}{\clearpage}
 	\renewcommand{\@cfttocfinish}{\clearpage}
 \fi
-%% 定义自己的章节命令\chapternonum
-\newcommand{\chapternonum}[1]{%
+% TODO:这个命令暂时没用上，还待观察
+%% 定义自己的章节命令\chapterstar，不编号，有目录有页眉
+\newcommand{\chapterstar}[1]{%
 	\chapter*{#1}%
 	\phantomsection
 	\@mkboth{#1}{}
@@ -633,5 +634,7 @@
 	\def\@noitemerr
 	{\@latex@warning{Empty `thebibliography' environment}}%
 	\endlist \vskip.2in}
+
+%% 设置附录
 
 \AtEndOfClass{\input{cquthesis.cfg}}
