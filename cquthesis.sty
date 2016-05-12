@@ -1,12 +1,35 @@
 \ProvidesPackage{cquthesis}[2016/05/09 The place for your beloved packages and customization.]
 
 %=====你可以在这里导入想用的Package，定义你自己的功能和常量=======
-\newcommand{\speakyourlove}[1]{\emph{#1, I Love You!}}
+\newcommand{\speakyourlove}[1][Mom]{\emph{#1, I Love You!}}
 
 
 
 
 
+
+
+
+
+
+
+
+
+%========一些推荐功能=========
+% 用双引号括起文字
+\newcommand{\qthis}[1]{\textquotedblleft{}#1\textquotedblright{}}
+%交叉引用图X，方程X：
+\newcommand{\refimg}[1]{图\ref{#1}}
+\newcommand{\reftab}[1]{表\ref{#1}}
+\newcommand{\refeq}[1]{式\ref{#1}}
+% 表格行数序号计数器
+\newcounter{RowNum}
+\newcommand{\rownum}{
+	\stepcounter{RowNum}
+	\theRowNum
+}
+% 行数计数器清零
+\newcommand{\resetrownum}{\setcounter{RowNum}{0}}
 %================================
 %**********插件定义区域***********
 %================================
@@ -14,6 +37,12 @@
 \RequirePackage[version=4]{mhchem}
 % 在命令里使用逗号快速表达多个化学式\cec{H2O,HF,HCl}
 \newcommand{\cec}[1]{\cesplit{{\,\ }{\0}}{#1}}
+%si单位支持
+\usepackage{siunitx}
+\sisetup{	list-final-separator	=	{和},
+	list-pair-separator		=	{和},
+	range-phrase			=	{$ \sim $},
+}
 % 处理数学公式中的黑斜体的宏包
 % \RequirePackage{bm}
 

@@ -425,7 +425,8 @@
 		% 不换行，左右并列
 		\hskip.5\ccwd
 		\zihao{3}
-		\begin{minipage}{\widthofpbox{\cqu@cauthor\\\cqu@studentid\\\cqu@cmajor\\\cqu@cclass\\\cqu@cpsupervisor}}
+		\begin{minipage}%
+			{\widthofpbox{\cqu@cauthor\\\cqu@studentid\\\cqu@cmajor\\\cqu@cclass\\\cqu@cpsupervisor}}%
 			\mbox{\cqu@cauthor}\\
 			\ifcqu@bachelor\mbox{\cqu@studentid}\\\fi
 			\cqu@csupervisor\\ %不要放在盒子里
