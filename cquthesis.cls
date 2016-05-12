@@ -23,6 +23,11 @@
 	\expandafter\csname cqu@#1true\endcsname}
 % 定义是否使用本科文学类论文标题格式
 \DeclareBoolOption{liberalformat}
+% 专业硕士标记
+\DeclareBoolOption[true]{academic}
+\DeclareComplementaryOption{proffesionalmaster}{academic}
+% DELETE:开发用
+\newcommand{\showmaster}{\ifcqu@academic{}学硕\else{}专硕\fi}
 % 论文是单面打印还是双面打印（默认：自动，手动模式一般不用）
 \newif\if@onesideprint
 \newif\if@twosideprint
@@ -93,6 +98,7 @@
 \RequirePackage[square,comma,super,sort&compress]{natbib}
 \RequirePackage{hyperref}
 \RequirePackage{CJKfntef}
+\RequirePackage{pbox}					% 用来优化minipage宽度
 \ifxetex
 \def\CJK@null{\kern\CJKnullspace\Unicode{48}{7}\kern\CJKnullspace}
 \defaultfontfeatures{Mapping=tex-text}
@@ -331,8 +337,11 @@
 \cqu@def@term{studentid}
 \cqu@def@term{csupervisor}
 \cqu@def@term{esupervisor}
+\cqu@def@term{cpsupervisor}
+\cqu@def@term{epsupervisor}
 \cqu@def@term{cmajor}
 \cqu@def@term{emajor}
+\cqu@def@term{cclass}
 \cqu@def@term{edgree}
 
 % 底部的学院名称和日期
@@ -341,7 +350,7 @@
 \cqu@def@term{cdate}
 \cqu@def@term{edate}
 
-% 论文的中英文摘要
+%% 论文的中英文摘要
 \newcommand{\cqu@@cabstract}[1]{\long\gdef\cqu@cabstract{#1}}
 \newenvironment{cabstract}{\Collect@Body\cqu@@cabstract}{}
 \newcommand{\cqu@@eabstract}[1]{\long\gdef\cqu@eabstract{#1}}
@@ -365,47 +374,68 @@
 % 使用kvoptions提供key=value格式支持
 \def\cqusetup{\kvsetkeys{cqu}}
 
-% 绘制中文封面
+%% 绘制中文封面
 \newcommand{\make@cover@CN}{%
 	\thispagestyle{style@empty}
 	\begin{center}
 		% 用来调整
 		\rule{0mm}{15mm}
 		\heiti
-		\zihao{-2}\cqu@thesistypenameCN
-		\\	\vspace{\stretch{1}}
-		\zihao{2}\cqu@ctitle
-		\\	\vspace{\stretch{2}}
-		\includegraphics[width=6cm]{CQUbandage.pdf}
-		\\	\vspace{\stretch{2}}
-		\ifcqu@doctor
+		\ifcqu@bachelor
+			\zihao{-2}\cqu@thesistypenameCN
+			\\	\vspace{\stretch{1}}
+			\zihao{2}\cqu@ctitle
+			\\	\vspace{\stretch{2}}
+			\includegraphics[width=6cm]{CQUbandage.pdf}
+			\\	\vspace{\stretch{2}}
+		\else
+			\zihao{2}\cqu@ctitle
+			\\	\vspace{\stretch{1}}
+			\includegraphics[width=6cm]{CQUbandage.pdf}
+			\\	\vspace{\stretch{1}}
+			\zihao{-2}\cqu@thesistypenameCN
+			\ifcqu@master{}\\\cqu@mastertype\fi
+			\\	\vspace{\stretch{2}}		
+		\fi
+		\ifcqu@bachelor
 			\zihao{3}
-			\begin{minipage}{6\ccwd}
-			\begin{CJKfilltwosides}{6\ccwd}
-				\cqu@studentCN\cqu@title@separatorCN\\
-				\ifcqu@bachelor\cqu@studentnumCN\cqu@title@separatorCN\\\fi
-				\cqu@supervisorCN\cqu@title@separatorCN\\					\cqu@majorCN\cqu@title@separatorCN
-			\end{CJKfilltwosides}
+			\begin{minipage}{4.5\ccwd}
+				\begin{CJKfilltwosides}{4.5\ccwd}
+					\cqu@studentCN\cqu@title@separatorCN\\
+					\cqu@studentnumCN\cqu@title@separatorCN\\
+					\cqu@supervisorCN\cqu@title@separatorCN\\
+					\cqu@majorCN\cqu@title@separatorCN
+				\end{CJKfilltwosides}
 			\end{minipage}
 		\else
 			\zihao{3}
-			\begin{minipage}{5\ccwd}
-			\begin{CJKfilltwosides}{5\ccwd}
+			\begin{minipage}{4.5\ccwd}
+			\begin{CJKfilltwosides}{4.5\ccwd}
 				\cqu@studentCN\cqu@title@separatorCN\\
-				\ifcqu@bachelor\cqu@studentnumCN\cqu@title@separatorCN\\\fi
 				\cqu@supervisorCN\cqu@title@separatorCN\\
-				\cqu@majorCN\cqu@title@separatorCN
+				\ifcqu@academic
+					\cqu@majorCN\cqu@title@separatorCN\\
+				\else
+					\cqu@psupervisorCN\cqu@title@separatorCN\\
+				\fi
+				\cqu@majorclassCN\cqu@title@separatorCN
 			\end{CJKfilltwosides}
 			\end{minipage}
 		\fi
 		% 不换行，左右并列
 		\hskip.5\ccwd
 		\zihao{3}
-		\begin{minipage}{\widthof{\cqu@cmajor}}
+		\begin{minipage}{\widthofpbox{\cqu@cauthor\\\cqu@studentid\\\cqu@cmajor\\\cqu@cclass\\\cqu@cpsupervisor}}
 			\mbox{\cqu@cauthor}\\
 			\ifcqu@bachelor\mbox{\cqu@studentid}\\\fi
-			\mbox{\cqu@csupervisor}\\
-			\mbox{\cqu@cmajor}
+			\cqu@csupervisor\\ %不要放在盒子里
+			\ifcqu@academic %这里有点复杂
+				\mbox{\cqu@cmajor}
+				\ifcqu@bachelor\relax\else\\\cqu@cclass\fi
+			\else
+				\cqu@cpsupervisor\\
+				\cqu@cclass
+			\fi
 		\end{minipage}
 		\\	\vspace{\stretch{2}}
 		\zihao{-2}\cqu@universitynameCN\cqu@cdepartment\\[1mm]
@@ -420,8 +450,19 @@
 		% 用来调整
 		\rule{0mm}{15mm}
 		\sffamily
-		\ifcqu@master
-		% 硕士生的封面
+		\ifcqu@bachelor
+			% 本科生的封面
+			\zihao{-2}\cqu@thesistypenameEN
+			\\	\vspace{\stretch{2}}
+			\zihao{-1}\textbf{\cqu@etitle}
+			\\	\vspace{\stretch{1}}
+			\includegraphics[width=5cm]{CQUbandage.pdf}
+			\\	\vspace{\stretch{2}}
+			\zihao{3}\textbf{\cqu@studentEN\cqu@title@separatorEN\mbox{\cqu@eauthor}}\\
+			\cqu@supervisorEN\cqu@title@separatorEN\mbox{\cqu@esupervisor}\\
+			\cqu@majorEN\cqu@title@separatorEN\mbox{\cqu@emajor}
+		\else
+			% 硕士生和博士生的高度相似
 			\zihao{-1}\textbf{\cqu@etitle}
 			\\	\vspace{\stretch{2}}
 			\includegraphics[width=5cm]{CQUbandage.pdf}
@@ -432,21 +473,12 @@
 			\\[2mm]
 			\zihao{3}\mbox{\textbf{\cqu@eauthor}}
 			\\	\vspace{\stretch{1}}
-			\textbf{\cqu@supervisorEN\cqu@title@separatorEN}\mbox{\textbf{\cqu@esupervisor}}\\					\textbf{\cqu@majorEN\cqu@title@separatorEN}\mbox{\textbf{\cqu@emajor}}
-		\else
-		% 本科生和博士生的封面高度相似
-			\zihao{-2}\cqu@thesistypenameEN
-			\\	\vspace{\stretch{2}}
-			\zihao{-1}\textbf{\cqu@etitle}
-			\\	\vspace{\stretch{1}}
-			\includegraphics[width=5cm]{CQUbandage.pdf}
-			\\	\vspace{\stretch{2}}
-			\zihao{3}\textbf{\cqu@studentEN\cqu@title@separatorEN\mbox{\cqu@eauthor}}\\
-			\cqu@supervisorEN\cqu@title@separatorEN\mbox{\cqu@esupervisor}\\
-			\cqu@majorEN\cqu@title@separatorEN\mbox{\cqu@emajor}
+			\textbf{\cqu@supervisorEN\cqu@title@separatorEN}\textbf{\cqu@esupervisor}\\
+			\ifcqu@academic\relax\else\textbf{\cqu@psupervisorEN\cqu@title@separatorEN\cqu@epsupervisor}\\\fi
+			\textbf{\cqu@majorEN\cqu@title@separatorEN}\mbox{\textbf{\cqu@emajor}}
 		\fi
 		\\ \vspace{\stretch{2}}
-		\zihao{-2}\cqu@universitynameEN\\\cqu@edepartment\\[1mm]
+		\zihao{-2}\cqu@edepartment\\\cqu@universitynameEN\\[1mm]
 		\textbf{\edate}
 		\vspace{10mm}
 	\end{center}}

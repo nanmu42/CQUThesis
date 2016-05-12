@@ -1,11 +1,16 @@
 % !TeX encoding = UTF-8
-\documentclass[type=master,printmode=twoside,]{cquthesis}
-% 选项：
-% type=[bachelor|master|doctor],			% 毕业论文类型，必选
-%	printmode=[oneside|twoside|auto],		% 可选，一般默认采用auto按页数要求自动判定
-%	liberalformat,											% 本科生可选，使用文学类论文标题格式
-% continuoustoc,											%	目录和索引不会自动新开一页，适用于索引内容较少时
-% draft,															%	草稿模式，不加载图片，加快预览速度
+%% \textbf{重庆大学}通用毕业论文\LaTeXe{}模板
+%%% 使用前请先阅读使用文档和免责声明，Happy Texing! :)
+%% =======================================================
+\documentclass%
+	[type=bachelor,printmode=twoside,]{cquthesis}%
+% 可用选项：
+% type=[bachelor|master|doctor],			% 必选，毕业论文类型，以下项目不填为默认
+%	liberalformat,											% 可选，仅适用本科生，使用文学类论文标题格式，默认未打开
+% proffesionalmaster=[true,false],		% 可选，仅适用研究生，是(true)否(false)专业硕士，默认为否
+%	printmode=[oneside|twoside|auto],		% 可选，论文打印方式，默认采用auto按页数要求自动判定
+% continuoustoc,											%	可选，目录和索引不会自动新开一页，适用于索引内容较少时
+% draft,															%	写作期间可选，草稿模式，不渲染图片，加快预览速度
 
 % 请在cquthesis.sty文件中定义其他会用到的宏包和自己的变量
 \usepackage{cquthesis}
@@ -19,36 +24,37 @@
 \begin{document}
 
 \input{contents/cover}
-%%% 封面部分
-\makecover
+\makecover %%% 封面部分
 
-\frontmatter %封面之后，绪论之前的所有部分
+
+\frontmatter %%%前置部分(封面后绪论前)
 %% 摘要
 \makeabstract
-%% 目录
+%% 目录，注意需要多次编译才能更新
 \tableofcontents
-%% 插图索引
+%% 插图索引，可选，如不用可注释掉
 \listoffigures
-%% 表格索引
+%% 表格索引，可选
 \listoftables
-%% 公式索引
+%% 公式索引，可选
 \listofequations
-%% 符号对照表
+%% 符号对照表，可选
 \input{contents/denotation}
 
 
-%%% 主体部分(绪论开始，结论为止)
+\mainmatter %%% 主体部分(绪论开始，结论为止)
 %* 子文件的多少和内容由你决定，基本原则是提速预览、脉络清晰、管理容易。
-\mainmatter
+
 
 \include{contents/introduction}
 \include{contents/experiment}
 \include{contents/analysis}
 \include{contents/conclusion}
+%\include{contents/yourFreeChoise}
 
 
-%%% 后置部分(致谢、参考文献、附录等)
-\backmatter
+\backmatter %%% 后置部分(致谢、参考文献、附录等)
+
 
 %% 致谢
 \include{contents/ack}
@@ -58,7 +64,7 @@
 %\bibliography{ref/refs}
 
 
-%% 附录(以第A章开始，证明、推导、程序、个人简历等)
+%% 附录(按ABC...分节，证明、推导、程序、个人简历等)
 \appendix
 
 %% 个人简历
