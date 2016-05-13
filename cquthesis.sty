@@ -16,13 +16,13 @@
 
 
 %========一些推荐功能=========
-% 用双引号括起文字
+% 用中文双引号括起文字
 \newcommand{\qthis}[1]{\textquotedblleft{}#1\textquotedblright{}}
-%交叉引用图X，方程X：
-\newcommand{\refimg}[1]{图\ref{#1}}
-\newcommand{\reftab}[1]{表\ref{#1}}
-\newcommand{\refeq}[1]{式\ref{#1}}
-% 表格行数序号计数器
+%交叉引用图X、表X、方程X：
+\newcommand{\figref}[1]{图\ref{#1}}
+\newcommand{\tabref}[1]{表\ref{#1}}
+%\eqref{label}已经定义并改写过
+% 表格行数序号计数器，使用\rownum{}作为序号一列的内容
 \newcounter{RowNum}
 \newcommand{\rownum}{
 	\stepcounter{RowNum}

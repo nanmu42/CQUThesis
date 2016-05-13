@@ -26,8 +26,6 @@
 % 专业硕士标记
 \DeclareBoolOption[true]{academic}
 \DeclareComplementaryOption{proffesionalmaster}{academic}
-% DELETE:开发用
-\newcommand{\showmaster}{\ifcqu@academic{}学硕\else{}专硕\fi}
 % 论文是单面打印还是双面打印（默认：自动，手动模式一般不用）
 \newif\if@onesideprint
 \newif\if@twosideprint
@@ -258,7 +256,8 @@
 \def\@circlenum#1{%
 	\ifnum \value{#1} >10
 		\ClassError{cquthesis}%
-			{In a single page, Footnotes more than 10 are not supported.}
+			{In a single page, Footnotes more than 10 are not supported.\MessageBreak%
+				And more than 10 subsubsections in a subsection cannot be handled.}
 	\fi
 	\ding{\numexpr171+ \value{#1}}%
 }
@@ -347,8 +346,8 @@
 % 底部的学院名称和日期
 \cqu@def@term{cdepartment}
 \cqu@def@term{edepartment}
-\cqu@def@term{cdate}
-\cqu@def@term{edate}
+\cqu@def@term{mycdate}
+\cqu@def@term{myedate}
 
 %% 论文的中英文摘要
 \newcommand{\cqu@@cabstract}[1]{\long\gdef\cqu@cabstract{#1}}
@@ -440,7 +439,7 @@
 		\end{minipage}
 		\\	\vspace{\stretch{2}}
 		\zihao{-2}\cqu@universitynameCN\cqu@cdepartment\\[1mm]
-		\zihao{3}\cdate
+		\zihao{3}\ifdefempty{\cqu@mycdate}{\cdate}{\cqu@mycdate}
 		\vspace{10mm}
 	\end{center}}
 
@@ -480,13 +479,9 @@
 		\fi
 		\\ \vspace{\stretch{2}}
 		\zihao{-2}\cqu@edepartment\\\cqu@universitynameEN\\[1mm]
-		\textbf{\edate}
+		\ifdefempty{\cqu@myedate}{\textbf{\edate}}{\textbf{\cqu@myedate}}
 		\vspace{10mm}
 	\end{center}}
-
-% 开发用
-%\let\testbachelorCN\make@cover@CN
-%\let\testbachelorEN\make@cover@EN
 
 \def\makecover{%
 	\hypersetup{%
@@ -598,6 +593,21 @@
 \end{cqu@denotation}}%\denotation
 
 %% 设置目录
+% 目录深度和计数器深度
+\setcounter{tocdepth}{2}
+\setcounter{secnumdepth}{3}
+% 调整subsection的目录缩进
+\ifcqu@liberalformat
+	\cftsetindents{chapter}{0em}{1.5em}
+	\cftsetindents{section}{1.9em}{0.9em}
+	\cftsetindents{subsection}{4.0em}{1.5em}
+%	\cftsetindents{subsubsection}{4.5em}{0.9em}
+\else
+	\cftsetindents{chapter}{0em}{1.5em}
+	\cftsetindents{section}{1.5em}{2.2em}
+	\cftsetindents{subsection}{3.7em}{2.9em}
+%	\cftsetindents{subsubsection}{6.6em}{1.5em}
+\fi
 % 公式索引
 \newlistof[chapter]{equations}{equ}{\listofequationsname}
 \newcommand{\listeq}[1]{%
