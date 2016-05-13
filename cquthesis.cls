@@ -1,10 +1,10 @@
 \NeedsTeXFormat{LaTeX2e}[1999/12/01]
-\ProvidesClass{cquthesis}[2016/05/10 0.5.2 Chongqing University Thesis Template]
+\ProvidesClass{cquthesis}[2016/05/13 0.8.8 Chongqing University Thesis Template]
 
 % -----开发用常量------
 \hyphenation{Cqu-Thesis}
 \newcommand{\cquthesis}{\textsc{CquThesis}}
-\def\version{0.5.2}
+\def\version{0.8.8}
 
 % ----- DECLARATION OF OPTIONS ------
 % 使用Key=Value方式进行选项设置，定义前缀和族
@@ -179,8 +179,13 @@
 	\fi
 \fi
 % 决定单页/双页打印
-\if@onesideprint\relax\else
-	\if@twosideprint \geometry{twoside}\fi
+\if@onesideprint
+	\ClassWarning{cquthesis}{Printing under oneside mode.}{}
+\else
+	\if@twosideprint
+		\geometry{twoside}
+		\ClassWarning{cquthesis}{Printing under twoside mode.}{}
+	\fi
 \fi
 
 % 定义页眉页脚
@@ -613,6 +618,7 @@
 \newcommand{\listeq}[1]{%
 	\addcontentsline{equ}{equations}{\protect\numberline{\theequation}#1}\par}
 \setlength{\cftequationsnumwidth}{2.5em}
+\let\eqlist\listeq
 % 正确输出页眉页脚
 \tocloftpagestyle{style@normal}
 % 目录和索引标题居中，包含fixhead

@@ -3,14 +3,14 @@
 %%% 使用前请先阅读使用文档和免责声明，Happy Texing! :)
 %% =======================================================
 \documentclass%
-	[type=bachelor,]{cquthesis}%
+	[type=bachelor,printmode=twoside,]{cquthesis}%
 % 可用选项：
 % type=[bachelor|master|doctor],			% 必选，毕业论文类型，以下项目不填为默认
 %	liberalformat,											% 可选，仅适用本科生，使用文学类论文标题格式，默认未打开
 % proffesionalmaster=[true,false],		% 可选，仅适用研究生，是(true)否(false)专业硕士，默认为否
 %	printmode=[oneside|twoside|auto],		% 可选，论文打印方式，默认采用auto按页数要求自动判定
 % continuoustoc,											%	可选，目录和索引不会自动新开一页，适用于索引内容较少时
-% draft,															%	写作期间可选，草稿模式，不渲染图片，加快预览速度
+% draft,															%	写作期间可选，不渲染图片，关闭外围功能，加快预览速度
 
 % 请在cquthesis.sty文件中定义其他会用到的宏包和自己的变量
 \usepackage{cquthesis}
@@ -18,7 +18,7 @@
 % 定义所有的图片文件在 figures 子目录下
 \graphicspath{{figures/}}
 
-%*** 使用这个命令只渲染你想查看的部分，提升工作效率
+%*** 写作时，使用这个命令只渲染你想查看的部分，提升工作效率，定稿时注释掉整行
 %\includeonly{contents/experiment,contents/analysis,}
 
 \begin{document}
@@ -43,7 +43,7 @@
 
 
 \mainmatter %%% 主体部分(绪论开始，结论为止)
-%* 子文件的多少和内容由你决定，基本原则是提速预览、脉络清晰、管理容易。
+%* 子文件的多少和内容由你决定（最好以章为单位），基本原则是提速预览、脉络清晰、管理容易。
 
 
 \include{contents/introduction}
@@ -60,8 +60,8 @@
 \include{contents/ack}
 %% 参考文献
 % 注意：至少需要引用一篇参考文献，否则下面两行会引起编译错误。
-%\bibliographystyle{cqunumerical.bst}		%另有cquauthoryear供硕士博士生选用
-%\bibliography{ref/refs}
+\bibliographystyle{cqunumerical.bst}		%另有cquauthoryear供硕士博士生选用
+\bibliography{ref/refs}
 
 
 %% 附录(按ABC...分节，证明、推导、程序、个人简历等)

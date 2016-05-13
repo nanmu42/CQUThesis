@@ -1,3 +1,510 @@
 \chapter{实验结果和分析}
-\section{实现范例}
-\section{注意事项和提示}
+
+\section{字体命令}\label{txt:FreqCmd}
+{\kaishu 玲珑骰子安红豆，入骨相思知不知。\hfill ——温庭筠}
+	
+{\fangsong 愿得一心人，白头不相离。\hfill ——卓文君}
+		
+{\ifcsname youyuan\endcsname\youyuan\else[无 \cs{youyuan} 字体。]\fi 去年今日此门中，人面桃花相映红。\hfill ——崔护}
+			
+{\heiti 入我相思门，知我相思苦。\hfill ——李白}
+				
+{\ifcsname lishu\endcsname\lishu\else[无 \cs{lishu} 字体。]\fi 此情可待成追忆？只是当时已惘然。\hfill ——李商隐}
+					
+{\songti 雨打梨花深闭门，忘了青春，误了青春。\hfill ——唐寅}
+
+\section{表格样本}
+
+\subsection{基本表格}
+\label{sec:basictable}
+
+模板中关于表格的宏包有三个： \pkg{booktabs}、\pkg{array} 和\pkg{longtabular}。三线表可以用 \pkg{booktabs}提供的 \cs{toprule}、\cs{midrule} 和 \cs{bottomrule}。它们与\pkg{longtable} 能很好的配合使用。
+\begin{table}[htb]
+	\centering
+	\begin{minipage}[t]{0.8\linewidth} % 如果想在表格中使用脚注，minipage是个不错的办法
+	\caption[模板文件]{模板文件。如果表格的标题很长，那么在表格索引中就会很不美观，所以要像 chapter 那样在前面用中括号写一个简短的标题。这个标题会出现在索引中。}
+	\label{tab:template-files}
+	\begin{tabularx}{\linewidth}{lX}
+		\toprule[1.5pt]
+		{\heiti 文件名} & {\heiti 描述} \\
+		\midrule[1pt]
+		thuthesis.ins & \LaTeX{} 安装文件，\textsc{DocStrip}\footnote{表格中的脚注} \\
+		thuthesis.dtx & 所有的一切都在这里面\footnote{再来一个}。\\
+		thuthesis.cls & 模板类文件。\\
+		thuthesis.cfg & 模板配置文。cls 和 cfg 由前两个文件生成。\\
+		thuthesis.bst & 参考文献 BIB\TeX\ 样式文件。\\
+		thuthesis.sty & 常用的包和命令写在这里，减轻主文件的负担。\\
+		\bottomrule[1.5pt]
+		\end{tabularx}
+	\end{minipage}
+\end{table}
+
+首先来看一个最简单的表格。表 \ref{tab:template-files} 列举了本模板主要文件及其功能。请大家注意三线表中各条线对应的命令。这个例子还展示了如何在表格中正确使用脚注。由于 \LaTeX{} 本身不支持在表格中使用\cs{footnote}，所以我们不得不将表格放在小页中，而且最好将表格的宽度设置为小页的宽度，这样脚注看起来才更美观。
+
+\subsection{复杂表格}
+\label{sec:complicatedtable}
+
+我们经常会在表格下方标注数据来源，或者对表格里面的条目进行解释。前面的脚注是一种不错的方法，如果不喜欢脚注，可以在表格后面写注释，比如表~\ref{tab:tabexamp1}。
+\begin{table}[htbp]
+	\centering
+	\caption{复杂表格示例 1}
+	\label{tab:tabexamp1}
+	\begin{minipage}[t]{0.8\textwidth} 
+	\begin{tabularx}{\linewidth}{|l|X|X|X|X|}
+		\hline
+		\multirow{2}*{\diagbox[width=5em]{x}{y}} & \multicolumn{2}{c|}{First Half} & \multicolumn{2}{c|}{Second Half}\\\cline{2-5}
+		& 1st Qtr &2nd Qtr&3rd Qtr&4th Qtr \\ \hline
+		East$^{*}$ &   20.4&   27.4&   90&     20.4 \\
+		West$^{**}$ &   30.6 &   38.6 &   34.6 &  31.6 \\ \hline
+	\end{tabularx}\\[2pt]
+	\footnotesize 
+	*：东部\\
+	**：西部
+	\end{minipage}
+\end{table}
+
+此外，表~\ref{tab:tabexamp1} 同时还演示了另外两个功能：1）通过 \pkg{tabularx} 的\texttt{|X|} 扩展实现表格自动放大；2）通过命令 \cs{diagbox} 在表头部分插入反斜线。
+\resetrownum
+
+\begin{table}[htbp]
+	\noindent\begin{minipage}{0.5\textwidth}
+		\centering
+		\caption{第一个并排子表格}
+		\label{tab:parallel1}
+		\begin{tabular}{p{2cm}p{2cm}}
+					\toprule[1.5pt]
+					No. & Name \\\midrule[1pt]
+					\rownum & Fox \\
+					\rownum & Panda \\
+					\rownum & Dog \\
+					\bottomrule[1.5pt]
+		\end{tabular}
+	\end{minipage}%
+	\begin{minipage}{0.5\textwidth}
+		\centering
+		\caption{第二个并排子表格}
+		\label{tab:parallel2}
+		\begin{tabular}{p{2cm}p{2cm}}
+			\toprule[1.5pt]
+			No. & Name \\\midrule[1pt]
+			\rownum & Charlie \\
+			\rownum & Jack \\
+			\rownum & Tom \\
+			\bottomrule[1.5pt]
+		\end{tabular}
+	\end{minipage}
+\end{table}
+
+\begin{table}[htbp]
+	\centering
+	\caption{并排子表格}
+	\label{tab:subtable}
+	\subcaptionbox{第一个子表格}
+	{
+		\begin{tabular}{p{2cm}p{2cm}}
+			\toprule[1.5pt]
+			111 & 222 \\\midrule[1pt]
+			222 & 333 \\\bottomrule[1.5pt]
+		\end{tabular}
+	}
+	\hskip2cm
+	\subcaptionbox{第二个子表格}
+	{
+		\begin{tabular}{p{2cm}p{2cm}}
+			\toprule[1.5pt]
+			111 & 222 \\\midrule[1pt]
+			222 & 333 \\\bottomrule[1.5pt]
+		\end{tabular}
+	}
+\end{table}
+
+不可否认 \LaTeX{} 的表格功能没有想象中的那么强大，不过只要足够认真，足够细致，同样可以排出来非常复杂非常漂亮的表格。
+
+\tabref{tab:parallel1}和\tabref{tab:parallel2}展示了\cs{rownum}和\cs{resetrownum}的使用，可以达到序号自动编号的效果。不过要记得在每次使用之前使用\cs{resetrownum}，否则就会像\tabref{tab:parallel2}那样，序号不从1开始。
+
+\begin{longtable}[c]{c*{6}{r}}
+	\caption{实验数据}\label{tab:performance}\\
+	\toprule[1.5pt]
+	测试程序 & \multicolumn{1}{c}{正常运行} & \multicolumn{1}{c}{同步} & \multicolumn{1}{c}{检查点} & \multicolumn{1}{c}{卷回恢复}
+	& \multicolumn{1}{c}{进程迁移} & \multicolumn{1}{c}{检查点} \\
+	& \multicolumn{1}{c}{时间 (s)}& \multicolumn{1}{c}{时间 (s)}&
+	\multicolumn{1}{c}{时间 (s)}& \multicolumn{1}{c}{时间 (s)}& \multicolumn{1}{c}{
+		时间 (s)}&  文件（KB）\\\midrule[1pt]
+	\endfirsthead
+	\multicolumn{7}{c}{续表~\thetable\hskip1em 实验数据}\\
+	\toprule[1.5pt]
+	测试程序 & \multicolumn{1}{c}{正常运行} & \multicolumn{1}{c}{同步} & \multicolumn{1}{c}{检查点} & \multicolumn{1}{c}{卷回恢复}
+	& \multicolumn{1}{c}{进程迁移} & \multicolumn{1}{c}{检查点} \\
+	& \multicolumn{1}{c}{时间 (s)}& \multicolumn{1}{c}{时间 (s)}&
+	\multicolumn{1}{c}{时间 (s)}& \multicolumn{1}{c}{时间 (s)}& \multicolumn{1}{c}{
+		时间 (s)}&  文件（KB）\\\midrule[1pt]
+	\endhead
+	\hline
+	\multicolumn{7}{r}{续下页}
+	\endfoot
+	\endlastfoot
+	CG.A.2 & 23.05 & 0.002 & 0.116 & 0.035 & 0.589 & 32491 \\
+	CG.A.4 & 15.06 & 0.003 & 0.067 & 0.021 & 0.351 & 18211 \\
+	CG.A.8 & 13.38 & 0.004 & 0.072 & 0.023 & 0.210 & 9890 \\
+	CG.B.2 & 867.45 & 0.002 & 0.864 & 0.232 & 3.256 & 228562 \\
+	CG.B.4 & 501.61 & 0.003 & 0.438 & 0.136 & 2.075 & 123862 \\
+	CG.B.8 & 384.65 & 0.004 & 0.457 & 0.108 & 1.235 & 63777 \\
+	MG.A.2 & 112.27 & 0.002 & 0.846 & 0.237 & 3.930 & 236473 \\
+	MG.A.4 & 59.84 & 0.003 & 0.442 & 0.128 & 2.070 & 123875 \\
+	MG.A.8 & 31.38 & 0.003 & 0.476 & 0.114 & 1.041 & 60627 \\
+	MG.B.2 & 526.28 & 0.002 & 0.821 & 0.238 & 4.176 & 236635 \\
+	MG.B.4 & 280.11 & 0.003 & 0.432 & 0.130 & 1.706 & 123793 \\
+	MG.B.8 & 148.29 & 0.003 & 0.442 & 0.116 & 0.893 & 60600 \\
+	LU.A.2 & 2116.54 & 0.002 & 0.110 & 0.030 & 0.532 & 28754 \\
+	LU.A.4 & 1102.50 & 0.002 & 0.069 & 0.017 & 0.255 & 14915 \\
+	LU.A.8 & 574.47 & 0.003 & 0.067 & 0.016 & 0.192 & 8655 \\
+	LU.B.2 & 9712.87 & 0.002 & 0.357 & 0.104 & 1.734 & 101975 \\
+	LU.B.4 & 4757.80 & 0.003 & 0.190 & 0.056 & 0.808 & 53522 \\
+	LU.B.8 & 2444.05 & 0.004 & 0.222 & 0.057 & 0.548 & 30134 \\
+	CG.B.2 & 867.45 & 0.002 & 0.864 & 0.232 & 3.256 & 228562 \\
+	CG.B.4 & 501.61 & 0.003 & 0.438 & 0.136 & 2.075 & 123862 \\
+	CG.B.8 & 384.65 & 0.004 & 0.457 & 0.108 & 1.235 & 63777 \\
+	MG.A.2 & 112.27 & 0.002 & 0.846 & 0.237 & 3.930 & 236473 \\
+	MG.A.4 & 59.84 & 0.003 & 0.442 & 0.128 & 2.070 & 123875 \\
+	MG.A.8 & 31.38 & 0.003 & 0.476 & 0.114 & 1.041 & 60627 \\
+	MG.B.2 & 526.28 & 0.002 & 0.821 & 0.238 & 4.176 & 236635 \\
+	MG.B.4 & 280.11 & 0.003 & 0.432 & 0.130 & 1.706 & 123793 \\
+	MG.B.8 & 148.29 & 0.003 & 0.442 & 0.116 & 0.893 & 60600 \\
+	LU.A.2 & 2116.54 & 0.002 & 0.110 & 0.030 & 0.532 & 28754 \\
+	LU.A.4 & 1102.50 & 0.002 & 0.069 & 0.017 & 0.255 & 14915 \\
+	LU.A.8 & 574.47 & 0.003 & 0.067 & 0.016 & 0.192 & 8655 \\
+	LU.B.2 & 9712.87 & 0.002 & 0.357 & 0.104 & 1.734 & 101975 \\
+	LU.B.4 & 4757.80 & 0.003 & 0.190 & 0.056 & 0.808 & 53522 \\
+	LU.B.8 & 2444.05 & 0.004 & 0.222 & 0.057 & 0.548 & 30134 \\
+	EP.A.2 & 123.81 & 0.002 & 0.010 & 0.003 & 0.074 & 1834 \\
+	EP.A.4 & 61.92 & 0.003 & 0.011 & 0.004 & 0.073 & 1743 \\
+	EP.A.8 & 31.06 & 0.004 & 0.017 & 0.005 & 0.073 & 1661 \\
+	EP.B.2 & 495.49 & 0.001 & 0.009 & 0.003 & 0.196 & 2011 \\
+	EP.B.4 & 247.69 & 0.002 & 0.012 & 0.004 & 0.122 & 1663 \\
+	EP.B.8 & 126.74 & 0.003 & 0.017 & 0.005 & 0.083 & 1656 \\
+	\bottomrule[1.5pt]
+\end{longtable}
+
+如果你要排版的表格长度超过一页，那么推荐使用 \pkg{longtable} 或者 \pkg{supertabular}
+宏包，模板对 \pkg{longtable} 进行了相应的设置，所以用起来可能简单一些。
+表~\ref{tab:performance} 就是 \pkg{longtable} 的简单示例。
+
+\section{定理环境}
+\label{sec:theorem}
+
+给大家演示一下各种和证明有关的环境：
+
+\begin{assumption}
+	待月西厢下，迎风户半开；隔墙花影动，疑是玉人来。
+	\begin{eqnarray}
+	\label{eq:eqnxmp}
+	c & = & a^2 - b^2\\
+	& = & (a+b)(a-b)
+	\end{eqnarray}
+\end{assumption}
+
+千辛万苦，历尽艰难，得有今日。然相从数千里，未曾哀戚。今将渡江，方图百年欢笑，如
+何反起悲伤？（引自《杜十娘怒沉百宝箱》）
+
+\begin{definition}
+	子曰：「道千乘之国，敬事而信，节用而爱人，使民以时。」
+\end{definition}
+
+千古第一定义！问世间、情为何物，只教生死相许？天南地北双飞客，老翅几回寒暑。欢乐趣，离别苦，就中更有痴儿女。
+君应有语，渺万里层云，千山暮雪，只影向谁去？
+
+横汾路，寂寞当年箫鼓，荒烟依旧平楚。招魂楚些何嗟及，山鬼暗谛风雨。天也妒，未信与，莺儿燕子俱黄土。
+千秋万古，为留待骚人，狂歌痛饮，来访雁丘处。
+
+\begin{proposition}
+	曾子曰：「吾日三省吾身 —— 为人谋而不忠乎？与朋友交而不信乎？传不习乎？」
+\end{proposition}
+
+多么凄美的命题啊！其日牛马嘶，新妇入青庐，奄奄黄昏后，寂寂人定初，我命绝今日，
+魂去尸长留，揽裙脱丝履，举身赴清池，府吏闻此事，心知长别离，徘徊庭树下，自挂东南
+枝。
+
+\begin{remark}
+	天不言自高，水不言自流。
+	\begin{gather*}
+	\begin{split} 
+	\varphi(x,z)
+	&=z-\gamma_{10}x-\gamma_{mn}x^mz^n\\
+	&=z-Mr^{-1}x-Mr^{-(m+n)}x^mz^n
+	\end{split}\\[6pt]
+	\begin{align} \zeta^0&=(\xi^0)^2,\\
+	\zeta^1 &=\xi^0\xi^1,\\
+	\zeta^2 &=(\xi^1)^2,
+	\end{align}
+	\end{gather*}
+\end{remark}
+
+天尊地卑，乾坤定矣。卑高以陈，贵贱位矣。 动静有常，刚柔断矣。方以类聚，物以群分，
+吉凶生矣。在天成象，在地成形，变化见矣。鼓之以雷霆，润之以风雨，日月运行，一寒一
+暑，乾道成男，坤道成女。乾知大始，坤作成物。乾以易知，坤以简能。易则易知，简则易
+从。易知则有亲，易从则有功。有亲则可久，有功则可大。可久则贤人之德，可大则贤人之
+业。易简，而天下矣之理矣；天下之理得，而成位乎其中矣。
+
+\begin{axiom}
+	两点间直线段距离最短。  
+	\begin{align}
+	x&\equiv y+1\pmod{m^2}\\
+	x&\equiv y+1\mod{m^2}\\
+	x&\equiv y+1\pod{m^2}
+	\end{align}
+\end{axiom}
+
+《彖曰》：大哉乾元，万物资始，乃统天。云行雨施，品物流形。大明始终，六位时成，时
+乘六龙以御天。乾道变化，各正性命，保合大和，乃利贞。首出庶物，万国咸宁。
+
+《象曰》：天行健，君子以自强不息。潜龙勿用，阳在下也。见龙再田，德施普也。终日乾
+乾，反复道也。或跃在渊，进无咎也。飞龙在天，大人造也。亢龙有悔，盈不可久也。用九，
+天德不可为首也。 　　
+
+\begin{lemma}
+	《猫和老鼠》是我最爱看的动画片。
+	\begin{multline*}%\tag*{[a]} % 这个不出现在索引中
+	\int_a^b\biggl\{\int_a^b[f(x)^2g(y)^2+f(y)^2g(x)^2]
+	-2f(x)g(x)f(y)g(y)\,dx\biggr\}\,dy \\
+	=\int_a^b\biggl\{g(y)^2\int_a^bf^2+f(y)^2
+	\int_a^b g^2-2f(y)g(y)\int_a^b fg\biggr\}\,dy
+	\end{multline*}
+\end{lemma}
+
+行行重行行，与君生别离。相去万余里，各在天一涯。道路阻且长，会面安可知。胡马依北
+风，越鸟巢南枝。相去日已远，衣带日已缓。浮云蔽白日，游子不顾返。思君令人老，岁月
+忽已晚。  弃捐勿复道，努力加餐饭。
+
+\begin{theorem}\label{the:theorem1}
+	犯我强汉者，虽远必诛\hfill —— 陈汤（汉）
+\end{theorem}
+\begin{subequations}
+	\begin{align}
+	y & = 1 \\
+	y & = 0
+	\end{align}
+\end{subequations}
+道可道，非常道。名可名，非常名。无名天地之始；有名万物之母。故常无，欲以观其妙；
+常有，欲以观其徼。此两者，同出而异名，同谓之玄。玄之又玄，众妙之门。上善若水。水
+善利万物而不争，处众人之所恶，故几于道。曲则全，枉则直，洼则盈，敝则新，少则多，
+多则惑。人法地，地法天，天法道，道法自然。知人者智，自知者明。胜人者有力，自胜
+者强。知足者富。强行者有志。不失其所者久。死而不亡者寿。
+
+\begin{proof}
+	燕赵古称多感慨悲歌之士。董生举进士，连不得志于有司，怀抱利器，郁郁适兹土，吾
+	知其必有合也。董生勉乎哉？
+	
+	夫以子之不遇时，苟慕义强仁者，皆爱惜焉，矧燕、赵之士出乎其性者哉！然吾尝闻
+	风俗与化移易，吾恶知其今不异于古所云邪？聊以吾子之行卜之也。董生勉乎哉？
+	
+	吾因子有所感矣。为我吊望诸君之墓，而观于其市，复有昔时屠狗者乎？为我谢
+	曰：“明天子在上，可以出而仕矣！” \hfill —— 韩愈《送董邵南序》
+\end{proof}
+
+\begin{corollary}
+	四川话配音的《猫和老鼠》是世界上最好看最好听最有趣的动画片。
+	\begin{alignat}{3}
+	V_i & =v_i - q_i v_j, & \qquad X_i & = x_i - q_i x_j,
+	& \qquad U_i & = u_i,
+	\qquad \text{for $i\ne j$;}\label{eq:B}\\
+	V_j & = v_j, & \qquad X_j & = x_j,
+	& \qquad U_j & u_j + \sum_{i\ne j} q_i u_i.
+	\end{alignat}
+\end{corollary}
+
+迢迢牵牛星，皎皎河汉女。
+纤纤擢素手，札札弄机杼。
+终日不成章，泣涕零如雨。
+河汉清且浅，相去复几许。
+盈盈一水间，脉脉不得语。
+
+\begin{example}
+	大家来看这个例子。
+	\begin{equation}
+	\label{ktc}
+	\left\{\begin{array}{l}
+	\nabla f({\mbox{\boldmath $x$}}^*)-\sum\limits_{j=1}^p\lambda_j\nabla g_j({\mbox{\boldmath $x$}}^*)=0\\[0.3cm]
+	\lambda_jg_j({\mbox{\boldmath $x$}}^*)=0,\quad j=1,2,\cdots,p\\[0.2cm]
+	\lambda_j\ge 0,\quad j=1,2,\cdots,p.
+	\end{array}\right.
+	\end{equation}
+\end{example}
+
+\begin{exercise}
+	清列出 Andrew S. Tanenbaum 和 W. Richard Stevens 的所有著作。
+\end{exercise}
+
+\begin{conjecture} \textit{Poincare Conjecture} If in a closed three-dimensional
+	space, any closed curves can shrink to a point continuously, this space can be
+	deformed to a sphere.
+\end{conjecture}
+
+\begin{problem}
+	回答还是不回答，是个问题。 
+\end{problem}
+
+如何引用定理~\ref{the:theorem1} 呢？加上 \cs{label} 使用 \cs{ref} 即可。
+
+\section{参考文献}
+\label{sec:bib}
+重庆大学的要求是参考文献以上标的形式标注于论述之后，就像这样：
+
+研究表明\cite{r1}，早睡早起有益身体健康。如果想同时引用多个文献\cite{r2,r3,r4,r6}，只需要在\csgo{cite}{\null}中用逗号分开\textsf{citeKey}就好。
+
+\cquthesis 同时提供正文模式的参考文献引用功能\cs{inlinecite}，适用于以下情况：
+
+文献\inlinecite{r5}表明，文献\inlinecite{r7,r8}所述的情况是有理论依据的。
+
+\section{公式}
+\label{sec:equation}
+贝叶斯公式如式~(\ref{equ:chap1:bayes})，其中 $p(y|\mathbf{x})$ 为后验；
+$p(\mathbf{x})$ 为先验；分母 $p(\mathbf{x})$ 为归一化因子。
+\begin{equation}
+\label{equ:chap1:bayes}
+p(y|\mathbf{x}) = \frac{p(\mathbf{x},y)}{p(\mathbf{x})}=
+\frac{p(\mathbf{x}|y)p(y)}{p(\mathbf{x})} 
+\end{equation}
+
+论文里面公式越多，\TeX{} 就越 happy。再看一个 \pkg{amsmath} 的例子：
+\newcommand{\envert}[1]{\left\lvert#1\right\rvert} 
+\begin{equation}\label{detK2}
+\det\mathbf{K}(t=1,t_1,\dots,t_n)=\sum_{I\in\mathbf{n}}(-1)^{\envert{I}}
+\prod_{i\in I}t_i\prod_{j\in I}(D_j+\lambda_jt_j)\det\mathbf{A}
+^{(\lambda)}(\overline{I}|\overline{I})=0.
+\end{equation} 
+
+前面定理示例部分列举了很多公式环境，可以说把常见的情况都覆盖了，大家在写公式的时候一定要好好看 \pkg{amsmath} 的文档，并参考模板中的用法：
+\begin{multline*}%\tag{[b]} % 这个出现在索引中的
+\int_a^b\biggl\{\int_a^b[f(x)^2g(y)^2+f(y)^2g(x)^2]
+-2f(x)g(x)f(y)g(y)\,dx\biggr\}\,dy \\
+=\int_a^b\biggl\{g(y)^2\int_a^bf^2+f(y)^2
+\int_a^b g^2-2f(y)g(y)\int_a^b fg\biggr\}\,dy
+\end{multline*}
+
+这里还有一个多级规划公式，这个公式使用\csgo{listeq}{索引名}手动加入了目录后的索引。
+\begin{equation}\label{bilevel}
+\left\{\begin{array}{l}
+\max\limits_{{\mbox{\footnotesize\boldmath $x$}}} F(x,y_1^*,y_2^*,\cdots,y_m^*)\\[0.2cm]
+\mbox{subject to:}\\[0.1cm]
+\qquad G(x)\le 0\\[0.1cm]
+\qquad(y_1^*,y_2^*,\cdots,y_m^*)\mbox{ solves problems }(i=1,2,\cdots,m)\\[0.1cm]
+\qquad\left\{\begin{array}{l}
+\max\limits_{{\mbox{\footnotesize\boldmath $y_i$}}}f_i(x,y_1,y_2,\cdots,y_m)\\[0.2cm]
+\mbox{subject to:}\\[0.1cm]
+\qquad g_i(x,y_1,y_2,\cdots,y_m)\le 0.
+\end{array}\right.
+\end{array}\right.
+\end{equation}\listeq{多级规划公式}
+这些跟规划相关的公式都来自于清华大学刘宝碇老师《不确定规划》的课件。以上的许多例子由清华大学的薛瑞尼同学编写。
+
+\section{化学方程式}
+
+使用\pkg{mhchem}的\csgo{ce}{化学式或方程式}能够让你很容易地表示出各种化学式和化学方程：
+
+例如：
+\begin{center}
+	\ce{C6H5-CHO}\\ \ce{A\bond{~--}B\bond{~=}C\bond{-~-}D}\\ \ce{SO4^2- + Ba^2+ -> BaSO4 v}
+\end{center}
+
+复杂一点的方程式也不在话下，如\eqref{eq:chem}：
+\begin{equation}\label{eq:chem}
+	\ce{Zn^2+
+		<=>[+ 2OH-][+ 2H+]
+		$\underset{\text{amphoteres Hydroxid}}{\ce{Zn(OH)2 v}}$ <=>[+ 2OH-][+ 2H+]
+		$\underset{\text{Hydroxozikat}}{\ce{[Zn(OH)4]^2-}}$
+	}
+\end{equation}\eqlist{复杂的化学方程式}
+
+这个方程式嵌套在了\pkg{equation}环境中，可用\cs{eqlist}(\cs{listeq}的别名，作用相同)来编排到索引中。
+
+如果你需要一次列举多个化学式，可以用\cs{cec}命令，例如，\csgo{cec}{H2O,HCl,CCl4}的输出为\cec{H2O,HCl,CCl4}。
+
+\section{国际单位制(SI Unit)}
+
+\cquthesis 采用\pkg{siunitx}作为国际单位制支持宏包，以下是一些使用例子，这个包的文档写得非常不错，请在命令行里输入\texttt{texdoc siunitx}察看。
+
+\noindent\num{.3e45}\\
+\num{1.654 x 2.34 x 3.430}\\
+\si{\kilogram\metre\per\second}\\    
+\SIlist{0.13;0.67;0.80}{\milli\metre}
+
+\section{绘图}
+\label{sec:draw}
+
+本模板不预先装载任何绘图包（如 \pkg{pstricks，pgf} 等），完全由用户来决定。个人觉得 \pkg{pgf} 不错，不依赖于 Postscript。此外还有很多针对 \LaTeX{} 的GUI 作图工具，如 XFig(jFig), WinFig, Tpx, Ipe, Dia, Inkscape, LaTeXPiX,jPicEdt, jaxdraw 等等。
+
+\section{插图}
+\label{sec:graphs}
+
+推荐《\LaTeXe\ 插图指南》。关于子图形的使用细节请参看 \pkg{subcaption} 宏包的说明文档。
+
+\subsection{一个图形}
+\label{sec:onefig}
+一般图形都是处在浮动环境中。之所以称为浮动是指最终排版效果图形的位置不一定与源文
+件中的位置对应\footnote{This is not a bug, but a feature of \LaTeX!}，这也是刚使
+用 \LaTeX{} 同学可能遇到的问题。如果要强制固定浮动图形的位置，请使用 \pkg{float} 宏包，
+它提供了 \texttt{[H]} 参数，比如图~\ref{fig:xfig1}。
+\begin{figure}[htb] % use float package if you want it here
+	\centering
+	\includegraphics[height=3cm]{construction}
+	\caption{正在施工}
+	\label{fig:xfig1}
+\end{figure}
+
+大学之道，在明明德，在亲民，在止于至善。知止而后有定；定而后能静；静而后能安；安
+而后能虑；虑而后能得。物有本末，事有终始。知所先后，则近道矣。古之欲明明德于天
+下者，先治其国；欲治其国者，先齐其家；欲齐其家者，先修其身；欲修其身者，先正其心；
+欲正其心者，先诚其意；欲诚其意者，先致其知；致知在格物。物格而后知至；知至而后
+意诚；意诚而后心正；心正而后身 修；身修而后家齐；家齐而后国治；国治而后天下
+平。自天子以至于庶人，壹是皆以修身为本。其本乱而未治者 否矣。其所厚者薄，而其所
+薄者厚，未之有也！
+
+\hfill —— 《大学》
+
+
+\subsection{多个图形}
+\label{sec:multifig}
+
+如果多个图形相互独立，并不共用一个图形计数器，那么用 \texttt{minipage} 或者\texttt{parbox} 就可以。否则，请参看
+图~\ref{fig:big1-subcaptionbox}，它包含两个小图，分别是图~\ref{fig:subfig1}和图~\ref{fig:subfig2}。推荐使用\cs{subcaptionbox}，因为可以像图~\ref{fig:big1-subcaptionbox} 那样对齐子图的标题，也可以使用\pkg{subcaption}宏包的\cs{subcaption}（放在minipage中，用法同\cs{caption}）或是\pkg{subfigure}、\pkg{subtable}环境，像图~\ref{fig:big1-subfigure}，不要再用 \cs{subfloat}、\cs{subfigure} 和 \cs{subtable}。
+
+\begin{figure}[h]
+	\centering%
+	\subcaptionbox{第一个小图形\label{fig:subfig1}}[3cm] %标题的长度，超过则会换行，如下一个小图。
+	{\includegraphics[height=3cm]{construction}}%
+	\hspace{4em}%
+	\subcaptionbox{第二个小图形，注意这个图略矮些。如果标题很长的话，它会自动换行\label{fig:subfig2}}
+	{\includegraphics[height=3cm]{recycle}}
+	\caption{包含子图形的大图形(subcaptionbox示例)}
+	\label{fig:big1-subcaptionbox}
+\end{figure}
+\begin{figure}[h]
+	\centering%
+	\begin{subfigure}{3cm}
+		\includegraphics[height=3cm]{recycle}
+		\caption{第一个小图形}
+	\end{subfigure}%
+	\hspace{4em}%
+	\begin{subfigure}{0.5\textwidth}
+		\includegraphics[height=2cm]{construction}
+		\caption{第二个小图形，注意这个图略矮些。subfigure中同一行的子图在顶端对齐。}
+	\end{subfigure}
+	\caption{包含子图形的大图形(subfigure示例)}
+	\label{fig:big1-subfigure}
+\end{figure}
+
+如果要把编号的两个图形并排，那么小页就非常有用了。
+\begin{figure}
+	\begin{minipage}{0.48\textwidth}
+		\centering
+		\includegraphics[height=2cm]{construction}
+		\caption{并排第一个图}
+		\label{fig:parallel1}
+	\end{minipage}\hfill
+	\begin{minipage}{0.48\textwidth}
+		\centering
+		\includegraphics[height=2cm]{recycle}
+		\caption{并排第二个图}
+		\label{fig:parallel2}
+	\end{minipage}
+\end{figure}

@@ -33,6 +33,17 @@
 %================================
 %**********插件定义区域***********
 %================================
+% 三线表
+\RequirePackage{array}
+\RequirePackage{tabularx}
+\RequirePackage{booktabs}
+\RequirePackage{longtable}
+\RequirePackage{multirow}
+\RequirePackage{diagbox}
+% 色彩支持
+\usepackage{xcolor}
+% LaTeX和他的朋友们
+\RequirePackage{metalogo}
 % 很棒的化学式和方程支持
 \RequirePackage[version=4]{mhchem}
 % 在命令里使用逗号快速表达多个化学式\cec{H2O,HF,HCl}
@@ -64,6 +75,7 @@
 \def\cmd#1{\cs{\expandafter\cmd@to@cs\string#1}}
 \def\cmd@to@cs#1#2{\char\number`#2\relax}
 \DeclareRobustCommand\cs[1]{\texttt{\char`\\#1}}
+\DeclareRobustCommand\csgo[2]{\cs{#1\{#2\}}}
 
 \newcommand*{\meta}[1]{{%
 		\ensuremath{\langle}\rmfamily\itshape#1\/\ensuremath{\rangle}}}
@@ -74,3 +86,14 @@
 \providecommand\parg[1]{%
 	{\ttfamily(}\meta{#1}{\ttfamily)}}
 \providecommand\pkg[1]{{\sffamily#1}}
+
+% 文件夹列表
+\usepackage{dirtree}
+% The following is a dummy icon command
+\newcommand\myicon[1]{{\color{#1}\rule{2ex}{2ex}}}
+% If you have actual icon images, use \includegraphics to include them
+% If you are generating them, put in the appropriate code for them here
+% now we make a command for a folder/file which inserts the icon and its label
+% adjust this as needed. If you only have 2 icons, then you could create
+% a \myfile and \myfolder command with the icon fixed.
+\newcommand{\myfolder}[2]{\myicon{#1}\ {#2}}
