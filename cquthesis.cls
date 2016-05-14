@@ -26,6 +26,11 @@
 % 专业硕士标记
 \DeclareBoolOption[true]{academic}
 \DeclareComplementaryOption{proffesionalmaster}{academic}
+% 每个章首页是否右开
+\DeclareBoolOption[true]{openany}
+\DeclareComplementaryOption{openright}{openany}
+% 双页模式下英文摘要页右开
+\DeclareBoolOption[false]{abstractopenright}
 % 论文是单面打印还是双面打印（默认：自动，手动模式一般不用）
 \newif\if@onesideprint
 \newif\if@twosideprint
@@ -45,8 +50,12 @@
 	}
 \ProcessKeyvalOptions*
 \PassOptionsToPackage{no-math}{fontspec}
-% 为CtexBook定义选项
-\LoadClass[a4paper,oneside,openany,UTF8,zihao=-4,scheme=plain,linespread=1.39,space=auto]{ctexbook}
+% 为CtexBook定义选项，使用CTeX自家的Openright和Openany解决方案
+\ifcqu@openany
+	\LoadClass[openany,a4paper,oneside,UTF8,zihao=-4,scheme=plain,linespread=1.39,space=auto]{ctexbook}
+\else
+	\LoadClass[openright,a4paper,oneside,UTF8,zihao=-4,scheme=plain,linespread=1.39,space=auto]{ctexbook}
+\fi
 
 % 用户必须提供用户类型
 \ifcqu@bachelor\relax\else
@@ -87,14 +96,14 @@
 \RequirePackage{environ}					%提供另一种环境定义方式
 \RequirePackage{changepage}				%用来修复双页打印模式时的索引页眉
 \RequirePackage{afterpage}
-\RequirePackage[bottom,perpage,hang]{footmisc}
+\RequirePackage[bottom,perpage,hang,symbol*]{footmisc}
 \raggedbottom								%脚注控制，脚注每页重新编号
 \RequirePackage{pifont}						%带圈数字，后面还需要处理
 %定理宏包，兼容模式
 \RequirePackage[amsmath,thmmarks,hyperref]{ntheorem}
 %参考文献引用宏包
 \RequirePackage[square,comma,super,sort&compress]{natbib}
-\RequirePackage{hyperref}
+\RequirePackage[hyperfootnotes=false,]{hyperref}
 \RequirePackage{CJKfntef}
 \RequirePackage{pbox}					% 用来优化minipage宽度
 \ifxetex
@@ -117,7 +126,7 @@
 	bookmarksopenlevel=1,
 	breaklinks=true,
 	colorlinks=false,
-	plainpages=false,
+	plainpages=false,	
 	pdfborder=0 0 0}
 \urlstyle{same}
 %TODO: 提升：在hyperref之后在正文手动载入breakurl，处理dvips模式下的网址断字问题
@@ -133,7 +142,7 @@
 % 这里的pagestyle调整有些坑
 \newcommand\cqu@addblankpage{%
 	\afterpage{%
-		\null\pagestyle{style@empty}\clearpage}}
+		{\null\pagestyle{style@empty}\clearpage}}}
 
 \newif\if@backmatter
 \renewcommand{\frontmatter}{%
@@ -209,8 +218,8 @@
 \fancypagestyle{style@normal}{%
 	\fancyhead{}
 	\if@twosideprint
-		\fancyhead[OC]{\zihao{-5}\songti\cqu@thesisname}
-		\fancyhead[EC]{\zihao{-5}\songti\leftmark}
+		\fancyhead[EC]{\zihao{-5}\songti\cqu@thesisname}
+		\fancyhead[OC]{\zihao{-5}\songti\leftmark}
 	\else
 		\fancyhead[L]{\zihao{-5}\songti\cqu@thesisname}
 		\fancyhead[R]{\zihao{-5}\songti\leftmark}
@@ -223,7 +232,7 @@
 \newcommand{\cqu@fixhead}{%
 	\if@twosideprint	%仅双页打印需要修正
 		\checkoddpage
-		\ifoddpage
+		\ifoddpage\relax\else
 			\thispagestyle{style@fixhead}
 		\fi
 	\fi
@@ -257,19 +266,16 @@
 }%setlist
 
 % 脚注
-% 用带圈的数字作为脚注，由于字体限制，最多能在单页上处理10个脚注
+% 带圈数字功能，最多处理10个
 \def\@circlenum#1{%
 	\ifnum \value{#1} >10
 		\ClassError{cquthesis}%
-			{In a single page, Footnotes more than 10 are not supported.\MessageBreak%
-				And more than 10 subsubsections in a subsection cannot be handled.}
+			{More than 10 subsubsections in a subsection cannot be handled.}{}
 	\fi
 	\ding{\numexpr171+ \value{#1}}%
 }
 % 注意这里\@circlenum要接受的是counter里的值，所以需要\value{}来处理，如果用数字直接做\@circlenum
 % 的参数，要去掉\value才能编译通过
-\renewcommand{\thefootnote}{\@circlenum{footnote}}
-\renewcommand{\thempfootnote}{\@circlenum{mpfootnote}}
 % 设置分割线、字号和悬挂缩进
 \def\footnoterule{\vskip-3\p@\hrule\@width0.3\textwidth\@height0.4\p@\vskip2.6\p@}
 \let\cqu@footnotesize\footnotesize
@@ -277,7 +283,7 @@
 \footnotemargin1.5em\relax
 % 脚注部分将标注换为正文大小，这个过程是动态的
 \let\cqu@makefnmark\@makefnmark
-\def\cqu@@makefnmark{\hbox{{\normalfont\@thefnmark}}}
+\def\cqu@@makefnmark{\mbox{{\normalfont\@thefnmark}}}
 \pretocmd{\@makefntext}{\let\@makefnmark\cqu@@makefnmark}{}{}
 \apptocmd{\@makefntext}{\let\@makefnmark\cqu@makefnmark}{}{}
 
@@ -499,9 +505,7 @@
 	\phantomsection
 	\pdfbookmark[-1]{\cqu@ctitle}{ctitle}
 	\make@cover@CN
-	\if@onesideprint\cqu@addblankpage\fi
 	\make@cover@EN
-	\if@onesideprint\cqu@addblankpage\fi
 }%makecover
 %% 生成摘要的命令
 \def\makeabstract{%
@@ -528,6 +532,7 @@
 	\cqu@cabstract
 	\vskip12bp
 	\cqu@put@kw{\heiti\cqu@ckw@title\cqu@title@separatorCN}{\cqu@ckeywords}
+	\if@twosideprint\ifcqu@openany\ifcqu@abstractopenright\cqu@addblankpage\fi\fi\fi
 	\chapter[\cqu@eabstract@tocname]{\sffamily\textbf{\cqu@eabstract@name}}
 	\cqu@fixhead
 	\cqu@eabstract
@@ -606,12 +611,10 @@
 	\cftsetindents{chapter}{0em}{1.5em}
 	\cftsetindents{section}{1.9em}{0.9em}
 	\cftsetindents{subsection}{4.0em}{1.5em}
-%	\cftsetindents{subsubsection}{4.5em}{0.9em}
 \else
 	\cftsetindents{chapter}{0em}{1.5em}
 	\cftsetindents{section}{1.5em}{2.2em}
 	\cftsetindents{subsection}{3.7em}{2.9em}
-%	\cftsetindents{subsubsection}{6.6em}{1.5em}
 \fi
 % 公式索引
 \newlistof[chapter]{equations}{equ}{\listofequationsname}
