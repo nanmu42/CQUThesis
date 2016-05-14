@@ -64,7 +64,6 @@
 \end{table}
 
 此外，表~\ref{tab:tabexamp1} 同时还演示了另外两个功能：1）通过 \pkg{tabularx} 的\texttt{|X|} 扩展实现表格自动放大；2）通过命令 \cs{diagbox} 在表头部分插入反斜线。
-\resetrownum
 
 \begin{table}[htbp]
 	\noindent\begin{minipage}{0.5\textwidth}
@@ -74,12 +73,13 @@
 		\begin{tabular}{p{2cm}p{2cm}}
 					\toprule[1.5pt]
 					No. & Name \\\midrule[1pt]
-					\rownum & Fox \\
-					\rownum & Panda \\
-					\rownum & Dog \\
+					\xuhao[1] & Fox \\
+					\xuhao & Panda \\
+					\xuhao & Dog \\
 					\bottomrule[1.5pt]
 		\end{tabular}
 	\end{minipage}%
+	\setxuhao[2]
 	\begin{minipage}{0.5\textwidth}
 		\centering
 		\caption{第二个并排子表格}
@@ -87,9 +87,9 @@
 		\begin{tabular}{p{2cm}p{2cm}}
 			\toprule[1.5pt]
 			No. & Name \\\midrule[1pt]
-			\rownum & Charlie \\
-			\rownum & Jack \\
-			\rownum & Tom \\
+			\xuhao[1] & Charlie \\
+			\xuhao & Jack \\
+			\xuhao & Tom \\
 			\bottomrule[1.5pt]
 		\end{tabular}
 	\end{minipage}
@@ -120,7 +120,7 @@
 
 不可否认 \LaTeX{} 的表格功能没有想象中的那么强大，不过只要足够认真，足够细致，同样可以排出来非常复杂非常漂亮的表格。
 
-\tabref{tab:parallel1}和\tabref{tab:parallel2}展示了\cs{rownum}和\cs{resetrownum}的使用，可以达到序号自动编号的效果。不过要记得在每次使用之前使用\cs{resetrownum}，否则就会像\tabref{tab:parallel2}那样，序号不从1开始。
+\tabref{tab:parallel1}和\tabref{tab:parallel2}展示了\cs{xuhao}和\cs{xuhao}\texttt{[1]}的使用，可以达到自动编号的效果。不过要记得在每次使用之前使用\cs{resetxuhao}，或者\cs{xuhao}\texttt{[1]}。使用\cs{setxuhao}\oarg{1-6}可以更改序号的标记方式，如\tabref{tab:parallel2}所示。详细用法请参阅用户手册。
 
 \begin{longtable}[c]{c*{6}{r}}
 	\caption{实验数据}\label{tab:performance}\\

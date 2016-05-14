@@ -1,6 +1,7 @@
 \ProvidesPackage{cquthesis}[2016/05/09 The place for your beloved packages and customization.]
 
-%=====你可以在这里导入想用的Package，定义你自己的功能和常量=======
+%=====你可以在这里使用\RequirePackage[包选项]{包名称}导入想用的Package=======
+%=====以及定义你自己的功能和常量=======
 \newcommand{\speakyourlove}[1][Mom]{\emph{#1, I Love You!}}
 
 
@@ -22,14 +23,45 @@
 \newcommand{\figref}[1]{图\ref{#1}}
 \newcommand{\tabref}[1]{表\ref{#1}}
 %\eqref{label}已经定义并改写过
-% 表格行数序号计数器，使用\rownum{}作为序号一列的内容
-\newcounter{RowNum}
-\newcommand{\rownum}{
-	\stepcounter{RowNum}
-	\theRowNum
-}
-% 行数计数器清零
-\newcommand{\resetrownum}{\setcounter{RowNum}{0}}
+%% 表格行数序号计数器，使用\xuhao 作为序号一列的内容
+\newcounter{cquXuHao}
+\newcounter{cquXuHaoType}
+\setcounter{cquXuHaoType}{1}
+% 设置序号风格
+\newcommand{\setxuhao}[1][1]{
+	\ifnum #1>6 \ClassError{cquthesis}%
+	{Available choices from 1-6.}{}%
+	\fi
+	\setcounter{cquXuHaoType}{#1}
+}%\setxuhao
+% 根据风格输出序号
+\newcommand{\output@xuhao}{%
+	\ifcase\value{cquXuHaoType}
+		\or	\arabic{cquXuHao}	%1
+		\or	\Alph{cquXuHao}	%2
+		\or	\alph{cquXuHao}	%3
+		\or	\Roman{cquXuHao}	%4
+		\or	\roman{cquXuHao}	%5
+		\or	\ifnum\value{cquXuHao}>9\ClassError{cquthesis}%
+					{Xuhao(rownum) of type-6 must be under 10.}{}%
+				\else\fnsymbol{cquXuHao}
+				\fi	%6
+	\fi
+}%\output@xuhao
+\newcommand{\xuhao}[1][0]{
+	\ifcase #1
+			\stepcounter{cquXuHao}		%0
+			\output@xuhao
+	\or	\resetxuhao\stepcounter{cquXuHao}		%1
+			\output@xuhao
+	\fi
+}%\xuhao
+% 计数器清零
+\newcommand{\resetxuhao}{\setcounter{cquXuHao}{0}}
+% 计数器别名
+\let\rownum\xuhao
+\let\resetrownum\resetxuhao
+\let\setrownum\setxuhao
 %================================
 %**********插件定义区域***********
 %================================
@@ -50,10 +82,12 @@
 \newcommand{\cec}[1]{\cesplit{{\,\ }{\0}}{#1}}
 %si单位支持
 \usepackage{siunitx}
-\sisetup{	list-final-separator	=	{和},
+\sisetup{%
+	list-final-separator	=	{和},
 	list-pair-separator		=	{和},
 	range-phrase			=	{$ \sim $},
-}
+}%\sisetup
+
 % 处理数学公式中的黑斜体的宏包
 % \RequirePackage{bm}
 
