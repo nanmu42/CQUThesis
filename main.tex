@@ -3,7 +3,7 @@
 %%% 使用前请先阅读使用文档和免责声明，内有详细介绍。Happy Texing! :)
 %% =======================================================
 \documentclass%
-	[type=doctor,printmode=twoside,draft]{cquthesis}%
+	[type=bachelor,]{cquthesis}%
 % 可用选项：
 % type=[bachelor|master|doctor],			% 必选，毕业论文类型，以下项目不填时为默认
 %	liberalformat,											% 可选，仅适用本科生，使用文学类论文标题格式，默认未打开
@@ -60,8 +60,9 @@
 %% 致谢
 \include{contents/ack}
 %% 参考文献
+% 顺序编码制：cqunumerical		
 % 注意：至少需要引用一篇参考文献，否则下面两行会引起编译错误。
-\bibliographystyle{cqunumerical.bst}		%另有cquauthoryear供硕士博士生选用
+\bibliographystyle{cqunumerical}
 \bibliography{ref/refs}
 
 

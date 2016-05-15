@@ -1,10 +1,10 @@
 \NeedsTeXFormat{LaTeX2e}[1999/12/01]
-\ProvidesClass{cquthesis}[2016/05/13 0.8.8 Chongqing University Thesis Template]
+\ProvidesClass{cquthesis}[2016/05/15 0.8.9 Chongqing University Thesis Template]
 
 % -----开发用常量------
 \hyphenation{Cqu-Thesis}
 \newcommand{\cquthesis}{\textsc{CquThesis}}
-\def\version{0.8.8}
+\def\version{0.8.9}
 
 % ----- DECLARATION OF OPTIONS ------
 % 使用Key=Value方式进行选项设置，定义前缀和族
@@ -102,7 +102,7 @@
 %定理宏包，兼容模式
 \RequirePackage[amsmath,thmmarks,hyperref]{ntheorem}
 %参考文献引用宏包
-\RequirePackage[square,comma,super,sort&compress]{natbib}
+\RequirePackage[numbers,square,comma,super,sort&compress]{natbib}
 \RequirePackage[hyperfootnotes=false,]{hyperref}
 \RequirePackage{CJKfntef}
 \RequirePackage{pbox}					% 用来优化minipage宽度
@@ -272,7 +272,7 @@
 		\ClassError{cquthesis}%
 			{More than 10 subsubsections in a subsection cannot be handled.}{}
 	\fi
-	\ding{\numexpr171+ \value{#1}}%
+	\ding{\the\numexpr\value{#1}+171\relax}%
 }
 % 注意这里\@circlenum要接受的是counter里的值，所以需要\value{}来处理，如果用数字直接做\@circlenum
 % 的参数，要去掉\value才能编译通过
@@ -687,6 +687,5 @@
 	{\@latex@warning{Empty `thebibliography' environment}}%
 	\endlist \vskip.2in}
 
-%% 设置附录
 
 \AtEndOfClass{\input{cquthesis.cfg}}

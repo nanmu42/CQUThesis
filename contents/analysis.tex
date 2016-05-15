@@ -28,12 +28,10 @@
 		\toprule[1.5pt]
 		{\heiti 文件名} & {\heiti 描述} \\
 		\midrule[1pt]
-		thuthesis.ins & \LaTeX{} 安装文件，\textsc{DocStrip}\footnote{表格中的脚注} \\
-		thuthesis.dtx & 所有的一切都在这里面\footnote{再来一个}。\\
-		thuthesis.cls & 模板类文件。\footnote{第三个}。\\
-		thuthesis.cfg & 模板配置文。cls 和 cfg 由前两个文件生成。\\
-		thuthesis.bst & 参考文献 BIB\TeX\ 样式文件。\\
-		thuthesis.sty & 常用的包和命令写在这里，减轻主文件的负担。\footnote{第四个}\\
+		cquthesis.cls & 模板类文件\footnote{这是一个脚注}\\
+		cquthesis.cfg & 模板配置文件\footnote{这是又一个脚注}\\
+		cqunumberical.bst & 参考文献 BIB\TeX\ 样式文件。\\
+		cquthesis.sty & 常用的包和命令写在这里，减轻主文件的负担。\footnote{同一页上的脚注最多支持到10个}\\
 		\bottomrule[1.5pt]
 		\end{tabularx}
 	\end{minipage}
@@ -185,9 +183,7 @@
 	\bottomrule[1.5pt]
 \end{longtable}
 
-如果你要排版的表格长度超过一页，那么推荐使用 \pkg{longtable} 或者 \pkg{supertabular}
-宏包，模板对 \pkg{longtable} 进行了相应的设置，所以用起来可能简单一些。
-表~\ref{tab:performance} 就是 \pkg{longtable} 的简单示例。
+如果你要排版的表格长度超过一页，那么推荐使用 \pkg{longtable} 或者 \pkg{supertabular}宏包，模板对 \pkg{longtable} 进行了相应的设置，所以用起来可能简单一些。表~\ref{tab:performance} 就是 \pkg{longtable} 的简单示例。
 
 \section{定理环境}
 \label{sec:theorem}
@@ -195,7 +191,7 @@
 给大家演示一下各种和证明有关的环境：
 
 \begin{assumption}
-	待月西厢下，迎风户半开；隔墙花影动，疑是玉人来。
+	假设以下数学方程成立：
 	\begin{eqnarray}
 	\label{eq:eqnxmp}
 	c & = & a^2 - b^2\\
@@ -203,18 +199,18 @@
 	\end{eqnarray}
 \end{assumption}
 
-千辛万苦，历尽艰难，得有今日。然相从数千里，未曾哀戚。今将渡江，方图百年欢笑，如
-何反起悲伤？（引自《杜十娘怒沉百宝箱》）
+\begin{assumption}
+	依然假设以下数学方程成立，注意整个系统是自动编号的：
+	\begin{eqnarray}
+	\label{eq:eqnxmp2}
+	c & = & a^2 - b^2\\
+	& = & (a+b)(a-b)
+	\end{eqnarray}
+\end{assumption}
 
 \begin{definition}
-	子曰：「道千乘之国，敬事而信，节用而爱人，使民以时。」
+	我们定义\ref{eq:eqnxmp}中的方程名称为\cquthesis 。你看，环境里是可以相互引用的。
 \end{definition}
-
-千古第一定义！问世间、情为何物，只教生死相许？天南地北双飞客，老翅几回寒暑。欢乐趣，离别苦，就中更有痴儿女。
-君应有语，渺万里层云，千山暮雪，只影向谁去？
-
-横汾路，寂寞当年箫鼓，荒烟依旧平楚。招魂楚些何嗟及，山鬼暗谛风雨。天也妒，未信与，莺儿燕子俱黄土。
-千秋万古，为留待骚人，狂歌痛饮，来访雁丘处。
 
 \begin{proposition}
 	曾子曰：「吾日三省吾身 —— 为人谋而不忠乎？与朋友交而不信乎？传不习乎？」
@@ -353,7 +349,7 @@
 
 \cquthesis 同时提供正文模式的参考文献引用功能\cs{inlinecite}，适用于以下情况：
 
-文献\inlinecite{r5}表明，文献\inlinecite{r7,r8}所述的情况是有理论依据的。
+文献\inlinecite{r6}表明，文献\inlinecite{r7,r8,r9}所述的情况是有理论依据的。
 
 \section{公式}
 \label{sec:equation}
@@ -422,11 +418,13 @@ p(y|\mathbf{x}) = \frac{p(\mathbf{x},y)}{p(\mathbf{x})}=
 \section{国际单位制(SI Unit)}
 
 \cquthesis 采用\pkg{siunitx}作为国际单位制支持宏包，以下是一些使用例子，这个包的文档写得非常不错，请在命令行里输入\texttt{texdoc siunitx}察看。
+\begin{center}
+	\num{.3e45}\\
+	\num{1.654 x 2.34 x 3.430}\\
+	\si{\kilogram\metre\per\second}\\    
+	\SIlist{0.13;0.67;0.80}{\milli\metre}
+\end{center}
 
-\noindent\num{.3e45}\\
-\num{1.654 x 2.34 x 3.430}\\
-\si{\kilogram\metre\per\second}\\    
-\SIlist{0.13;0.67;0.80}{\milli\metre}
 
 \section{绘图}
 \label{sec:draw}
@@ -474,7 +472,7 @@ p(y|\mathbf{x}) = \frac{p(\mathbf{x},y)}{p(\mathbf{x})}=
 	{\includegraphics[height=3cm]{construction}}%
 	\hspace{4em}%
 	\subcaptionbox{第二个小图形，注意这个图略矮些。如果标题很长的话，它会自动换行\label{fig:subfig2}}
-	{\includegraphics[height=3cm]{recycle}}
+	{\includegraphics[height=2cm]{recycle}}
 	\caption{包含子图形的大图形(subcaptionbox示例)}
 	\label{fig:big1-subcaptionbox}
 \end{figure}
