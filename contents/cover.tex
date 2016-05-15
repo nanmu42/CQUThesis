@@ -1,0 +1,84 @@
+\cqusetup{
+%	************	注意	************
+%	* 1. \cqusetup{}中不能出现全空的行，如果需要全空行请在行首注释
+%	* 2. 不需要的配置信息可以留空、删除或注释（以便程序自动居中）
+%	*
+%	********************************
+% ===================
+%	论文的中英文题目
+% ===================
+  ctitle = {\ce{C60}表面的纳米形貌的可控性转变\\兼论\LaTeX{}在论文排版中的运用},
+  etitle = {To Use \LaTeX{} in the Typeseting of\\Graduating Work for CQU},
+% ===================
+% 作者部分的信息
+% ===================
+  cauthor = 李振楠,	% 你的姓名，以下每项都以英文逗号结束
+  eauthor = Zhennan~Li,	% 姓名拼音，~代表不会断行的空格
+  studentid = 20128888,	% 仅本科生，学号
+  csupervisor = 孙麟~~教授,	% 导师的姓名
+  esupervisor = {Prof.~Lin Sun},	% 导师的姓名拼音
+  cpsupervisor = 丁小明~~工程师, % 仅专硕，兼职导师姓名
+  epsupervisor = Eng.~Xiaoming~Ding,	% 仅专硕，兼职导师姓名拼音
+  cclass = 工学,	% 博士生和学硕填学科门类，学硕填学科类型
+  edgree = {Degree of Master of Enginnering},	% 专硕填Professional Degree，其他按实情填写
+% 提示：如果内容太长，可以用\zihao{}命令控制字号，作用范围：{}内
+  cmajor = {\zihao{-4}材料科学与工程（材料科学专业方向）},	% 专硕不需填，填写专业名称
+  emajor = Material Science And Engineering, % % 专硕不需填，填写专业英文名称
+% ===================
+% 底部的学院名称和日期
+% ===================
+  cdepartment = 材料科学与工程学院,	%学院名称
+  edepartment = College of Material Science And Engineering,	%学院英文名称
+% ===================
+% 封面的日期可以自动生成（注释掉时），也可以解除注释手动指定，例如：二〇一六年五月
+% ===================
+%	mycdate = {中文日期},
+%	myedate = {Date in English},
+% ===================
+% 论文的关键词，使用英文逗号分隔
+% ===================
+  ckeywords = {重庆大学,\LaTeX,\LaTeXe,论文,模板},
+  ekeywords = {bachelor, master, doctor, all support, white space is okay here,doctor, all support, white space is okay here}
+	}% End of \cqusetup
+% ===================
+%
+% 论文的摘要
+%
+% ===================
+\begin{cabstract}	% 中文摘要
+	本文档是\cquthesis{}的示例文档。
+		
+	\cquthesis{}是重庆大学毕业论文的\LaTeX{}模板，支持学士、硕士、博士论文的排版。合理使用本模板可以大大减轻重庆大学毕业生在毕业论文撰写过程中的排版工作量。
+	
+	\cquthesis{}根据重庆大学《重庆大学本科设计（论文）撰写规范化要求（2007年修订版）》和《重庆大学博士、硕士论文撰写格式标准（2007年修订版）》编写，力求合规，简洁，易于实现，用户友好。
+	
+	本模板的特色：
+  \begin{itemize}
+  	\item 支持重庆大学本科（文学、理工）、硕士（学术、专业）、博士的毕业论文格式；
+  	\item 内置封面、目录、索引、授权书等论文部件，可按需自动生成；
+  	\item 自动侦测文档页数，生成相应的单面打印/双面打印PDF文件；
+  	\item 预置大量优化过的宏包和小功能，包含国际标准单位、化学式支持、三线表等，可按需开启。
+  \end{itemize}
+\end{cabstract}
+% 如果习惯关键字跟在摘要文字后面，可以用直接命令来设置，如下：
+% \ckeywords{重庆大学,\LaTeX,\LaTeXe,论文,模板}
+
+\begin{eabstract}	% 英文摘要
+	LaTeX is a document preparation system for high-quality typesetting. It is most often used for medium-to-large technical or scientific documents but it can be used for almost any form of publishing.
+	
+  LaTeX contains features for:
+\begin{enumerate}
+  	\item Typesetting journal articles, technical reports, books, and slide presentations.
+  	\item Control over large documents containing sectioning, cross-references, tables and figures.
+  	\item Typesetting of complex mathematical formulas.
+  	\item Advanced typesetting of mathematics with AMS-LaTeX.
+  	\item Automatic generation of bibliographies and indexes.
+  	\item Multi-lingual typesetting.
+  	\item Inclusion of artwork, and process or spot colour.
+  	\item Using PostScript or Metafont fonts.
+  \end{enumerate}
+  (Quote from \textit{https://latex-project.org/intro.html})  
+\end{eabstract}
+
+% \ekeywords{bachelor, master, doctor, all support, white space is okay here}
+% 封面和摘要配置完成

@@ -1,0 +1,59 @@
+\chapter{绪论}
+\section{欢迎！}
+欢迎来到\cquthesis{}示例文档！
+
+本文档使用\cquthesis{}本身作为模板，即\pkg{cquthesis.cls}, \pkg{cquthesis.sty}和\pkg{cquthesis.cfg}，旨在展现\cquthesis{}的使用方法。请结合\cquthesis{}用户手册和本文档源代码进行学习和操作。
+
+祝你毕设成功，答辩拿优！Happy Texing!
+
+本文档编译时使用的\cquthesis{}版本为\version{}。
+
+\section{关于\LaTeX{}}
+\noindent{\heiti{}提示：}{\kaishu{}下面是一些基本思路和知识，如果你已经对\LaTeX{}比较熟悉，请直接跳转到第\ref{txt:FreqCmd}节。}
+
+
+\subsection{\LaTeX{}小史}
+\LaTeX{}是\TeX{}的改进版本，后者由Knuth（高德纳）在上世纪七十年代研发，包含\TeX{}排版程序和Plain \TeX{}宏集这两部分。Plain \TeX{}可以看做是一种既定语法的编程语言，源代码对应文件后缀为\pkg{.tex}，而\TeX{}程序对源代码进行解析，编译，得到排版结果。上世纪八十年代，\LaTeX{}对Plain \TeX{}的语言体系进行了升级和重构，使得\TeX{}的易用性获得了质的提升。
+
+\TeX{}有着很多分支，比如\LaTeX{}, \LuaTeX{}和\XeTeX{}。每个分支的产生都是为了解决不同的问题。其中，\XeTeX{}提供了对东亚字体（中日韩）的原生支持。
+
+
+\subsection{\LaTeX{}背后的思路}
+
+\LaTeX{}的思路也许你已经有所耳闻，即{\heiti{}内容和样式分离。}它有些像HTML编辑器，遵循\textsf{WYTIWYG}原则\footnote{What you think is what you get. 所想即所得。}。这也是它和Word这一类遵循\qthis{所见即所得}\footnote{\textsf{WYSIWYG} -- What you see is what you get.}原则的文档编辑器的最大不同。
+
+在你使用\LaTeX{}写作的时候，大部分时间你只需要关心内容本身，而\LaTeX{}就像你的编辑，按照样式要求（模板和宏包）为你排版。
+
+
+\section{\cquthesis{}背后的思路}
+
+\cquthesis{}秉承\LaTeX{}的思路，旨在为你解决论文内容以外的大部分问题。
+
+出于性能和管理方面的考虑，\cquthesis{}使用分布式的源文件方案，将论文的各个部分（通常以章为单位）分散到tex文件中，然后在主文档\pkg{main.tex}中统一处理。\figref{fig:filetree}展示了一个可能的文件目录情况。
+\begin{figure}[htb]
+	\dirtree{%
+		.1 \myfolder{pink}{工作文件夹}.
+		.2 \myfolder{cyan}{\pkg{cquthesis.cls}}.
+		.2 \myfolder{cyan}{\pkg{cquthesis.cfg}}.
+		.2 \myfolder{cyan}{\pkg{cquthesis.sty}}.
+		.2 \myfolder{cyan}{main.tex}.
+		.2 \myfolder{cyan}{contents}.
+		.3 \myfolder{lime}{introduction.tex}.
+		.3 \myfolder{lime}{experiment.tex}.
+		.3 \myfolder{lime}{analysis.tex}.
+		.3 \myfolder{lime}{conclusion.tex}.
+		.2 \myfolder{cyan}{figures}.
+		.3 \myfolder{lime}{myCat.png}.
+		.3 \myfolder{lime}{dogEatsSandwiches.jpg}.
+		.2 \myfolder{cyan}{ref}.
+		.3 \myfolder{lime}{refs.bib}.
+	}%\dirtree
+\caption[\cquthesis{}文件结构图示]{\cquthesis{}文件结构图示，出于测试的原因，这个标题被故意填充得很长，这里，你可以看到插图索引中是如何处理这个问题的。}
+\label{fig:filetree}
+\end{figure}
+
+
+
+
+
+
