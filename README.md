@@ -1,7 +1,7 @@
 # 嗨，这里是CQUThesis！
 CQUThesis表示的是**C**hong**Q**ing **U**niversity **Thesis**.
 
-这里是重庆大学毕业论文的\LaTeX{}模板，支持学士、硕士、博士论文的排版。合理使用本模板可以大大减轻重庆大学毕业生在毕业论文撰写过程中的排版工作量。
+这里是重庆大学毕业论文的`\LaTeX{}`模板，支持学士、硕士、博士论文的排版。合理使用本模板可以大大减轻重庆大学毕业生在毕业论文撰写过程中的排版工作量。
 	
 CQUThesis根据重庆大学《重庆大学本科设计（论文）撰写规范化要求（2007年修订版）》和《重庆大学博士、硕士论文撰写格式标准（2007年修订版）》编写，力求合规，简洁，易于实现，用户友好。
 
@@ -26,7 +26,7 @@ CQUThesis根据重庆大学《重庆大学本科设计（论文）撰写规范�
 将这些文件按文件结构安排至根目录中即可开始工作。
 
 ## 更新
-请从GIthub下载zip文档后解压替换`cquthesis.cls`, `cquthesis.cfg`, `cquthesis.sty`以及`cqunumberical.bst`。
+需要更新时，请从GIthub下载zip文档后解压替换`cquthesis.cls`, `cquthesis.cfg`, `cquthesis.sty`以及`cqunumberical.bst`。
 
 # 文档
 * 示例文档	请编译`main.tex`获得
