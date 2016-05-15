@@ -22,7 +22,7 @@ CQUThesis根据重庆大学《重庆大学本科设计（论文）撰写规范�
 必要文件列举如下：
 * 模板文件：`cquthesis.cls`, `cquthesis.cfg`, `cquthesis.sty`以及`cqunumberical.bst`，位于根目录；
 * 内容文件夹：`contents`, `figures`, `ref`（推荐），都位于根目录；
-* 'contents'内的必要文件：`ack.tex`, `appendix.tex`, `cover.tex`, `denotation.tex`
+* `contents`内的必要文件：`ack.tex`, `appendix.tex`, `cover.tex`, `denotation.tex`
 将这些文件按文件结构安排至根目录中即可开始工作。
 
 ## 更新
