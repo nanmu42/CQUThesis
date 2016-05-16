@@ -166,6 +166,8 @@
 					 section/number		 = \Alph{section},
 					 section/name		 = {,.},
 					 subsection/number = \CTEXthesection{}\arabic{subsection},}
+	% Change on 2016/05/16 致谢的页眉不再编号
+	\setcounter{chapter}{0}	
 }
 
 % 定义页面，页眉页脚，先建立页面环境，完成分页再决定单双面打印
@@ -625,7 +627,9 @@
 % 正确输出页眉页脚
 \tocloftpagestyle{style@normal}
 % 目录和索引标题居中，包含fixhead
-\renewcommand{\cfttoctitlefont}{\cqu@fixhead\hfill\heiti\zihao{3}}
+% 把目录加到书签中 Change 2016/05/16
+\renewcommand{\cfttoctitlefont}{%
+	\phantomsection\pdfbookmark[0]{\cqu@tocnameinbkmark}{toc}\cqu@fixhead\hfill\heiti\zihao{3}}
 \renewcommand{\cftloftitlefont}{\cqu@fixhead\hfill\heiti\zihao{3}}
 \renewcommand{\cftlottitlefont}{\cqu@fixhead\hfill\heiti\zihao{3}}
 \renewcommand{\cftequtitlefont}{\cqu@fixhead\hfill\heiti\zihao{3}}
@@ -638,6 +642,7 @@
 	\renewcommand{\@cfttocstart}{\clearpage}
 	\renewcommand{\@cfttocfinish}{\clearpage}
 \fi
+
 % TODO:这个命令暂时没用上，还待观察
 %% 定义自己的章节命令\chapterstar，不编号，有目录有页眉
 \newcommand{\chapterstar}[1]{%
