@@ -1,6 +1,4 @@
-auto
-node_modules
-dist
+DEV
 .DS_Store
 *~
 *.aux
@@ -27,19 +25,10 @@ dist
 *.fls
 *.htm
 *.html
-main.pdf
 .Rproj.user
 cquthesis.Rproj
-todo.md~
 .Rhistory
 *.gz(busy)
-Dev
 *.gz
-quicktest.pdf
-quicktest.tex
-contents/acktest.pdf
-*.equ
-*.equ
-*.png
 *.pdf
 *.equ

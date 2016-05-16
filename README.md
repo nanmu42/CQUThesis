@@ -22,8 +22,8 @@ CQUThesis根据重庆大学《重庆大学本科设计（论文）撰写规范�
 必要文件列举如下：
 * 模板文件：`cquthesis.cls`, `cquthesis.cfg`, `cquthesis.sty`以及`cqunumberical.bst`，位于根目录；
 * 内容文件夹：`contents`, `figures`, `ref`（推荐），都位于根目录；
-* `contents`内的必要文件：`ack.tex`, `appendix.tex`, `cover.tex`, `denotation.tex`
-将这些文件按文件结构安排至根目录中即可开始工作。
+* `contents`内的必要文件：`ack.tex`, `appendix.tex`, `cover.tex`, `denotation.tex`，将这些文件按文件结构安排至根目录中；
+* 最后请将`main.tex`置于根目录，工作即可开始。
 
 ## 更新
 需要更新时，请从GIthub下载zip文档后解压替换`cquthesis.cls`, `cquthesis.cfg`, `cquthesis.sty`以及`cqunumberical.bst`。
@@ -39,7 +39,7 @@ CQUThesis根据重庆大学《重庆大学本科设计（论文）撰写规范�
 # 用户协议
 1. 本模板按照LaTeX Project Public License发布，协议版本号为1.2或以后的任何版本（随你意）；
 1. 重庆大学教务处和研究生院只提供毕业论文写作指南，不提供官方模板，也不会授权或认证第三方模板为官方模板。
-这个模板是按照写作指南的参考实现，作者自当尽力，但不保证审查老师不提意见。任何由于本模板而引起的论文格式审查问题与本模板作者无关。
+这个模板是按照写作指南的参考实现，模板作者自当尽力，但不保证审查老师不提意见。任何由于本模板而引起的论文格式审查问题与本模板作者无关。
 
 # About CQUThesis
 CQUThesis stands for Chongqing University Thesis Template for LaTeX, bearing the ability to support bachelor,
