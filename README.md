@@ -13,8 +13,10 @@ CQUThesis根据重庆大学《重庆大学本科设计（论文）撰写规范�
 
 # 获取CQUThesis
 ## 下载
-* 发行版		正在上线
-* 开发版		[Github](https://github.com/nanmu42/CQUThesis)
+版本	|	下载地址
+---	|	---
+发行版	|	*正在上线*
+开发版	|	[点我下载](https://github.com/nanmu42/cquthesis/zipball/master)
 
 ## 部署
 请编译`main.tex`获得示例文档，其中`图1.1`为CQUThesis文件结构，请创建一个新的文件夹作为根目录。
