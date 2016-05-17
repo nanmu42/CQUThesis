@@ -47,7 +47,7 @@ CQUThesis根据重庆大学《重庆大学本科设计（论文）撰写规范�
 CQUThesis stands for Chongqing University Thesis Template for LaTeX, bearing the ability to support bachelor,
 master, doctor dissertations.
 
-# 致谢/Acknowledgements
+# 致谢 / Acknowledgements
 这个模板是站在巨人肩膀上的成果，感谢LaTeX 2e计划，感谢[CTeX社区](https://github.com/CTeX-org/ctex-kit)提供的中文解决方案，感谢薛瑞尼副教授的[先驱之作](https://github.com/xueruini/thuthesis)，感谢[中国科学技术大学TeX用户组](https://github.com/ustctug/gbt-7714-20155)。向你们致以真诚的问候和感激！
 
 世界因你们更美好。
