@@ -1,0 +1,139 @@
+% \iffalse meta-comment
+% !TEX program  = pdfLaTeX
+%<*internal>
+\iffalse
+%</internal>
+%<*readme>
+----------------------------------------------------------------
+demopkg --- description text
+E-mail: you@your.domain
+Released under the LaTeX Project Public License v1.3c or later
+See http://www.latex-project.org/lppl.txt
+----------------------------------------------------------------
+
+Some text about the package: probably the same as the abstract.
+%</readme>
+%<*internal>
+\fi
+\def\nameofplainTeX{plain}
+\ifx\fmtname\nameofplainTeX\else
+  \expandafter\begingroup
+\fi
+%</internal>
+%<*install>
+\input docstrip.tex
+\keepsilent
+\askforoverwritefalse
+\preamble
+----------------------------------------------------------------
+demopkg --- description text
+E-mail: you@your.domain
+Released under the LaTeX Project Public License v1.3c or later
+See http://www.latex-project.org/lppl.txt
+----------------------------------------------------------------
+
+\endpreamble
+\postamble
+
+Copyright (C) 2009 by You <you@your.domain>
+
+This work may be distributed and/or modified under the
+conditions of the LaTeX Project Public License (LPPL), either
+version 1.3c of this license or (at your option) any later
+version.  The latest version of this license is in the file:
+
+http://www.latex-project.org/lppl.txt
+
+This work is "maintained" (as per LPPL maintenance status) by
+You.
+
+This work consists of the file  demopkg.dtx
+and the derived files           demopkg.ins,
+                                demopkg.pdf and
+                                demopkg.sty.
+
+\endpostamble
+\usedir{tex/latex/demopkg}
+\generate{
+  \file{\jobname.sty}{\from{\jobname.dtx}{package}}
+}
+%</install>
+%<install>\endbatchfile
+%<*internal>
+\usedir{source/latex/demopkg}
+\generate{
+  \file{\jobname.ins}{\from{\jobname.dtx}{install}}
+}
+\nopreamble\nopostamble
+\usedir{doc/latex/demopkg}
+\generate{
+  \file{README.txt}{\from{\jobname.dtx}{readme}}
+}
+\ifx\fmtname\nameofplainTeX
+  \expandafter\endbatchfile
+\else
+  \expandafter\endgroup
+\fi
+%</internal>
+%<*package>
+\NeedsTeXFormat{LaTeX2e}
+\ProvidesPackage{demopkg}[2009/10/06 v1.0 description text]
+%</package>
+%<*driver>
+\documentclass{ltxdoc}
+\usepackage[T1]{fontenc}
+\usepackage{lmodern}
+\usepackage{\jobname}
+\usepackage[numbered]{hypdoc}
+\EnableCrossrefs
+\CodelineIndex
+\RecordChanges
+\begin{document}
+  \DocInput{\jobname.dtx}
+\end{document}
+%</driver>
+% \fi
+% 
+%\GetFileInfo{\jobname.sty}
+%
+%\title{^^A
+%  \textsf{demopkg} --- description text\thanks{^^A
+%    This file describes version \fileversion, last revised \filedate.^^A
+%  }^^A
+%}
+%\author{^^A
+%  You\thanks{E-mail: you@your.domain}^^A
+%}
+%\date{Released \filedate}
+%
+%\maketitle
+%
+%\changes{v1.0}{2009/10/06}{First public release}
+%
+%\DescribeMacro{\examplemacro}
+% Some text about an example macro called \cs{examplemacro}, which
+% might have an optional argument \oarg{arg1} and mandatory one
+% \marg{arg2}. 
+%
+%\StopEventually{^^A
+%  \PrintChanges
+%  \PrintIndex
+%}
+%
+%    \begin{macrocode}
+%<*package>
+%    \end{macrocode}
+%    
+%\begin{macro}{\examplemacro}
+%\changes{v1.0}{2009/10/06}{Some change from the previous version}
+%    \begin{macrocode}
+\newcommand*\examplemacro[2][]{%
+  Some code here, probably
+}
+%    \end{macrocode}
+%\end{macro} 
+%
+%    \begin{macrocode}
+%</package>
+%    \end{macrocode}
+%\Finale
