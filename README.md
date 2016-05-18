@@ -11,6 +11,8 @@ CQUThesis根据重庆大学《重庆大学本科设计（论文）撰写规范�
 * 自动侦测文档页数，生成相应的单面打印/双面打印PDF文件；
 * 预置一批按毕业论文环境优化过的宏包和小功能，包含国际标准单位、化学式支持、三线表等，可按需开启。
 
+![CQUThesis-Poster](https://cloud.githubusercontent.com/assets/8143068/15363773/68c6b380-1d4c-11e6-9627-4d892facb333.png)
+
 # 获取CQUThesis
 ## 下载
 版本	|	下载地址
