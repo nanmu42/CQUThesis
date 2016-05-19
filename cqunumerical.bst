@@ -1,23 +1,32 @@
-%% CQUThesis Project(Github)
-%% All copyrights go to their holder.
-%% Use under the conditions of the LaTeX Project Public License.
-%% Many thanks to Zeping Lee.
 %%
-%% This is file `ustcnumerical.bst', derived from `unsrtnat.bst',
-%% for use with the `natbib.sty' package by Patrick W Daly.
+%% This is file `cqunumerical.bst',
+%% generated with the docstrip utility.
 %%
-%% Copyright (C) 2015-2016 by Zeping Lee <zepinglee AT gmail.com>
+%% The original source files were:
 %%
+%% cquthesis.dtx  (with options: `bst')
+%% 
+%% This is a generated file.
+%% 
+%% Copyright (C) 2016-2016 by Zhennan Li <i@nanmu.me>
 %% This file may be distributed and/or modified under the
 %% conditions of the LaTeX Project Public License, either
-%% version 1.2 of this license or (at your option) any later
+%% version 1.3 of this license or (at your option) any later
 %% version. The latest version of this license is in:
-%%
-%%     http://www.latex-project.org/lppl.txt
-%%
-%% and version 1.2 or later is part of all distributions of
-%% LaTeX version 1999/12/01 or later.
-%%
+%% 
+%% http://www.latex-project.org/lppl.txt
+%% 
+%% and version 1.3 or later is part of all distributions of
+%% LaTeX version 2005/12/01 or later.
+%% 
+%% This is the .bst file of the cquthesis package with LaTeX2e.
+%% 
+%% This file contains code from USTC TeX User Group:
+%% 
+%% https://github.com/ustctug/gbt-7714-20155
+%% 
+%% The author would like to acknowledge the contributors for their efforts and, essentially, beautiful mind.
+%% 
 ENTRY
   { address
     author
@@ -1745,3 +1754,6 @@ FUNCTION {end.bib}
 }
 
 EXECUTE {end.bib}
+
+%%
+%% End of file `cqunumerical.bst'.
