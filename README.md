@@ -16,7 +16,7 @@ CQUThesis根据重庆大学《重庆大学本科设计（论文）撰写规范�
 # 获取CQUThesis
 ## 下载
 版本	|	下载地址	|	描述
----	|	---
+---	|	---		|	---
 发行版	|	*正在上线*	|	敬请期待
 开发版	|[点我下载](https://github.com/nanmu42/cquthesis/zipball/master)	|	最新的功能，最快的BugFix
 用户文档|[点我下载](https://github.com/nanmu42/CQUThesis/files/273864/cquthesis.pdf)	|	阐述模板使用方法和代码实现，推荐参考
