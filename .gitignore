@@ -32,3 +32,5 @@ cquthesis.Rproj
 *.gz
 *.pdf
 *.equ
+*.bat
+dtx-style.sty

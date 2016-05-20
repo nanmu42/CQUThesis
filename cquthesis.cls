@@ -161,7 +161,7 @@ subsection/number = \CTEXthesection{}\arabic{subsection},}%
 a4paper, ignoreall, nomarginpar,
 inner=25mm, outer=25mm, top=30mm, bottom=25mm,
 bindingoffset=10mm, head=16mm, headsep=5mm, foot=15mm, footnotesep=5mm}
-\usepackage{totcount}
+\RequirePackage{totcount}
 \regtotcounter[auxfile=maxpage.aux]{page}
 \if@autoprint
 \ifcqu@bachelor

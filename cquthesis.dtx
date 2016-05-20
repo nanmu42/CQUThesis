@@ -77,11 +77,11 @@
 % \changes{v0.8.1}{2016/05/12}{重绘了论文封面，增加了专业硕士选项。}
 % \changes{v0.8.5}{2016/05/13}{完成了示例文件。}
 % \changes{v0.8.7}{2016/05/14}{上线前最后一批修正。}
-% \changes{v0.8.9}{2016/05/15}{模板登陆Gicqub，开始参与2016年重庆大学毕业设计工作。}
+% \changes{v0.8.9}{2016/05/15}{模板登陆Github，开始参与2016年重庆大学毕业设计工作。}
 % \changes{v0.9.4}{2016/05/19}{用户文档撰写完成，CQUThesis提交至CTAN审核。}
 %
-% \def\indexname{索引}
-% \def\glossaryname{修改记录}
+% \def\indexname{代码索引}
+% \def\glossaryname{更新记录}
 % \IndexPrologue{\section{\indexname}}
 % \GlossaryPrologue{\section{\glossaryname}}
 %
@@ -89,19 +89,22 @@
 % \author{{\fangsong 李振楠}\\[5pt]\texttt{i@nanmu.me}}
 % \date{\fileversion\ (\filedate)}
 % \maketitle\thispagestyle{empty}
-%
-%	\vskip2cm
+% \vspace{\stretch{1}}
+% \begin{center}
+%		\includegraphics[height=7cm]{figures/CQUbandage}
+% \end{center}
+%	\vspace{\stretch{2}}
 % \begin{abstract}\noindent
 % \cquthesis{}是重庆大学毕业论文的\LaTeX{}模板，支持学士（文学、理工）、硕士（学术、专业）、博士论文的排版。
 % \end{abstract}
-%
-% \vskip5cm
+% \vspace{\stretch{1}}
 % \def\abstractname{用户协议}
 % \begin{abstract}\noindent
 % \begin{enumerate}
 % \item 本模板按照LaTeX Project Public License发布，协议版本号为1.2或以后的任何版本（随你意）；
 % \item 重庆大学教务处和研究生院只提供毕业论文写作指南，不提供官方模板，也不会授权或认证第三方模板为官方模板。 这个模板是按照写作指南的参考实现，模板作者自当尽力，但不保证审查老师不提意见。任何由于本模板而引起的论文格式审查问题与本模板作者无关。
 % \end{enumerate}
+% \vskip2cm
 % \end{abstract}
 %
 %
@@ -139,9 +142,9 @@
 % 本模板用到的宏包比较多，这些包在常见的\TeX{}发行版中都有，推荐使用\textbf{TexLive}，本模板在Windows和Mac环境下的\textbf{TexLive}发行版中都进行了编译测试。
 %
 % \subsection{获取\cquthesis}
-%  请造访\cquthesis \href{https://github.com/nanmu42/cquthesis}{Github主页}下载最新开发版本。
+%  请造访\cquthesis{ } \href{https://github.com/nanmu42/cquthesis}{Github主页}下载最新开发版本。
 %
-% 除此之外，\cquthesis{}不维护任何其他官方镜像。
+% 除此之外，\cquthesis{}不拥有也不维护任何其他官方镜像。
 %
 %
 % \subsection{模板的组成部分}
@@ -172,7 +175,7 @@
 % \textbf{cquthesis.pdf} & 用户手册（本文档）\\\bottomrule
 % \end{longtable}
 %
-%  \note{\file{cquthesis.cls}和\file{cquthesis.cfg}以及\file{cqunumerical.bst}可以由\file{cquthesis.ins}和\file{cquthesis.dtx} 生成。}
+%  \note{\file{cquthesis.cls}{ }和\file{cquthesis.cfg}{ }以及\file{cqunumerical.bst}{ }可以由\file{cquthesis.ins}{ }和\file{cquthesis.dtx}{ }生成。}
 % 
 % \subsection{安装}
 % \label{sec:install}
@@ -185,14 +188,13 @@
 %	\end{shell}
 %		\item	Linux和Mac用户请在Bash窗口中进行如下操作：
 %
-% \begin{shell}
-%	# 示意：定位到刚刚解压的文件夹	
+% \begin{shell}	
 %	cd cquthesis
 % latex cquthesis.ins
 %	\end{shell}
 %\end{itemize}
 %
-% 安装即可完成。
+% 之后将生成的文件放到\LaTeX{}能够侦测到的地方，安装即可完成。
 %
 % \subsection{升级}
 % \cquthesis 的升级很方便，下载最新的开发版，将zip文件中的\file{cquthesis.dtx} 和\file{cquthesis.ins} 覆盖掉工作文件夹中的相应文件，之后再运行一次\ref{sec:install}节中的命令即可。
@@ -200,11 +202,12 @@
 % \subsection{编译用户手册}
 % 如果您需要编译用户手册，请定位到解压后的文件夹，运行下列命令：
 % \begin{shell}
+%
 %	xelatex cquthesis.dtx
 % makeindex -s gind.ist -o cquthesis.ind cquthesis.idx
 % makeindex -s gglo.ist -o cquthesis.gls cquthesis.glo
 % xelatex cquthesis.dtx
-% xelatex cquthesis.dtx  # 生成说明文档 cquthesis.pdf
+% xelatex cquthesis.dtx
 %	\end{shell}
 %
 % \section{使用说明}
@@ -325,12 +328,10 @@
 % 
 % 效果如下：
 %
-% {\songti 爆竹声中一岁除，春风送暖入屠苏。}
-%
+% {\songti 爆竹声中一岁除，春风送暖入屠苏。}\space
 % {\fangsong 家家乞巧望秋月，穿尽红丝几万条。}
 %
-% {\heiti 黄沙百战穿金甲，不破楼兰终不还。}
-%
+% {\heiti 黄沙百战穿金甲，不破楼兰终不还。}\space
 % {\kaishu 君不见走马川行雪海边，平沙莽莽黄入天。}
 %
 % \DescribeMacro{\zihao}
@@ -343,23 +344,23 @@
 % \subsection{封面信息和摘要}
 % \label{sec:titlepage}
 % \subsubsection{设置方法}
-% 封面信息提供两种配置方法：一是通过统一设置命令\cs{thusetup} 通过\emph{key=value}形式完成；二是每个信息利用命令独立设置，其中命令的名字跟 \emph{key} 相同。两种方式可以交叉使用，并按顺序执行（即对同一项，后来的设置会覆盖前面的）。以 \texttt{c} 开头的命令跟中文相关，\texttt{e} 开头则为对应的英文。
+% 封面信息提供两种配置方法：一是通过统一设置命令\cs{cqusetup} 通过\emph{key=value}形式完成；二是每个信息利用命令独立设置，其中命令的名字跟 \emph{key} 相同。两种方式可以交叉使用，并按顺序执行（即对同一项，后来的设置会覆盖前面的）。以 \texttt{c} 开头的命令跟中文相关，\texttt{e} 开头则为对应的英文。
 %
-% \DescribeMacro{\thusetup}
-% \cs{thusetup} 用法与常见 \emph{key=value}命令相同，如下：
+% \DescribeMacro{\cqusetup}
+% \cs{cqusetup} 用法与常见 \emph{key=value}命令相同，如下：
 % \begin{latex}
-% \thusetup{
+% \cqusetup{
 %   key1 = value1,
 %   key2 = {a value, with comma},
 % }
 % % 可以多次调用
-% \thusetup{
+% \cqusetup{
 %   key3 = value3,
 %   key1 = anothervalue, % 覆盖 value1
 % }
 % \end{latex}
 %
-% \note{\cs{thusetup} 使用 \pkg{kvoptions} 机制，所以配置项之间不能有空行，否则会报错。}
+% \note{\cs{cqusetup} 使用 \pkg{kvoptions} 机制，所以配置项之间不能有空行，否则会报错。}
 %
 % 大多数命令的使用方法都是： \cs{command}\marg{arg}，例外者将具体指出。这些命令都在示例文档的 \file{contents/cover.tex} 中。
 %
@@ -421,7 +422,7 @@
 % 要求的关键词格式。
 %
 % \begin{latex}
-% \thusetup{
+% \cqusetup{
 %   ckeywords={关键词 1, 关键词 2},
 %   ekeywords={keyword 1, keyword 2}
 % }
@@ -459,7 +460,7 @@
 %	\DescribeMacro{\makeabstract}
 % 生成中英文摘要。
 %
-% \subsection{目录和索引表}
+% \subsubsection{目录和索引表}
 % 目录、插图、表格和公式等索引命令分别如下，将其插入到期望的位置即可：
 %
 % \DescribeMacro{\tableofcontents}
@@ -604,7 +605,7 @@
 % \subsection{其他说明}
 %	本文档的最后一节有宏索引，对中阶及以上用户或许会有帮助。
 % 
-% \subsection{提问和新功能需求}
+% \subsection{提问和新功能需求}\label{sec:howtoask}
 %	遇到难以解决的问题了？欢迎您向我反馈，您可以：
 % \begin{itemize}
 %	\item 在Github上\href{https://github.com/nanmu42/cquthesis/issues}{提交Issue};
@@ -620,7 +621,7 @@
 % \StopEventually{\PrintChanges\PrintIndex}
 % \clearpage
 % \section{实现细节}
-% 下面这些内容面向\LaTeX 宏包开发者或者对\cquthesis 开发感兴趣的用户，如果您有任何意见或建议或想法，都欢迎\href{https://github.com/nanmu42/cquthesis/issues}{到Github提交Issue}。您对模板开发或者本文档的撰写的任何贡献都会受到诚挚欢迎！
+% 下面这些内容面向\LaTeX 宏包开发者或者对\cquthesis 开发感兴趣的用户，如果您有任何意见或建议或想法，都欢迎到Github\href{https://github.com/nanmu42/cquthesis/issues}{提交Issue}。您对模板开发或者本文档的撰写的任何贡献都会受到诚挚欢迎！
 % \subsection{模板信息}
 %    \begin{macrocode}
 %<cls>\NeedsTeXFormat{LaTeX2e}[1999/12/01]
@@ -628,7 +629,6 @@
 %<cfg>\ProvidesFile{cquthesis.cfg}
 %<cls|cfg>[2016/05/19 v0.9.4 Chongqing University Thesis Template]
 %    \end{macrocode}
-%
 % 定义一些开发常量：
 %    \begin{macrocode}
 %<*cls>
@@ -637,7 +637,6 @@
 \def\version{0.8.9}
 %</cls>
 %    \end{macrocode}
-%
 % \file{cquthesis.cfg}有一些难以分类的常量：
 % \changes{v0.9.0}{2016/05/16}{把目录加入到了PDF书签中。}
 %    \begin{macrocode}
@@ -660,7 +659,6 @@
 	prefix=cqu@,
 	setkeys=\kvsetkeys}
 %    \end{macrocode}
-%
 % 定义用户类型
 %    \begin{macrocode}
 \newif\ifcqu@bachelor
@@ -670,29 +668,24 @@
 \define@key{cqu}{type}{%
 	\expandafter\csname cqu@#1true\endcsname}
 %    \end{macrocode}
-%
 % 定义是否使用本科文学类论文标题格式
 %    \begin{macrocode}
 \DeclareBoolOption{liberalformat}
 %    \end{macrocode}
-%
 % 专业硕士标记
 %    \begin{macrocode}
 \DeclareBoolOption[true]{academic}
 \DeclareComplementaryOption{proffesionalmaster}{academic}
 %    \end{macrocode}
-%
 % 每个章首页是否右开
 %    \begin{macrocode}
 \DeclareBoolOption[true]{openany}
 \DeclareComplementaryOption{openright}{openany}
 %    \end{macrocode}
-%
 % 双页模式下英文摘要页右开
 %    \begin{macrocode}
 \DeclareBoolOption[false]{abstractopenright}
 %    \end{macrocode}
-%
 % 论文是单面打印还是双面打印（默认：自动，手动模式一般不用）
 %    \begin{macrocode}
 \newif\if@onesideprint
@@ -702,29 +695,24 @@
 \define@key{cqu}{printmode}{%
 	\expandafter\csname @#1printtrue\endcsname}
 %    \end{macrocode}
-%
 % 论文是否保密（默认：关），尚未支持，在计划中
 %    \begin{macrocode}
 \DeclareBoolOption{secret}
 %    \end{macrocode}
-%
 %	目录和索引不会自动新开一页，适用于索引内容较少时
 %    \begin{macrocode}
 \DeclareBoolOption{continuoustoc}
 %    \end{macrocode}
-%
 % 传递选项给CTeXBook
 %    \begin{macrocode}
 \DeclareDefaultOption{\PassOptionsToClass{\CurrentOption}{ctexbook}}
 %    \end{macrocode}
-%
 % 打开默认选项，处理选项
 %    \begin{macrocode}
 \kvsetkeys{cqu}{}
 \ProcessKeyvalOptions*
 \PassOptionsToPackage{no-math}{fontspec}
 %    \end{macrocode}
-%
 % 为CTeXBook定义选项，使用CTeX原生的的Openright和Openany解决方案：
 %    \begin{macrocode}
 \ifcqu@openany
@@ -733,7 +721,6 @@
 	\LoadClass[openright,a4paper,oneside,UTF8,zihao=-4,scheme=plain,linespread=1.39,space=auto]{ctexbook}
 \fi
 %    \end{macrocode}
-%
 % 用户必须提供用户类型：
 %    \begin{macrocode}
 \ifcqu@bachelor\relax\else
@@ -746,7 +733,6 @@
 	\fi
 \fi
 %    \end{macrocode}
-%
 % 如果没有指定合适的打印方式则缺省使用自动模式
 %    \begin{macrocode}
 \if@autoprint\relax\else
@@ -761,6 +747,7 @@
 \fi
 %    \end{macrocode}
 % \subsection{载入宏包}
+%
 % 使用成熟的宏包而不是自己造轮子几乎总是一个不错的选择，\LaTeX 的强大之处就在这诸多宏包。
 %
 % 这几个宏包用于提升\LaTeXe 的命令定义和命令处理性能
@@ -858,7 +845,7 @@
 %    \end{macrocode}
 % \end{macro}
 % \begin{macro}{\cqu@addblankpage}
-% 用来在单页模式下强制完成空页工作，注意这里的pagestyle调整范围在花括号之内
+% 用来在强制完成空页工作，注意这里的pagestyle调整范围在花括号之内
 %    \begin{macrocode}
 \newcommand\cqu@addblankpage{%
 	\afterpage{%
@@ -915,7 +902,7 @@
 % \subsubsection{单双页打印的自动判定}
 % 重庆大学的单双面打印和论文实际页数有关，此处读取前置部分后的最大页码，自动判断是否需要双面打印。很有趣，本科生70页想要双面打印比硕士生60页还难。此处立flag用来配合\cs{cqu@addblankpage}
 %    \begin{macrocode}
-\usepackage{totcount}
+\RequirePackage{totcount}
 \regtotcounter[auxfile=maxpage.aux]{page}
 \if@autoprint
 	\ifcqu@bachelor
@@ -1827,6 +1814,7 @@ headsep=3mm]{geometry}
 \RequirePackage{enumitem}
 \RequirePackage{etoolbox}
 \RequirePackage{metalogo}
+\RequirePackage{graphicx}
 
 \colorlet{cqu@macro}{blue!60!black}
 \colorlet{cqu@env}{blue!70!black}
