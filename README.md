@@ -17,12 +17,17 @@ CQUThesis根据重庆大学《重庆大学本科设计（论文）撰写规范�
 ## 下载
 版本	|	下载地址	|	描述
 ---	|	---		|	---
-发行版	|	*正在上线*	|	敬请期待
 开发版	|[点我下载](https://github.com/nanmu42/cquthesis/zipball/master)	|	最新的功能，最快的BugFix
-用户文档|[点我下载](https://github.com/nanmu42/CQUThesis/files/273864/cquthesis.pdf)	|	阐述模板使用方法和代码实现，推荐参考
+发行版	|	*正在上线*	|	敬请期待
+
+排版示例和用户文档随版本发布，如果需要单独下载，请参阅后文。
 
 ## 部署
-请编译`main.tex`获得示例文档，其中`图1.1`为CQUThesis文件结构，请创建一个新的文件夹作为根目录。
+为了降低新手使用模板的难度，默认情况下，模板文件`cquthesis.cls`, `cquthesis.cfg`已经先行从`cquthesis.dtx`中提取出来，您无需再执行任何操作。但如果您确实需要（如更新或自己编译用户文档）或者对`cquthesis.dtx`文件感兴趣，您可参阅和本文件同目录的`README-English.md`，内有详情。
+
+请编译`main.tex`获得排版示例，如果您对LaTeX比较熟悉，请直接参照排版示例进行部署。其中`图1.1`为CQUThesis文件结构。下面是一些相对详细的提示。
+
+请创建一个新的文件夹作为根目录。
 
 必要文件列举如下：
 * 模板文件：`cquthesis.cls`, `cquthesis.cfg`, `cquthesis.sty`以及`cqunumberical.bst`，位于根目录；
@@ -35,22 +40,23 @@ CQUThesis根据重庆大学《重庆大学本科设计（论文）撰写规范�
 `latex cquthesis.ins`
 即可完成更新。
 
-# 文档
-* 示例文档	请编译`main.tex`获得
-* 用户文档	[点我下载](https://github.com/nanmu42/CQUThesis/files/273864/cquthesis.pdf)
+#  文档 
+	文档 | 描述
+	--- | ---
+ 排版示例 |	请编译`main.tex`获得
+ 用户文档 |	随模板发布，也可[点我下载](https://github.com/nanmu42/CQUThesis/files/273864/cquthesis.pdf)
 
 # 提问和支持
 * [Github Issues](https://github.com/nanmu42/CQUThesis/issues)
 * 造访重庆大学7117工作室寻求支持
 
 # 用户协议
-1. 本模板按照LaTeX Project Public License发布，协议版本号为1.2或以后的任何版本（随你意）；
+1. 本模板按照[LaTeX Project Public License](https://latex-project.org/lppl/lppl-1-3.txt)发布，协议版本号为1.3或以后的任何版本（随你意）；
 1. 重庆大学教务处和研究生院只提供毕业论文写作指南，不提供官方模板，也不会授权或认证第三方模板为官方模板。
 这个模板是按照写作指南的参考实现，模板作者自当尽力，但不保证审查老师不提意见。任何由于本模板而引起的论文格式审查问题与本模板作者无关。
 
 # About CQUThesis
-CQUThesis stands for Chongqing University Thesis Template for LaTeX, bearing the ability to support bachelor,
-master, doctor dissertations.
+CQUThesis stands for Chongqing University Thesis Template for LaTeX, bearing the ability to support bachelor, master, doctor dissertations.
 
 # 致谢 / Acknowledgements
 这个模板是站在巨人肩膀上的成果，感谢LaTeX 2e计划，感谢[CTeX社区](https://github.com/CTeX-org/ctex-kit)提供的中文解决方案，感谢薛瑞尼副教授的[先驱之作](https://github.com/xueruini/thuthesis)，感谢[中国科学技术大学TeX用户组](https://github.com/ustctug/gbt-7714-20155)。向你们致以真诚的问候和感激！
