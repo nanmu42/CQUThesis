@@ -16,7 +16,7 @@
 %
 % \iffalse
 %<*driver>
-\ProvidesFile{cquthesis.dtx}[2016/05/19 v0.9.4 Chongqing University Thesis Template]
+\ProvidesFile{cquthesis.dtx}[2016/05/25 v0.9.41 Chongqing University Thesis Template]
 \documentclass{ltxdoc}
 \usepackage{dtx-style}
 
@@ -101,7 +101,7 @@
 % \def\abstractname{用户协议}
 % \begin{abstract}\noindent
 % \begin{enumerate}
-% \item 本模板按照LaTeX Project Public License发布，协议版本号为1.2或以后的任何版本（随你意）；
+% \item 本模板按照LaTeX Project Public License发布，协议版本号为1.3或以后的任何版本（随你意）；
 % \item 重庆大学教务处和研究生院只提供毕业论文写作指南，不提供官方模板，也不会授权或认证第三方模板为官方模板。 这个模板是按照写作指南的参考实现，模板作者自当尽力，但不保证审查老师不提意见。任何由于本模板而引起的论文格式审查问题与本模板作者无关。
 % \end{enumerate}
 % \vskip2cm
@@ -627,14 +627,14 @@
 %<cls>\NeedsTeXFormat{LaTeX2e}[1999/12/01]
 %<cls>\ProvidesClass{cquthesis}
 %<cfg>\ProvidesFile{cquthesis.cfg}
-%<cls|cfg>[2016/05/19 v0.9.4 Chongqing University Thesis Template]
+%<cls|cfg>[2016/05/25 v0.9.41 Chongqing University Thesis Template]
 %    \end{macrocode}
 % 定义一些开发常量：
 %    \begin{macrocode}
 %<*cls>
 \hyphenation{Cqu-Thesis}
 \newcommand{\cquthesis}{\textsc{CquThesis}}
-\def\version{0.8.9}
+\def\version{0.9.41}
 %</cls>
 %    \end{macrocode}
 % \file{cquthesis.cfg}有一些难以分类的常量：
@@ -773,10 +773,11 @@
 %    \end{macrocode}
 %
 % 解决各种文档部件需求
+% \changes{v0.9.41}{2016/05/25}{修正了\pkg{tgcursor}使\cs{textbf}失效的Bug，现在起使用\pkg{courier}代替。}
 %    \begin{macrocode}
 \RequirePackage[labelformat=simple]{subcaption}
 \RequirePackage{longtable}
-\RequirePackage{tgcursor}
+\RequirePackage{courier}
 \RequirePackage{graphicx}
 \RequirePackage{pdfpages}
 \RequirePackage[shortlabels,inline]{enumitem}
