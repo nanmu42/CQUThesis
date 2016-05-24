@@ -21,10 +21,10 @@
 %% 
 \NeedsTeXFormat{LaTeX2e}[1999/12/01]
 \ProvidesClass{cquthesis}
-[2016/05/19 v0.9.4 Chongqing University Thesis Template]
+[2016/05/25 v0.9.41 Chongqing University Thesis Template]
 \hyphenation{Cqu-Thesis}
 \newcommand{\cquthesis}{\textsc{CquThesis}}
-\def\version{0.8.9}
+\def\version{0.9.41}
 \RequirePackage{kvoptions}
 \SetupKeyvalOptions{
 family=cqu,
@@ -90,7 +90,7 @@ printmode=[oneside|twoside|auto]}{}
 \RequirePackage{CJKfntef}
 \RequirePackage[labelformat=simple]{subcaption}
 \RequirePackage{longtable}
-\RequirePackage{tgcursor}
+\RequirePackage{courier}
 \RequirePackage{graphicx}
 \RequirePackage{pdfpages}
 \RequirePackage[shortlabels,inline]{enumitem}
