@@ -79,6 +79,8 @@
 % \changes{v0.8.7}{2016/05/14}{上线前最后一批修正。}
 % \changes{v0.8.9}{2016/05/15}{模板登陆Github，开始参与2016年重庆大学毕业设计工作。}
 % \changes{v0.9.4}{2016/05/19}{用户文档撰写完成，CQUThesis提交至CTAN审核。}
+% \changes{v0.9.7}{2016/06/09}{参与了2016年重庆大学毕业设计工作后，模板根据实际测试情况作了一番改进，Beta测试落下帷幕。}
+% \changes{v0.9.7}{2016/06/09}{拆分了\pkg{cquthesis.sty}宏包，将其大部分内容并入\pkg{cquthesis.cls}和\pkg{cquthesis.cfg}。}
 %
 % \def\indexname{代码索引}
 % \def\glossaryname{更新记录}
@@ -761,6 +763,7 @@
 %
 % 数学是\LaTeX 关心的大问题，这里先引入\pkg{amsmath}宏包，避免一些载入顺序引发的问题：
 %    \begin{macrocode}
+\RequirePackage{fontspec}
 \RequirePackage{amsmath}
 %    \end{macrocode}
 %
@@ -772,11 +775,18 @@
 \RequirePackage{CJKfntef}
 %    \end{macrocode}
 %
-% 解决各种文档部件需求
+% 解决各种文档部件需求，如表格、题注、插图等
 % \changes{v0.9.41}{2016/05/25}{修正了\pkg{tgcursor}使\cs{textbf}失效的Bug，现在起使用\pkg{courier}代替。}
 %    \begin{macrocode}
 \RequirePackage[labelformat=simple]{subcaption}
+\RequirePackage{array}
+\RequirePackage{tabularx}
+\RequirePackage{booktabs}
 \RequirePackage{longtable}
+\RequirePackage{multirow}
+\RequirePackage{diagbox}
+\RequirePackage{longtable}
+\RequirePackage{tabu}
 \RequirePackage{courier}
 \RequirePackage{graphicx}
 \RequirePackage{pdfpages}
@@ -784,13 +794,17 @@
 \RequirePackage[amsmath,thmmarks,hyperref]{ntheorem}
 %    \end{macrocode}
 %
-% 解决页面类问题和脚注
+% 解决页面类问题和脚注，其中\pkg{varwidth}用来代替老版本中的\pkg{pbox}。\pkg{xcolor}用来提供色彩支持，\pkg{metalogo}用来提供\cs{XeTeX}等命令支持。
 %    \begin{macrocode}
 \RequirePackage{changepage}
 \RequirePackage{afterpage}
 \RequirePackage[bottom,perpage,hang,symbol*]{footmisc}
 \raggedbottom
 \RequirePackage{pbox}
+\RequirePackage{varwidth}
+\RequirePackage{xcolor}
+\RequirePackage{metalogo}
+\RequirePackage{xspace}
 %    \end{macrocode}
 %
 % 参考文献格式和优化：
@@ -1189,6 +1203,41 @@
 %</cfg>
 %    \end{macrocode}
 %
+% \subsubsection{化学式和国际标准单位}
+% 很棒的化学式和方程支持，补足中文排版中的空格尴尬：
+%    \begin{macrocode}
+%<*cls>
+\RequirePackage[version=4]{mhchem}
+\AtBeginDocument{\pretocmd{\ce}{{ }}{}{}}
+%    \end{macrocode}
+% \begin{macro}{\cec}
+% 在命令里使用逗号快速分隔多个化学式：
+%    \begin{macrocode}
+\newcommand{\cec}[1]{\cesplit{{\,\ }{\0}}{#1}}
+%    \end{macrocode}
+% \end{macro}
+% SI单位支持
+%    \begin{macrocode}
+\RequirePackage{siunitx}
+\RequirePackage{upgreek}
+\ifxetex
+\sisetup{%
+	math-micro = {\upmu},
+	text-micro = {\textmu},
+}%\sisetup
+\fi
+%</cls>
+%    \end{macrocode}
+%<*cfg>
+%    \begin{macrocode}
+\sisetup{%
+	list-final-separator	=	{和},
+	list-pair-separator		=	{和},
+	range-phrase			=	{$ \sim $},
+}%\sisetup
+%    \end{macrocode}
+%</cfg>
+%
 % \subsubsection{浮动对象}
 % 设定浮动对象与文字的间距
 %    \begin{macrocode}
@@ -1222,12 +1271,151 @@
 \renewcommand{\thesubfigure}{(\alph{subfigure})}
 \renewcommand{\thesubtable}{(\alph{subtable})}
 %    \end{macrocode}
+% 调整表格字号，调整每列之间的间距，单元格内垂直居中
+%    \begin{macrocode}
+\AtBeginEnvironment{tabularx}{\begingroup\zihao{5}}
+\AtEndEnvironment{tabularx}{\endgroup}
+\setlength{\tabcolsep}{12pt}
+\renewcommand{\tabularxcolumn}[1]{m{#1}}
+%    \end{macrocode}
+% \begin{macro}{\bigcell}
+%	\begin{macro}{\headcell}
+%	\begin{macro}{\colsep}
+% 在表格中，\cs{bigcell}内的内容可以主动换行；\cs{headcell}用来做表头；\cs{colsep}用来设定列间距，默认值为12pt。
+%    \begin{macrocode}
+\newcommand{\bigcell}[1]{\vspace{6pt}\begin{varwidth}{\linewidth}#1\end{varwidth}\vspace{6pt}}
+\newcommand{\headcell}[1]{\multicolumn{1}{c}{\heiti #1}}
+\newcommand{\colsep}[1][12pt]{\setlength{\tabcolsep}{#1}}
+%    \end{macrocode}
+% \end{macro}
+% \end{macro}
+% \end{macro}
 %
 % longtable方面也需要做设置
 %    \begin{macrocode}
 \let\cqu@LT@array\LT@array
 \def\LT@array{\zihao{5}\cqu@LT@array}
 %    \end{macrocode}
+%
+% \subsubsection{代码环境}
+% 载入\pkg{listings}宏包，定义基础代码环境：
+%    \begin{macrocode}
+\RequirePackage{listings}
+\lstdefinestyle{lstStyleBase}{%
+	basicstyle=\small\ttfamily,
+	aboveskip=\medskipamount,
+	belowskip=\medskipamount,
+	lineskip=0pt,
+	boxpos=c,
+	showlines=false,
+	extendedchars=true,
+	upquote=true,
+	tabsize=2,
+	showtabs=false,
+	showspaces=false,
+	showstringspaces=false,
+	numbers=none,
+	numberstyle=\tiny,
+	linewidth=\linewidth,
+	xleftmargin=4pt,
+	xrightmargin=0pt,
+	resetmargins=false,
+	breaklines=true,
+	breakatwhitespace=false,
+	breakindent=0pt,
+	breakautoindent=true,
+	columns=flexible,
+	keepspaces=true,
+	gobble=2,
+	framesep=3pt,
+	rulesep=1pt,
+	framerule=1pt,
+	backgroundcolor=\color{gray!5},
+	stringstyle=\color{green!40!black!100},
+	keywordstyle=\bfseries\color{blue!50!black},
+	commentstyle=\slshape\color{black!60}}
+\lstdefinestyle{lstStyleCplus}{%
+	style=lstStyleBase,
+	frame=l,
+	rulecolor=\color{blue},
+	language=C++}
+\lstdefinestyle{lstStylePython}{%
+	style=lstStyleBase,
+	frame=l,
+	rulecolor=\color{cyan},
+	language=Python}
+%    \end{macrocode}
+% \begin{environment}{Cplus}
+% \begin{environment}{Python}
+% \cquthesis 内置了两个代码环境，\env{Cplus}和\env{Python}，您可以参照代码在\pkg{cquthesis.sty}中定义自己的环境。
+%    \begin{macrocode}
+\lstnewenvironment{Cplus}{\lstset{style=lstStylePython}}{}
+\lstnewenvironment{Python}{\lstset{style=lstStyleCplus}}{}
+%    \end{macrocode}
+% \end{environment}
+% \end{environment}
+%
+% \subsubsection{自定义计数器}
+% 这个计数器可以在很多环境下使用，例如表格中的序号，文章中行内的编号等等：
+% \begin{macro}{\xuhao}
+% \begin{macro}{\resetxuhao}
+% \begin{macro}{\xuhaotype}
+% \begin{macro}{\xuhaoseparator}
+% \cs{xuhao}会自增并输出内容，\cs{resetxuhao}或者\cs{xuhao}\oarg{1}会将序号置为1，后者会输出，\cs{xuhaotype}用来设定序号风格，\cs{xuhaoseparator}为序号之后的分隔符，可以用\cs{renewcommand}来定义。
+%    \begin{macrocode}
+\newcounter{cquXuHao}
+\newcounter{cquXuHaoType}
+\setcounter{cquXuHaoType}{1}
+\newcommand{\xuhaoseparator}{}
+\newcommand{\xuhaotype}[1][1]{
+	\ifnum #1>6 \ClassError{cquthesis}%
+	{Available choices from 1-6.}{}%
+	\fi
+	\setcounter{cquXuHaoType}{#1}
+}%\xuhaotype
+\newcommand{\output@xuhao}{%
+	\ifcase\value{cquXuHaoType}
+	\or	\arabic{cquXuHao}	%1
+	\or	\Alph{cquXuHao}	%2
+	\or	\alph{cquXuHao}	%3
+	\or	\Roman{cquXuHao}	%4
+	\or	\roman{cquXuHao}	%5
+	\or	\ifnum\value{cquXuHao}>9\ClassError{cquthesis}%
+	{Xuhao(rownum) of type-6 must be under 10.}{}%
+	\else\fnsymbol{cquXuHao}
+	\fi	%6
+	\fi
+}%\output@xuhao
+\newcommand{\xuhao}[1][0]{
+	\ifcase #1
+	\stepcounter{cquXuHao}		%0
+	\output@xuhao\xuhaoseparator\xspace
+	\or	\resetxuhao\stepcounter{cquXuHao}		%1
+	\output@xuhao\xuhaoseparator\xspace
+	\fi
+}%\xuhao
+\newcommand{\resetxuhao}{\setcounter{cquXuHao}{0}}
+%    \end{macrocode}
+% \end{macro}
+% \end{macro}
+% \end{macro}
+% \end{macro}
+% \begin{macro}{\rownum}
+% \begin{macro}{\resetrownum}
+% \begin{macro}{\rownumtype}
+% \begin{macro}{\rownumseparator}
+% 考虑到不同用户的喜好，这里设定一组别名，同时处理\cs{setxuhao}这个兼容性问题。
+%    \begin{macrocode}
+\let\rownum\xuhao
+\let\resetrownum\resetxuhao
+\let\rownumtype\xuhaotype
+\let\setxuhao\xuhaotype
+\let\rownumseparator\xuhaoseparator
+%    \end{macrocode}
+% \end{macro}
+% \end{macro}
+% \end{macro}
+% \end{macro}
 %
 % \subsection{封面绘制}
 % \subsubsection{信息录入}

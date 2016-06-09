@@ -83,13 +83,21 @@ printmode=[oneside|twoside|auto]}{}
 \RequirePackage{environ}
 \RequirePackage{calc}
 \RequirePackage{ifxetex}
+\RequirePackage{fontspec}
 \RequirePackage{amsmath}
 \RequirePackage[defaultsups]{newtxtext}
 \RequirePackage{newtxmath}
 \RequirePackage{pifont}
 \RequirePackage{CJKfntef}
 \RequirePackage[labelformat=simple]{subcaption}
+\RequirePackage{array}
+\RequirePackage{tabularx}
+\RequirePackage{booktabs}
 \RequirePackage{longtable}
+\RequirePackage{multirow}
+\RequirePackage{diagbox}
+\RequirePackage{longtable}
+\RequirePackage{tabu}
 \RequirePackage{courier}
 \RequirePackage{graphicx}
 \RequirePackage{pdfpages}
@@ -100,6 +108,10 @@ printmode=[oneside|twoside|auto]}{}
 \RequirePackage[bottom,perpage,hang,symbol*]{footmisc}
 \raggedbottom
 \RequirePackage{pbox}
+\RequirePackage{varwidth}
+\RequirePackage{xcolor}
+\RequirePackage{metalogo}
+\RequirePackage{xspace}
 \RequirePackage[numbers,square,comma,super,sort&compress]{natbib}
 \RequirePackage[hyperfootnotes=false,]{hyperref}
 \hypersetup{%
@@ -250,6 +262,17 @@ itemjoin = {{；}}
 \renewcommand{\eqref}[1]{\cqueqshortname\textup{(\ref{#1})}}
 \theorembodyfont{\rmfamily\songti}
 \theoremheaderfont{\rmfamily\heiti}
+\RequirePackage[version=4]{mhchem}
+\AtBeginDocument{\pretocmd{\ce}{{ }}{}{}}
+\newcommand{\cec}[1]{\cesplit{{\,\ }{\0}}{#1}}
+\RequirePackage{siunitx}
+\RequirePackage{upgreek}
+\ifxetex
+\sisetup{%
+math-micro = {\upmu},
+text-micro = {\textmu},
+}%\sisetup
+\fi
 \setlength{\floatsep}{20bp \@plus4pt \@minus1pt}
 \setlength{\intextsep}{20bp \@plus4pt \@minus2pt}
 \setlength{\textfloatsep}{20bp \@plus4pt \@minus2pt}
@@ -270,8 +293,98 @@ itemjoin = {{；}}
 \captionsetup[sub]{font=cqu,skip=6bp}
 \renewcommand{\thesubfigure}{(\alph{subfigure})}
 \renewcommand{\thesubtable}{(\alph{subtable})}
+\AtBeginEnvironment{tabularx}{\begingroup\zihao{5}}
+\AtEndEnvironment{tabularx}{\endgroup}
+\setlength{\tabcolsep}{12pt}
+\renewcommand{\tabularxcolumn}[1]{m{#1}}
+\newcommand{\bigcell}[1]{\vspace{6pt}\begin{varwidth}{\linewidth}#1\end{varwidth}\vspace{6pt}}
+\newcommand{\headcell}[1]{\multicolumn{1}{c}{\heiti #1}}
+\newcommand{\colsep}[1][12pt]{\setlength{\tabcolsep}{#1}}
 \let\cqu@LT@array\LT@array
 \def\LT@array{\zihao{5}\cqu@LT@array}
+\RequirePackage{listings}
+\lstdefinestyle{lstStyleBase}{%
+basicstyle=\small\ttfamily,
+aboveskip=\medskipamount,
+belowskip=\medskipamount,
+lineskip=0pt,
+boxpos=c,
+showlines=false,
+extendedchars=true,
+upquote=true,
+tabsize=2,
+showtabs=false,
+showspaces=false,
+showstringspaces=false,
+numbers=none,
+numberstyle=\tiny,
+linewidth=\linewidth,
+xleftmargin=4pt,
+xrightmargin=0pt,
+resetmargins=false,
+breaklines=true,
+breakatwhitespace=false,
+breakindent=0pt,
+breakautoindent=true,
+columns=flexible,
+keepspaces=true,
+gobble=2,
+framesep=3pt,
+rulesep=1pt,
+framerule=1pt,
+backgroundcolor=\color{gray!5},
+stringstyle=\color{green!40!black!100},
+keywordstyle=\bfseries\color{blue!50!black},
+commentstyle=\slshape\color{black!60}}
+\lstdefinestyle{lstStyleCplus}{%
+style=lstStyleBase,
+frame=l,
+rulecolor=\color{blue},
+language=C++}
+\lstdefinestyle{lstStylePython}{%
+style=lstStyleBase,
+frame=l,
+rulecolor=\color{cyan},
+language=Python}
+\lstnewenvironment{Cplus}{\lstset{style=lstStylePython}}{}
+\lstnewenvironment{Python}{\lstset{style=lstStyleCplus}}{}
+\newcounter{cquXuHao}
+\newcounter{cquXuHaoType}
+\setcounter{cquXuHaoType}{1}
+\newcommand{\xuhaoseparator}{}
+\newcommand{\xuhaotype}[1][1]{
+\ifnum #1>6 \ClassError{cquthesis}%
+{Available choices from 1-6.}{}%
+\fi
+\setcounter{cquXuHaoType}{#1}
+}%\xuhaotype
+\newcommand{\output@xuhao}{%
+\ifcase\value{cquXuHaoType}
+\or \arabic{cquXuHao} %1
+\or \Alph{cquXuHao} %2
+\or \alph{cquXuHao} %3
+\or \Roman{cquXuHao} %4
+\or \roman{cquXuHao} %5
+\or \ifnum\value{cquXuHao}>9\ClassError{cquthesis}%
+{Xuhao(rownum) of type-6 must be under 10.}{}%
+\else\fnsymbol{cquXuHao}
+\fi %6
+\fi
+}%\output@xuhao
+\newcommand{\xuhao}[1][0]{
+\ifcase #1
+\stepcounter{cquXuHao} %0
+\output@xuhao\xuhaoseparator\xspace
+\or \resetxuhao\stepcounter{cquXuHao} %1
+\output@xuhao\xuhaoseparator\xspace
+\fi
+}%\xuhao
+\newcommand{\resetxuhao}{\setcounter{cquXuHao}{0}}
+\let\rownum\xuhao
+\let\resetrownum\resetxuhao
+\let\rownumtype\xuhaotype
+\let\setxuhao\xuhaotype
+\let\rownumseparator\xuhaoseparator
 \def\cqu@def@term #1{%
 \define@key{cqu}{#1}{\csname #1\endcsname{##1}}
 \expandafter\gdef\csname #1\endcsname##1{%

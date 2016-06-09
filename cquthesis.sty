@@ -1,16 +1,20 @@
-\ProvidesPackage{cquthesis}[2016/05/15 The place for your beloved packages and customization.]
+\ProvidesPackage{cquthesis}[2016/06/09 The place for your beloved packages and customization.]
 
 %=====你可以在这里使用\RequirePackage[包选项]{包名称}导入想用的Package=======
 %=====以及定义你自己的功能和常量=======
-\newcommand{\speakyourlove}[1][Mom]{\emph{#1, I Love You!}}
+\newcommand{\speakyourlove}[1][Mom]{\emph{#1, I Love You!}} 
+\newcommand{\tio}{\ce{TiO2}\xspace}
+\newcommand{\tion}{\ce{TiO2}{ }纳米管}
+\newcommand{\nhf}{\ce{NH4F}\xspace}
+
+% 这两个个宏包仅供参考，未必使用：
+% \RequirePackage{floatflt} % 图文混排用宏包
+% \RequirePackage{rotating} % 图形和表格的控制旋转
 
 
 
-
-
-
-
-
+\RequirePackage{miller}
+\pretocmd{\hkl}{{ }}{}{}
 
 
 
@@ -18,92 +22,15 @@
 
 %========一些推荐功能=========
 % 用中文双引号括起文字
-\newcommand{\qthis}[1]{\textquotedblleft{}#1\textquotedblright{}}
-%交叉引用图X、表X、方程X：
+\newcommand{\qthis}[1]{{“}#1{”}}
+%交叉引用图X、表X、方程X（此处为向前兼容，强烈推荐使用\autoref{label}）
 \newcommand{\figref}[1]{图\ref{#1}}
 \newcommand{\tabref}[1]{表\ref{#1}}
-%\eqref{label}已经定义并改写过
-%% 表格行数序号计数器，使用\xuhao 作为序号一列的内容
-\newcounter{cquXuHao}
-\newcounter{cquXuHaoType}
-\setcounter{cquXuHaoType}{1}
-% 设置序号风格
-\newcommand{\setxuhao}[1][1]{
-	\ifnum #1>6 \ClassError{cquthesis}%
-	{Available choices from 1-6.}{}%
-	\fi
-	\setcounter{cquXuHaoType}{#1}
-}%\setxuhao
-% 根据风格输出序号
-\newcommand{\output@xuhao}{%
-	\ifcase\value{cquXuHaoType}
-		\or	\arabic{cquXuHao}	%1
-		\or	\Alph{cquXuHao}	%2
-		\or	\alph{cquXuHao}	%3
-		\or	\Roman{cquXuHao}	%4
-		\or	\roman{cquXuHao}	%5
-		\or	\ifnum\value{cquXuHao}>9\ClassError{cquthesis}%
-					{Xuhao(rownum) of type-6 must be under 10.}{}%
-				\else\fnsymbol{cquXuHao}
-				\fi	%6
-	\fi
-}%\output@xuhao
-\newcommand{\xuhao}[1][0]{
-	\ifcase #1
-			\stepcounter{cquXuHao}		%0
-			\output@xuhao
-	\or	\resetxuhao\stepcounter{cquXuHao}		%1
-			\output@xuhao
-	\fi
-}%\xuhao
-% 计数器清零
-\newcommand{\resetxuhao}{\setcounter{cquXuHao}{0}}
-% 计数器别名
-\let\rownum\xuhao
-\let\resetrownum\resetxuhao
-\let\setrownum\setxuhao
+%\eqref已经改写过
+
 %================================
-%**********插件定义区域***********
+%**********代码开发区域***********
 %================================
-% 三线表
-\RequirePackage{array}
-\RequirePackage{tabularx}
-\RequirePackage{booktabs}
-\RequirePackage{longtable}
-\RequirePackage{multirow}
-\RequirePackage{diagbox}
-% 色彩支持
-\usepackage{xcolor}
-% LaTeX和他的朋友们
-\RequirePackage{metalogo}
-% 很棒的化学式和方程支持
-\RequirePackage[version=4]{mhchem}
-% 在命令里使用逗号快速表达多个化学式\cec{H2O,HF,HCl}
-\newcommand{\cec}[1]{\cesplit{{\,\ }{\0}}{#1}}
-%si单位支持
-\usepackage{siunitx}
-\sisetup{%
-	list-final-separator	=	{和},
-	list-pair-separator		=	{和},
-	range-phrase			=	{$ \sim $},
-}%\sisetup
-
-% 处理数学公式中的黑斜体的宏包
-% \RequirePackage{bm}
-
-% 不同于 \mathcal \mathfrak 之类的英文花体字体
-% \RequirePackage{mathrsfs}
-
-% 浮动图形控制宏包。
-% 允许上一个 section 的浮动图形出现在下一个 section 的开始部分
-% 该宏包提供处理浮动对象的 \FloatBarrier 命令，使所有未处
-% 理的浮动图形立即被处理。这三个宏包仅供参考，未必使用：
-% \RequirePackage[below]{placeins}
-% \RequirePackage{floatflt} % 图文混排用宏包
-% \RequirePackage{rotating} % 图形和表格的控制旋转
-
-% 给自定义的宏后面自动加空白
-% \RequirePackage{xspace}
 
 % 借用 ltxdoc 里面的几个命令。
 \def\cmd#1{\cs{\expandafter\cmd@to@cs\string#1}}
