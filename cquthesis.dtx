@@ -800,7 +800,6 @@
 \RequirePackage{afterpage}
 \RequirePackage[bottom,perpage,hang,symbol*]{footmisc}
 \raggedbottom
-\RequirePackage{pbox}
 \RequirePackage{varwidth}
 \RequirePackage{xcolor}
 \RequirePackage{metalogo}
@@ -1508,7 +1507,8 @@
 %
 % \subsubsection{绘制中文封面}
 % \begin{macro}{\make@cover@CN}
-% 基本上的思路是能复用就复用，姓名那几行分为左右两个\env{minipage}:
+% \changes{v0.9.7}{2016/06/09}{使用\pkg{varwidth}代替了\pkg{pbox}。}
+% 基本上的思路是能复用就复用，姓名那几行分为左右两个\env{varwidth}:
 %    \begin{macrocode}
 \newcommand{\make@cover@CN}{%
 	\thispagestyle{style@empty}
@@ -1533,17 +1533,17 @@
 		\fi
 		\ifcqu@bachelor
 		\zihao{3}
-		\begin{minipage}{4.5\ccwd}
+		\begin{varwidth}{\textwidth}
 			\begin{CJKfilltwosides}{4.5\ccwd}
 				\cqu@studentCN\cqu@title@separatorCN\\
 				\cqu@studentnumCN\cqu@title@separatorCN\\
 				\cqu@supervisorCN\cqu@title@separatorCN\\
 				\cqu@majorCN\cqu@title@separatorCN
 			\end{CJKfilltwosides}
-		\end{minipage}
+		\end{varwidth}
 		\else
 		\zihao{3}
-		\begin{minipage}{4.5\ccwd}
+		\begin{varwidth}{\textwidth}
 			\begin{CJKfilltwosides}{4.5\ccwd}
 				\cqu@studentCN\cqu@title@separatorCN\\
 				\cqu@supervisorCN\cqu@title@separatorCN\\
@@ -1554,12 +1554,11 @@
 				\fi
 				\cqu@majorclassCN\cqu@title@separatorCN
 			\end{CJKfilltwosides}
-		\end{minipage}
+		\end{varwidth}
 		\fi
 		\hskip.5\ccwd
 		\zihao{3}
-		\begin{minipage}%
-			{\widthofpbox{\cqu@cauthor\\\cqu@studentid\\\cqu@cmajor\\\cqu@cclass\\\cqu@cpsupervisor}}%
+		\begin{varwidth}{\textwidth}%
 			\mbox{\cqu@cauthor}\\
 			\ifcqu@bachelor\mbox{\cqu@studentid}\\\fi
 			\cqu@csupervisor\\ %不要放在盒子里
@@ -1570,7 +1569,7 @@
 			\cqu@cpsupervisor\\
 			\cqu@cclass
 			\fi
-		\end{minipage}
+		\end{varwidth}
 		\\	\vspace{\stretch{2}}
 		\zihao{-2}\cqu@universitynameCN\cqu@cdepartment\\[1mm]
 		\zihao{3}\ifdefempty{\cqu@mycdate}{\cdate}{\cqu@mycdate}

@@ -107,7 +107,6 @@ printmode=[oneside|twoside|auto]}{}
 \RequirePackage{afterpage}
 \RequirePackage[bottom,perpage,hang,symbol*]{footmisc}
 \raggedbottom
-\RequirePackage{pbox}
 \RequirePackage{varwidth}
 \RequirePackage{xcolor}
 \RequirePackage{metalogo}
@@ -444,17 +443,17 @@ language=Python}
 \fi
 \ifcqu@bachelor
 \zihao{3}
-\begin{minipage}{4.5\ccwd}
+\begin{varwidth}{\textwidth}
 \begin{CJKfilltwosides}{4.5\ccwd}
 \cqu@studentCN\cqu@title@separatorCN\\
 \cqu@studentnumCN\cqu@title@separatorCN\\
 \cqu@supervisorCN\cqu@title@separatorCN\\
 \cqu@majorCN\cqu@title@separatorCN
 \end{CJKfilltwosides}
-\end{minipage}
+\end{varwidth}
 \else
 \zihao{3}
-\begin{minipage}{4.5\ccwd}
+\begin{varwidth}{\textwidth}
 \begin{CJKfilltwosides}{4.5\ccwd}
 \cqu@studentCN\cqu@title@separatorCN\\
 \cqu@supervisorCN\cqu@title@separatorCN\\
@@ -465,12 +464,11 @@ language=Python}
 \fi
 \cqu@majorclassCN\cqu@title@separatorCN
 \end{CJKfilltwosides}
-\end{minipage}
+\end{varwidth}
 \fi
 \hskip.5\ccwd
 \zihao{3}
-\begin{minipage}%
-{\widthofpbox{\cqu@cauthor\\\cqu@studentid\\\cqu@cmajor\\\cqu@cclass\\\cqu@cpsupervisor}}%
+\begin{varwidth}{\textwidth}%
 \mbox{\cqu@cauthor}\\
 \ifcqu@bachelor\mbox{\cqu@studentid}\\\fi
 \cqu@csupervisor\\ %不要放在盒子里
@@ -481,7 +479,7 @@ language=Python}
 \cqu@cpsupervisor\\
 \cqu@cclass
 \fi
-\end{minipage}
+\end{varwidth}
 \\ \vspace{\stretch{2}}
 \zihao{-2}\cqu@universitynameCN\cqu@cdepartment\\[1mm]
 \zihao{3}\ifdefempty{\cqu@mycdate}{\cdate}{\cqu@mycdate}
