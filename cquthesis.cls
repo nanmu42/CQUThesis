@@ -21,10 +21,10 @@
 %% 
 \NeedsTeXFormat{LaTeX2e}[1999/12/01]
 \ProvidesClass{cquthesis}
-[2016/05/25 v0.9.41 Chongqing University Thesis Template]
+[2016/06/09 v0.9.7 Chongqing University Thesis Template]
 \hyphenation{Cqu-Thesis}
 \newcommand{\cquthesis}{\textsc{CquThesis}}
-\def\version{0.9.41}
+\def\version{0.9.7}
 \RequirePackage{kvoptions}
 \SetupKeyvalOptions{
 family=cqu,
@@ -112,6 +112,8 @@ printmode=[oneside|twoside|auto]}{}
 \RequirePackage{metalogo}
 \RequirePackage{xspace}
 \RequirePackage[numbers,square,comma,super,sort&compress]{natbib}
+\patchcmd{\@chapter}{\addtocontents{lof}{\protect\addvspace{10\p@}}}{}{}{} % lof
+\patchcmd{\@chapter}{\addtocontents{lot}{\protect\addvspace{10\p@}}}{}{}{} % lot
 \RequirePackage[hyperfootnotes=false,]{hyperref}
 \hypersetup{%
 linktoc=all,
@@ -626,6 +628,7 @@ itemindent = 0mm,
 \end{cqu@denotation}}%\denotation
 \setcounter{tocdepth}{2}
 \setcounter{secnumdepth}{3}
+\setlength{\cftbeforechapskip}{1mm}
 \ifcqu@liberalformat
 \cftsetindents{chapter}{0em}{1.5em}
 \cftsetindents{section}{1.9em}{0.9em}
@@ -668,6 +671,10 @@ itemindent = 0mm,
 \let\onlinecite\inlinecite
 \pretocmd{\bibliography}{%
 \clearpage\phantomsection\addcontentsline{toc}{chapter}{\cqu@bib@name}}{}{}
+\AtBeginDocument{%
+\pretocmd{\bibliography}{\begingroup\zihao{5}}{}{}
+\apptocmd{\bibliography}{\endgroup}{}{}
+}%AtBeginDocument
 \renewcommand\@biblabel[1]{\zihao{5}[#1]}
 \renewenvironment{thebibliography}[1]
 {\chapter*{\cqu@bib@name

@@ -43,12 +43,12 @@ The \textbf{words} in this sentences are \textit{processed} with three different
 	\end{minipage}
 \end{table}
 
-首先来看一个最简单的表格。表 \ref{tab:template-files} 列举了本模板主要文件及其功能。请大家注意三线表中各条线对应的命令。这个例子还展示了如何在表格中正确使用脚注。由于 \LaTeX{} 本身不支持在表格中使用\cs{footnote}，所以我们不得不将表格放在小页中，而且最好将表格的宽度设置为小页的宽度，这样脚注看起来才更美观。
+首先来看一个最简单的表格。\autoref{tab:template-files} 列举了本模板主要文件及其功能。请大家注意三线表中各条线对应的命令。这个例子还展示了如何在表格中正确使用脚注。由于 \LaTeX{} 本身不支持在表格中使用\cs{footnote}，所以我们不得不将表格放在小页中，而且最好将表格的宽度设置为小页的宽度，这样脚注看起来才更美观。
 
 \subsection{复杂表格}
 \label{sec:complicatedtable}
 
-我们经常会在表格下方标注数据来源，或者对表格里面的条目进行解释。前面的脚注是一种不错的方法，如果不喜欢脚注，可以在表格后面写注释，比如表~\ref{tab:tabexamp1}。
+我们经常会在表格下方标注数据来源，或者对表格里面的条目进行解释。前面的脚注是一种不错的方法，如果不喜欢脚注，可以在表格后面写注释，比如\autoref{tab:tabexamp1}。
 \begin{table}[htbp]
 	\centering
 	\caption{复杂表格示例 1}
@@ -482,7 +482,7 @@ p(y|\mathbf{x}) = \frac{p(\mathbf{x},y)}{p(\mathbf{x})}=
 	\caption{包含子图形的大图形(subcaptionbox示例)}
 	\label{fig:big1-subcaptionbox}
 \end{figure}
-\begin{figure}[h]
+\begin{figure}[ht]
 	\centering%
 	\begin{subfigure}{3cm}
 		\includegraphics[height=4cm]{CQUbandage.pdf}

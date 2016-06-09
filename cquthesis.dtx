@@ -16,7 +16,7 @@
 %
 % \iffalse
 %<*driver>
-\ProvidesFile{cquthesis.dtx}[2016/05/25 v0.9.41 Chongqing University Thesis Template]
+\ProvidesFile{cquthesis.dtx}[2016/06/09 v0.9.7 Chongqing University Thesis Template]
 \documentclass{ltxdoc}
 \usepackage{dtx-style}
 
@@ -629,14 +629,14 @@
 %<cls>\NeedsTeXFormat{LaTeX2e}[1999/12/01]
 %<cls>\ProvidesClass{cquthesis}
 %<cfg>\ProvidesFile{cquthesis.cfg}
-%<cls|cfg>[2016/05/25 v0.9.41 Chongqing University Thesis Template]
+%<cls|cfg>[2016/06/09 v0.9.7 Chongqing University Thesis Template]
 %    \end{macrocode}
 % 定义一些开发常量：
 %    \begin{macrocode}
 %<*cls>
 \hyphenation{Cqu-Thesis}
 \newcommand{\cquthesis}{\textsc{CquThesis}}
-\def\version{0.9.41}
+\def\version{0.9.7}
 %</cls>
 %    \end{macrocode}
 % \file{cquthesis.cfg}有一些难以分类的常量：
@@ -809,6 +809,13 @@
 % 参考文献格式和优化：
 %    \begin{macrocode}
 \RequirePackage[numbers,square,comma,super,sort&compress]{natbib}
+%    \end{macrocode}
+%
+% \changes{v0.9.7}{2016/06/09}{目录、图录和表录的章节间隔不再突兀了。}
+% 删除默认模板（\file{book.cls}）在章之间引入的垂直间隔。要放在\pkg{hyperref}之前才会生效。
+%    \begin{macrocode}
+\patchcmd{\@chapter}{\addtocontents{lof}{\protect\addvspace{10\p@}}}{}{}{} % lof
+\patchcmd{\@chapter}{\addtocontents{lot}{\protect\addvspace{10\p@}}}{}{}{} % lot
 %    \end{macrocode}
 %
 % 文档超链接
@@ -1069,7 +1076,9 @@
 		numbering = false,
 		name = {},
 	},
-	% 出于各级标题间区分度的考虑，不支持五级及以上的标题
+%    \end{macrocode}
+% 出于各级标题间区分度的考虑，不支持五级及以上的标题：
+%    \begin{macrocode}
 	paragraph = {
 		name = {},
 		runin = true,
@@ -1203,7 +1212,7 @@
 %    \end{macrocode}
 %
 % \subsubsection{化学式和国际标准单位}
-% 很棒的化学式和方程支持，补足中文排版中的空格尴尬：
+% 很棒的化学式和方程支持。不过这里需要补足中文排版中的空格尴尬：
 %    \begin{macrocode}
 %<*cls>
 \RequirePackage[version=4]{mhchem}
@@ -1235,7 +1244,32 @@
 	range-phrase			=	{$ \sim $},
 }%\sisetup
 %    \end{macrocode}
+%
+% \subsubsection{自动交叉引用}
+% \begin{macro}{\autoref}
+% 使用\cs{autoref}可以进行自动判定目标类型的交叉引用，这里对其进行定制：
+%    \begin{macrocode}
+% 这里定制\autoref{label}
+\AtBeginDocument{%
+	\def\figureautorefname{图}
+	\def\tableautorefname{表}
+	\def\partautorefname{卷}
+	\def\appendixautorefname{附录}
+	\def\equationautorefname{式}
+	\def\Itemautorefname{列表}
+	\def\chapterautorefname{章}
+	\def\sectionautorefname{节}
+	\def\subsectionautorefname{小节}
+	\def\subsubsectionautorefname{条目}
+	\def\paragraphautorefname{自然段}
+	\def\Hfootnoteautorefname{脚注}
+	\def\AMSautorefname{式}
+	\def\theoremautorefname{理论}
+	\def\pageautorefname{页}
+}%\AtBeginDocument
 %</cfg>
+%    \end{macrocode}
+% \end{macro}
 %
 % \subsubsection{浮动对象}
 % 设定浮动对象与文字的间距
@@ -1747,7 +1781,7 @@
 \def\cqu@cabstract@tocname{中文摘要}
 \def\cqu@eabstract@tocname{英文摘要}
 \def\cqu@cabstract@name{摘\hskip\ccwd{}要}
-\def\cqu@eabstract@name{Abstract}
+\def\cqu@eabstract@name{ABSTRACT}
 \def\cqu@ckw@title{关键词}
 \def\cqu@ekw@title{Key words}
 \def\cqu@workby{by}
@@ -1852,10 +1886,11 @@
 %
 % \subsection{目录}
 % \subsubsection{定制目录}
-% 目录深度和计数器深度
+% 目录深度和计数器深度，减小章节之间的垂直间隔：
 %    \begin{macrocode}
 \setcounter{tocdepth}{2}
 \setcounter{secnumdepth}{3}
+\setlength{\cftbeforechapskip}{1mm}
 %    \end{macrocode}
 % 调整subsection的目录缩进
 %    \begin{macrocode}
@@ -1886,7 +1921,7 @@
 %
 % 决定论文页眉名称 这个变量不能含有格式
 %    \begin{macrocode}
-%<cfg>\let \cqu@thesisname\cqu@thesistypenameCN
+%<cfg>\let\cqu@thesisname\cqu@thesistypenameCN
 %    \end{macrocode}
 %
 % 目录和索引标题居中，包含\cs{fixhead}
@@ -1924,6 +1959,7 @@
 % \end{macro}
 %
 % \subsection{参考文献}
+% \changes{v0.9.7}{2016/06/09}{参考文献现在能正确地显示为五号字了。}
 % \begin{macro}{\inlinecite}
 % \begin{macro}{\onlinecite}
 % 定义\cs{inlinecite}和\cs{onlinecite}
@@ -1945,8 +1981,12 @@
 	\clearpage\phantomsection\addcontentsline{toc}{chapter}{\cqu@bib@name}}{}{}
 %    \end{macrocode}
 %
-% 减少参考文献占用的空间
+% 参考文献使用五号字，同时优化参考文献占用的空间
 %    \begin{macrocode}
+\AtBeginDocument{%
+\pretocmd{\bibliography}{\begingroup\zihao{5}}{}{}
+\apptocmd{\bibliography}{\endgroup}{}{}
+}%AtBeginDocument
 \renewcommand\@biblabel[1]{\zihao{5}[#1]}
 \renewenvironment{thebibliography}[1]
 {\chapter*{\cqu@bib@name
