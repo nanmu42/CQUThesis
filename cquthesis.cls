@@ -96,7 +96,6 @@ printmode=[oneside|twoside|auto]}{}
 \RequirePackage{longtable}
 \RequirePackage{multirow}
 \RequirePackage{diagbox}
-\RequirePackage{longtable}
 \RequirePackage{tabu}
 \RequirePackage{courier}
 \RequirePackage{graphicx}

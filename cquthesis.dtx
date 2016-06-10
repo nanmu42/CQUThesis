@@ -93,7 +93,7 @@
 % \maketitle\thispagestyle{empty}
 % \vspace{\stretch{1}}
 % \begin{center}
-%		\includegraphics[height=7cm]{figures/CQUbandage}
+%		\includegraphics[height=7cm]{figures/CQUbadge}
 % \end{center}
 %	\vspace{\stretch{2}}
 % \begin{abstract}\noindent
@@ -141,12 +141,18 @@
 %
 % \subsection{系统要求}
 % \label{sec:sysrequire}
-% 本模板用到的宏包比较多，这些包在常见的\TeX{}发行版中都有，推荐使用\textbf{TexLive}，本模板在Windows和Mac环境下的\textbf{TexLive}发行版中都进行了编译测试。
+% 本模板用到的宏包比较多，这些包在常见的\TeX{}发行版中都有，推荐使用\textbf{TeX Live}，本模板在Windows和Mac环境下的\textbf{TeX Live}发行版中都进行了编译测试。
+%
+% 截止本文档编译时，本模板（\cquthesis）已经被收录到Mik\TeX 中。
+%
+% \note{在条件允许的情况下，强烈推荐您使用\XeTeX 引擎进行编译工作。}
 %
 % \subsection{获取\cquthesis}
-%  请造访\cquthesis{ } \href{https://github.com/nanmu42/cquthesis}{Github主页}下载最新开发版本。
+%  请造访\cquthesis{ } \href{https://github.com/nanmu42/cquthesis}{Github主页}下载最新的版本。
 %
-% 除此之外，\cquthesis{}不拥有也不维护任何其他官方镜像。
+%	本宏包在CTAN官方库中也有镜像，镜像定期更新，可以\href{http://www.ctan.org/pkg/cquthesis}{造访这个页面}查看。
+%
+% 除此之外，\cquthesis{}不拥有也不维护任何其他镜像。
 %
 %
 % \subsection{模板的组成部分}
@@ -171,13 +177,12 @@
 % figures/ & 示例文档图片路径\\
 % ref/ & 示例文档参考文献目录\\
 % cquthesis.sty & 为示例文档加载其它宏包\\\midrule
-% Deploy-EN.md & 英文安装提示\\
-% 安装提示.md & 安装提示 \\
+% README-English & 英文安装提示，推荐中高阶用户阅读\\
 % README.md & Readme\\
 % \textbf{cquthesis.pdf} & 用户手册（本文档）\\\bottomrule
 % \end{longtable}
 %
-%  \note{\file{cquthesis.cls}{ }和\file{cquthesis.cfg}{ }以及\file{cqunumerical.bst}{ }可以由\file{cquthesis.ins}{ }和\file{cquthesis.dtx}{ }生成。}
+%  \note{\file{cquthesis.cls}和\file{cquthesis.cfg}以及\file{cqunumerical.bst}可以由\file{cquthesis.ins}和\file{cquthesis.dtx}生成。}
 % 
 % \subsection{安装}
 % \label{sec:install}
@@ -191,7 +196,7 @@
 %		\item	Linux和Mac用户请在Bash窗口中进行如下操作：
 %
 % \begin{shell}	
-%	cd cquthesis
+% cd cquthesis
 % latex cquthesis.ins
 %	\end{shell}
 %\end{itemize}
@@ -204,8 +209,7 @@
 % \subsection{编译用户手册}
 % 如果您需要编译用户手册，请定位到解压后的文件夹，运行下列命令：
 % \begin{shell}
-%
-%	xelatex cquthesis.dtx
+% xelatex cquthesis.dtx
 % makeindex -s gind.ist -o cquthesis.ind cquthesis.idx
 % makeindex -s gglo.ist -o cquthesis.gls cquthesis.glo
 % xelatex cquthesis.dtx
@@ -224,21 +228,21 @@
 % 您可以在您熟悉的IDE（写作环境）中对\file{main.tex}进行编译，推荐使用\XeTeX 进行编译，一般来说，\LaTeX 的编译原则就是多次运行编译命令，直到不再出现警告。这里提供命令行编译方法供您参考：
 %
 % \begin{shell}
-%		# 示意：定位到文件夹
-% 		cd cquthesis
-%		# 1.发现文件中的引用关系，文件后缀\textsf{.tex}可省略
-% 		xelatex main
-%		# 2.编译参考文件源文件，生成\textsf{.bbl}文件
-% 		bibtex main
-%		# 3.解决文件中的交叉引用
-% 		xelatex main
-%		# 4.生成完整的pdf文件
-% 		xelatex main
-%		# 5.更新目录
-% 		xelatex main
+% # 示意：定位到文件夹
+% cd cquthesis
+% # 1.发现文件中的引用关系，文件后缀\textsf{.tex}可省略
+% xelatex main
+% # 2.编译参考文件源文件，生成\textsf{.bbl}文件
+% bibtex main
+% # 3.解决文件中的交叉引用
+% xelatex main
+% # 4.生成完整的pdf文件
+% xelatex main
+% # 5.更新目录
+% xelatex main
 %	\end{shell}
 %
-% 下面是示例文件的内容：
+% 下面是示例文件中主文件\file{main.tex}的内容：
 %
 % \lstinputlisting[style=lstStyleLaTeX]{main.tex}
 %
@@ -291,11 +295,11 @@
 %
 % \begin{latex}
 % % 这是代码片段
-%	\includeonly{contents/experiment,contents/analysis,}
-%	\include{contents/intrduction}
-%	\include{contents/experiment}
-%	\include{contents/analysis}
-%	\include{contents/conclusion}
+% \includeonly{contents/experiment,contents/analysis,}
+% \include{contents/intrduction}
+% \include{contents/experiment}
+% \include{contents/analysis}
+% \include{contents/conclusion}
 % \end{latex}
 %
 % 此时\LaTeX 只会渲染\file*{contents/experiment}和\file*{contents/analysis}，从而加速预览。
@@ -372,11 +376,11 @@
 % 设置论文的中文标题和英文标题，标题中可以使用两个右斜杠进行手动换行。
 % \begin{latex}
 % \ctitle{论文标题//这是标题的第二行//第三行//最好别有第四行} 
-%	\etitle{Title in English// the 2nd line}
+% \etitle{Title in English// the 2nd line}
 % % 以上命令和以下命令等价：
 % \cqusetup{
-%		ctitle={论文中文题目},
-%  	etitle={Thesis English Title},
+% 	ctitle={论文中文题目},
+% 	etitle={Thesis English Title},
 %	}
 % \end{latex}
 %
@@ -392,9 +396,9 @@
 % \DescribeMacro{\esupervisor}
 % 导师的中英文信息，填写范例：
 % \begin{latex}
-% 	\cqusetup{
-%			csupervisor	=	{匡振义~~教授},	% 使用连字符来进行不会断行的空格
-%   	esupervisor	=	{Prof. Zhenyi Kuang},
+% \cqusetup{
+% 	csupervisor	=	{匡振义~~教授},	% 使用连字符来进行不会断行的空格
+% 	esupervisor	=	{Prof. Zhenyi Kuang},
 %		}%
 % \end{latex}
 % 
@@ -402,7 +406,7 @@
 % \DescribeMacro{\epsupervisor}
 % 仅专硕填写，兼职导师姓名和拼音。
 %
-% \note{强烈建议将\file{cover.tex}中自己用不上的字段注释掉，特别是当你发现中文封面下半部分文字横向距离太远时，由于模板运作机制，注释掉无关字段可能可以修复这个问题。}
+% \note{在\file{cover.tex}中自己用不上的字段可以坐视不理、注释、删除（随你意）。模板在v 0.9.7 版本后更新了运作机制，\textbf{不再需要}主动注释掉不需要的字段以获得正确的封面排版。}
 %
 % \DescribeMacro{\cmajor}
 % \DescribeMacro{\emajor}
@@ -439,13 +443,13 @@
 % 摘要只能使用环境命令来设置，不支持\cs{cqusetup}。
 %
 % \begin{latex}
-% 	\begin{cabstract}
-%  		摘要请写在这里…
-% 	\end{cabstract}
+% \begin{cabstract}
+% 	摘要请写在这里…
+% \end{cabstract}
 %
-% 	\begin{eabstract}
-% 	  Here comes the abstract in English...
-% 	\end{eabstract}
+% \begin{eabstract}
+% 	Here comes the abstract in English...
+% \end{eabstract}
 % \end{latex}
 % 
 % \subsection{前置部分}
@@ -471,11 +475,13 @@
 % \DescribeMacro{\listofequations}
 % \begin{longtable}{ll}
 % \toprule
-%   {\heiti 用途} & {\heiti 命令} \\\midrule
-% 目录     & \cs{tableofcontents} \\\midrule
-% 插图索引 & \cs{listoffigures}   \\\midrule
-% 表格索引 & \cs{listoftables}    \\\midrule
-% 公式索引 & \cs{listofequations} \\\bottomrule
+%   {\heiti 用途} & {\heiti 命令} \\
+% \midrule
+% 目录     & \cs{tableofcontents} \\
+% 插图索引 & \cs{listoffigures}   \\
+% 表格索引 & \cs{listoftables}    \\
+% 公式索引 & \cs{listofequations} \\
+% \bottomrule
 % \end{longtable}
 %
 % \LaTeX{} 默认支持插图和表格索引，是通过 \cs{caption} 命令完成的，因此它们必须出现在浮动环境中，否则不被计数。
@@ -583,26 +589,43 @@
 % \subsubsection{自动编号}
 %
 % \DescribeMacro{\xuhao}
-% \DescribeMacro{\setxuhao}
+% \DescribeMacro{\xuhaotype}
 % \DescribeMacro{\resetxuhao}
+% \DescribeMacro{\xuhaoseparator}
 % \DescribeMacro{\rownum}
-% \DescribeMacro{\setrownum}
+% \DescribeMacro{\rownumtype}
 % \DescribeMacro{\resetrownum}
+% \DescribeMacro{\rownumseparator}
 % \cs{xuhao}命令用来解决表格序号列手动编号的烦恼，这个命令也可以用在行内列表等场景，其中：
 %\begin{itemize}
 %	\item \cs{xuhao}\oarg{1}用于将计数器设置为1，并输出1；
 %	\item \cs{xuhao}不带参数时每次使用将计数器加1，并输出这个值；
-%	\item \cs{setxuhao}\oarg{1-6}可设置\cs{xuhao}的输出类型，1--6分别为阿拉伯数字、大写字母、小写字母、大写罗马数字、小写罗马数字、带圈数字（这一项仅支持1--10的数）
-%	\item \cs{resetxuhao}用于重置计数器为1，但不作输出。
+%	\item \cs{xuhaotype}\oarg{1-6}可设置\cs{xuhao}的输出类型，1--6分别为阿拉伯数字、大写字母、小写字母、大写罗马数字、小写罗马数字、带圈数字（这一项仅支持1--10的数）
+%	\item \cs{resetxuhao}用于重置计数器为1，但不作输出；
+% \item \cs{xuhaoseparator}用于定义每个序号之后的分割符，默认为空，您可以使用\cs{renewcommand}来更新其定义。
 %\end{itemize}
 %
 %	\begin{latex}
-%	\setxuhao[3]
-%	\xuhao[1] \xuhao \xuhao \xuhao[1] \xuhao \xuhao \xuhao \xuhao
-% % 输出为：a b c a b c d e
+% \xuhaotype[3]
+% \renewcommand{\xuhaoseparator}{.}
+% \xuhao[1] \xuhao \xuhao \xuhao[1] \xuhao \xuhao \xuhao \xuhao
+% % 输出为：a. b. c. a. b. c. d. e.
 % \end{latex}
 %	
-% \cs{rownum}, \cs{setrownum}, \cs{resetrownum}分别是\cs{xuhao}, \cs{setxuhao}, \cs{resetxuhao}的别名，可以相互替换。
+% \note{考虑到不同用户的语言习惯，\cs{rownum}, \cs{rownumtype}, \cs{resetrownum}分别是\cs{xuhao}, \cs{xuhaotype}, \cs{resetxuhao}的别名，可以相互替换。}
+%
+% 向前兼容：老旧命令\cs{setxuhao}和\cs{xuhaotype}的作用相同。
+%
+% \subsubsection{表格命令}
+% 在表格中，\cs{bigcell}内的内容可以自主换行；\cs{headcell}括起的内容会在单元格中居中和加黑；\cs{colsep}用来设定列间距，默认值为12pt，这个命令在表格开始绘制之前有效。
+%
+% 使用范例请参阅示例文档的附录部分。
+%
+% 本模板已经自动载入了许多表格相关的宏包：
+% \begin{itemize}
+%	\item 如果您是熟练的\LaTeX 用户，\pkg{array}, \pkg{tabularx}, \pkg{booktabs}, \pkg{longtable}, \pkg{multirow}和\pkg{diagbox}会是您得力的助手，其中，\pkg{tabularx}和\pkg{longtable}的字号已经预先适配为五号字；
+% \item \cquthesis 还预先载入了\pkg{tabu}宏包，如果您熟悉这个宏包，或者愿意负担一些学习成本，那么\pkg{tabu}宏包的强大功能会让您满意。
+% \end{itemize}
 %
 % \subsection{其他说明}
 %	本文档的最后一节有宏索引，对中阶及以上用户或许会有帮助。
@@ -785,7 +808,6 @@
 \RequirePackage{longtable}
 \RequirePackage{multirow}
 \RequirePackage{diagbox}
-\RequirePackage{longtable}
 \RequirePackage{tabu}
 \RequirePackage{courier}
 \RequirePackage{graphicx}
@@ -2072,6 +2094,7 @@ headsep=3mm]{geometry}
 \RequirePackage{etoolbox}
 \RequirePackage{metalogo}
 \RequirePackage{graphicx}
+\RequirePackage{xspace}
 
 \colorlet{cqu@macro}{blue!60!black}
 \colorlet{cqu@env}{blue!70!black}
@@ -2152,12 +2175,12 @@ headsep=3mm]{geometry}
 
 \setlist{nosep}
 
-\DeclareDocumentCommand{\option}{m}{\textsf{#1}}
-\DeclareDocumentCommand{\env}{m}{\texttt{#1}}
+\DeclareDocumentCommand{\option}{m}{\textsf{#1}\xspace}
+\DeclareDocumentCommand{\env}{m}{\texttt{#1}\xspace}
 \DeclareDocumentCommand{\pkg}{s m}{%
-	\texttt{#2}\IfBooleanF#1{\cqu@special@index{package}{#2}}}
+	\texttt{#2}\xspace\IfBooleanF#1{\cqu@special@index{package}{#2}}}
 \DeclareDocumentCommand{\file}{s m}{%
-	\texttt{#2}\IfBooleanF#1{\cqu@special@index{file}{#2}}}
+	\texttt{#2}\xspace\IfBooleanF#1{\cqu@special@index{file}{#2}}}
 \newcommand{\myentry}[1]{%
 	\marginpar{\raggedleft\color{purple}\bfseries\strut #1}}
 \newcommand{\note}[1]{{%
