@@ -171,7 +171,8 @@
 % cquthesis.dtx & \textsc{DocStrip} 源文件（用于安装或更新）\\\midrule
 % cquthesis.cls & \LaTeX 模板文件\\
 % cquthesis.cfg & 模板配置文件\\
-% cqunumerical.bst & 参考文献样式文件\\\midrule
+% cqunumerical.bst & 参考文献样式文件\\
+% cquthesis.cwl & 代码自动补全配置文件\\\midrule
 % main.tex & 示例文档主文件\\
 % contents/ & 示例文档章节具体内容\\
 % figures/ & 示例文档图片路径\\
@@ -221,6 +222,20 @@
 % 本手册假定用户已经能处理一般的 \LaTeX{} 文档，并对\BibTeX{} 有一定了解。如果从来没有接触过 \TeX 和 \LaTeX，建议先学习相关的基础知识。磨刀不误砍柴工！
 % 
 % 对\LaTeX 还不熟悉的同学，推荐参考\href{http://bbs.ctex.org/forum.php?mod=viewthread&tid=68619}{《\LaTeX{}学习笔记》}。
+%
+%
+% \subsection{代码自动补全}
+% \cquthesis 为支持代码自动补全的\LaTeX 编辑器提供了代码补全配置文件\file{cquthesis.cwl}。如果您的编辑器有代码补全功能（如\TeX Studio），那么您可以将\file{cquthesis.cwl}放置在编辑器可以识别的位置，即可享受代码着色和代码自动补全带来的便利。
+%
+% 支持代码补全功能的编辑器有很多种，这里无法一一枚举，关于\file{cquthesis.cwl}的放置位置，请使用搜索引擎查找答案。推荐的关键词：“您的编辑器名称”+ cwl + location。
+%
+% 对于Windows平台的\TeX Studio用户，您可使用【Win+R】快捷键打开“运行”，在其中输入：
+%
+% \begin{shell}
+% %APPDATA%\texstudio\completion\user
+% \end{shell}
+%
+% 然后在打开的文件夹中放入\file{cquthesis.cwl}，重启\TeX Studio即可。Linux和Mac的\TeX Studio用户可参照这个思路进行操作。
 %
 % \subsection{示例文件}
 % \cquthesis 是一个功能高度专门化的文档类，没有示例文档的用户会发现很难下手。推荐新用户从模板自带的示例文档入手，里面包括了论文写作用到的所有命令及其使用方法，只需要用自己的内容进行相应替换就可以。对于不清楚的命令可以查阅本手册。下面的例子描述了模板中章节的组织形式，来自于示例文档，具体内容可以参考模板附带的 \file{main.tex} 和 \file{contents/}。
@@ -2103,6 +2118,10 @@ headsep=3mm]{geometry}
 \patchcmd{\PrintDescribeMacro}{\MacroFont}{\MacroFont\bfseries\color{cqu@macro}}{}{}
 \patchcmd{\PrintDescribeEnv}{\MacroFont}{\MacroFont\bfseries\color{cqu@env}}{}{}
 \patchcmd{\PrintEnvName}{\MacroFont}{\MacroFont\bfseries\color{cqu@env}}{}{}
+
+\appto{\TeX}{\xspace}
+\appto{\LaTeX}{\xspace}
+\appto{\XeTeX}{\xspace}
 
 \def\DescribeOption{%
 	\leavevmode\@bsphack\begingroup\MakePrivateLetters%
