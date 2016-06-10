@@ -36,7 +36,7 @@ CQUThesis根据重庆大学《重庆大学本科设计（论文）撰写规范�
 * 最后请将`main.tex`置于根目录，工作即可开始。
 
 ## 更新
-需要更新时，请从Github下载zip文档后解压，使用命令行定位到文件夹，运行：
+需要更新时，请从Github下载zip文档后解压，覆盖掉原始的模板文件，使用命令行定位到文件夹，运行：
 `latex cquthesis.ins`
 即可完成更新。
 
@@ -44,7 +44,7 @@ CQUThesis根据重庆大学《重庆大学本科设计（论文）撰写规范�
 	文档 | 描述
 	--- | ---
  排版示例 |	请编译`main.tex`获得
- 用户文档 |	随模板发布，也可[点我下载](https://github.com/nanmu42/CQUThesis/files/273864/cquthesis.pdf)
+ 用户文档 |	随模板发布，也可[点我下载](https://github.com/nanmu42/CQUThesis/files/308798/cquthesis.pdf)
 
 # 提问和支持
 * [Github Issues](https://github.com/nanmu42/CQUThesis/issues)
