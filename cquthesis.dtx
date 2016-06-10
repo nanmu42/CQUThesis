@@ -16,7 +16,7 @@
 %
 % \iffalse
 %<*driver>
-\ProvidesFile{cquthesis.dtx}[2016/05/25 v0.9.41 Chongqing University Thesis Template]
+\ProvidesFile{cquthesis.dtx}[2016/06/09 v0.9.7 Chongqing University Thesis Template]
 \documentclass{ltxdoc}
 \usepackage{dtx-style}
 
@@ -79,6 +79,8 @@
 % \changes{v0.8.7}{2016/05/14}{上线前最后一批修正。}
 % \changes{v0.8.9}{2016/05/15}{模板登陆Github，开始参与2016年重庆大学毕业设计工作。}
 % \changes{v0.9.4}{2016/05/19}{用户文档撰写完成，CQUThesis提交至CTAN审核。}
+% \changes{v0.9.7}{2016/06/09}{参与了2016年重庆大学毕业设计工作后，模板根据实际测试情况作了一番改进，Beta测试落下帷幕。}
+% \changes{v0.9.7}{2016/06/09}{拆分了\file{cquthesis.sty}宏包，将其大部分内容并入\file{cquthesis.cls}和\file{cquthesis.cfg}。}
 %
 % \def\indexname{代码索引}
 % \def\glossaryname{更新记录}
@@ -91,7 +93,7 @@
 % \maketitle\thispagestyle{empty}
 % \vspace{\stretch{1}}
 % \begin{center}
-%		\includegraphics[height=7cm]{figures/CQUbandage}
+%		\includegraphics[height=7cm]{figures/CQUbadge}
 % \end{center}
 %	\vspace{\stretch{2}}
 % \begin{abstract}\noindent
@@ -139,12 +141,18 @@
 %
 % \subsection{系统要求}
 % \label{sec:sysrequire}
-% 本模板用到的宏包比较多，这些包在常见的\TeX{}发行版中都有，推荐使用\textbf{TexLive}，本模板在Windows和Mac环境下的\textbf{TexLive}发行版中都进行了编译测试。
+% 本模板用到的宏包比较多，这些包在常见的\TeX{}发行版中都有，推荐使用\textbf{TeX Live}，本模板在Windows和Mac环境下的\textbf{TeX Live}发行版中都进行了编译测试。
+%
+% 截止本文档编译时，本模板（\cquthesis）已经被收录到Mik\TeX 中。
+%
+% \note{在条件允许的情况下，强烈推荐您使用\XeTeX 引擎进行编译工作。}
 %
 % \subsection{获取\cquthesis}
-%  请造访\cquthesis{ } \href{https://github.com/nanmu42/cquthesis}{Github主页}下载最新开发版本。
+%  请造访\cquthesis{ } \href{https://github.com/nanmu42/cquthesis}{Github主页}下载最新的版本。
 %
-% 除此之外，\cquthesis{}不拥有也不维护任何其他官方镜像。
+%	本宏包在CTAN官方库中也有镜像，镜像定期更新，可以\href{http://www.ctan.org/pkg/cquthesis}{造访这个页面}查看。
+%
+% 除此之外，\cquthesis{}不拥有也不维护任何其他镜像。
 %
 %
 % \subsection{模板的组成部分}
@@ -163,19 +171,19 @@
 % cquthesis.dtx & \textsc{DocStrip} 源文件（用于安装或更新）\\\midrule
 % cquthesis.cls & \LaTeX 模板文件\\
 % cquthesis.cfg & 模板配置文件\\
-% cqunumerical.bst & 参考文献样式文件\\\midrule
+% cqunumerical.bst & 参考文献样式文件\\
+% cquthesis.cwl & 代码自动补全配置文件\\\midrule
 % main.tex & 示例文档主文件\\
 % contents/ & 示例文档章节具体内容\\
 % figures/ & 示例文档图片路径\\
 % ref/ & 示例文档参考文献目录\\
 % cquthesis.sty & 为示例文档加载其它宏包\\\midrule
-% Deploy-EN.md & 英文安装提示\\
-% 安装提示.md & 安装提示 \\
+% README-English & 英文安装提示，推荐中高阶用户阅读\\
 % README.md & Readme\\
 % \textbf{cquthesis.pdf} & 用户手册（本文档）\\\bottomrule
 % \end{longtable}
 %
-%  \note{\file{cquthesis.cls}{ }和\file{cquthesis.cfg}{ }以及\file{cqunumerical.bst}{ }可以由\file{cquthesis.ins}{ }和\file{cquthesis.dtx}{ }生成。}
+%  \note{\file{cquthesis.cls}和\file{cquthesis.cfg}以及\file{cqunumerical.bst}可以由\file{cquthesis.ins}和\file{cquthesis.dtx}生成。}
 % 
 % \subsection{安装}
 % \label{sec:install}
@@ -189,7 +197,7 @@
 %		\item	Linux和Mac用户请在Bash窗口中进行如下操作：
 %
 % \begin{shell}	
-%	cd cquthesis
+% cd cquthesis
 % latex cquthesis.ins
 %	\end{shell}
 %\end{itemize}
@@ -202,8 +210,7 @@
 % \subsection{编译用户手册}
 % 如果您需要编译用户手册，请定位到解压后的文件夹，运行下列命令：
 % \begin{shell}
-%
-%	xelatex cquthesis.dtx
+% xelatex cquthesis.dtx
 % makeindex -s gind.ist -o cquthesis.ind cquthesis.idx
 % makeindex -s gglo.ist -o cquthesis.gls cquthesis.glo
 % xelatex cquthesis.dtx
@@ -216,27 +223,41 @@
 % 
 % 对\LaTeX 还不熟悉的同学，推荐参考\href{http://bbs.ctex.org/forum.php?mod=viewthread&tid=68619}{《\LaTeX{}学习笔记》}。
 %
+%
+% \subsection{代码自动补全}
+% \cquthesis 为支持代码自动补全的\LaTeX 编辑器提供了代码补全配置文件\file{cquthesis.cwl}。如果您的编辑器有代码补全功能（如\TeX Studio），那么您可以将\file{cquthesis.cwl}放置在编辑器可以识别的位置，即可享受代码着色和代码自动补全带来的便利。
+%
+% 支持代码补全功能的编辑器有很多种，这里无法一一枚举，关于\file{cquthesis.cwl}的放置位置，请使用搜索引擎查找答案。推荐的关键词：“您的编辑器名称”+ cwl + location。
+%
+% 对于Windows平台的\TeX Studio用户，您可使用【Win+R】快捷键打开“运行”，在其中输入：
+%
+% \begin{shell}
+% %APPDATA%\texstudio\completion\user
+% \end{shell}
+%
+% 然后在打开的文件夹中放入\file{cquthesis.cwl}，重启\TeX Studio即可。Linux和Mac的\TeX Studio用户可参照这个思路进行操作。
+%
 % \subsection{示例文件}
 % \cquthesis 是一个功能高度专门化的文档类，没有示例文档的用户会发现很难下手。推荐新用户从模板自带的示例文档入手，里面包括了论文写作用到的所有命令及其使用方法，只需要用自己的内容进行相应替换就可以。对于不清楚的命令可以查阅本手册。下面的例子描述了模板中章节的组织形式，来自于示例文档，具体内容可以参考模板附带的 \file{main.tex} 和 \file{contents/}。
 %
 % 您可以在您熟悉的IDE（写作环境）中对\file{main.tex}进行编译，推荐使用\XeTeX 进行编译，一般来说，\LaTeX 的编译原则就是多次运行编译命令，直到不再出现警告。这里提供命令行编译方法供您参考：
 %
 % \begin{shell}
-%		# 示意：定位到文件夹
-% 		cd cquthesis
-%		# 1.发现文件中的引用关系，文件后缀\textsf{.tex}可省略
-% 		xelatex main
-%		# 2.编译参考文件源文件，生成\textsf{.bbl}文件
-% 		bibtex main
-%		# 3.解决文件中的交叉引用
-% 		xelatex main
-%		# 4.生成完整的pdf文件
-% 		xelatex main
-%		# 5.更新目录
-% 		xelatex main
+% # 示意：定位到文件夹
+% cd cquthesis
+% # 1.发现文件中的引用关系，文件后缀\textsf{.tex}可省略
+% xelatex main
+% # 2.编译参考文件源文件，生成\textsf{.bbl}文件
+% bibtex main
+% # 3.解决文件中的交叉引用
+% xelatex main
+% # 4.生成完整的pdf文件
+% xelatex main
+% # 5.更新目录
+% xelatex main
 %	\end{shell}
 %
-% 下面是示例文件的内容：
+% 下面是示例文件中主文件\file{main.tex}的内容：
 %
 % \lstinputlisting[style=lstStyleLaTeX]{main.tex}
 %
@@ -289,11 +310,11 @@
 %
 % \begin{latex}
 % % 这是代码片段
-%	\includeonly{contents/experiment,contents/analysis,}
-%	\include{contents/intrduction}
-%	\include{contents/experiment}
-%	\include{contents/analysis}
-%	\include{contents/conclusion}
+% \includeonly{contents/experiment,contents/analysis,}
+% \include{contents/intrduction}
+% \include{contents/experiment}
+% \include{contents/analysis}
+% \include{contents/conclusion}
 % \end{latex}
 %
 % 此时\LaTeX 只会渲染\file*{contents/experiment}和\file*{contents/analysis}，从而加速预览。
@@ -370,11 +391,11 @@
 % 设置论文的中文标题和英文标题，标题中可以使用两个右斜杠进行手动换行。
 % \begin{latex}
 % \ctitle{论文标题//这是标题的第二行//第三行//最好别有第四行} 
-%	\etitle{Title in English// the 2nd line}
+% \etitle{Title in English// the 2nd line}
 % % 以上命令和以下命令等价：
 % \cqusetup{
-%		ctitle={论文中文题目},
-%  	etitle={Thesis English Title},
+% 	ctitle={论文中文题目},
+% 	etitle={Thesis English Title},
 %	}
 % \end{latex}
 %
@@ -390,9 +411,9 @@
 % \DescribeMacro{\esupervisor}
 % 导师的中英文信息，填写范例：
 % \begin{latex}
-% 	\cqusetup{
-%			csupervisor	=	{匡振义~~教授},	% 使用连字符来进行不会断行的空格
-%   	esupervisor	=	{Prof. Zhenyi Kuang},
+% \cqusetup{
+% 	csupervisor	=	{匡振义~~教授},	% 使用连字符来进行不会断行的空格
+% 	esupervisor	=	{Prof. Zhenyi Kuang},
 %		}%
 % \end{latex}
 % 
@@ -400,7 +421,7 @@
 % \DescribeMacro{\epsupervisor}
 % 仅专硕填写，兼职导师姓名和拼音。
 %
-% \note{强烈建议将\file{cover.tex}中自己用不上的字段注释掉，特别是当你发现中文封面下半部分文字横向距离太远时，由于模板运作机制，注释掉无关字段可能可以修复这个问题。}
+% \note{在\file{cover.tex}中自己用不上的字段可以坐视不理、注释、删除（随你意）。模板在v 0.9.7 版本后更新了运作机制，\textbf{不再需要}主动注释掉不需要的字段以获得正确的封面排版。}
 %
 % \DescribeMacro{\cmajor}
 % \DescribeMacro{\emajor}
@@ -437,13 +458,13 @@
 % 摘要只能使用环境命令来设置，不支持\cs{cqusetup}。
 %
 % \begin{latex}
-% 	\begin{cabstract}
-%  		摘要请写在这里…
-% 	\end{cabstract}
+% \begin{cabstract}
+% 	摘要请写在这里…
+% \end{cabstract}
 %
-% 	\begin{eabstract}
-% 	  Here comes the abstract in English...
-% 	\end{eabstract}
+% \begin{eabstract}
+% 	Here comes the abstract in English...
+% \end{eabstract}
 % \end{latex}
 % 
 % \subsection{前置部分}
@@ -469,11 +490,13 @@
 % \DescribeMacro{\listofequations}
 % \begin{longtable}{ll}
 % \toprule
-%   {\heiti 用途} & {\heiti 命令} \\\midrule
-% 目录     & \cs{tableofcontents} \\\midrule
-% 插图索引 & \cs{listoffigures}   \\\midrule
-% 表格索引 & \cs{listoftables}    \\\midrule
-% 公式索引 & \cs{listofequations} \\\bottomrule
+%   {\heiti 用途} & {\heiti 命令} \\
+% \midrule
+% 目录     & \cs{tableofcontents} \\
+% 插图索引 & \cs{listoffigures}   \\
+% 表格索引 & \cs{listoftables}    \\
+% 公式索引 & \cs{listofequations} \\
+% \bottomrule
 % \end{longtable}
 %
 % \LaTeX{} 默认支持插图和表格索引，是通过 \cs{caption} 命令完成的，因此它们必须出现在浮动环境中，否则不被计数。
@@ -581,26 +604,43 @@
 % \subsubsection{自动编号}
 %
 % \DescribeMacro{\xuhao}
-% \DescribeMacro{\setxuhao}
+% \DescribeMacro{\xuhaotype}
 % \DescribeMacro{\resetxuhao}
+% \DescribeMacro{\xuhaoseparator}
 % \DescribeMacro{\rownum}
-% \DescribeMacro{\setrownum}
+% \DescribeMacro{\rownumtype}
 % \DescribeMacro{\resetrownum}
+% \DescribeMacro{\rownumseparator}
 % \cs{xuhao}命令用来解决表格序号列手动编号的烦恼，这个命令也可以用在行内列表等场景，其中：
 %\begin{itemize}
 %	\item \cs{xuhao}\oarg{1}用于将计数器设置为1，并输出1；
 %	\item \cs{xuhao}不带参数时每次使用将计数器加1，并输出这个值；
-%	\item \cs{setxuhao}\oarg{1-6}可设置\cs{xuhao}的输出类型，1--6分别为阿拉伯数字、大写字母、小写字母、大写罗马数字、小写罗马数字、带圈数字（这一项仅支持1--10的数）
-%	\item \cs{resetxuhao}用于重置计数器为1，但不作输出。
+%	\item \cs{xuhaotype}\oarg{1-6}可设置\cs{xuhao}的输出类型，1--6分别为阿拉伯数字、大写字母、小写字母、大写罗马数字、小写罗马数字、带圈数字（这一项仅支持1--10的数）
+%	\item \cs{resetxuhao}用于重置计数器为1，但不作输出；
+% \item \cs{xuhaoseparator}用于定义每个序号之后的分割符，默认为空，您可以使用\cs{renewcommand}来更新其定义。
 %\end{itemize}
 %
 %	\begin{latex}
-%	\setxuhao[3]
-%	\xuhao[1] \xuhao \xuhao \xuhao[1] \xuhao \xuhao \xuhao \xuhao
-% % 输出为：a b c a b c d e
+% \xuhaotype[3]
+% \renewcommand{\xuhaoseparator}{.}
+% \xuhao[1] \xuhao \xuhao \xuhao[1] \xuhao \xuhao \xuhao \xuhao
+% % 输出为：a. b. c. a. b. c. d. e.
 % \end{latex}
 %	
-% \cs{rownum}, \cs{setrownum}, \cs{resetrownum}分别是\cs{xuhao}, \cs{setxuhao}, \cs{resetxuhao}的别名，可以相互替换。
+% \note{考虑到不同用户的语言习惯，\cs{rownum}, \cs{rownumtype}, \cs{resetrownum}分别是\cs{xuhao}, \cs{xuhaotype}, \cs{resetxuhao}的别名，可以相互替换。}
+%
+% 向前兼容：老旧命令\cs{setxuhao}和\cs{xuhaotype}的作用相同。
+%
+% \subsubsection{表格命令}
+% 在表格中，\cs{bigcell}内的内容可以自主换行；\cs{headcell}括起的内容会在单元格中居中和加黑；\cs{colsep}用来设定列间距，默认值为12pt，这个命令在表格开始绘制之前有效。
+%
+% 使用范例请参阅示例文档的附录部分。
+%
+% 本模板已经自动载入了许多表格相关的宏包：
+% \begin{itemize}
+%	\item 如果您是熟练的\LaTeX 用户，\pkg{array}, \pkg{tabularx}, \pkg{booktabs}, \pkg{longtable}, \pkg{multirow}和\pkg{diagbox}会是您得力的助手，其中，\pkg{tabularx}和\pkg{longtable}的字号已经预先适配为五号字；
+% \item \cquthesis 还预先载入了\pkg{tabu}宏包，如果您熟悉这个宏包，或者愿意负担一些学习成本，那么\pkg{tabu}宏包的强大功能会让您满意。
+% \end{itemize}
 %
 % \subsection{其他说明}
 %	本文档的最后一节有宏索引，对中阶及以上用户或许会有帮助。
@@ -627,14 +667,14 @@
 %<cls>\NeedsTeXFormat{LaTeX2e}[1999/12/01]
 %<cls>\ProvidesClass{cquthesis}
 %<cfg>\ProvidesFile{cquthesis.cfg}
-%<cls|cfg>[2016/05/25 v0.9.41 Chongqing University Thesis Template]
+%<cls|cfg>[2016/06/09 v0.9.7 Chongqing University Thesis Template]
 %    \end{macrocode}
 % 定义一些开发常量：
 %    \begin{macrocode}
 %<*cls>
 \hyphenation{Cqu-Thesis}
 \newcommand{\cquthesis}{\textsc{CquThesis}}
-\def\version{0.9.41}
+\def\version{0.9.7}
 %</cls>
 %    \end{macrocode}
 % \file{cquthesis.cfg}有一些难以分类的常量：
@@ -761,6 +801,7 @@
 %
 % 数学是\LaTeX 关心的大问题，这里先引入\pkg{amsmath}宏包，避免一些载入顺序引发的问题：
 %    \begin{macrocode}
+\RequirePackage{fontspec}
 \RequirePackage{amsmath}
 %    \end{macrocode}
 %
@@ -772,11 +813,17 @@
 \RequirePackage{CJKfntef}
 %    \end{macrocode}
 %
-% 解决各种文档部件需求
+% 解决各种文档部件需求，如表格、题注、插图等
 % \changes{v0.9.41}{2016/05/25}{修正了\pkg{tgcursor}使\cs{textbf}失效的Bug，现在起使用\pkg{courier}代替。}
 %    \begin{macrocode}
 \RequirePackage[labelformat=simple]{subcaption}
+\RequirePackage{array}
+\RequirePackage{tabularx}
+\RequirePackage{booktabs}
 \RequirePackage{longtable}
+\RequirePackage{multirow}
+\RequirePackage{diagbox}
+\RequirePackage{tabu}
 \RequirePackage{courier}
 \RequirePackage{graphicx}
 \RequirePackage{pdfpages}
@@ -784,18 +831,28 @@
 \RequirePackage[amsmath,thmmarks,hyperref]{ntheorem}
 %    \end{macrocode}
 %
-% 解决页面类问题和脚注
+% 解决页面类问题和脚注，其中\pkg{varwidth}用来代替老版本中的\pkg{pbox}。\pkg{xcolor}用来提供色彩支持，\pkg{metalogo}用来提供\cs{XeTeX}等命令支持。
 %    \begin{macrocode}
 \RequirePackage{changepage}
 \RequirePackage{afterpage}
 \RequirePackage[bottom,perpage,hang,symbol*]{footmisc}
 \raggedbottom
-\RequirePackage{pbox}
+\RequirePackage{varwidth}
+\RequirePackage{xcolor}
+\RequirePackage{metalogo}
+\RequirePackage{xspace}
 %    \end{macrocode}
 %
 % 参考文献格式和优化：
 %    \begin{macrocode}
 \RequirePackage[numbers,square,comma,super,sort&compress]{natbib}
+%    \end{macrocode}
+%
+% \changes{v0.9.7}{2016/06/09}{目录、图录和表录的章节间隔不再突兀了。}
+% 删除默认模板（\file{book.cls}）在章之间引入的垂直间隔。要放在\pkg{hyperref}之前才会生效。
+%    \begin{macrocode}
+\patchcmd{\@chapter}{\addtocontents{lof}{\protect\addvspace{10\p@}}}{}{}{} % lof
+\patchcmd{\@chapter}{\addtocontents{lot}{\protect\addvspace{10\p@}}}{}{}{} % lot
 %    \end{macrocode}
 %
 % 文档超链接
@@ -1056,7 +1113,9 @@
 		numbering = false,
 		name = {},
 	},
-	% 出于各级标题间区分度的考虑，不支持五级及以上的标题
+%    \end{macrocode}
+% 出于各级标题间区分度的考虑，不支持五级及以上的标题：
+%    \begin{macrocode}
 	paragraph = {
 		name = {},
 		runin = true,
@@ -1189,12 +1248,72 @@
 %</cfg>
 %    \end{macrocode}
 %
+% \subsubsection{化学式和国际标准单位}
+% 很棒的化学式和方程支持。不过这里需要补足中文排版中的空格尴尬：
+%    \begin{macrocode}
+%<*cls>
+\RequirePackage[version=4]{mhchem}
+\AtBeginDocument{\pretocmd{\ce}{{ }}{}{}}
+%    \end{macrocode}
+% \begin{macro}{\cec}
+% 在命令里使用逗号快速分隔多个化学式：
+%    \begin{macrocode}
+\newcommand{\cec}[1]{\cesplit{{\,\ }{\0}}{#1}}
+%    \end{macrocode}
+% \end{macro}
+% SI单位支持
+%    \begin{macrocode}
+\RequirePackage{siunitx}
+\RequirePackage{upgreek}
+\ifxetex
+\sisetup{%
+	math-micro = {\upmu},
+	text-micro = {\textmu},
+}%\sisetup
+\fi
+%</cls>
+%    \end{macrocode}
+%<*cfg>
+%    \begin{macrocode}
+\sisetup{%
+	list-final-separator	=	{和},
+	list-pair-separator		=	{和},
+	range-phrase			=	{$ \sim $},
+}%\sisetup
+%    \end{macrocode}
+%
+% \subsubsection{自动交叉引用}
+% \begin{macro}{\autoref}
+% 使用\cs{autoref}可以进行自动判定目标类型的交叉引用，这里对其进行定制：
+%    \begin{macrocode}
+% 这里定制\autoref{label}
+\AtBeginDocument{%
+	\def\figureautorefname{图}
+	\def\tableautorefname{表}
+	\def\partautorefname{卷}
+	\def\appendixautorefname{附录}
+	\def\equationautorefname{式}
+	\def\Itemautorefname{列表}
+	\def\chapterautorefname{章}
+	\def\sectionautorefname{节}
+	\def\subsectionautorefname{小节}
+	\def\subsubsectionautorefname{条目}
+	\def\paragraphautorefname{自然段}
+	\def\Hfootnoteautorefname{脚注}
+	\def\AMSautorefname{式}
+	\def\theoremautorefname{理论}
+	\def\pageautorefname{页}
+}%\AtBeginDocument
+%</cfg>
+%    \end{macrocode}
+% \end{macro}
+%
 % \subsubsection{浮动对象}
 % 设定浮动对象与文字的间距
 %    \begin{macrocode}
 %<*cls>
 \setlength{\floatsep}{20bp \@plus4pt \@minus1pt}
-\setlength{\intextsep}{20bp \@plus4pt \@minus2pt}
+\setlength{\intextsep}{24bp \@plus4pt \@minus2pt}
 \setlength{\textfloatsep}{20bp \@plus4pt \@minus2pt}
 \setlength{\@fptop}{0bp \@plus1.0fil}
 \setlength{\@fpsep}{12bp \@plus2.0fil}
@@ -1209,7 +1328,37 @@
 %    \end{macrocode}
 %
 % \subsubsection{题注和表格}
-% 定制表格和插图的题注样式
+% 主体部分的题注和后置部分的题注需要做分别支持。
+% \begin{macro}{\thefigure}
+% \begin{macro}{\thetable}
+% \begin{macro}{\theequation}
+% 重新定义了图、表、公式的计数系统：
+%    \begin{macrocode}
+\AtBeginDocument{%
+	\renewcommand{\thefigure}{%
+		\if@backmatter
+			\CTEXthesection \@arabic \c@figure
+		\else
+			\ifnum \c@chapter >\z@ \thechapter .\fi \@arabic \c@figure
+		\fi}
+	\renewcommand{\thetable}{%
+		\if@backmatter
+			\CTEXthesection \@arabic \c@table
+		\else
+			\ifnum \c@chapter >\z@ \thechapter .\fi \@arabic \c@table
+		\fi}
+	\renewcommand{\theequation}{%
+		\if@backmatter
+			\CTEXthesection \@arabic \c@equation
+		\else
+			\ifnum \c@chapter >\z@ \thechapter .\fi \@arabic \c@equation
+		\fi}
+}
+%    \end{macrocode}
+% \end{macro}
+% \end{macro}
+% \end{macro}
+% 定制表格和插图的题注样式：
 %    \begin{macrocode}
 \def\cqu@tabular{\zihao{5}\@tabular}
 \DeclareCaptionLabelFormat{cqu}{{\zihao{5}\songti #1~\rmfamily #2}}
@@ -1222,12 +1371,150 @@
 \renewcommand{\thesubfigure}{(\alph{subfigure})}
 \renewcommand{\thesubtable}{(\alph{subtable})}
 %    \end{macrocode}
+% 调整表格字号，调整每列之间的间距，单元格内垂直居中
+%    \begin{macrocode}
+\AtBeginEnvironment{tabularx}{\begingroup\zihao{5}}
+\AtEndEnvironment{tabularx}{\endgroup}
+\setlength{\tabcolsep}{12pt}
+\renewcommand{\tabularxcolumn}[1]{m{#1}}
+%    \end{macrocode}
+% \begin{macro}{\bigcell}
+%	\begin{macro}{\headcell}
+%	\begin{macro}{\colsep}
+% 在表格中，\cs{bigcell}内的内容可以主动换行；\cs{headcell}用来做表头；\cs{colsep}用来设定列间距，默认值为12pt。
+%    \begin{macrocode}
+\newcommand{\bigcell}[1]{\vspace{6pt}\begin{varwidth}{\linewidth}#1\end{varwidth}\vspace{6pt}}
+\newcommand{\headcell}[1]{\multicolumn{1}{c}{\heiti #1}}
+\newcommand{\colsep}[1][12pt]{\setlength{\tabcolsep}{#1}}
+%    \end{macrocode}
+% \end{macro}
+% \end{macro}
+% \end{macro}
 %
 % longtable方面也需要做设置
 %    \begin{macrocode}
 \let\cqu@LT@array\LT@array
 \def\LT@array{\zihao{5}\cqu@LT@array}
 %    \end{macrocode}
+%
+% \subsubsection{代码环境}
+% 载入\pkg{listings}宏包，定义基础代码环境：
+%    \begin{macrocode}
+\RequirePackage{listings}
+\lstdefinestyle{lstStyleBase}{%
+	basicstyle=\scriptsize\ttfamily,
+	aboveskip=\medskipamount,
+	belowskip=\medskipamount,
+	lineskip=0pt,
+	boxpos=c,
+	showlines=false,
+	extendedchars=true,
+	upquote=true,
+	tabsize=2,
+	showtabs=false,
+	showspaces=false,
+	showstringspaces=false,
+	numbers=left,
+	numberstyle=\tiny,
+	linewidth=\linewidth,
+	xleftmargin=4pt,
+	xrightmargin=0pt,
+	resetmargins=false,
+	breaklines=false,
+	breakatwhitespace=false,
+	breakindent=0pt,
+	breakautoindent=true,
+	columns=flexible,
+	keepspaces=true,
+	framesep=3pt,
+	rulesep=2pt,
+	framerule=1pt,
+	backgroundcolor=\color{gray!5},
+	stringstyle=\color{green!40!black!100},
+	keywordstyle=\bfseries\color{blue!50!black},
+	commentstyle=\slshape\color{black!60}}
+\lstdefinestyle{lstStyleCplus}{%
+	style=lstStyleBase,
+	frame=l,
+	rulecolor=\color{blue},
+	language=C++}
+\lstdefinestyle{lstStylePython}{%
+	style=lstStyleBase,
+	frame=l,
+	rulecolor=\color{cyan},
+	language=Python}
+%    \end{macrocode}
+% \begin{environment}{Cplus}
+% \begin{environment}{Python}
+% \cquthesis 内置了两个代码环境，\env{Cplus}和\env{Python}，您可以参照代码在\file{cquthesis.sty}中定义自己的环境。
+%    \begin{macrocode}
+\lstnewenvironment{Cplus}{\lstset{style=lstStylePython}}{}
+\lstnewenvironment{Python}{\lstset{style=lstStyleCplus}}{}
+%    \end{macrocode}
+% \end{environment}
+% \end{environment}
+%
+% \subsubsection{自定义计数器}
+% 这个计数器可以在很多环境下使用，例如表格中的序号，文章中行内的编号等等：
+% \begin{macro}{\xuhao}
+% \begin{macro}{\resetxuhao}
+% \begin{macro}{\xuhaotype}
+% \begin{macro}{\xuhaoseparator}
+% \cs{xuhao}会自增并输出内容，\cs{resetxuhao}或者\cs{xuhao}\oarg{1}会将序号置为1，后者会输出，\cs{xuhaotype}用来设定序号风格，\cs{xuhaoseparator}为序号之后的分隔符，可以用\cs{renewcommand}来定义。
+%    \begin{macrocode}
+\newcounter{cquXuHao}
+\newcounter{cquXuHaoType}
+\setcounter{cquXuHaoType}{1}
+\newcommand{\xuhaoseparator}{}
+\newcommand{\xuhaotype}[1][1]{
+	\ifnum #1>6 \ClassError{cquthesis}%
+	{Available choices from 1-6.}{}%
+	\fi
+	\setcounter{cquXuHaoType}{#1}
+}%\xuhaotype
+\newcommand{\output@xuhao}{%
+	\ifcase\value{cquXuHaoType}
+	\or	\arabic{cquXuHao}	%1
+	\or	\Alph{cquXuHao}	%2
+	\or	\alph{cquXuHao}	%3
+	\or	\Roman{cquXuHao}	%4
+	\or	\roman{cquXuHao}	%5
+	\or	\ifnum\value{cquXuHao}>9\ClassError{cquthesis}%
+	{Xuhao(rownum) of type-6 must be under 10.}{}%
+	\else\fnsymbol{cquXuHao}
+	\fi	%6
+	\fi
+}%\output@xuhao
+\newcommand{\xuhao}[1][0]{
+	\ifcase #1
+	\stepcounter{cquXuHao}		%0
+	\output@xuhao\xuhaoseparator\xspace
+	\or	\resetxuhao\stepcounter{cquXuHao}		%1
+	\output@xuhao\xuhaoseparator\xspace
+	\fi
+}%\xuhao
+\newcommand{\resetxuhao}{\setcounter{cquXuHao}{0}}
+%    \end{macrocode}
+% \end{macro}
+% \end{macro}
+% \end{macro}
+% \end{macro}
+% \begin{macro}{\rownum}
+% \begin{macro}{\resetrownum}
+% \begin{macro}{\rownumtype}
+% \begin{macro}{\rownumseparator}
+% 考虑到不同用户的喜好，这里设定一组别名，同时处理\cs{setxuhao}这个兼容性问题。
+%    \begin{macrocode}
+\let\rownum\xuhao
+\let\resetrownum\resetxuhao
+\let\rownumtype\xuhaotype
+\let\setxuhao\xuhaotype
+\let\rownumseparator\xuhaoseparator
+%    \end{macrocode}
+% \end{macro}
+% \end{macro}
+% \end{macro}
+% \end{macro}
 %
 % \subsection{封面绘制}
 % \subsubsection{信息录入}
@@ -1320,7 +1607,8 @@
 %
 % \subsubsection{绘制中文封面}
 % \begin{macro}{\make@cover@CN}
-% 基本上的思路是能复用就复用，姓名那几行分为左右两个\env{minipage}:
+% \changes{v0.9.7}{2016/06/09}{使用\pkg{varwidth}代替了\pkg{pbox}。}
+% 基本上的思路是能复用就复用，姓名那几行分为左右两个\env{varwidth}:
 %    \begin{macrocode}
 \newcommand{\make@cover@CN}{%
 	\thispagestyle{style@empty}
@@ -1332,12 +1620,12 @@
 		\\	\vspace{\stretch{1}}
 		\zihao{2}\cqu@ctitle
 		\\	\vspace{\stretch{2}}
-		\includegraphics[width=6cm]{CQUbandage.pdf}
+		\includegraphics[width=6cm]{CQUbadge.pdf}
 		\\	\vspace{\stretch{2}}
 		\else
 		\zihao{2}\cqu@ctitle
 		\\	\vspace{\stretch{1}}
-		\includegraphics[width=6cm]{CQUbandage.pdf}
+		\includegraphics[width=6cm]{CQUbadge.pdf}
 		\\	\vspace{\stretch{1}}
 		\zihao{-2}\cqu@thesistypenameCN
 		\ifcqu@master{}\\\cqu@mastertype\fi
@@ -1345,17 +1633,17 @@
 		\fi
 		\ifcqu@bachelor
 		\zihao{3}
-		\begin{minipage}{4.5\ccwd}
+		\begin{varwidth}{\textwidth}
 			\begin{CJKfilltwosides}{4.5\ccwd}
 				\cqu@studentCN\cqu@title@separatorCN\\
 				\cqu@studentnumCN\cqu@title@separatorCN\\
 				\cqu@supervisorCN\cqu@title@separatorCN\\
 				\cqu@majorCN\cqu@title@separatorCN
 			\end{CJKfilltwosides}
-		\end{minipage}
+		\end{varwidth}
 		\else
 		\zihao{3}
-		\begin{minipage}{4.5\ccwd}
+		\begin{varwidth}{\textwidth}
 			\begin{CJKfilltwosides}{4.5\ccwd}
 				\cqu@studentCN\cqu@title@separatorCN\\
 				\cqu@supervisorCN\cqu@title@separatorCN\\
@@ -1366,12 +1654,11 @@
 				\fi
 				\cqu@majorclassCN\cqu@title@separatorCN
 			\end{CJKfilltwosides}
-		\end{minipage}
+		\end{varwidth}
 		\fi
 		\hskip.5\ccwd
 		\zihao{3}
-		\begin{minipage}%
-			{\widthofpbox{\cqu@cauthor\\\cqu@studentid\\\cqu@cmajor\\\cqu@cclass\\\cqu@cpsupervisor}}%
+		\begin{varwidth}{\textwidth}%
 			\mbox{\cqu@cauthor}\\
 			\ifcqu@bachelor\mbox{\cqu@studentid}\\\fi
 			\cqu@csupervisor\\ %不要放在盒子里
@@ -1382,7 +1669,7 @@
 			\cqu@cpsupervisor\\
 			\cqu@cclass
 			\fi
-		\end{minipage}
+		\end{varwidth}
 		\\	\vspace{\stretch{2}}
 		\zihao{-2}\cqu@universitynameCN\cqu@cdepartment\\[1mm]
 		\zihao{3}\ifdefempty{\cqu@mycdate}{\cdate}{\cqu@mycdate}
@@ -1406,7 +1693,7 @@
 			\\	\vspace{\stretch{2}}
 			\zihao{-1}\textbf{\cqu@etitle}
 			\\	\vspace{\stretch{1}}
-			\includegraphics[width=5cm]{CQUbandage.pdf}
+			\includegraphics[width=5cm]{CQUbadge.pdf}
 			\\	\vspace{\stretch{2}}
 			\zihao{3}\textbf{\cqu@studentEN\cqu@title@separatorEN\mbox{\cqu@eauthor}}\\
 			\cqu@supervisorEN\cqu@title@separatorEN\mbox{\cqu@esupervisor}\\
@@ -1414,7 +1701,7 @@
 		\else
 			\zihao{-1}\textbf{\cqu@etitle}
 			\\	\vspace{\stretch{2}}
-			\includegraphics[width=5cm]{CQUbandage.pdf}
+			\includegraphics[width=5cm]{CQUbadge.pdf}
 			\\	\vspace{\stretch{2}}
 			\zihao{3}\cqu@thesistypenameEN
 			\\[1mm]
@@ -1560,7 +1847,7 @@
 \def\cqu@cabstract@tocname{中文摘要}
 \def\cqu@eabstract@tocname{英文摘要}
 \def\cqu@cabstract@name{摘\hskip\ccwd{}要}
-\def\cqu@eabstract@name{Abstract}
+\def\cqu@eabstract@name{ABSTRACT}
 \def\cqu@ckw@title{关键词}
 \def\cqu@ekw@title{Key words}
 \def\cqu@workby{by}
@@ -1665,10 +1952,11 @@
 %
 % \subsection{目录}
 % \subsubsection{定制目录}
-% 目录深度和计数器深度
+% 目录深度和计数器深度，减小章节之间的垂直间隔：
 %    \begin{macrocode}
 \setcounter{tocdepth}{2}
 \setcounter{secnumdepth}{3}
+\setlength{\cftbeforechapskip}{1mm}
 %    \end{macrocode}
 % 调整subsection的目录缩进
 %    \begin{macrocode}
@@ -1699,7 +1987,7 @@
 %
 % 决定论文页眉名称 这个变量不能含有格式
 %    \begin{macrocode}
-%<cfg>\let \cqu@thesisname\cqu@thesistypenameCN
+%<cfg>\let\cqu@thesisname\cqu@thesistypenameCN
 %    \end{macrocode}
 %
 % 目录和索引标题居中，包含\cs{fixhead}
@@ -1737,6 +2025,7 @@
 % \end{macro}
 %
 % \subsection{参考文献}
+% \changes{v0.9.7}{2016/06/09}{参考文献现在能正确地显示为五号字了。}
 % \begin{macro}{\inlinecite}
 % \begin{macro}{\onlinecite}
 % 定义\cs{inlinecite}和\cs{onlinecite}
@@ -1758,8 +2047,12 @@
 	\clearpage\phantomsection\addcontentsline{toc}{chapter}{\cqu@bib@name}}{}{}
 %    \end{macrocode}
 %
-% 减少参考文献占用的空间
+% 参考文献使用五号字，同时优化参考文献占用的空间
 %    \begin{macrocode}
+\AtBeginDocument{%
+\pretocmd{\bibliography}{\begingroup\zihao{5}}{}{}
+\apptocmd{\bibliography}{\endgroup}{}{}
+}%AtBeginDocument
 \renewcommand\@biblabel[1]{\zihao{5}[#1]}
 \renewenvironment{thebibliography}[1]
 {\chapter*{\cqu@bib@name
@@ -1816,6 +2109,7 @@ headsep=3mm]{geometry}
 \RequirePackage{etoolbox}
 \RequirePackage{metalogo}
 \RequirePackage{graphicx}
+\RequirePackage{xspace}
 
 \colorlet{cqu@macro}{blue!60!black}
 \colorlet{cqu@env}{blue!70!black}
@@ -1824,6 +2118,10 @@ headsep=3mm]{geometry}
 \patchcmd{\PrintDescribeMacro}{\MacroFont}{\MacroFont\bfseries\color{cqu@macro}}{}{}
 \patchcmd{\PrintDescribeEnv}{\MacroFont}{\MacroFont\bfseries\color{cqu@env}}{}{}
 \patchcmd{\PrintEnvName}{\MacroFont}{\MacroFont\bfseries\color{cqu@env}}{}{}
+
+\appto{\TeX}{\xspace}
+\appto{\LaTeX}{\xspace}
+\appto{\XeTeX}{\xspace}
 
 \def\DescribeOption{%
 	\leavevmode\@bsphack\begingroup\MakePrivateLetters%
@@ -1896,12 +2194,12 @@ headsep=3mm]{geometry}
 
 \setlist{nosep}
 
-\DeclareDocumentCommand{\option}{m}{\textsf{#1}}
-\DeclareDocumentCommand{\env}{m}{\texttt{#1}}
+\DeclareDocumentCommand{\option}{m}{\textsf{#1}\xspace}
+\DeclareDocumentCommand{\env}{m}{\texttt{#1}\xspace}
 \DeclareDocumentCommand{\pkg}{s m}{%
-	\texttt{#2}\IfBooleanF#1{\cqu@special@index{package}{#2}}}
+	\texttt{#2}\xspace\IfBooleanF#1{\cqu@special@index{package}{#2}}}
 \DeclareDocumentCommand{\file}{s m}{%
-	\texttt{#2}\IfBooleanF#1{\cqu@special@index{file}{#2}}}
+	\texttt{#2}\xspace\IfBooleanF#1{\cqu@special@index{file}{#2}}}
 \newcommand{\myentry}[1]{%
 	\marginpar{\raggedleft\color{purple}\bfseries\strut #1}}
 \newcommand{\note}[1]{{%
