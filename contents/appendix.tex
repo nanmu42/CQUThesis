@@ -29,3 +29,62 @@
 
 \section{关于声明书和授权书}
 声明和授权部分支持扫描页替换，请在\pkg{main.tex}中设置。
+
+\section{程序源代码}
+以下是一段供排版测试的Python程序源代码：
+\begin{Python}
+# 这是一行注释
+
+import pandas as pd
+import matplotlib.pyplot as plt
+import numpy as np
+import seaborn as sns
+import os
+
+lengthSummary = pd.DataFrame()
+lengthSum = lengthPool.groupby(['Pretreatment','Atmosphere'])
+for name, group in lengthSum:
+	sumBuffer = group.describe()
+	sumBuffer.columns = [(name[0]+' '+name[1])]
+	lengthSummary = pd.concat([lengthSummary,sumBuffer], axis = 1)
+lengthSummary.to_csv('lengthSummary.csv')
+
+\end{Python}
+
+\section{附录的图和表}
+以下内容用来测试附录中的插图和插表是否正常，主要的关注点在题注：
+
+\begin{figure}[tbh]
+\centering
+\includegraphics[width=0.5\linewidth]{CQUbadge}
+\caption{附录插图测试}
+\label{fig:cqubadge}
+\end{figure}
+
+\begin{figure}[tbh]
+	\centering
+	\includegraphics[width=0.5\linewidth]{CQUbadge}
+	\caption{附录插图测试}
+	\label{fig:cqubadge2}
+\end{figure}
+
+\begin{table}[htb]
+	\centering\colsep[24pt]
+	\caption{本课题研究的两个自变量}
+	\label{tab:inroVarible}
+	\begin{tabularx}{\linewidth}{cl}
+		\toprule
+		\headcell{自变量} & \headcell{自变量可取的值} \\
+		\midrule\setxuhao[6]
+		是否接触大气 & \xuhao[1] 接触大气 \xuhao 氮气保护 \\\setxuhao[2]
+		溶解方式 & \xuhao[1] 超声30min \xuhao 搅拌1h \xuhao 静置12h\\
+		表格的第三行 & \bigcell{使用\cs{bigcell}\\可主动换行}\\
+		\bottomrule
+	\end{tabularx}
+\end{table}
+
+\begin{equation}
+\alpha\beta\gamma\delta\epsilon\varepsilon\zeta\eta = AB\Gamma\varGamma Z
+\end{equation}\eqlist{附录中的公式编号}
+
+测试用途：theequation值为：\theequation ，thefigure值为：\thefigure ，thetable值为：\thetable

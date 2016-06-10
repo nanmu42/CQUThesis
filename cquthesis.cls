@@ -275,7 +275,7 @@ text-micro = {\textmu},
 }%\sisetup
 \fi
 \setlength{\floatsep}{20bp \@plus4pt \@minus1pt}
-\setlength{\intextsep}{20bp \@plus4pt \@minus2pt}
+\setlength{\intextsep}{24bp \@plus4pt \@minus2pt}
 \setlength{\textfloatsep}{20bp \@plus4pt \@minus2pt}
 \setlength{\@fptop}{0bp \@plus1.0fil}
 \setlength{\@fpsep}{12bp \@plus2.0fil}
@@ -284,6 +284,26 @@ text-micro = {\textmu},
 \renewcommand{\topfraction}{0.85}
 \renewcommand{\bottomfraction}{0.65}
 \renewcommand{\floatpagefraction}{0.60}
+\AtBeginDocument{%
+\renewcommand{\thefigure}{%
+\if@backmatter
+\CTEXthesection \@arabic \c@figure
+\else
+\ifnum \c@chapter >\z@ \thechapter .\fi \@arabic \c@figure
+\fi}
+\renewcommand{\thetable}{%
+\if@backmatter
+\CTEXthesection \@arabic \c@table
+\else
+\ifnum \c@chapter >\z@ \thechapter .\fi \@arabic \c@table
+\fi}
+\renewcommand{\theequation}{%
+\if@backmatter
+\CTEXthesection \@arabic \c@equation
+\else
+\ifnum \c@chapter >\z@ \thechapter .\fi \@arabic \c@equation
+\fi}
+}
 \def\cqu@tabular{\zihao{5}\@tabular}
 \DeclareCaptionLabelFormat{cqu}{{\zihao{5}\songti #1~\rmfamily #2}}
 \DeclareCaptionLabelSeparator{cqu}{\hspace{\ccwd}}
@@ -305,7 +325,7 @@ text-micro = {\textmu},
 \def\LT@array{\zihao{5}\cqu@LT@array}
 \RequirePackage{listings}
 \lstdefinestyle{lstStyleBase}{%
-basicstyle=\small\ttfamily,
+basicstyle=\scriptsize\ttfamily,
 aboveskip=\medskipamount,
 belowskip=\medskipamount,
 lineskip=0pt,
@@ -317,21 +337,20 @@ tabsize=2,
 showtabs=false,
 showspaces=false,
 showstringspaces=false,
-numbers=none,
+numbers=left,
 numberstyle=\tiny,
 linewidth=\linewidth,
 xleftmargin=4pt,
 xrightmargin=0pt,
 resetmargins=false,
-breaklines=true,
+breaklines=false,
 breakatwhitespace=false,
 breakindent=0pt,
 breakautoindent=true,
 columns=flexible,
 keepspaces=true,
-gobble=2,
 framesep=3pt,
-rulesep=1pt,
+rulesep=2pt,
 framerule=1pt,
 backgroundcolor=\color{gray!5},
 stringstyle=\color{green!40!black!100},
@@ -432,12 +451,12 @@ language=Python}
 \\ \vspace{\stretch{1}}
 \zihao{2}\cqu@ctitle
 \\ \vspace{\stretch{2}}
-\includegraphics[width=6cm]{CQUbandage.pdf}
+\includegraphics[width=6cm]{CQUbadge.pdf}
 \\ \vspace{\stretch{2}}
 \else
 \zihao{2}\cqu@ctitle
 \\ \vspace{\stretch{1}}
-\includegraphics[width=6cm]{CQUbandage.pdf}
+\includegraphics[width=6cm]{CQUbadge.pdf}
 \\ \vspace{\stretch{1}}
 \zihao{-2}\cqu@thesistypenameCN
 \ifcqu@master{}\\\cqu@mastertype\fi
@@ -498,7 +517,7 @@ language=Python}
 \\ \vspace{\stretch{2}}
 \zihao{-1}\textbf{\cqu@etitle}
 \\ \vspace{\stretch{1}}
-\includegraphics[width=5cm]{CQUbandage.pdf}
+\includegraphics[width=5cm]{CQUbadge.pdf}
 \\ \vspace{\stretch{2}}
 \zihao{3}\textbf{\cqu@studentEN\cqu@title@separatorEN\mbox{\cqu@eauthor}}\\
 \cqu@supervisorEN\cqu@title@separatorEN\mbox{\cqu@esupervisor}\\
@@ -506,7 +525,7 @@ language=Python}
 \else
 \zihao{-1}\textbf{\cqu@etitle}
 \\ \vspace{\stretch{2}}
-\includegraphics[width=5cm]{CQUbandage.pdf}
+\includegraphics[width=5cm]{CQUbadge.pdf}
 \\ \vspace{\stretch{2}}
 \zihao{3}\cqu@thesistypenameEN
 \\[1mm]

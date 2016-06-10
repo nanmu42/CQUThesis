@@ -80,7 +80,7 @@
 % \changes{v0.8.9}{2016/05/15}{模板登陆Github，开始参与2016年重庆大学毕业设计工作。}
 % \changes{v0.9.4}{2016/05/19}{用户文档撰写完成，CQUThesis提交至CTAN审核。}
 % \changes{v0.9.7}{2016/06/09}{参与了2016年重庆大学毕业设计工作后，模板根据实际测试情况作了一番改进，Beta测试落下帷幕。}
-% \changes{v0.9.7}{2016/06/09}{拆分了\pkg{cquthesis.sty}宏包，将其大部分内容并入\pkg{cquthesis.cls}和\pkg{cquthesis.cfg}。}
+% \changes{v0.9.7}{2016/06/09}{拆分了\file{cquthesis.sty}宏包，将其大部分内容并入\file{cquthesis.cls}和\file{cquthesis.cfg}。}
 %
 % \def\indexname{代码索引}
 % \def\glossaryname{更新记录}
@@ -1276,7 +1276,7 @@
 %    \begin{macrocode}
 %<*cls>
 \setlength{\floatsep}{20bp \@plus4pt \@minus1pt}
-\setlength{\intextsep}{20bp \@plus4pt \@minus2pt}
+\setlength{\intextsep}{24bp \@plus4pt \@minus2pt}
 \setlength{\textfloatsep}{20bp \@plus4pt \@minus2pt}
 \setlength{\@fptop}{0bp \@plus1.0fil}
 \setlength{\@fpsep}{12bp \@plus2.0fil}
@@ -1291,7 +1291,37 @@
 %    \end{macrocode}
 %
 % \subsubsection{题注和表格}
-% 定制表格和插图的题注样式
+% 主体部分的题注和后置部分的题注需要做分别支持。
+% \begin{macro}{\thefigure}
+% \begin{macro}{\thetable}
+% \begin{macro}{\theequation}
+% 重新定义了图、表、公式的计数系统：
+%    \begin{macrocode}
+\AtBeginDocument{%
+	\renewcommand{\thefigure}{%
+		\if@backmatter
+			\CTEXthesection \@arabic \c@figure
+		\else
+			\ifnum \c@chapter >\z@ \thechapter .\fi \@arabic \c@figure
+		\fi}
+	\renewcommand{\thetable}{%
+		\if@backmatter
+			\CTEXthesection \@arabic \c@table
+		\else
+			\ifnum \c@chapter >\z@ \thechapter .\fi \@arabic \c@table
+		\fi}
+	\renewcommand{\theequation}{%
+		\if@backmatter
+			\CTEXthesection \@arabic \c@equation
+		\else
+			\ifnum \c@chapter >\z@ \thechapter .\fi \@arabic \c@equation
+		\fi}
+}
+%    \end{macrocode}
+% \end{macro}
+% \end{macro}
+% \end{macro}
+% 定制表格和插图的题注样式：
 %    \begin{macrocode}
 \def\cqu@tabular{\zihao{5}\@tabular}
 \DeclareCaptionLabelFormat{cqu}{{\zihao{5}\songti #1~\rmfamily #2}}
@@ -1335,7 +1365,7 @@
 %    \begin{macrocode}
 \RequirePackage{listings}
 \lstdefinestyle{lstStyleBase}{%
-	basicstyle=\small\ttfamily,
+	basicstyle=\scriptsize\ttfamily,
 	aboveskip=\medskipamount,
 	belowskip=\medskipamount,
 	lineskip=0pt,
@@ -1347,21 +1377,20 @@
 	showtabs=false,
 	showspaces=false,
 	showstringspaces=false,
-	numbers=none,
+	numbers=left,
 	numberstyle=\tiny,
 	linewidth=\linewidth,
 	xleftmargin=4pt,
 	xrightmargin=0pt,
 	resetmargins=false,
-	breaklines=true,
+	breaklines=false,
 	breakatwhitespace=false,
 	breakindent=0pt,
 	breakautoindent=true,
 	columns=flexible,
 	keepspaces=true,
-	gobble=2,
 	framesep=3pt,
-	rulesep=1pt,
+	rulesep=2pt,
 	framerule=1pt,
 	backgroundcolor=\color{gray!5},
 	stringstyle=\color{green!40!black!100},
@@ -1380,7 +1409,7 @@
 %    \end{macrocode}
 % \begin{environment}{Cplus}
 % \begin{environment}{Python}
-% \cquthesis 内置了两个代码环境，\env{Cplus}和\env{Python}，您可以参照代码在\pkg{cquthesis.sty}中定义自己的环境。
+% \cquthesis 内置了两个代码环境，\env{Cplus}和\env{Python}，您可以参照代码在\file{cquthesis.sty}中定义自己的环境。
 %    \begin{macrocode}
 \lstnewenvironment{Cplus}{\lstset{style=lstStylePython}}{}
 \lstnewenvironment{Python}{\lstset{style=lstStyleCplus}}{}
@@ -1554,12 +1583,12 @@
 		\\	\vspace{\stretch{1}}
 		\zihao{2}\cqu@ctitle
 		\\	\vspace{\stretch{2}}
-		\includegraphics[width=6cm]{CQUbandage.pdf}
+		\includegraphics[width=6cm]{CQUbadge.pdf}
 		\\	\vspace{\stretch{2}}
 		\else
 		\zihao{2}\cqu@ctitle
 		\\	\vspace{\stretch{1}}
-		\includegraphics[width=6cm]{CQUbandage.pdf}
+		\includegraphics[width=6cm]{CQUbadge.pdf}
 		\\	\vspace{\stretch{1}}
 		\zihao{-2}\cqu@thesistypenameCN
 		\ifcqu@master{}\\\cqu@mastertype\fi
@@ -1627,7 +1656,7 @@
 			\\	\vspace{\stretch{2}}
 			\zihao{-1}\textbf{\cqu@etitle}
 			\\	\vspace{\stretch{1}}
-			\includegraphics[width=5cm]{CQUbandage.pdf}
+			\includegraphics[width=5cm]{CQUbadge.pdf}
 			\\	\vspace{\stretch{2}}
 			\zihao{3}\textbf{\cqu@studentEN\cqu@title@separatorEN\mbox{\cqu@eauthor}}\\
 			\cqu@supervisorEN\cqu@title@separatorEN\mbox{\cqu@esupervisor}\\
@@ -1635,7 +1664,7 @@
 		\else
 			\zihao{-1}\textbf{\cqu@etitle}
 			\\	\vspace{\stretch{2}}
-			\includegraphics[width=5cm]{CQUbandage.pdf}
+			\includegraphics[width=5cm]{CQUbadge.pdf}
 			\\	\vspace{\stretch{2}}
 			\zihao{3}\cqu@thesistypenameEN
 			\\[1mm]
