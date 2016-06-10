@@ -30,7 +30,7 @@ cquthesis.Rproj
 .Rhistory
 *.gz(busy)
 *.gz
-*.pdf
 *.equ
 *.bat
 dtx-style.sty
+main.pdf

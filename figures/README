@@ -1,0 +1,8 @@
+Notice For CTAN
+
+The file "CQUbadge.pdf" is a vector graph in PDF format, which can be transformed loselessly to .eps file. Thus, it should be regarded as "Source File".
+
+The .eps version is deprecated due to its unreasonable file size(~1.2 MB).
+
+Zhennan Li
+Author of CQUThesis, LATEX Thesis Template for Chongqing University.

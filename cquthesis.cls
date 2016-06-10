@@ -21,10 +21,10 @@
 %% 
 \NeedsTeXFormat{LaTeX2e}[1999/12/01]
 \ProvidesClass{cquthesis}
-[2016/05/25 v0.9.41 Chongqing University Thesis Template]
+[2016/06/09 v0.9.7 Chongqing University Thesis Template]
 \hyphenation{Cqu-Thesis}
 \newcommand{\cquthesis}{\textsc{CquThesis}}
-\def\version{0.9.41}
+\def\version{0.9.7}
 \RequirePackage{kvoptions}
 \SetupKeyvalOptions{
 family=cqu,
@@ -83,13 +83,20 @@ printmode=[oneside|twoside|auto]}{}
 \RequirePackage{environ}
 \RequirePackage{calc}
 \RequirePackage{ifxetex}
+\RequirePackage{fontspec}
 \RequirePackage{amsmath}
 \RequirePackage[defaultsups]{newtxtext}
 \RequirePackage{newtxmath}
 \RequirePackage{pifont}
 \RequirePackage{CJKfntef}
 \RequirePackage[labelformat=simple]{subcaption}
+\RequirePackage{array}
+\RequirePackage{tabularx}
+\RequirePackage{booktabs}
 \RequirePackage{longtable}
+\RequirePackage{multirow}
+\RequirePackage{diagbox}
+\RequirePackage{tabu}
 \RequirePackage{courier}
 \RequirePackage{graphicx}
 \RequirePackage{pdfpages}
@@ -99,8 +106,13 @@ printmode=[oneside|twoside|auto]}{}
 \RequirePackage{afterpage}
 \RequirePackage[bottom,perpage,hang,symbol*]{footmisc}
 \raggedbottom
-\RequirePackage{pbox}
+\RequirePackage{varwidth}
+\RequirePackage{xcolor}
+\RequirePackage{metalogo}
+\RequirePackage{xspace}
 \RequirePackage[numbers,square,comma,super,sort&compress]{natbib}
+\patchcmd{\@chapter}{\addtocontents{lof}{\protect\addvspace{10\p@}}}{}{}{} % lof
+\patchcmd{\@chapter}{\addtocontents{lot}{\protect\addvspace{10\p@}}}{}{}{} % lot
 \RequirePackage[hyperfootnotes=false,]{hyperref}
 \hypersetup{%
 linktoc=all,
@@ -250,8 +262,19 @@ itemjoin = {{；}}
 \renewcommand{\eqref}[1]{\cqueqshortname\textup{(\ref{#1})}}
 \theorembodyfont{\rmfamily\songti}
 \theoremheaderfont{\rmfamily\heiti}
+\RequirePackage[version=4]{mhchem}
+\AtBeginDocument{\pretocmd{\ce}{{ }}{}{}}
+\newcommand{\cec}[1]{\cesplit{{\,\ }{\0}}{#1}}
+\RequirePackage{siunitx}
+\RequirePackage{upgreek}
+\ifxetex
+\sisetup{%
+math-micro = {\upmu},
+text-micro = {\textmu},
+}%\sisetup
+\fi
 \setlength{\floatsep}{20bp \@plus4pt \@minus1pt}
-\setlength{\intextsep}{20bp \@plus4pt \@minus2pt}
+\setlength{\intextsep}{24bp \@plus4pt \@minus2pt}
 \setlength{\textfloatsep}{20bp \@plus4pt \@minus2pt}
 \setlength{\@fptop}{0bp \@plus1.0fil}
 \setlength{\@fpsep}{12bp \@plus2.0fil}
@@ -260,6 +283,26 @@ itemjoin = {{；}}
 \renewcommand{\topfraction}{0.85}
 \renewcommand{\bottomfraction}{0.65}
 \renewcommand{\floatpagefraction}{0.60}
+\AtBeginDocument{%
+\renewcommand{\thefigure}{%
+\if@backmatter
+\CTEXthesection \@arabic \c@figure
+\else
+\ifnum \c@chapter >\z@ \thechapter .\fi \@arabic \c@figure
+\fi}
+\renewcommand{\thetable}{%
+\if@backmatter
+\CTEXthesection \@arabic \c@table
+\else
+\ifnum \c@chapter >\z@ \thechapter .\fi \@arabic \c@table
+\fi}
+\renewcommand{\theequation}{%
+\if@backmatter
+\CTEXthesection \@arabic \c@equation
+\else
+\ifnum \c@chapter >\z@ \thechapter .\fi \@arabic \c@equation
+\fi}
+}
 \def\cqu@tabular{\zihao{5}\@tabular}
 \DeclareCaptionLabelFormat{cqu}{{\zihao{5}\songti #1~\rmfamily #2}}
 \DeclareCaptionLabelSeparator{cqu}{\hspace{\ccwd}}
@@ -270,8 +313,97 @@ itemjoin = {{；}}
 \captionsetup[sub]{font=cqu,skip=6bp}
 \renewcommand{\thesubfigure}{(\alph{subfigure})}
 \renewcommand{\thesubtable}{(\alph{subtable})}
+\AtBeginEnvironment{tabularx}{\begingroup\zihao{5}}
+\AtEndEnvironment{tabularx}{\endgroup}
+\setlength{\tabcolsep}{12pt}
+\renewcommand{\tabularxcolumn}[1]{m{#1}}
+\newcommand{\bigcell}[1]{\vspace{6pt}\begin{varwidth}{\linewidth}#1\end{varwidth}\vspace{6pt}}
+\newcommand{\headcell}[1]{\multicolumn{1}{c}{\heiti #1}}
+\newcommand{\colsep}[1][12pt]{\setlength{\tabcolsep}{#1}}
 \let\cqu@LT@array\LT@array
 \def\LT@array{\zihao{5}\cqu@LT@array}
+\RequirePackage{listings}
+\lstdefinestyle{lstStyleBase}{%
+basicstyle=\scriptsize\ttfamily,
+aboveskip=\medskipamount,
+belowskip=\medskipamount,
+lineskip=0pt,
+boxpos=c,
+showlines=false,
+extendedchars=true,
+upquote=true,
+tabsize=2,
+showtabs=false,
+showspaces=false,
+showstringspaces=false,
+numbers=left,
+numberstyle=\tiny,
+linewidth=\linewidth,
+xleftmargin=4pt,
+xrightmargin=0pt,
+resetmargins=false,
+breaklines=false,
+breakatwhitespace=false,
+breakindent=0pt,
+breakautoindent=true,
+columns=flexible,
+keepspaces=true,
+framesep=3pt,
+rulesep=2pt,
+framerule=1pt,
+backgroundcolor=\color{gray!5},
+stringstyle=\color{green!40!black!100},
+keywordstyle=\bfseries\color{blue!50!black},
+commentstyle=\slshape\color{black!60}}
+\lstdefinestyle{lstStyleCplus}{%
+style=lstStyleBase,
+frame=l,
+rulecolor=\color{blue},
+language=C++}
+\lstdefinestyle{lstStylePython}{%
+style=lstStyleBase,
+frame=l,
+rulecolor=\color{cyan},
+language=Python}
+\lstnewenvironment{Cplus}{\lstset{style=lstStylePython}}{}
+\lstnewenvironment{Python}{\lstset{style=lstStyleCplus}}{}
+\newcounter{cquXuHao}
+\newcounter{cquXuHaoType}
+\setcounter{cquXuHaoType}{1}
+\newcommand{\xuhaoseparator}{}
+\newcommand{\xuhaotype}[1][1]{
+\ifnum #1>6 \ClassError{cquthesis}%
+{Available choices from 1-6.}{}%
+\fi
+\setcounter{cquXuHaoType}{#1}
+}%\xuhaotype
+\newcommand{\output@xuhao}{%
+\ifcase\value{cquXuHaoType}
+\or \arabic{cquXuHao} %1
+\or \Alph{cquXuHao} %2
+\or \alph{cquXuHao} %3
+\or \Roman{cquXuHao} %4
+\or \roman{cquXuHao} %5
+\or \ifnum\value{cquXuHao}>9\ClassError{cquthesis}%
+{Xuhao(rownum) of type-6 must be under 10.}{}%
+\else\fnsymbol{cquXuHao}
+\fi %6
+\fi
+}%\output@xuhao
+\newcommand{\xuhao}[1][0]{
+\ifcase #1
+\stepcounter{cquXuHao} %0
+\output@xuhao\xuhaoseparator\xspace
+\or \resetxuhao\stepcounter{cquXuHao} %1
+\output@xuhao\xuhaoseparator\xspace
+\fi
+}%\xuhao
+\newcommand{\resetxuhao}{\setcounter{cquXuHao}{0}}
+\let\rownum\xuhao
+\let\resetrownum\resetxuhao
+\let\rownumtype\xuhaotype
+\let\setxuhao\xuhaotype
+\let\rownumseparator\xuhaoseparator
 \def\cqu@def@term #1{%
 \define@key{cqu}{#1}{\csname #1\endcsname{##1}}
 \expandafter\gdef\csname #1\endcsname##1{%
@@ -318,12 +450,12 @@ itemjoin = {{；}}
 \\ \vspace{\stretch{1}}
 \zihao{2}\cqu@ctitle
 \\ \vspace{\stretch{2}}
-\includegraphics[width=6cm]{CQUbandage.pdf}
+\includegraphics[width=6cm]{CQUbadge.pdf}
 \\ \vspace{\stretch{2}}
 \else
 \zihao{2}\cqu@ctitle
 \\ \vspace{\stretch{1}}
-\includegraphics[width=6cm]{CQUbandage.pdf}
+\includegraphics[width=6cm]{CQUbadge.pdf}
 \\ \vspace{\stretch{1}}
 \zihao{-2}\cqu@thesistypenameCN
 \ifcqu@master{}\\\cqu@mastertype\fi
@@ -331,17 +463,17 @@ itemjoin = {{；}}
 \fi
 \ifcqu@bachelor
 \zihao{3}
-\begin{minipage}{4.5\ccwd}
+\begin{varwidth}{\textwidth}
 \begin{CJKfilltwosides}{4.5\ccwd}
 \cqu@studentCN\cqu@title@separatorCN\\
 \cqu@studentnumCN\cqu@title@separatorCN\\
 \cqu@supervisorCN\cqu@title@separatorCN\\
 \cqu@majorCN\cqu@title@separatorCN
 \end{CJKfilltwosides}
-\end{minipage}
+\end{varwidth}
 \else
 \zihao{3}
-\begin{minipage}{4.5\ccwd}
+\begin{varwidth}{\textwidth}
 \begin{CJKfilltwosides}{4.5\ccwd}
 \cqu@studentCN\cqu@title@separatorCN\\
 \cqu@supervisorCN\cqu@title@separatorCN\\
@@ -352,12 +484,11 @@ itemjoin = {{；}}
 \fi
 \cqu@majorclassCN\cqu@title@separatorCN
 \end{CJKfilltwosides}
-\end{minipage}
+\end{varwidth}
 \fi
 \hskip.5\ccwd
 \zihao{3}
-\begin{minipage}%
-{\widthofpbox{\cqu@cauthor\\\cqu@studentid\\\cqu@cmajor\\\cqu@cclass\\\cqu@cpsupervisor}}%
+\begin{varwidth}{\textwidth}%
 \mbox{\cqu@cauthor}\\
 \ifcqu@bachelor\mbox{\cqu@studentid}\\\fi
 \cqu@csupervisor\\ %不要放在盒子里
@@ -368,7 +499,7 @@ itemjoin = {{；}}
 \cqu@cpsupervisor\\
 \cqu@cclass
 \fi
-\end{minipage}
+\end{varwidth}
 \\ \vspace{\stretch{2}}
 \zihao{-2}\cqu@universitynameCN\cqu@cdepartment\\[1mm]
 \zihao{3}\ifdefempty{\cqu@mycdate}{\cdate}{\cqu@mycdate}
@@ -385,7 +516,7 @@ itemjoin = {{；}}
 \\ \vspace{\stretch{2}}
 \zihao{-1}\textbf{\cqu@etitle}
 \\ \vspace{\stretch{1}}
-\includegraphics[width=5cm]{CQUbandage.pdf}
+\includegraphics[width=5cm]{CQUbadge.pdf}
 \\ \vspace{\stretch{2}}
 \zihao{3}\textbf{\cqu@studentEN\cqu@title@separatorEN\mbox{\cqu@eauthor}}\\
 \cqu@supervisorEN\cqu@title@separatorEN\mbox{\cqu@esupervisor}\\
@@ -393,7 +524,7 @@ itemjoin = {{；}}
 \else
 \zihao{-1}\textbf{\cqu@etitle}
 \\ \vspace{\stretch{2}}
-\includegraphics[width=5cm]{CQUbandage.pdf}
+\includegraphics[width=5cm]{CQUbadge.pdf}
 \\ \vspace{\stretch{2}}
 \zihao{3}\cqu@thesistypenameEN
 \\[1mm]
@@ -515,6 +646,7 @@ itemindent = 0mm,
 \end{cqu@denotation}}%\denotation
 \setcounter{tocdepth}{2}
 \setcounter{secnumdepth}{3}
+\setlength{\cftbeforechapskip}{1mm}
 \ifcqu@liberalformat
 \cftsetindents{chapter}{0em}{1.5em}
 \cftsetindents{section}{1.9em}{0.9em}
@@ -557,6 +689,10 @@ itemindent = 0mm,
 \let\onlinecite\inlinecite
 \pretocmd{\bibliography}{%
 \clearpage\phantomsection\addcontentsline{toc}{chapter}{\cqu@bib@name}}{}{}
+\AtBeginDocument{%
+\pretocmd{\bibliography}{\begingroup\zihao{5}}{}{}
+\apptocmd{\bibliography}{\endgroup}{}{}
+}%AtBeginDocument
 \renewcommand\@biblabel[1]{\zihao{5}[#1]}
 \renewenvironment{thebibliography}[1]
 {\chapter*{\cqu@bib@name
