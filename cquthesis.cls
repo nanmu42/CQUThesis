@@ -48,7 +48,8 @@ setkeys=\kvsetkeys}
 \@onesideprintfalse\@twosideprintfalse\@autoprintfalse
 \define@key{cqu}{printmode}{%
 \expandafter\csname @#1printtrue\endcsname}
-\DeclareBoolOption{secret}
+\DeclareBoolOption[false]{secret}
+\DeclareBoolOption[false]{seriftoc}
 \DeclareBoolOption{continuoustoc}
 \DeclareDefaultOption{\PassOptionsToClass{\CurrentOption}{ctexbook}}
 \kvsetkeys{cqu}{}
@@ -655,6 +656,12 @@ itemindent = 0mm,
 \cftsetindents{chapter}{0em}{1.5em}
 \cftsetindents{section}{1.5em}{2.2em}
 \cftsetindents{subsection}{3.7em}{2.9em}
+\fi
+\ifcqu@seriftoc
+\renewcommand{\cftchapleader}{\cftdotfill{\cftdotsep}}
+\renewcommand{\cftchapfont}{\zihao{4}\sffamily\heiti}
+\renewcommand{\cftsecfont}{\zihao{5}\sffamily\heiti}
+\renewcommand{\cftsubsecfont}{\zihao{5}}
 \fi
 \newlistof[chapter]{equations}{equ}{\listofequationsname}
 \newcommand{\listeq}[1]{%
