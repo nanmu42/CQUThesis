@@ -302,8 +302,14 @@
 % \DescribeOption{openright}
 % 正规出版物的章节出现在奇数页，也就是右手边的页面，这就是 \option{openright}，在这种情况下，如果前一章的最后一页也是奇数，那么模板会自动生成一个纯粹的空白页以保证新章节右开。这个选项适合页数较多的论文，您可根据实际情况和个人喜好选择是否开启。默认值\option{openany}，本选项在单页打印时自动失效。
 %
+% \DescribeOption{seriftoc}
+% 开启此项，目录中的不同级别会采用不同的字号和字体，这是按照学校word样例的实现。但是，蹊跷的是，样例里的这些做法在官方文件里却没有体现，而且一二级标题字号差别太大，个人观点有碍美观，所以这里列为可选项，适用于三级标题很多的情况。本选项默认关闭。
+%
 % \DescribeOption{continuoustoc}
-% 使用后论文的目录和索引不会自动开启新页，转而以连续的形式编排，这个选项适合索引内容较少但又想使用索引的用户。在开启后，您可能需要在\file{main.tex}中使用\cs{clearpage}来对索引部分进行手动分页。
+% 使用后论文的目录和索引不会自动开启新页，转而以连续的形式编排，这个选项适合索引内容较少但又想使用索引的用户。在开启后，您可能需要在\file{main.tex}中使用\cs{clearpage}来对索引部分进行手动分页。本选项默认关闭。
+%
+% \DescribeOption{abstractopenright}
+% 开启此项，双页打印模式时中英文摘要右开，这算是开发中的一个彩蛋。本选项默认关闭。
 %
 % \DescribeOption{draft}
 % 草稿模式，推荐在写作时开启。这个模式下，\LaTeX 不会加载图片，不会渲染文档内超链接，部分宏包会跳过一些工作以降低编译难度，结合\cs{includeonly}命令可以大大提高预览速度，例如：
@@ -737,7 +743,11 @@
 %    \end{macrocode}
 % 论文是否保密（默认：关），尚未支持，在计划中
 %    \begin{macrocode}
-\DeclareBoolOption{secret}
+\DeclareBoolOption[false]{secret}
+%    \end{macrocode}
+% 目录中的不同级别采用不同的字号和字体，适用于三级标题很多的情况
+%    \begin{macrocode}
+\DeclareBoolOption[false]{seriftoc}
 %    \end{macrocode}
 %	目录和索引不会自动新开一页，适用于索引内容较少时
 %    \begin{macrocode}
@@ -1968,6 +1978,15 @@
 	\cftsetindents{chapter}{0em}{1.5em}
 	\cftsetindents{section}{1.5em}{2.2em}
 	\cftsetindents{subsection}{3.7em}{2.9em}
+\fi
+%    \end{macrocode}
+% 目录中的不同级别采用不同的字号和字体，这是按照学校word样例的实现，但是蹊跷的是，样例里的这些做法在官方文件里却没有体现，所以这里列为可选项，适用于三级标题很多的情况：
+%    \begin{macrocode}
+\ifcqu@seriftoc
+	\renewcommand{\cftchapleader}{\cftdotfill{\cftdotsep}}
+	\renewcommand{\cftchapfont}{\zihao{4}\sffamily\heiti}
+	\renewcommand{\cftsecfont}{\zihao{5}\sffamily\heiti}
+	\renewcommand{\cftsubsecfont}{\zihao{5}}
 \fi
 %    \end{macrocode}
 % \subsubsection{公式索引}
