@@ -21,10 +21,10 @@
 %% 
 \NeedsTeXFormat{LaTeX2e}[1999/12/01]
 \ProvidesClass{cquthesis}
-[2016/06/09 v0.9.7 Chongqing University Thesis Template]
+[2016/06/17 v1.00 Chongqing University Thesis Template]
 \hyphenation{Cqu-Thesis}
 \newcommand{\cquthesis}{\textsc{CquThesis}}
-\def\version{0.9.7}
+\def\version{1.00}
 \RequirePackage{kvoptions}
 \SetupKeyvalOptions{
 family=cqu,
@@ -325,7 +325,7 @@ text-micro = {\textmu},
 \def\LT@array{\zihao{5}\cqu@LT@array}
 \RequirePackage{listings}
 \lstdefinestyle{lstStyleBase}{%
-basicstyle=\scriptsize\ttfamily,
+basicstyle=\footnotesize\ttfamily,
 aboveskip=\medskipamount,
 belowskip=\medskipamount,
 lineskip=0pt,
@@ -445,7 +445,7 @@ language=Python}
 \thispagestyle{style@empty}
 \begin{center}
 \rule{0mm}{15mm}
-\heiti
+\sffamily\heiti
 \ifcqu@bachelor
 \zihao{-2}\cqu@thesistypenameCN
 \\ \vspace{\stretch{1}}

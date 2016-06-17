@@ -16,7 +16,7 @@
 %
 % \iffalse
 %<*driver>
-\ProvidesFile{cquthesis.dtx}[2016/06/09 v0.9.7 Chongqing University Thesis Template]
+\ProvidesFile{cquthesis.dtx}[2016/06/17 v1.00 Chongqing University Thesis Template]
 \documentclass{ltxdoc}
 \usepackage{dtx-style}
 
@@ -81,6 +81,8 @@
 % \changes{v0.9.4}{2016/05/19}{用户文档撰写完成，CQUThesis提交至CTAN审核。}
 % \changes{v0.9.7}{2016/06/09}{参与了2016年重庆大学毕业设计工作后，模板根据实际测试情况作了一番改进，Beta测试落下帷幕。}
 % \changes{v0.9.7}{2016/06/09}{拆分了\file{cquthesis.sty}宏包，将其大部分内容并入\file{cquthesis.cls}和\file{cquthesis.cfg}。}
+% \changes{v1.00}{2016/06/17}{最后一些小修补，今年的毕设工作完全结束了。目前本科方面的格式审查没有问题，研究生和博士生哪边还没有数据。}
+% \changes{v1.00}{2016/06/17}{版本号格式从vX.Y.Z改为vX.YZ，更简洁一些。}
 %
 % \def\indexname{代码索引}
 % \def\glossaryname{更新记录}
@@ -673,14 +675,14 @@
 %<cls>\NeedsTeXFormat{LaTeX2e}[1999/12/01]
 %<cls>\ProvidesClass{cquthesis}
 %<cfg>\ProvidesFile{cquthesis.cfg}
-%<cls|cfg>[2016/06/09 v0.9.7 Chongqing University Thesis Template]
+%<cls|cfg>[2016/06/17 v1.00 Chongqing University Thesis Template]
 %    \end{macrocode}
 % 定义一些开发常量：
 %    \begin{macrocode}
 %<*cls>
 \hyphenation{Cqu-Thesis}
 \newcommand{\cquthesis}{\textsc{CquThesis}}
-\def\version{0.9.7}
+\def\version{1.00}
 %</cls>
 %    \end{macrocode}
 % \file{cquthesis.cfg}有一些难以分类的常量：
@@ -1283,8 +1285,9 @@
 \fi
 %</cls>
 %    \end{macrocode}
-%<*cfg>
+%
 %    \begin{macrocode}
+%<*cfg>
 \sisetup{%
 	list-final-separator	=	{和},
 	list-pair-separator		=	{和},
@@ -1408,11 +1411,13 @@
 %    \end{macrocode}
 %
 % \subsubsection{代码环境}
-% 载入\pkg{listings}宏包，定义基础代码环境：
+% \begin{environment}{lstStyleBase}
+% \changes{v1.00}{2016/06/17}{将代码环境的基础字号改为了\cs{footnotesize}，原先的\cs{scriptsize}实在太小了。}
+% 载入\pkg{listings}宏包，定义基础代码环境，注意这个环境只是个模板，没有提供直接使用的接口：
 %    \begin{macrocode}
 \RequirePackage{listings}
 \lstdefinestyle{lstStyleBase}{%
-	basicstyle=\scriptsize\ttfamily,
+	basicstyle=\footnotesize\ttfamily,
 	aboveskip=\medskipamount,
 	belowskip=\medskipamount,
 	lineskip=0pt,
@@ -1454,6 +1459,7 @@
 	rulecolor=\color{cyan},
 	language=Python}
 %    \end{macrocode}
+% \end{environment}
 % \begin{environment}{Cplus}
 % \begin{environment}{Python}
 % \cquthesis 内置了两个代码环境，\env{Cplus}和\env{Python}，您可以参照代码在\file{cquthesis.sty}中定义自己的环境。
@@ -1619,12 +1625,13 @@
 % \begin{macro}{\make@cover@CN}
 % \changes{v0.9.7}{2016/06/09}{使用\pkg{varwidth}代替了\pkg{pbox}。}
 % 基本上的思路是能复用就复用，姓名那几行分为左右两个\env{varwidth}:
+% \changes{v1.00}{2016/06/17}{现在，标题中的英文和中文统一使用无衬线字体。}
 %    \begin{macrocode}
 \newcommand{\make@cover@CN}{%
 	\thispagestyle{style@empty}
 	\begin{center}
 		\rule{0mm}{15mm}
-		\heiti
+		\sffamily\heiti
 		\ifcqu@bachelor
 		\zihao{-2}\cqu@thesistypenameCN
 		\\	\vspace{\stretch{1}}
