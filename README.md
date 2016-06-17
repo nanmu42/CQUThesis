@@ -51,7 +51,7 @@ CQUThesis根据重庆大学《重庆大学本科设计（论文）撰写规范�
 * 造访重庆大学7117工作室寻求支持
 
 # 用户协议
-1. 本模板按照[LaTeX Project Public License](https://latex-project.org/lppl/lppl-1-3.txt)发布，协议版本号为1.3或以后的任何版本（随你意）；
+1. 本模板按照[LaTeX Project Public License](https://latex-project.org/lppl/lppl-1-3.txt)发布，协议版本号为1.3或以后的任何版本（随你意）。本条款不适用于重庆大学LaTeX模板工具箱（CQUThesis Toolkit）；
 1. 重庆大学教务处和研究生院只提供毕业论文写作指南，不提供官方模板，也不会授权或认证第三方模板为官方模板。
 这个模板是按照写作指南的参考实现，模板作者自当尽力，但不保证审查老师不提意见。任何由于本模板而引起的论文格式审查问题与本模板作者无关。
 
@@ -68,3 +68,8 @@ The author would like to acknowledge these contributors for their efforts and, e
 * [The CTeX Community](https://github.com/CTeX-org/ctex-kit)
 * [XUE, Ruini](https://github.com/xueruini/thuthesis)
 * [USTC TeX User Group](https://github.com/ustctug/gbt-7714-20155)
+
+# 关于CQUThesis Toolkit
+重庆大学LaTeX模板工具箱（CQUThesis Toolkit）是为了增强CQUThesis而提供的额外文件和程序，这些内容往往是对CQUThesis易用性或功能的增强，没有它们，CQUThesis仍然可以良好地独立运行。
+
+这些内容有着自己的授权方式和简单的用户协议，不会随本模板的CTAN版本发布，CQUThesis的Github源是这些内容唯一的官方源，程序的更新和修正都会在这里进行。
