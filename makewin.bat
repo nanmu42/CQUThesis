@@ -54,8 +54,9 @@ if %flag%x == buildxx (
 :help
   echo *************************************************************
   echo This is the Makefile script for CQUThesis on Windows.
-  echo CQUThesis: https://github.com/nanmu42/CQUThesis
-  echo This bat is based on Github Liam0205/sduthesis, Many thanks!
+  echo For CQUThesis: https://github.com/nanmu42/CQUThesis
+  echo by Zhennan Li (C) 2016 under LPPL 1.3
+  echo The idea comes from Github Liam0205/sduthesis, Many thanks!
   echo *************************************************************
   echo *
   echo USAGE:
@@ -63,7 +64,7 @@ if %flag%x == buildxx (
   echo param:
   echo   help      Display this help text
   echo   thesis    (default)Compile the thesis via latexmk
-  echo   thesisx   Compile the thesis via XeLaTeX
+  echo   thesisx   Compile the thesis via XeLaTeX(only if latexmk is not installed.)
   echo   doc       Compile the documentation of CQUThesis
   echo   clean     Clean all aux files
   echo   cleanpdf  Clean all PDFs
