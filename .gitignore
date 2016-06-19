@@ -31,6 +31,5 @@ cquthesis.Rproj
 *.gz(busy)
 *.gz
 *.equ
-*.bat
 dtx-style.sty
 main.pdf
