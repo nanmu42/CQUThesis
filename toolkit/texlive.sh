@@ -15,7 +15,7 @@ if ! command -v texlua > /dev/null; then
   cd install-tl-20*
 
   # Install a minimal system
-  ./install-tl --profile=../support/texlive.profile
+  ./install-tl --profile=../toolkit/texlive.profile
 
   cd ..
 fi
