@@ -123,9 +123,9 @@ tlmgr install   \
   xparse		\
   calc			\
   ifxetex		\
-  url			
+  url			\
+  thumbpdf		
 
-DOCPACKAGES="latexmk texdoc ctex fandol algorithm2e"
 
 # Keep no backups (not required, simply makes cache bigger)
 tlmgr option -- autobackup 0
