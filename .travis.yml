@@ -1,6 +1,7 @@
 os:
   - linux
-  - osx
+
+sudo: required
 
 install:
  - source ./toolkit/texlive.sh
