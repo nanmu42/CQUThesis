@@ -43,7 +43,8 @@ tlmgr install metafont mfware
 # picking up l3kernel, etc.
 #
 # fontspec comes first as other packages tested have it as a dep
-tlmgr install fontspec
+# latexmk is needed.
+tlmgr install fontspec latexmk
 tlmgr install euenc graphics graphics-cfg ifluatex lm lualibs luaotfload luatex-def oberdiek pdftex-def xetex-def xunicode
 
 # Other contrib packages: done as a block to avoid multiple calls to tlmgr
