@@ -3,6 +3,10 @@ os:
 
 sudo: required
 
+language: python
+python:
+	- "2.7"
+
 install:
  - source ./toolkit/texlive.sh
  - make cls
