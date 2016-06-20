@@ -49,10 +49,15 @@ thesis: $(THESISMAIN).pdf
 
 ifeq ($(METHOD),latexmk)
 
-$(PACKAGE).pdf: $(CLSFILES) FORCE_MAKE
-	$(METHOD) $(LATEXMKOPTS) $(PACKAGE).dtx
+$(PACKAGE).pdf: $(CLSFILES)
+	xelatex $(PACKAGE).dtx
+	makeindex -s gind.ist -o $(PACKAGE).ind $(PACKAGE).idx
+	makeindex -s gglo.ist -o $(PACKAGE).gls $(PACKAGE).glo
+	xelatex $(PACKAGE).dtx
+	xelatex $(PACKAGE).dtx
+	xelatex $(PACKAGE).dtx
 
-$(THESISMAIN).pdf: $(CLSFILES) FORCE_MAKE
+$(THESISMAIN).pdf: $(CLSFILES)
 	$(METHOD) $(LATEXMKOPTS) $(THESISMAIN)
 
 else ifneq (,$(filter $(METHOD),xelatex pdflatex))
@@ -61,6 +66,7 @@ $(PACKAGE).pdf: $(CLSFILES)
 	$(METHOD) $(PACKAGE).dtx
 	makeindex -s gind.ist -o $(PACKAGE).ind $(PACKAGE).idx
 	makeindex -s gglo.ist -o $(PACKAGE).gls $(PACKAGE).glo
+	$(METHOD) $(PACKAGE).dtx
 	$(METHOD) $(PACKAGE).dtx
 	$(METHOD) $(PACKAGE).dtx
 
