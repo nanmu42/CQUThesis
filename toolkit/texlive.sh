@@ -122,7 +122,8 @@ tlmgr install   \
   newtxpifont	\
   xparse		\
   calc			\
-  ifxetex		
+  ifxetex		\
+  url			
 
 DOCPACKAGES="latexmk texdoc ctex fandol algorithm2e"
 
