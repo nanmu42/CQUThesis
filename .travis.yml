@@ -1,8 +1,11 @@
 os:
   - linux
+  - osx
 
 install:
  - source ./toolkit/texlive.sh
+ - make cls
+ - source ./toolkit/dependencyresort.sh
 
 cache:
   directories:
