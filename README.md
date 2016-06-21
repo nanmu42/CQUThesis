@@ -78,7 +78,7 @@ make cls
 CQUThesis stands for Chongqing University Thesis Template for LaTeX, bearing the ability to support bachelor, master, doctor dissertations.
 
 # 致谢 / Acknowledgements
-这个模板是站在巨人肩膀上的成果，感谢LaTeX 2e计划，感谢[CTeX社区](https://github.com/CTeX-org/ctex-kit)提供的中文解决方案，感谢薛瑞尼副教授的[先驱之作](https://github.com/xueruini/thuthesis)，感谢[中国科学技术大学TeX用户组](https://github.com/ustctug/gbt-7714-20155)。向你们致以真诚的问候和感激！
+这个模板是站在巨人肩膀上的成果，感谢LaTeX 2e计划，感谢[CTeX社区](https://github.com/CTeX-org/ctex-kit)提供的中文解决方案，感谢薛瑞尼副教授的[先驱之作](https://github.com/xueruini/thuthesis)，感谢[中国科学技术大学TeX用户组](https://github.com/ustctug/gbt-7714-2015)。向你们致以真诚的问候和感激！
 
 世界因你们更美好。
 
@@ -86,7 +86,7 @@ The author would like to acknowledge these contributors for their efforts and, e
 
 * [The CTeX Community](https://github.com/CTeX-org/ctex-kit)
 * [XUE, Ruini](https://github.com/xueruini/thuthesis)
-* [USTC TeX User Group](https://github.com/ustctug/gbt-7714-20155)
+* [USTC TeX User Group](https://github.com/ustctug/gbt-7714-2015)
 
 # 关于CQUThesis Toolkit
 重庆大学LaTeX模板工具箱（CQUThesis Toolkit）是为了增强CQUThesis而提供的额外文件和程序，这些内容往往是对CQUThesis易用性或功能的增强，没有它们，CQUThesis仍然可以良好地独立运行。
