@@ -40,7 +40,7 @@ make thesis
 
 
 ## 更新
-CquThesis的升级很方便，下载最新的开发版，将zip文件中的cquthesis.dtx和cquthesis.ins覆盖掉工作文件夹中的相应文件后：
+CQUThesis的升级很方便，下载最新的开发版，将zip文件中的cquthesis.dtx和cquthesis.ins覆盖掉工作文件夹中的相应文件后：
 
 * Windows用户请在文件夹空白处按住Shift键再点击书鼠标右键，选择“在此处打开命令窗口”，运行下列命令：
 ```
