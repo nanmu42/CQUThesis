@@ -14,6 +14,7 @@ if %flag%x == thesisxx (
   goto:EOF
 )
 if %flag%x == docx (
+  call:extract
   call:document
   goto:EOF
 )

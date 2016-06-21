@@ -1,14 +1,19 @@
 # CQUThesisSupply
 重庆大学LaTeX模板的支持文件，这些程序往往用于[CQUThesis](https://github.com/nanmu42/CQUThesis)的开发、测试、部署。
 
-# TeX Live 迷你安装
-运行下列命令可以完成TeX Live的迷你版本的安装。这个项目为[CQUThesis](https://github.com/nanmu42/CQUThesis)（重庆大学LaTeX模板）的Travis测试提供支持。
-当然，您也可以使用下列命令完成安装。
-```
-curl -sSL https://github.com/nanmu42/CQUThesisSupply/raw/master/install-tl-mini.sh | sudo bash
-```
+下面是各个程序的Readme内容：
 
-# 致谢
-感谢[中科大TeX用户组](https://github.com/ustctug)对`TeX Live 迷你安装`的贡献。
+# 重庆大学毕设装订封面生成器
+## 简介
+这是一份更容易填写，也更美观的装订封面，包含档案袋封面、论文装订封面和附件装订封面。
 
-你们让世界更加美好。
+## 使用方法
+* 填写本文档的第二页和第三页；第四页会自动生成；
+* 相同的字段都会自动填充，无需复制粘贴；
+* 导出文件为PDF以供打印。
+
+## 用户协议
+* 本模板为《重庆大学LaTeX模板》（即CQUThesis）的增强文件，不属于其中的组成部分，不使用LaTeX Project Public License协议；
+* 模板作者授权您：自由的使用，发布，传播本模板，前提是保持本模板的完整，包括但不限于保持本署名页和模板余下文件的整体性。
+* 这是一份独立开发，免费提供的小作品，作者自当尽力，但对模板的合规性和可用性不做任何保证。使用本模板之前，您同意，任何由于本模板而引起的论文格式审查问题与本模板作者无关。
+

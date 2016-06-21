@@ -16,7 +16,7 @@
 %
 % \iffalse
 %<*driver>
-\ProvidesFile{cquthesis.dtx}[2016/06/17 v1.00 Chongqing University Thesis Template]
+\ProvidesFile{cquthesis.dtx}[2016/06/21 v1.10 Chongqing University Thesis Template]
 \documentclass{ltxdoc}
 \usepackage{dtx-style}
 
@@ -83,6 +83,7 @@
 % \changes{v0.9.7}{2016/06/09}{拆分了\file{cquthesis.sty}宏包，将其大部分内容并入\file{cquthesis.cls}和\file{cquthesis.cfg}。}
 % \changes{v1.00}{2016/06/17}{最后一些小修补，今年的毕设工作完全结束了。目前本科方面的格式审查没有问题，研究生和博士生哪边还没有数据。}
 % \changes{v1.00}{2016/06/17}{版本号格式从vX.Y.Z改为vX.YZ，更简洁一些。}
+% \changes{v1.10}{2016/06/21}{增加了CQUThesis的开发工具Makefile和makewin.bat，现在它对\LaTeX 中高阶用户和开发者更友好啦，文档也相应更新了。}
 %
 % \def\indexname{代码索引}
 % \def\glossaryname{更新记录}
@@ -131,7 +132,8 @@
 %		\item 支持重庆大学本科（文学、理工）、硕士（学术、专业）、博士的毕业论文格式；
 %		\item 内置封面、目录、索引、授权书等论文部件，可按需自动生成；
 %		\item 自动侦测文档页数，生成相应的单面打印/双面打印PDF文件；
-%		\item 预置一批优化过的宏包和小功能，包含国际标准单位、化学式支持、三线表等，可按需开启。
+%		\item 预置一批优化过的宏包和小功能，包含国际标准单位、化学式支持、三线表等，可按需开启；
+%		\item 支持基于cwl文件的代码补全，makefile功能能够在Linux, Mac, Windows三平台通用。
 %	\end{itemize}
 % 
 % 本文档将尽量完整的介绍模板的使用方法，如有不清楚之处可以参考示例文档或者根据第~\ref{sec:howtoask}节说明提问，有兴趣者都可以参与完善此手册，也非常欢迎对代码的贡献。
@@ -143,16 +145,24 @@
 %
 % \subsection{系统要求}
 % \label{sec:sysrequire}
-% 本模板用到的宏包比较多，这些包在常见的\TeX{}发行版中都有，推荐使用\textbf{TeX Live}，本模板在Windows和Mac环境下的\textbf{TeX Live}发行版中都进行了编译测试。
+% 本模板用到的宏包比较多，这些包在常见的\TeX{}发行版中都有，按照您操作系统的不同，您可以选择不同的\TeX{}发行版：
+% \begin{itemize}
+%	\item Windows用户，推荐使用Mik \TeX ，这是一个专为Windows环境设计的\TeX 发行版，下载体积小，而且可以自主解决宏包依赖问题；
+% \item Linux和Mac用户，推荐使用\TeX Live，这是一套大而全的\TeX{}发行版，考虑到使用这两个系统的用户动手能力相对较强，\TeX Live没法自己解决依赖这个问题应该不是很让人头疼\footnote{使用宏包管理器或者从CTAN获取以来宏包。}。
+% \end{itemize}
 %
-% 截止本文档编译时，本模板（\cquthesis）已经被收录到Mik\TeX 中。
+% 本模板在Windows和Mac环境下的TeX Live发行版中都进行了编译测试。
 %
 % \note{在条件允许的情况下，强烈推荐您使用\XeTeX 引擎进行编译工作。}
 %
 % \subsection{获取\cquthesis}
-%  请造访\cquthesis{ } \href{https://github.com/nanmu42/cquthesis}{Github主页}下载最新的版本。
-%
-%	本宏包在CTAN官方库中也有镜像，镜像定期更新，可以\href{http://www.ctan.org/pkg/cquthesis}{造访这个页面}查看。
+% 您可通过三个主要途径获取\cquthesis ：
+% 
+% \begin{itemize}
+%	\item 造访\cquthesis{ } \href{https://github.com/nanmu42/CQUThesis/releases}{Github主页}下载最新的预发行版本，这是更新最快，功能最全的版本（含工具箱Toolkit）；
+% \item 访问本模板\href{http://www.ctan.org/pkg/cquthesis}{CTAN官方镜像}下载发行版，这个版本定期从预发行版本同步（不含工具箱Toolkit\footnote{这是出于许可证方面的考虑。}）；
+% \item 使用Mik \TeX 或\TeX Live的宏包管理功能直接获得本模板，这个方式不含模板示例文件。
+% \end{itemize}
 %
 % 除此之外，\cquthesis{}不拥有也不维护任何其他镜像。
 %
@@ -170,11 +180,13 @@
 % \endfoot
 % \endlastfoot
 % cquthesis.ins & \textsc{DocStrip} 驱动文件（用于安装或更新） \\
-% cquthesis.dtx & \textsc{DocStrip} 源文件（用于安装或更新）\\\midrule
+% cquthesis.dtx & \textsc{DocStrip} 源文件（用于安装或更新）\\
+% makefile & GNU make配置文件（Mac和Linux）\\
+% makewin.bat & Windows版make \\\midrule
 % cquthesis.cls & \LaTeX 模板文件\\
 % cquthesis.cfg & 模板配置文件\\
 % cqunumerical.bst & 参考文献样式文件\\
-% cquthesis.cwl & 代码自动补全配置文件\\\midrule
+% cquthesis.cwl & 代码着色和自动补全配置文件\\\midrule
 % main.tex & 示例文档主文件\\
 % contents/ & 示例文档章节具体内容\\
 % figures/ & 示例文档图片路径\\
@@ -185,40 +197,66 @@
 % \textbf{cquthesis.pdf} & 用户手册（本文档）\\\bottomrule
 % \end{longtable}
 %
-%  \note{\file{cquthesis.cls}和\file{cquthesis.cfg}以及\file{cqunumerical.bst}可以由\file{cquthesis.ins}和\file{cquthesis.dtx}生成。}
+%  \note{\file{cquthesis.cls}和\file{cquthesis.cfg}以及\file{cqunumerical.bst}可以由\file{cquthesis.ins}和\file{cquthesis.dtx}生成，从\cquthesis { }v1.10之后，\file{cquthesis.cls}和\file{cquthesis.cfg}不再做预先提取，这个工作交给用户，整个过程很简单，请见\ref{sec:install}节。}
 % 
 % \subsection{安装}
 % \label{sec:install}
+% 得益于GNU make和makewin.bat，\cquthesis 的安装十分便利。
 % 下载\cquthesis{}的\file*{.zip}压缩包后请将整个文件夹解压出来，进入文件夹后：
 % \begin{itemize}
-%		\item Window用户请在文件夹空白处{\heiti 按住Shift键再点击书鼠标右键}，选择“在此处打开命令窗口”，运行下列命令：
+%	\item Windows用户请在文件夹空白处{\heiti 按住Shift键再点击书鼠标右键}，选择“在此处打开命令窗口”，运行下列命令：
 %
 % \begin{shell}
-% latex cquthesis.ins
+% makewin build
 %	\end{shell}
-%		\item	Linux和Mac用户请在Bash窗口中进行如下操作：
+%
+%	\item	Linux和Mac用户请在Bash窗口中进行如下操作：
 %
 % \begin{shell}	
 % cd cquthesis
-% latex cquthesis.ins
+% make thesis
 %	\end{shell}
 %\end{itemize}
 %
-% 之后将生成的文件放到\LaTeX{}能够侦测到的地方，安装即可完成。
+% 即可完成\cquthesis 的安装和示例文档的编译。
 %
 % \subsection{升级}
-% \cquthesis 的升级很方便，下载最新的开发版，将zip文件中的\file{cquthesis.dtx} 和\file{cquthesis.ins} 覆盖掉工作文件夹中的相应文件，之后再运行一次\ref{sec:install}节中的命令即可。
+% \cquthesis 的升级很方便，下载最新的开发版，将zip文件中的\file{cquthesis.dtx} 和\file{cquthesis.ins} 覆盖掉工作文件夹中的相应文件后：
+% \begin{itemize}
+%	\item Windows用户请在文件夹空白处{\heiti 按住Shift键再点击书鼠标右键}，选择“在此处打开命令窗口”，运行下列命令：
 %
-% \subsection{编译用户手册}
-% 如果您需要编译用户手册，请定位到解压后的文件夹，运行下列命令：
 % \begin{shell}
-% xelatex cquthesis.dtx
-% makeindex -s gind.ist -o cquthesis.ind cquthesis.idx
-% makeindex -s gglo.ist -o cquthesis.gls cquthesis.glo
-% xelatex cquthesis.dtx
-% xelatex cquthesis.dtx
+% makewin extract
 %	\end{shell}
 %
+%	\item	Linux和Mac用户请在Bash窗口中进行如下操作：
+%
+% \begin{shell}	
+% cd cquthesis
+% make cls
+%	\end{shell}
+%\end{itemize}
+%
+% 即可完成\cquthesis 的升级。
+%
+% \subsection{编译用户手册}
+% 如果您需要编译用户手册，请定位到解压后的文件夹：
+% \begin{itemize}
+%	\item Windows用户请在文件夹空白处{\heiti 按住Shift键再点击书鼠标右键}，选择“在此处打开命令窗口”，运行下列命令：
+%
+% \begin{shell}
+% makewin doc
+%	\end{shell}
+%
+%	\item	Linux和Mac用户请在Bash窗口中进行如下操作：
+%
+% \begin{shell}	
+% cd cquthesis
+% make doc
+%	\end{shell}
+%\end{itemize}
+%
+% \note{关于make命令和makewin命令的更多用法，请使用help命令进行查询，Windows用户请在命令行中运行makewin help，Linux和Mac用户请打开\file{Makefile}文件查看。}
 % \section{使用说明}
 % \label{sec:usage}
 % 本手册假定用户已经能处理一般的 \LaTeX{} 文档，并对\BibTeX{} 有一定了解。如果从来没有接触过 \TeX 和 \LaTeX，建议先学习相关的基础知识。磨刀不误砍柴工！
@@ -258,6 +296,8 @@
 % # 5.更新目录
 % xelatex main
 %	\end{shell}
+%
+% \note{实际情况中，您只需使用make或者makewin就可以自动完成以上所有工作\footnote{make和makewin调用latexmk来完成编译工作，比示意的编译命令更加灵活，能够自主确定必要的编译次数，可以明显缩短编译时间。}。}
 %
 % 下面是示例文件中主文件\file{main.tex}的内容：
 %
@@ -675,14 +715,14 @@
 %<cls>\NeedsTeXFormat{LaTeX2e}[1999/12/01]
 %<cls>\ProvidesClass{cquthesis}
 %<cfg>\ProvidesFile{cquthesis.cfg}
-%<cls|cfg>[2016/06/17 v1.00 Chongqing University Thesis Template]
+%<cls|cfg>[2016/06/21 v1.10 Chongqing University Thesis Template]
 %    \end{macrocode}
 % 定义一些开发常量：
 %    \begin{macrocode}
 %<*cls>
 \hyphenation{Cqu-Thesis}
 \newcommand{\cquthesis}{\textsc{CquThesis}}
-\def\version{1.00}
+\def\version{1.10}
 %</cls>
 %    \end{macrocode}
 % \file{cquthesis.cfg}有一些难以分类的常量：
