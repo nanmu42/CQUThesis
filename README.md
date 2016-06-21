@@ -23,7 +23,8 @@ CQUThesis根据重庆大学《重庆大学本科设计（论文）撰写规范�
 版本	|	下载地址	|	描述
 ---	|	---		|	---
 开发版	|[点我下载](https://github.com/nanmu42/cquthesis/zipball/master)	|	最新的功能，最快的BugFix
-发行版	|[CTAN下载页面](https://www.ctan.org/pkg/cquthesis)|	定期更新，和TeX Live等发行版一同发行
+预发行版 | [Github下载页面](https://github.com/nanmu42/CQUThesis/releases) | 累计有较大更改时更新
+发行版	|[CTAN下载页面](https://www.ctan.org/pkg/cquthesis)|	定期从预发行版更新，和TeX Live等发行版一同发行
 
 排版示例和用户文档随版本发布，如果需要单独下载，请参阅后文。
 
