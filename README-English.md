@@ -37,7 +37,7 @@ The author would like to acknowledge these contributors for their efforts and, e
 
 * [The CTeX Community](https://github.com/CTeX-org/ctex-kit)
 * [XUE, Ruini](https://github.com/xueruini/thuthesis)
-* [USTC TeX User Group](https://github.com/ustctug/gbt-7714-20155)
+* [USTC TeX User Group](https://github.com/ustctug/gbt-7714-2015)
 
 # Question, Contribution and Contact
 Feel free to raise any question, and any possible contribution is highly appreciated.
