@@ -1,4 +1,7 @@
 # 嗨，这里是CQUThesis！
+[![CTAN release](https://img.shields.io/ctan/v/cquthesis.svg)](https://www.ctan.org/pkg/cquthesis)
+[![GitHub release](https://img.shields.io/github/release/nanmu42/cquthesis.svg)](https://github.com/nanmu42/CQUThesis/releases/latest)
+[![GitHub commits](https://img.shields.io/github/commits-since/nanmu42/CQUThesis/v1.10.svg)](https://github.com/nanmu42/CQUThesis/commits/master)
 CQUThesis表示的是**C**hong**Q**ing **U**niversity **Thesis**.
 
 本宏包是重庆大学毕业论文的`\LaTeX{}`模板，支持学士、硕士、博士论文的排版。合理使用本宏包可以大大减轻重庆大学毕业生在毕业论文撰写过程中的排版工作量。
