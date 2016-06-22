@@ -1,6 +1,6 @@
 # 嗨，这里是CQUThesis！
-[![CTAN release](https://img.shields.io/ctan/v/cquthesis.svg)](https://www.ctan.org/pkg/cquthesis)
-[![GitHub release](https://img.shields.io/github/release/nanmu42/cquthesis.svg)](https://github.com/nanmu42/CQUThesis/releases/latest)
+[![CTAN release](https://img.shields.io/ctan/v/cquthesis.svg?label=CTAN)](https://www.ctan.org/pkg/cquthesis)
+[![GitHub release](https://img.shields.io/github/release/nanmu42/cquthesis.svg?label=Github)](https://github.com/nanmu42/CQUThesis/releases/latest)
 [![GitHub commits](https://img.shields.io/github/commits-since/nanmu42/CQUThesis/v1.10.svg)](https://github.com/nanmu42/CQUThesis/commits/master)
 
 CQUThesis表示的是**C**hong**Q**ing **U**niversity **Thesis**.
@@ -22,7 +22,7 @@ CQUThesis根据重庆大学《重庆大学本科设计（论文）撰写规范�
 ## 下载
 版本	|	下载地址	|	描述
 ---	|	---		|	---
-开发版	|[点我下载](https://github.com/nanmu42/cquthesis/zipball/master)	|	最新的功能，最快的BugFix
+开发版	|[点我下载](https://github.com/nanmu42/cquthesis/zipball/master)	|	推荐，最新的功能，最快的BugFix
 预发行版 | [Github下载页面](https://github.com/nanmu42/CQUThesis/releases) | 累计有较大更改时更新
 发行版	|[CTAN下载页面](https://www.ctan.org/pkg/cquthesis)|	定期从预发行版更新，和TeX Live等发行版一同发行
 
