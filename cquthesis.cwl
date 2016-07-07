@@ -17,6 +17,8 @@
 #include:upgreek
 #include:subcaption
 \backmatter#S
+\bicaption{Chinese}{English}#n
+\bicaption[shortC]{Chinese}[shortE]{English}#n
 \bigcell{content}#t
 \begin{cabstract}#S
 \begin{denotation}#S
@@ -63,6 +65,7 @@
 \ctexset{key=value,}#n
 \ding{number}#n
 \eqlist{name}#n
+\eqlist{name}[EnglishName]#n
 \frontmatter#S
 \fangsong#n
 \figref#S
@@ -72,7 +75,11 @@
 \onlinecite{bibid}#c
 \kaishu#n
 \listeq{name}#n
-\listofequations#S
+\listeq{name}[EnglishName]#n
+\listofequations#n
+\listofequationsEN#n
+\listoffiguresEN#n
+\listoftablesEN#n
 \lishu#n
 \mainmatter#S
 \makeabstract#S
