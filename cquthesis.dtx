@@ -16,7 +16,7 @@
 %
 % \iffalse
 %<*driver>
-\ProvidesFile{cquthesis.dtx}[2016/06/21 v1.10 Chongqing University Thesis Template]
+\ProvidesFile{cquthesis.dtx}[2016/07/06 v1.12 Chongqing University Thesis Template]
 \documentclass{ltxdoc}
 \usepackage{dtx-style}
 
@@ -132,7 +132,7 @@
 %		\item 支持重庆大学本科（文学、理工）、硕士（学术、专业）、博士的毕业论文格式；
 %		\item 内置封面、目录、索引、授权书等论文部件，可按需自动生成；
 %		\item 自动侦测文档页数，生成相应的单面打印/双面打印PDF文件；
-%		\item 预置一批优化过的宏包和小功能，包含国际标准单位、化学式支持、三线表等，可按需开启；
+%		\item 预置一批优化过的宏包和小功能，包含中英双语题注及配套图录、表录，国际标准单位、化学式支持、三线表等，可按需开启；
 %		\item 支持基于cwl文件的代码补全，makefile功能能够在Linux, Mac, Windows三平台通用。
 %	\end{itemize}
 % 
@@ -331,14 +331,24 @@
 % \documentclass[type=master,proffesionalmaster=true,]{cquthesis}
 % \end{latex}
 % \DescribeOption{printmode=}
-% 可选项，确定单双页打印模式，有三个值可用：
+% 可选项，确定单双页打印模式，有三个值可用，默认采用自动判定（auto）：
 %	\begin{description}
 %		\item[\option{auto}] 模板会按照学校要求和论文类型自动判定打印模式；
 %		\item[\option{oneside}] 强制以单页模式打印，适合最后提交电子版时；
 %		\item[\option{twoside}] 强制以双页模式打印。
 %	\end{description}
-% 
-%	默认采用自动判定。
+%
+% \DescribeOption{bilinguallist=}
+% 从版本v1.12开始，\cquthesis 开始支持图、表、公式的中英双语题注。除此之外，就像您期待的那样，表录、图录、公式目录页有了自己的英文版本，它们全部按双语题注的内容自动生成。这是一个可选项，有三个值可用：
+%	\begin{description}
+%		\item[\option{off}] 缺省默认，模板不会生成表录、图录、公式目录的英文版本；
+%		\item[\option{combined}] 模板会生成表录、图录、公式目录的英文版本，它们会在中文版本中逐条嵌入；
+%		\item[\option{apart}] 模板会生成表录、图录、公式目录的英文版本，它们独立于中文版本，与其一同输出。
+%	\end{description}
+%
+% 有关双语题注的用法和英文版本表录等文档部件的位置调整方式，请参阅第\ref{sec:bicaptions}节。
+%
+% \note{以上三个选项仅与表录、图录、公式目录相关，不会影响双语题注的功能。}
 %
 % \DescribeOption{openany}
 % \DescribeOption{openright}
@@ -600,6 +610,36 @@
 % 生成原创说明和授权书，这个命令可以带一个\oarg{PDF文件地址}作为参数。这样，在您和您的导师签名之后，您可以单独扫描一下签过名的原创说明和授权书，以\cs{cquauthpage}\oarg{pdf文件地址}的形式将扫描页放入论文的PDF文件中的对应位置。
 %
 % \subsection{宏包和特色功能}
+% \subsubsection{双语题注}
+% \label{sec:bicaptions}
+% \DescribeMacro{\bicaption}
+% 在学校的相关格式文件中，硕士生和博士生的表格和插图的题注需要中英对照，使用\cs{bicaption}\marg{中文题注}\marg{英文题注}命令代替\cs{caption}即可解决这个问题，示例如下：
+% 
+% \begin{latex}
+% \begin{figure}[tbh]
+% \centering
+% \includegraphics[width=0.7\linewidth]{figures/TEST}
+% \bicaption{这是一张测试用图片}{This figure is for test only}
+% \label{fig:cqubadge}
+% \end{figure}
+% \end{latex}
+%
+% 在题注很长的时候，为了防止题注对应的表录（或图录）的条目太长，可使用\cs{bicaption}\oarg{短中文}\marg{中文题注}\oarg{短英文}\marg{英文题注}来解决这个问题：
+% \begin{latex}
+% \begin{tabularx}{cc}
+% \bicaption[这是表录中的段条目]{这是一个很长很长很长的中文题注，你可以写很多行}%
+% 	[This is a really short one.]{Linebreak is for demostration only. It's okay to go without it.}
+% \label{fig:cqubadge}
+% 	我 & 在\\
+% 	测 & 试\\
+% \end{tabularx}
+% \end{latex}
+% \DescribeMacro{\eqlist}
+% 重要算式列表\cs{eqlist}和\cs{listeq}命令从v1.12版本后也支持中英双语，用法是\cs{eqlist}\marg{中文}\oarg{英文}，请注意括号。
+%
+% 上面的这些用法都在\cquthesis 的示例文件中有所体现，供您参考。
+%
+% \note{英文版本的重要算式列表需要在\option{bilinguallist=}\option{combined}或者\option{apart}时才会生效。另外，当且仅当在\option{bilinguallist=}\option{apart}时，\file{main.tex}中的\cs{listoffiguresEN},\cs{listoftablesEN}和\cs{listofequationsEN}才会发挥作用，此时您可以通过调整这些命令的位置来调整图录、表录、方程式列表各自之间以及中英文版本之间的顺序。}
 % \subsubsection{数学环境}
 % \label{sec:math}
 % \cquthesis{} 定义了常用的数学环境：
@@ -715,23 +755,30 @@
 %<cls>\NeedsTeXFormat{LaTeX2e}[1999/12/01]
 %<cls>\ProvidesClass{cquthesis}
 %<cfg>\ProvidesFile{cquthesis.cfg}
-%<cls|cfg>[2016/06/21 v1.10 Chongqing University Thesis Template]
+%<cls|cfg>[2016/07/06 v1.12 Chongqing University Thesis Template]
 %    \end{macrocode}
 % 定义一些开发常量：
 %    \begin{macrocode}
 %<*cls>
 \hyphenation{Cqu-Thesis}
 \newcommand{\cquthesis}{\textsc{CquThesis}}
-\def\version{1.10}
+\def\version{1.12}
 %</cls>
 %    \end{macrocode}
-% \file{cquthesis.cfg}有一些难以分类的常量：
+% \file{cquthesis.cfg}中，涉及文档部件的部分常量：
 % \changes{v0.9.0}{2016/05/16}{把目录加入到了PDF书签中。}
 %    \begin{macrocode}
 %<*cfg>
 \def\cqueqshortname							{式}	
 \def\cqu@denotation@name				{主要符号对照表}
+\def\shorttablename							{表}
+\def\shorttablenameEN						{Table}
+\def\shortfigurename						{图}
+\def\shortfigurenameEN					{Figure}
 \def\listofequationsname				{重要算式索引}
+\def\listofequationsnameEN			{\textbf{List of Equations}}
+\def\listoffiguresnameEN				{\textbf{List of Figures}}
+\def\listoftablesnameEN					{\textbf{List of Tables}}
 \def\cqu@bib@name								{参考文献}
 \def\cqu@tocnameinbkmark				{目{ }录}
 \newcommand{\parenthesesthis}[1]{（#1）}
@@ -795,6 +842,16 @@
 %    \begin{macrocode}
 \DeclareBoolOption{continuoustoc}
 %    \end{macrocode}
+% 双语图录、表录、公式列表开关
+%    \begin{macrocode}
+\newif\if@bioff
+\newif\if@bicombined
+\newif\if@biapart
+\@biofffalse\@bicombinedfalse\@biapartfalse
+\define@key{cqu}{bilinguallist}{%
+	\@biofffalse\@bicombinedfalse\@biapartfalse
+	\expandafter\csname @bi#1true\endcsname}
+%    \end{macrocode}
 % 传递选项给CTeXBook
 %    \begin{macrocode}
 \DeclareDefaultOption{\PassOptionsToClass{\CurrentOption}{ctexbook}}
@@ -838,6 +895,19 @@
 	\fi
 \fi
 %    \end{macrocode}
+% 如果没有正确指定图录表录的双语模式，取默认值off：
+%    \begin{macrocode}
+\if@bioff\relax\else
+	\if@bicombined\relax\else
+		\if@biapart\relax\else
+		\kvsetkeys{cqu}{bilinguallist=off,}
+		\ClassWarning{cquthesis}%
+		{Unexpected or missing bilingual list mode, processing with OFF: \MessageBreak
+			bilinguallist=[off|combined|apart]}{}
+		\fi
+	\fi
+\fi
+%    \end{macrocode}
 % \subsection{载入宏包}
 %
 % 使用成熟的宏包而不是自己造轮子几乎总是一个不错的选择，\LaTeX 的强大之处就在这诸多宏包。
@@ -867,8 +937,12 @@
 %
 % 解决各种文档部件需求，如表格、题注、插图等
 % \changes{v0.9.41}{2016/05/25}{修正了\pkg{tgcursor}使\cs{textbf}失效的Bug，现在起使用\pkg{courier}代替。}
+% \changes{v1.12}{2016/07/06}{得益于\pkg{caption}和\pkg{bicaption}和\pkg{newfloat}三个宏包，\cquthesis 支持双语题注了。}
 %    \begin{macrocode}
+\RequirePackage{newfloat}
+\RequirePackage{caption}
 \RequirePackage[labelformat=simple]{subcaption}
+\RequirePackage{bicaption}
 \RequirePackage{array}
 \RequirePackage{tabularx}
 \RequirePackage{booktabs}
@@ -1368,9 +1442,9 @@
 \setlength{\floatsep}{20bp \@plus4pt \@minus1pt}
 \setlength{\intextsep}{24bp \@plus4pt \@minus2pt}
 \setlength{\textfloatsep}{20bp \@plus4pt \@minus2pt}
-\setlength{\@fptop}{0bp \@plus1.0fil}
-\setlength{\@fpsep}{12bp \@plus2.0fil}
-\setlength{\@fpbot}{0bp \@plus1.0fil}
+\setlength{\@fptop}{6bp \@plus2bp}
+\setlength{\@fpsep}{12bp \@plus2bp}
+\setlength{\@fpbot}{6bp \@plus2bp}
 %    \end{macrocode}
 % 让浮动对象缺省值更宽松
 %    \begin{macrocode}
@@ -1412,11 +1486,12 @@
 % \end{macro}
 % \end{macro}
 % 定制表格和插图的题注样式：
+% \changes{v1.12}{2016/07/06}{题注的字体设置对中英文都进行了适配。}
 %    \begin{macrocode}
 \def\cqu@tabular{\zihao{5}\@tabular}
-\DeclareCaptionLabelFormat{cqu}{{\zihao{5}\songti #1~\rmfamily #2}}
+\DeclareCaptionLabelFormat{cqu}{{\zihao{5}\rmfamily\songti \textbf{#1~#2}}}
 \DeclareCaptionLabelSeparator{cqu}{\hspace{\ccwd}}
-\DeclareCaptionFont{cqu}{\zihao{5}}
+\DeclareCaptionFont{cqu}{\zihao{5}\rmfamily\songti}
 \captionsetup{labelformat=cqu,labelsep=cqu,font=cqu}
 \captionsetup[table]{position=top,belowskip={12bp-\intextsep},aboveskip=6bp}
 \captionsetup[figure]{position=bottom,belowskip={12bp-\intextsep},aboveskip=6bp}
@@ -1424,6 +1499,45 @@
 \renewcommand{\thesubfigure}{(\alph{subfigure})}
 \renewcommand{\thesubtable}{(\alph{subtable})}
 %    \end{macrocode}
+% \begin{macro}{\bicaption}
+% 这里对\cs{bicaption}这个命令进行设置，题注的第二语言默认为英文，用户可以重定义\cs{shorttablenameEN}和\cs{shortfigurenameEN}
+%    \begin{macrocode}
+\captionsetup[bi-first]{bi-first}
+\captionsetup[bi-second]{bi-second}
+\DeclareCaptionOption{bi-first}[]{%
+\def\tablename{\shorttablename}
+\def\figurename{\shortfigurename}
+}%bi-first
+\DeclareCaptionOption{bi-second}[]{%
+	\def\tablename{\shorttablenameEN}
+	\def\figurename{\shortfigurenameEN}
+}%bi-second
+%    \end{macrocode}
+% \end{macro}
+% \begin{macro}{\listoffiguresEN}
+% \begin{macro}{\listoftablesEN}
+% 按照三种不同情况进行不同的工作：1、如果不开启双语索引，则去掉命令作用，将创建出的list作为黑洞；2、要求中英文编录到一起时不分离索引文件：
+%    \begin{macrocode}
+\DeclareFloatingEnvironment[fileext=lofEN]{figuresEN}[\shortfigurenameEN][\listoffiguresnameEN]
+\DeclareFloatingEnvironment[fileext=lotEN]{tablesEN}[\shorttablenameEN][\listoftablesnameEN]
+%    \end{macrocode}
+% 3、中英文分开编译
+%    \begin{macrocode}
+\if@bicombined\relax
+\else
+	\captionsetup[bi-second]{listtype+=sEN}
+\fi
+\if@biapart\relax
+\else
+	\AtBeginDocument{%
+		\let\listoffiguresEN\relax
+		\let\listoftablesEN\relax
+		\let\listofequationsEN\relax
+	}%AtBeginDocument
+\fi
+%    \end{macrocode}
+% \end{macro}
+% \end{macro}
 % 调整表格字号，调整每列之间的间距，单元格内垂直居中
 %    \begin{macrocode}
 \AtBeginEnvironment{tabularx}{\begingroup\zihao{5}}
@@ -1446,6 +1560,8 @@
 %
 % longtable方面也需要做设置
 %    \begin{macrocode}
+\setlength{\LTpre}{\bigskipamount}
+\setlength{\LTpost}{\bigskipamount}
 \let\cqu@LT@array\LT@array
 \def\LT@array{\zihao{5}\cqu@LT@array}
 %    \end{macrocode}
@@ -2037,13 +2153,30 @@
 \fi
 %    \end{macrocode}
 % \subsubsection{公式索引}
+% \begin{macro}{\listofequationsEN}
+% 支持生成双语对照索引，分三个情况：
 %    \begin{macrocode}
 \newlistof[chapter]{equations}{equ}{\listofequationsname}
-\newcommand{\listeq}[1]{%
-	\addcontentsline{equ}{equations}{\protect\numberline{\theequation}#1}\par}
+\newlistof[chapter]{equationsEN}{equEN}{\listofequationsnameEN}
+\DeclareDocumentCommand{\listeq}{ m o }{%
+	\addcontentsline{equ}{equations}{\protect\numberline{\theequation}#1}\par
+	\IfNoValueTF{#2}{%
+		\relax
+	}{%
+		\if@bicombined
+				\addcontentsline{equ}{equations}{\protect\numberline{\theequation}#2}\par
+		\else
+			\if@biapart
+				\addcontentsline{equEN}{equationsEN}{\protect\numberline{\theequation}#2}\par
+			\fi
+		\fi
+	}
+}%listeq
 \setlength{\cftequationsnumwidth}{2.5em}
+\setlength{\cftequationsENnumwidth}{2.5em}
 \let\eqlist\listeq
 %    \end{macrocode}
+% \end{macro}
 %
 % 正确输出页眉页脚
 %    \begin{macrocode}
@@ -2058,17 +2191,20 @@
 %
 % 目录和索引标题居中，包含\cs{fixhead}
 % \changes{v0.9.0}{2016/05/16}{把目录加到了PDF书签中。}
+% \changes{v1.12}{2016/07/06}{现在，目录、图录、表录、公式表的英文字体也采用了无衬线字。}
 %    \begin{macrocode}
 %<*cls>
 \renewcommand{\cfttoctitlefont}{%
-	\phantomsection\pdfbookmark[0]{\cqu@tocnameinbkmark}{toc}\cqu@fixhead\hfill\heiti\zihao{3}}
-\renewcommand{\cftloftitlefont}{\cqu@fixhead\hfill\heiti\zihao{3}}
-\renewcommand{\cftlottitlefont}{\cqu@fixhead\hfill\heiti\zihao{3}}
-\renewcommand{\cftequtitlefont}{\cqu@fixhead\hfill\heiti\zihao{3}}
+	\phantomsection\pdfbookmark[0]{\cqu@tocnameinbkmark}{toc}\cqu@fixhead\hfill\bfseries\sffamily\heiti\zihao{3}}
+\renewcommand{\cftloftitlefont}{\cqu@fixhead\hfill\sffamily\heiti\zihao{3}}
+\renewcommand{\cftlottitlefont}{\cqu@fixhead\hfill\sffamily\heiti\zihao{3}}
+\renewcommand{\cftequtitlefont}{\cqu@fixhead\hfill\sffamily\heiti\zihao{3}}
+\renewcommand{\cftequENtitlefont}{\cqu@fixhead\hfill\sffamily\heiti\zihao{3}}
 \renewcommand{\cftaftertoctitle}{\hfill}
 \renewcommand{\cftafterloftitle}{\hfill}
 \renewcommand{\cftafterlottitle}{\hfill}
 \renewcommand{\cftafterequtitle}{\hfill}
+\renewcommand{\cftafterequENtitle}{\hfill}
 %    \end{macrocode}
 %
 % 重写使用tocloft宏包情况下的目录和索引生成，每次生成新开一页

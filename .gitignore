@@ -19,6 +19,9 @@ DEV
 *.lof
 *.lot
 *.loe
+*.equEN
+*.lofEN
+*.lotEN
 *.vrb
 *.hd
 *.fdb_latexmk
