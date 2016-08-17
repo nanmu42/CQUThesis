@@ -78,11 +78,18 @@ if %flag%x == buildxx (
   echo ***********************Happy TeXing**************************
 goto:EOF
 
+:checkfiles
+  IF NOT EXIST cquthesis.cls call:extract
+  IF NOT EXIST cquthesis.cfg call:extract
+goto:EOF
+
 :thesis
+  call:checkfiles
   latexmk -xelatex main.tex
 goto:EOF
 
 :thesisx
+  call:checkfiles
   xelatex main.tex
   bibtex main.tex
   xelatex main.tex
@@ -92,7 +99,7 @@ goto:EOF
 
 :cleanaux
   echo clean aux...
-  for %%i in (*.aux *.bbl *.equ *.glo *.gls *.hd *.idx *.ilg *.ind *.lof *.lot *.out *.blg *.log *.thm *.toc *.synctex.gz) do (
+  for %%i in (*.aux *.bbl *.equ *.glo *.gls *.hd *.idx *.ilg *.ind *.lof *.lot *.out *.blg *.log *.thm *.toc *.synctex.gz *.lofEN *.lotEN *.equEN) do (
     del %%i
   )
   echo Done.
