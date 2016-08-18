@@ -17,9 +17,9 @@
   studentid = 20128888,	% 仅本科生，学号
   csupervisor = 孙麟~~教授,	% 导师的姓名
   esupervisor = {Prof.~Lin Sun},	% 导师的姓名拼音
-  cassistsupervisor = {马龙~~研究员}, % 本科生可选，助理指导教师姓名，不用时请留空{}，与下一项一起至多只用其一
-  cextrasupervisor = {菲尔普斯~~副教授}, % 本科生可选，校外指导教师姓名，不用时请留空{}，与上一项一起至多只用其一
-  eassistsupervisor = {Prof.~Long~Ma}, % 本科生可选，助理指导教师或校外指导教师姓名拼音，和上两项中一项对应，不用时请留空{}
+  cassistsupervisor = {}, % 本科生可选，助理指导教师姓名，不用时请留空为{}
+  cextrasupervisor = {}, % 本科生可选，校外指导教师姓名，不用时请留空为{}
+  eassistsupervisor = {}, % 本科生可选，助理指导教师或/和校外指导教师姓名拼音，不用时请留空为{}
   cpsupervisor = 丁小明~~工程师, % 仅专硕，兼职导师姓名
   epsupervisor = Eng.~Xiaoming~Ding,	% 仅专硕，兼职导师姓名拼音
   cclass = 工学,	% 博士生和学硕填学科门类，学硕填学科类型
@@ -37,12 +37,7 @@
 % ===================
 %	mycdate = {中文日期},
 %	myedate = {Date in English},
-% ===================
-% 论文的关键词，使用英文逗号分隔
-% ===================
-  ckeywords = {重庆大学,\LaTeX,\LaTeXe,论文,模板},
-  ekeywords = {bachelor, master, doctor, all support, white space is okay here,doctor, all support, white space is okay here}
-	}% End of \cqusetup
+}% End of \cqusetup
 % ===================
 %
 % 论文的摘要
@@ -63,8 +58,8 @@
   	\item 预置一批优化过的宏包和小功能，包含国际标准单位、化学式支持、三线表等，可按需开启。
   \end{itemize}
 \end{cabstract}
-% 如果习惯关键字跟在摘要文字后面，可以用直接命令来设置，如下：
-% \ckeywords{重庆大学,\LaTeX,\LaTeXe,论文,模板}
+% 中文关键词，请使用英文逗号分隔：
+\ckeywords{重庆大学,\LaTeX,\LaTeXe,论文,模板}
 
 \begin{eabstract}	% 英文摘要
 	LaTeX is a document preparation system for high-quality typesetting. It is most often used for medium-to-large technical or scientific documents but it can be used for almost any form of publishing.
@@ -82,6 +77,7 @@
   \end{enumerate}
   (Quote from \textit{https://latex-project.org/intro.html})  
 \end{eabstract}
+% 英文关键词，请使用英文逗号分隔，关键词内可以空格：
+\ekeywords{bachelor, master, doctor, all support, white space is okay here}
 
-% \ekeywords{bachelor, master, doctor, all support, white space is okay here}
 % 封面和摘要配置完成
