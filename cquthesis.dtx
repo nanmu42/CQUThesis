@@ -1709,12 +1709,16 @@
 %    \end{macrocode}
 %
 % 作者的信息（校徽下方）
+% \changes{v1.14}{2016/08/18}{本科封面：新增“助理指导教师”“校外指导教师”的字段，自动判定是否有输入，有则显示，无则不显示。}
 %    \begin{macrocode}
 \cqu@def@term{cauthor}
 \cqu@def@term{eauthor}
 \cqu@def@term{studentid}
 \cqu@def@term{csupervisor}
 \cqu@def@term{esupervisor}
+\cqu@def@term{cassistsupervisor}
+\cqu@def@term{cextrasupervisor}
+\cqu@def@term{eassistsupervisor}
 \cqu@def@term{cpsupervisor}
 \cqu@def@term{epsupervisor}
 \cqu@def@term{cmajor}
@@ -2032,6 +2036,9 @@
 	\def\cqu@studentnumCN{学号}
 	\def\cqu@supervisorCN{指导教师}
 	\def\cqu@supervisorEN{Supervisor}
+	\def\cqu@assistsupervisorCN{助理指导教师}
+	\def\cqu@extrasupervisorCN{校外指导教师}
+	\def\cqu@assistsupervisorEN{Assistant Supervisor}
 	\def\cqu@majorCN{专业}
 	\def\cqu@majorEN{Major}
 	\def\cqu@universitynameCN{重庆大学}
