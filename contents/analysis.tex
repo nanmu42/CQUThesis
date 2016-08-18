@@ -31,14 +31,14 @@ The \textbf{words} in this sentences are \textit{processed} with three different
 	\caption[模板文件]{模板文件。如果表格的标题很长，那么在表格索引中就会很不美观，所以要像 chapter 那样在前面用中括号写一个简短的标题。这个标题会出现在索引中。}
 	\label{tab:template-files}
 	\begin{tabularx}{\linewidth}{lX}
-		\toprule[1.5pt]
+		\toprule
 		{\heiti 文件名} & {\heiti 描述} \\
-		\midrule[1pt]
+		\midrule
 		cquthesis.cls & 模板类文件\footnote{这是一个脚注}\\
 		cquthesis.cfg & 模板配置文件\footnote{这是又一个脚注}\\
 		cqunumberical.bst & 参考文献 BIB\TeX\ 样式文件。\\
 		cquthesis.sty & 常用的包和命令写在这里，减轻主文件的负担。\footnote{同一页上的脚注最多支持到10个}\\
-		\bottomrule[1.5pt]
+		\bottomrule
 		\end{tabularx}
 	\end{minipage}
 \end{table}
@@ -76,12 +76,12 @@ The \textbf{words} in this sentences are \textit{processed} with three different
 		\caption{第一个并排子表格}
 		\label{tab:parallel1}
 		\begin{tabular}{p{2cm}p{2cm}}
-					\toprule[1.5pt]
-					No. & Name \\\midrule[1pt]
+					\toprule
+					No. & Name \\\midrule
 					\xuhao[1] & Fox \\
 					\xuhao & Panda \\
 					\xuhao & Dog \\
-					\bottomrule[1.5pt]
+					\bottomrule
 		\end{tabular}
 	\end{minipage}%
 	\setxuhao[2]
@@ -90,12 +90,12 @@ The \textbf{words} in this sentences are \textit{processed} with three different
 		\bicaption{第二个并排子表格}{The second subtable in one row}
 		\label{tab:parallel2}
 		\begin{tabular}{p{2cm}p{2cm}}
-			\toprule[1.5pt]
-			No. & Name \\\midrule[1pt]
+			\toprule
+			No. & Name \\\midrule
 			\xuhao[1] & Charlie \\
 			\xuhao & Jack \\
 			\xuhao & Tom \\
-			\bottomrule[1.5pt]
+			\bottomrule
 		\end{tabular}
 	\end{minipage}
 \end{table}
@@ -107,18 +107,18 @@ The \textbf{words} in this sentences are \textit{processed} with three different
 	\subcaptionbox{第一个子表格}
 	{
 		\begin{tabular}{p{2cm}p{2cm}}
-			\toprule[1.5pt]
-			111 & 222 \\\midrule[1pt]
-			222 & 333 \\\bottomrule[1.5pt]
+			\toprule
+			111 & 222 \\\midrule
+			222 & 333 \\\bottomrule
 		\end{tabular}
 	}
 	\hskip2cm
 	\subcaptionbox{第二个子表格}
 	{
 		\begin{tabular}{p{2cm}p{2cm}}
-			\toprule[1.5pt]
-			111 & 222 \\\midrule[1pt]
-			222 & 333 \\\bottomrule[1.5pt]
+			\toprule
+			111 & 222 \\\midrule
+			222 & 333 \\\bottomrule
 		\end{tabular}
 	}
 \end{table}
@@ -129,20 +129,20 @@ The \textbf{words} in this sentences are \textit{processed} with three different
 
 \begin{longtable}[c]{c*{6}{r}}
 	\bicaption[实验数据]{实验数据，这个题注是双语的，而且十分的长，注意这在索引中的处理方式}[Data in experiment]{Data in experiment, and this is a really long long long long long long long long long long text.}\label{tab:performance}\\
-	\toprule[1.5pt]
+	\toprule
 	测试程序 & \multicolumn{1}{c}{正常运行} & \multicolumn{1}{c}{同步} & \multicolumn{1}{c}{检查点} & \multicolumn{1}{c}{卷回恢复}
 	& \multicolumn{1}{c}{进程迁移} & \multicolumn{1}{c}{检查点} \\
 	& \multicolumn{1}{c}{时间 (s)}& \multicolumn{1}{c}{时间 (s)}&
 	\multicolumn{1}{c}{时间 (s)}& \multicolumn{1}{c}{时间 (s)}& \multicolumn{1}{c}{
-		时间 (s)}&  文件（KB）\\\midrule[1pt]
+		时间 (s)}&  文件（KB）\\\midrule
 	\endfirsthead
 	\multicolumn{7}{c}{续表~\thetable\hskip1em 实验数据}\\
-	\toprule[1.5pt]
+	\toprule
 	测试程序 & \multicolumn{1}{c}{正常运行} & \multicolumn{1}{c}{同步} & \multicolumn{1}{c}{检查点} & \multicolumn{1}{c}{卷回恢复}
 	& \multicolumn{1}{c}{进程迁移} & \multicolumn{1}{c}{检查点} \\
 	& \multicolumn{1}{c}{时间 (s)}& \multicolumn{1}{c}{时间 (s)}&
 	\multicolumn{1}{c}{时间 (s)}& \multicolumn{1}{c}{时间 (s)}& \multicolumn{1}{c}{
-		时间 (s)}&  文件（KB）\\\midrule[1pt]
+		时间 (s)}&  文件（KB）\\\midrule
 	\endhead
 	\hline
 	\multicolumn{7}{r}{续下页}
@@ -187,7 +187,7 @@ The \textbf{words} in this sentences are \textit{processed} with three different
 	EP.B.2 & 495.49 & 0.001 & 0.009 & 0.003 & 0.196 & 2011 \\
 	EP.B.4 & 247.69 & 0.002 & 0.012 & 0.004 & 0.122 & 1663 \\
 	EP.B.8 & 126.74 & 0.003 & 0.017 & 0.005 & 0.083 & 1656 \\
-	\bottomrule[1.5pt]
+	\bottomrule
 \end{longtable}
 
 如果你要排版的表格长度超过一页，那么推荐使用 \pkg{longtable} 或者 \pkg{supertabular}宏包，模板对 \pkg{longtable} 进行了相应的设置，所以用起来可能简单一些。表~\ref{tab:performance} 就是 \pkg{longtable} 的简单示例。
