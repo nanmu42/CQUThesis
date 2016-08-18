@@ -1709,7 +1709,6 @@
 %    \end{macrocode}
 %
 % 作者的信息（校徽下方）
-% \changes{v1.14}{2016/08/18}{本科封面：新增“助理指导教师”“校外指导教师”的字段，自动判定是否有输入，有则显示，无则不显示。}
 %    \begin{macrocode}
 \cqu@def@term{cauthor}
 \cqu@def@term{eauthor}
@@ -1786,6 +1785,7 @@
 % \changes{v0.9.7}{2016/06/09}{使用\pkg{varwidth}代替了\pkg{pbox}。}
 % 基本上的思路是能复用就复用，姓名那几行分为左右两个\env{varwidth}:
 % \changes{v1.00}{2016/06/17}{现在，标题中的英文和中文统一使用无衬线字体。}
+% \changes{v1.14}{2016/08/18}{本科封面新增“助理指导教师”“校外指导教师”的字段，自动判定是否有输入，有则显示，无则不显示。}
 %    \begin{macrocode}
 \newcommand{\make@cover@CN}{%
 	\thispagestyle{style@empty}
@@ -1815,6 +1815,8 @@
 				\cqu@studentCN\cqu@title@separatorCN\\
 				\cqu@studentnumCN\cqu@title@separatorCN\\
 				\cqu@supervisorCN\cqu@title@separatorCN\\
+				\ifdefstring{\cqu@cassistsupervisor}{}{\relax}{{\zihao{5}\begin{CJKfilltwosides}{66bp}\cqu@assistsupervisorCN\end{CJKfilltwosides}}\hfill\cqu@title@separatorCN\\}
+				\ifdefstring{\cqu@cextrasupervisor}{}{\relax}{{\zihao{5}\begin{CJKfilltwosides}{66bp}\cqu@extrasupervisorCN\end{CJKfilltwosides}}\hfill\cqu@title@separatorCN\\}
 				\cqu@majorCN\cqu@title@separatorCN
 			\end{CJKfilltwosides}
 		\end{varwidth}
@@ -1837,9 +1839,13 @@
 		\zihao{3}
 		\begin{varwidth}{\textwidth}%
 			\mbox{\cqu@cauthor}\\
-			\ifcqu@bachelor\mbox{\cqu@studentid}\\\fi
+			\ifcqu@bachelor\cqu@studentid\\\fi
 			\cqu@csupervisor\\ %不要放在盒子里
 			\ifcqu@academic %这里有点复杂
+			\ifcqu@bachelor
+			\ifdefstring{\cqu@cassistsupervisor}{}{\relax}{\cqu@cassistsupervisor\\}
+			\ifdefstring{\cqu@cextrasupervisor}{}{\relax}{\cqu@cextrasupervisor\\}
+			\fi
 			\mbox{\cqu@cmajor}
 			\ifcqu@bachelor\relax\else\\\cqu@cclass\fi
 			\else
@@ -1874,6 +1880,7 @@
 			\\	\vspace{\stretch{2}}
 			\zihao{3}\textbf{\cqu@studentEN\cqu@title@separatorEN\mbox{\cqu@eauthor}}\\
 			\cqu@supervisorEN\cqu@title@separatorEN\mbox{\cqu@esupervisor}\\
+			\ifdefstring{\cqu@eassistsupervisor}{}{\relax}{\cqu@assistsupervisorEN\cqu@title@separatorEN\mbox{\cqu@eassistsupervisor}\\}
 			\cqu@majorEN\cqu@title@separatorEN\mbox{\cqu@emajor}
 		\else
 			\zihao{-1}\textbf{\cqu@etitle}
