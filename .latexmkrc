@@ -1,5 +1,5 @@
 # vim: set ft=perl:
-$clean_ext = '.aux .bbl equ glo gls hd idx ilg ind lof lot out blg log thm toc synctex.gz';
+$clean_ext = '.aux .bbl equ glo gls hd idx ilg ind lof lot out blg log thm toc synctex.gz lofEN lotEN equEN';
 $makeindex = 'makeindex -s gind.ist %O -o %D %S';
 add_cus_dep('glo', 'gls', 0, 'makeglo2gls');
 sub makeglo2gls {

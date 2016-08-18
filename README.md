@@ -31,18 +31,25 @@ CQUThesis根据重庆大学《重庆大学本科设计（论文）撰写规范�
 ## 部署
 CQUThesis的安装十分便利。下载CQUThesis的.zip压缩包后请将整个文件夹解压出来，进入文件夹后：
 
-* Windows用户请在文件夹空白处按住Shift键再点击书鼠标右键，选择“在此处打开命令窗口”，运行下列命令：
-```
-makewin build
-```
+* Windows用户可以直接双击运行makewin.bat
 * Linux 和 Mac 用户请在Bash窗口中进行如下操作：
 ```
 cd cquthesis
 make thesis
 ```
 
-即可完成 CQUThesis 的安装和示例文档的编译。
+即可完成 CQUThesis 的安装和示例文档的编译。以上也是CQUThesis推荐的论文编译方式。
 
+## 编译方式
+CQUThesis提供了支持全平台的Makefile来完成论文编译，大部分编译工作基于`latexmk`，能够有效利用中间文件提高编译效率，实现一键编译。
+
+* Windows用户请在文件夹空白处按住Shift键再点击书鼠标右键，选择“在此处打开命令窗口”，运行下列命令：
+```
+makewin help
+```
+可查询makewin.bat的详细用法（推荐熟悉，事半功倍）。
+
+* Linux用户和Mac用户可打开 Makefile 文件查看相关用法。
 
 ## 更新
 CQUThesis的升级很方便，下载最新的开发版，将zip文件中的cquthesis.dtx和cquthesis.ins覆盖掉工作文件夹中的相应文件后：

@@ -16,7 +16,7 @@
 %
 % \iffalse
 %<*driver>
-\ProvidesFile{cquthesis.dtx}[2016/07/06 v1.12 Chongqing University Thesis Template]
+\ProvidesFile{cquthesis.dtx}[2016/08/18 v1.14 Chongqing University Thesis Template]
 \documentclass{ltxdoc}
 \usepackage{dtx-style}
 
@@ -83,7 +83,8 @@
 % \changes{v0.9.7}{2016/06/09}{拆分了\file{cquthesis.sty}宏包，将其大部分内容并入\file{cquthesis.cls}和\file{cquthesis.cfg}。}
 % \changes{v1.00}{2016/06/17}{最后一些小修补，今年的毕设工作完全结束了。目前本科方面的格式审查没有问题，研究生和博士生哪边还没有数据。}
 % \changes{v1.00}{2016/06/17}{版本号格式从vX.Y.Z改为vX.YZ，更简洁一些。}
-% \changes{v1.10}{2016/06/21}{增加了CQUThesis的开发工具Makefile和makewin.bat，现在它对\LaTeX 中高阶用户和开发者更友好啦，文档也相应更新了。}
+% \changes{v1.10}{2016/06/21}{增加了CQUThesis的开发工具Makefile和makewin.bat，现在它对\LaTeX 中高阶用户和开发者更加友好，文档也相应更新了。}
+% \changes{v1.14}{2016/08/18}{改进了makewin.bat，默认的thesis选项加入了自动判定，如果dtx没有解包，程序会自动解包。这也就是说，新手可以在几乎所有情况下放心地通过双击makewin.bat来完成编译了。}
 %
 % \def\indexname{代码索引}
 % \def\glossaryname{更新记录}
@@ -204,11 +205,7 @@
 % 得益于GNU make和makewin.bat，\cquthesis 的安装十分便利。
 % 下载\cquthesis{}的\file*{.zip}压缩包后请将整个文件夹解压出来，进入文件夹后：
 % \begin{itemize}
-%	\item Windows用户请在文件夹空白处{\heiti 按住Shift键再点击书鼠标右键}，选择“在此处打开命令窗口”，运行下列命令：
-%
-% \begin{shell}
-% makewin build
-%	\end{shell}
+% \item Windows用户可以直接双击运行\file{makewin.bat}；
 %
 %	\item	Linux和Mac用户请在Bash窗口中进行如下操作：
 %
@@ -480,6 +477,13 @@
 % 仅专硕填写，兼职导师姓名和拼音。
 %
 % \note{在\file{cover.tex}中自己用不上的字段可以坐视不理、注释、删除（随你意）。模板在v 0.9.7 版本后更新了运作机制，\textbf{不再需要}主动注释掉不需要的字段以获得正确的封面排版。}
+%
+% \DescribeMacro{\cassistsupervisor}
+% \DescribeMacro{\cextrasupervisor}
+% \DescribeMacro{\eassistsupervisor}
+% 本科毕业设计中，有的同学会有助理指导老师或者在校外进行毕业设计（常见于保研的同学），这时需要在论文封面上标注自己的“助理指导教师”或“校外指导教师”。在使用时需要注意：1.这三个字段中，不使用的项目要求留空为正反大括号；2.“助理指导教师”和“校外指导教师”的英文都填写在\cs{eassistsupervisor}中，如果两类指导老师同时存在（这个情况太少了），可以使用正反大括号括起，括号内以逗号分隔。
+%
+% \note{这是v 1.14 版本中的新增功能。}
 %
 % \DescribeMacro{\cmajor}
 % \DescribeMacro{\emajor}
@@ -755,14 +759,14 @@
 %<cls>\NeedsTeXFormat{LaTeX2e}[1999/12/01]
 %<cls>\ProvidesClass{cquthesis}
 %<cfg>\ProvidesFile{cquthesis.cfg}
-%<cls|cfg>[2016/07/06 v1.12 Chongqing University Thesis Template]
+%<cls|cfg>[2016/08/18 v1.14 Chongqing University Thesis Template]
 %    \end{macrocode}
 % 定义一些开发常量：
 %    \begin{macrocode}
 %<*cls>
 \hyphenation{Cqu-Thesis}
 \newcommand{\cquthesis}{\textsc{CquThesis}}
-\def\version{1.12}
+\def\version{1.14}
 %</cls>
 %    \end{macrocode}
 % \file{cquthesis.cfg}中，涉及文档部件的部分常量：
@@ -1715,6 +1719,9 @@
 \cqu@def@term{studentid}
 \cqu@def@term{csupervisor}
 \cqu@def@term{esupervisor}
+\cqu@def@term{cassistsupervisor}
+\cqu@def@term{cextrasupervisor}
+\cqu@def@term{eassistsupervisor}
 \cqu@def@term{cpsupervisor}
 \cqu@def@term{epsupervisor}
 \cqu@def@term{cmajor}
@@ -1782,6 +1789,7 @@
 % \changes{v0.9.7}{2016/06/09}{使用\pkg{varwidth}代替了\pkg{pbox}。}
 % 基本上的思路是能复用就复用，姓名那几行分为左右两个\env{varwidth}:
 % \changes{v1.00}{2016/06/17}{现在，标题中的英文和中文统一使用无衬线字体。}
+% \changes{v1.14}{2016/08/18}{本科封面新增“助理指导教师”“校外指导教师”的字段，自动判定是否有输入，有则显示，无则不显示。}
 %    \begin{macrocode}
 \newcommand{\make@cover@CN}{%
 	\thispagestyle{style@empty}
@@ -1811,6 +1819,8 @@
 				\cqu@studentCN\cqu@title@separatorCN\\
 				\cqu@studentnumCN\cqu@title@separatorCN\\
 				\cqu@supervisorCN\cqu@title@separatorCN\\
+				\ifdefstring{\cqu@cassistsupervisor}{}{\relax}{{\zihao{5}\begin{CJKfilltwosides}{66bp}\cqu@assistsupervisorCN\end{CJKfilltwosides}}\hfill\cqu@title@separatorCN\\}
+				\ifdefstring{\cqu@cextrasupervisor}{}{\relax}{{\zihao{5}\begin{CJKfilltwosides}{66bp}\cqu@extrasupervisorCN\end{CJKfilltwosides}}\hfill\cqu@title@separatorCN\\}
 				\cqu@majorCN\cqu@title@separatorCN
 			\end{CJKfilltwosides}
 		\end{varwidth}
@@ -1833,9 +1843,13 @@
 		\zihao{3}
 		\begin{varwidth}{\textwidth}%
 			\mbox{\cqu@cauthor}\\
-			\ifcqu@bachelor\mbox{\cqu@studentid}\\\fi
+			\ifcqu@bachelor\cqu@studentid\\\fi
 			\cqu@csupervisor\\ %不要放在盒子里
 			\ifcqu@academic %这里有点复杂
+			\ifcqu@bachelor
+			\ifdefstring{\cqu@cassistsupervisor}{}{\relax}{\cqu@cassistsupervisor\\}
+			\ifdefstring{\cqu@cextrasupervisor}{}{\relax}{\cqu@cextrasupervisor\\}
+			\fi
 			\mbox{\cqu@cmajor}
 			\ifcqu@bachelor\relax\else\\\cqu@cclass\fi
 			\else
@@ -1854,6 +1868,7 @@
 % \subsubsection{绘制英文封面}
 % \begin{macro}{\make@cover@EN}
 % 英文封面由于不需要汉字两端对齐，相对来说排版难度低一些：
+% \changes{v1.14}{2016/08/18}{“助理指导教师”“校外指导教师”的英文字段也相应添加，同样自动判定是否有输入来决定是否显示。}
 %    \begin{macrocode}
 \newcommand{\make@cover@EN}{%
 	\cleardoublepage
@@ -1870,6 +1885,7 @@
 			\\	\vspace{\stretch{2}}
 			\zihao{3}\textbf{\cqu@studentEN\cqu@title@separatorEN\mbox{\cqu@eauthor}}\\
 			\cqu@supervisorEN\cqu@title@separatorEN\mbox{\cqu@esupervisor}\\
+			\ifdefstring{\cqu@eassistsupervisor}{}{\relax}{\cqu@assistsupervisorEN\cqu@title@separatorEN\mbox{\cqu@eassistsupervisor}\\}
 			\cqu@majorEN\cqu@title@separatorEN\mbox{\cqu@emajor}
 		\else
 			\zihao{-1}\textbf{\cqu@etitle}
@@ -2032,6 +2048,9 @@
 	\def\cqu@studentnumCN{学号}
 	\def\cqu@supervisorCN{指导教师}
 	\def\cqu@supervisorEN{Supervisor}
+	\def\cqu@assistsupervisorCN{助理指导教师}
+	\def\cqu@extrasupervisorCN{校外指导教师}
+	\def\cqu@assistsupervisorEN{Assistant Supervisor}
 	\def\cqu@majorCN{专业}
 	\def\cqu@majorEN{Major}
 	\def\cqu@universitynameCN{重庆大学}
