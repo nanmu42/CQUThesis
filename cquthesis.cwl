@@ -62,10 +62,12 @@
 \cquauthpage#n
 \cquauthpage[scanedFile]#n
 \cqusetup{key=value,}#n
+\ckeywords#S
 \ctexset{key=value,}#n
 \ding{number}#n
 \eqlist{name}#n
 \eqlist{name}[EnglishName]#n
+\ekeywords#S
 \frontmatter#S
 \fangsong#n
 \figref#S
