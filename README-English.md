@@ -1,36 +1,36 @@
 # About CQUThesis
+[![CTAN release](https://img.shields.io/ctan/v/cquthesis.svg?label=CTAN)](https://www.ctan.org/pkg/cquthesis)
+[![GitHub release](https://img.shields.io/github/release/nanmu42/cquthesis.svg?label=Github)](https://github.com/nanmu42/CQUThesis/releases/latest)
+[![GitHub commits](https://img.shields.io/github/commits-since/nanmu42/CQUThesis/v1.14.svg)](https://github.com/nanmu42/CQUThesis/commits/master)
+
 CQUThesis stands for Chongqing University Thesis Template for LaTeX, bearing the ability to support bachelor, master, doctor dissertations with grace and speed.
 
-# Installing
-* To create the package file, run:
-```
-	latex cquthesis.ins
-```
-* To finish the installation you have to move the following files into a directory searched by TeX:(The recommended directory is TEXMF/tex/latex/cquthesis)
+![CQUThesis-Poster](https://cloud.githubusercontent.com/assets/8143068/15363773/68c6b380-1d4c-11e6-9627-4d892facb333.png)
 
-   cquthesis.cls
-   cquthesis.cfg
-   cqunumerical.bst
+# Deployment
+## Download
+Version	|	Link	|	Description
+---	|	---		|	---
+Dev.	|[Click Here](https://github.com/nanmu42/cquthesis/zipball/master)	|	Recommend with new features and bug fixes
+Pre-release | [Github Link](https://github.com/nanmu42/CQUThesis/releases) | Accumulation of commits from Dev.
+Release	|[CTAN Page](https://www.ctan.org/pkg/cquthesis)|	Scheduled updates for CTAN, MikTeX and TeX Live
 
-* To produce the documentation please run these command:
+## Installation
+Unzip all files to a new folder as your future work folder:
+* Windows users may easily double-click on `makewin.bat`;
+* Linux or Mac users may start the terminal:
 ```
-  xelatex cquthesis.dtx
-  makeindex -s gind.ist -o cquthesis.ind cquthesis.idx
-  makeindex -s gglo.ist -o cquthesis.gls cquthesis.glo
-  xelatex cquthesis.dtx
-  xelatex cquthesis.dtx
+cd path/to/cquthesis
+make thesis
 ```
+If everything goes smoothly, CQUThesis is ready for work, with typeseting example named `main.pdf` in your work folder.
 
-* Run these command will get you a typeseting example:
-```
-  xelatex main.tex
-  bibtex main.tex
-  xelatex main.tex
-  xelatex main.tex
-```
-* For further info, please go to: https://github.com/nanmu42/CQUThesis
+# Question, Contribution and Contact
+Feel free to raise any question, and any possible contribution is highly appreciated.
+* [Github Issues](https://github.com/nanmu42/CQUThesis/issues);
+* Join [CQU TeX QQ Group](http://jq.qq.com/?_wv=1027&k=2HvYu95)
 
-Happy TeXing!
+Writing in English or Chinese is needed.
 
 # Acknowledgements
 The author would like to acknowledge these contributors for their efforts and, essentially, beautiful mind:
@@ -38,11 +38,6 @@ The author would like to acknowledge these contributors for their efforts and, e
 * [The CTeX Community](https://github.com/CTeX-org/ctex-kit)
 * [XUE, Ruini](https://github.com/xueruini/thuthesis)
 * [USTC TeX User Group](https://github.com/ustctug/gbt-7714-2015)
-
-# Question, Contribution and Contact
-Feel free to raise any question, and any possible contribution is highly appreciated.
-Submit a issue at [Github](https://github.com/nanmu42/CQUThesis).
-Write in English or Chinese is needed. Thank you.
 
 # About the Author
 Zhennan Li (i at nanmu dot me) proudly presents this work for you.
