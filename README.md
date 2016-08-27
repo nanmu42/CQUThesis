@@ -1,7 +1,7 @@
 # 嗨，这里是CQUThesis！
 [![CTAN release](https://img.shields.io/ctan/v/cquthesis.svg?label=CTAN)](https://www.ctan.org/pkg/cquthesis)
 [![GitHub release](https://img.shields.io/github/release/nanmu42/cquthesis.svg?label=Github)](https://github.com/nanmu42/CQUThesis/releases/latest)
-[![GitHub commits](https://img.shields.io/github/commits-since/nanmu42/CQUThesis/v1.10.svg)](https://github.com/nanmu42/CQUThesis/commits/master)
+[![GitHub commits](https://img.shields.io/github/commits-since/nanmu42/CQUThesis/v1.14.svg)](https://github.com/nanmu42/CQUThesis/commits/master)
 
 CQUThesis表示的是**C**hong**Q**ing **U**niversity **Thesis**.
 
@@ -77,7 +77,7 @@ make cls
 
 # 提问和支持
 * [Github Issues](https://github.com/nanmu42/CQUThesis/issues)
-* 造访重庆大学创新实践中心寻求支持
+* 加入[重庆大学TeX用户组](http://jq.qq.com/?_wv=1027&k=2HvYu95)寻求支持
 
 # 用户协议
 1. 本模板按照[LaTeX Project Public License](https://latex-project.org/lppl/lppl-1-3.txt)发布，协议版本号为1.3或以后的任何版本（随你意）。本条款不适用于重庆大学LaTeX模板工具箱（CQUThesis Toolkit）；
