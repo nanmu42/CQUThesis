@@ -1,5 +1,5 @@
-# CQUThesisSupply
-重庆大学LaTeX模板的支持文件，这些程序往往用于[CQUThesis](https://github.com/nanmu42/CQUThesis)的开发、测试、部署。
+# 重庆大学LaTeX模板工具箱
+重庆大学LaTeX模板的支持文件，这些程序往往用于[CQUThesis](https://github.com/nanmu42/CQUThesis)的开发、测试、部署。部分文件/程序能提供一些对撰写/排版论文有帮助的功能。
 
 下面是各个程序的Readme内容：
 
