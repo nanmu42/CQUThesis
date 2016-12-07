@@ -51,6 +51,26 @@ lengthSummary.to_csv('lengthSummary.csv')
 
 \end{Python}
 
+以下是一段供排版测试的C++源代码：
+
+\begin{C++}
+#include <vector>
+#include <algorithm>
+#include <iterator>
+std::vector<int> target2(5);
+std::vector<int> target3;
+template <typename RangeOfInts>
+void foo(RangeOfInts source)
+{
+	std::vector<int> target1{std::begin(source),
+		std::end(source)};
+	std::copy(std::begin(source), std::end(source),
+	std::begin(target2));
+	std::copy(std::begin(source), std::end(source),
+	std::back_inserter(target3));
+}
+\end{C++}
+
 \section{附录的图和表}
 以下内容用来测试附录中的插图和插表是否正常，主要的关注点在题注：
 

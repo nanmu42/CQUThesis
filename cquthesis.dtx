@@ -1625,10 +1625,12 @@
 	language=Python}
 %    \end{macrocode}
 % \end{environment}
-% \begin{environment}{Cplus}
+% \begin{environment}{C++}
+% \changes{v1.16}{2016/12/07}{出于简明的考虑，\env{Cplus}环境现在已经更名为\env{C++}环境。\env{Cplus}环境为历史兼容而保留定义。}
 % \begin{environment}{Python}
-% \cquthesis 内置了两个代码环境，\env{Cplus}和\env{Python}，您可以参照代码在\file{cquthesis.sty}中定义自己的环境。
+% \cquthesis 内置了两个代码环境，\env{C++}和\env{Python}，您可以参照代码在\file{cquthesis.sty}中定义自己的环境。\env{Cplus}环境为历史兼容而保留定义。
 %    \begin{macrocode}
+\lstnewenvironment{C++}{\lstset{style=lstStylePython}}{}
 \lstnewenvironment{Cplus}{\lstset{style=lstStylePython}}{}
 \lstnewenvironment{Python}{\lstset{style=lstStyleCplus}}{}
 %    \end{macrocode}
