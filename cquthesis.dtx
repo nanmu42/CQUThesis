@@ -30,7 +30,7 @@
 %</driver>
 % \fi
 %
-% \CheckSum{0}
+% \CheckSum{1852}
 %
 % \CharacterTable
 %  {Upper-case    \A\B\C\D\E\F\G\H\I\J\K\L\M\N\O\P\Q\R\S\T\U\V\W\X\Y\Z
@@ -101,14 +101,14 @@
 % \end{center}
 %	\vspace{\stretch{2}}
 % \begin{abstract}\noindent
-% \cquthesis{}是重庆大学毕业论文的\LaTeX{}模板，支持学士（文学、理工）、硕士（学术、专业）、博士论文的排版。
+% \cquthesis\footnote{\url{https://github.com/nanmu42/CQUThesis}}是重庆大学毕业论文的\LaTeX{}模板，支持学士（文学、理工）、硕士（学术、专业）、博士论文的排版。
 % \end{abstract}
 % \vspace{\stretch{1}}
 % \def\abstractname{用户协议}
 % \begin{abstract}\noindent
 % \begin{enumerate}
 % \item 本模板按照LaTeX Project Public License发布，协议版本号为1.3或以后的任何版本（随你意）；
-% \item 重庆大学教务处和研究生院只提供毕业论文写作指南，不提供官方模板，也不会授权或认证第三方模板为官方模板。 这个模板是按照写作指南的参考实现，模板作者自当尽力，但不保证审查老师不提意见。任何由于本模板而引起的论文格式审查问题与本模板作者无关。
+% \item 截止本文档编译时，重庆大学教务处和研究生院只提供了\href{https://github.com/nanmu42/CQUThesis/tree/master/toolkit}{毕业论文写作指南}，没有提供官方模板，也没有授权或认证任何第三方模板为官方模板\footnote{\href{http://jq.qq.com/?_wv=1027&k=2HvYu95}{重庆大学\TeX 用户组}正在推动学校\href{https://github.com/CQUtug/TeXProposal}{认证\cquthesis} 。}。本模板是按照写作指南的参考实现，模板作者自当尽力，但不保证审查老师不提意见。在开始使用前，您同意，任何由于本模板而引起的论文格式审查问题与本模板作者无关。
 % \end{enumerate}
 % \vskip2cm
 % \end{abstract}
@@ -152,7 +152,7 @@
 % \item Linux和Mac用户，推荐使用\TeX Live，这是一套大而全的\TeX{}发行版，考虑到使用这两个系统的用户动手能力相对较强，\TeX Live没法自己解决依赖这个问题应该不是很让人头疼\footnote{使用宏包管理器或者从CTAN获取依赖宏包。}。
 % \end{itemize}
 %
-% 本模板在Windows和Mac环境下的TeX Live发行版中都进行了编译测试。
+% 本模板在Windows和Mac环境下的\TeX Live发行版中都进行了编译测试。
 %
 % \note{在条件允许的情况下，强烈推荐您使用\XeTeX 引擎进行编译工作。}
 %
@@ -160,8 +160,8 @@
 % 您可通过三个主要途径获取\cquthesis ：
 % 
 % \begin{itemize}
-%	\item 造访\cquthesis{ } \href{https://github.com/nanmu42/CQUThesis/releases}{Github主页}下载最新的预发行版本，这是更新最快，功能最全的版本（含工具箱Toolkit）；
-% \item 访问本模板\href{http://www.ctan.org/pkg/cquthesis}{CTAN官方镜像}下载发行版，这个版本定期从预发行版本同步（不含工具箱Toolkit\footnote{这是出于许可证方面的考虑。}）；
+%	\item 造访\cquthesis 的 \href{https://github.com/nanmu42/CQUThesis}{Github主页}下载最新的开发版本，这是更新最快，功能最全的版本（含工具箱Toolkit）；
+% \item 访问本模板\href{https://www.ctan.org/pkg/cquthesis}{CTAN官方镜像}下载发行版，这个版本定期从预发行版本同步（不含工具箱Toolkit\footnote{这是出于许可证方面的考虑。}）；
 % \item 使用Mik \TeX 或\TeX Live的宏包管理功能直接获得本模板，这个方式不含模板示例文件。
 % \end{itemize}
 %
@@ -192,6 +192,7 @@
 % contents/ & 示例文档章节具体内容\\
 % figures/ & 示例文档图片路径\\
 % ref/ & 示例文档参考文献目录\\
+% toolkit/ & 额外的写作工具箱\\
 % cquthesis.sty & 为示例文档加载其它宏包\\\midrule
 % README-English & 英文安装提示，推荐中高阶用户阅读\\
 % README.md & Readme\\
@@ -741,10 +742,10 @@
 %	遇到难以解决的问题了？欢迎您向我反馈，您可以：
 % \begin{itemize}
 %	\item 在Github上\href{https://github.com/nanmu42/cquthesis/issues}{提交Issue};
-%	\item 莅临重庆大学7117工作室垂询
+%	\item 加入\href{http://jq.qq.com/?_wv=1027&k=2HvYu95}{重庆大学\TeX 用户组}进行讨论\footnote{即使您不是重庆大学的学子，只要您对\TeX 足够热爱并且为人友善，我们也会热诚地欢迎您。}。
 %\end{itemize}
 % 
-% 大家的反馈是模板提高的机会。
+% 大家的反馈为模板提高带来机会。
 % \section{致谢}
 %  这个模板是站在巨人肩膀上的成果，感谢\LaTeXe{}计划，感谢CTeX开发组提供的中文解决方案，感谢薛瑞尼副教授(Github: xueruini/ThuThesis)，感谢WeiJianWen同学(Github: weijianwen/SJTUThesis)，感谢中国科学技术大学TeX用户组(Github: ustctug/gbt-7714-2015)。向你们致以真诚的问候和感激！
 %
@@ -2322,6 +2323,7 @@
 %    \begin{macrocode}
 %<*dtx-style>
 \ProvidesPackage{dtx-style}
+\RequirePackage[bottom,perpage,hang,]{footmisc}
 \RequirePackage{hypdoc}
 \RequirePackage[UTF8,scheme=chinese]{ctex}
 \RequirePackage{newpxtext}
@@ -2339,6 +2341,17 @@ headsep=3mm]{geometry}
 \RequirePackage{metalogo}
 \RequirePackage{graphicx}
 \RequirePackage{xspace}
+\RequirePackage{pifont}
+
+\def\footnoterule{\vskip-3\p@\hrule\@width0.3\textwidth\@height0.4\p@\vskip2.6\p@}
+\let\cqu@footnotesize\footnotesize
+\renewcommand{\footnotesize}{\cqu@footnotesize\zihao{-5}}
+\footnotemargin1.5em\relax
+
+\let\cqu@makefnmark\@makefnmark
+\def\cqu@@makefnmark{\mbox{{\normalfont\@thefnmark}}}
+\pretocmd{\@makefntext}{\let\@makefnmark\cqu@@makefnmark}{}{}
+\apptocmd{\@makefntext}{\let\@makefnmark\cqu@makefnmark}{}{}
 
 \colorlet{cqu@macro}{blue!60!black}
 \colorlet{cqu@env}{blue!70!black}
