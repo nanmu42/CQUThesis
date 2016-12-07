@@ -74,6 +74,8 @@ make cls
 	--- | ---
  排版示例 |	请编译`main.tex`获得
  用户文档 |	随模板发布，也可[点我下载](https://github.com/nanmu42/CQUThesis/raw/master/cquthesis.pdf)
+ 
+ 此外，如果您需要向导师或学院征求使用TeX进行论文排版的理解和肯定，[重庆大学TeX用户组](http://jq.qq.com/?_wv=1027&k=2HvYu95)为您提供[《关于推荐重庆大学开设TeX相关课程并推广其运用的提议》](https://github.com/CQUtug/TeXProposal)，希望这份文档能帮到您。目前，我们正在学校范围内推动这一提案。
 
 # 提问和支持
 * [Github Issues](https://github.com/nanmu42/CQUThesis/issues)
@@ -81,8 +83,7 @@ make cls
 
 # 用户协议
 1. 本模板按照[LaTeX Project Public License](https://latex-project.org/lppl/lppl-1-3.txt)发布，协议版本号为1.3或以后的任何版本（随你意）。本条款不适用于重庆大学LaTeX模板工具箱（CQUThesis Toolkit）；
-1. 重庆大学教务处和研究生院只提供毕业论文写作指南，不提供官方模板，也不会授权或认证第三方模板为官方模板。
-这个模板是按照写作指南的参考实现，模板作者自当尽力，但不保证审查老师不提意见。任何由于本模板而引起的论文格式审查问题与本模板作者无关。
+1. 截止本文档编译时，重庆大学教务处和研究生院只提供了毕业论文写作指南，没有提供官方模板，也没有授权或认证任何第三方模板为官方模板。本模板是按照写作指南的参考实现，模板作者自当尽力，但不保证审查老师不提意见。在开始使用前，您同意，任何由于本模板而引起的论文格式审查问题与本模板作者无关。
 
 # About CQUThesis
 CQUThesis stands for Chongqing University Thesis Template for LaTeX, bearing the ability to support bachelor, master, doctor dissertations with grace and speed.

@@ -16,7 +16,7 @@
 %
 % \iffalse
 %<*driver>
-\ProvidesFile{cquthesis.dtx}[2016/08/18 v1.14 Chongqing University Thesis Template]
+\ProvidesFile{cquthesis.dtx}[2016/12/07 v1.16 Chongqing University Thesis Template]
 \documentclass{ltxdoc}
 \usepackage{dtx-style}
 
@@ -30,7 +30,7 @@
 %</driver>
 % \fi
 %
-% \CheckSum{0}
+% \CheckSum{1852}
 %
 % \CharacterTable
 %  {Upper-case    \A\B\C\D\E\F\G\H\I\J\K\L\M\N\O\P\Q\R\S\T\U\V\W\X\Y\Z
@@ -101,14 +101,14 @@
 % \end{center}
 %	\vspace{\stretch{2}}
 % \begin{abstract}\noindent
-% \cquthesis{}是重庆大学毕业论文的\LaTeX{}模板，支持学士（文学、理工）、硕士（学术、专业）、博士论文的排版。
+% \cquthesis\footnote{\url{https://github.com/nanmu42/CQUThesis}}是重庆大学毕业论文的\LaTeX{}模板，支持学士（文学、理工）、硕士（学术、专业）、博士论文的排版。
 % \end{abstract}
 % \vspace{\stretch{1}}
 % \def\abstractname{用户协议}
 % \begin{abstract}\noindent
 % \begin{enumerate}
 % \item 本模板按照LaTeX Project Public License发布，协议版本号为1.3或以后的任何版本（随你意）；
-% \item 重庆大学教务处和研究生院只提供毕业论文写作指南，不提供官方模板，也不会授权或认证第三方模板为官方模板。 这个模板是按照写作指南的参考实现，模板作者自当尽力，但不保证审查老师不提意见。任何由于本模板而引起的论文格式审查问题与本模板作者无关。
+% \item 截止本文档编译时，重庆大学教务处和研究生院只提供了\href{https://github.com/nanmu42/CQUThesis/tree/master/toolkit}{毕业论文写作指南}，没有提供官方模板，也没有授权或认证任何第三方模板为官方模板\footnote{\href{http://jq.qq.com/?_wv=1027&k=2HvYu95}{重庆大学\TeX 用户组}正在推动学校\href{https://github.com/CQUtug/TeXProposal}{认证\cquthesis} 。}。本模板是按照写作指南的参考实现，模板作者自当尽力，但不保证审查老师不提意见。在开始使用前，您同意，任何由于本模板而引起的论文格式审查问题与本模板作者无关。
 % \end{enumerate}
 % \vskip2cm
 % \end{abstract}
@@ -152,7 +152,7 @@
 % \item Linux和Mac用户，推荐使用\TeX Live，这是一套大而全的\TeX{}发行版，考虑到使用这两个系统的用户动手能力相对较强，\TeX Live没法自己解决依赖这个问题应该不是很让人头疼\footnote{使用宏包管理器或者从CTAN获取依赖宏包。}。
 % \end{itemize}
 %
-% 本模板在Windows和Mac环境下的TeX Live发行版中都进行了编译测试。
+% 本模板在Windows和Mac环境下的\TeX Live发行版中都进行了编译测试。
 %
 % \note{在条件允许的情况下，强烈推荐您使用\XeTeX 引擎进行编译工作。}
 %
@@ -160,8 +160,8 @@
 % 您可通过三个主要途径获取\cquthesis ：
 % 
 % \begin{itemize}
-%	\item 造访\cquthesis{ } \href{https://github.com/nanmu42/CQUThesis/releases}{Github主页}下载最新的预发行版本，这是更新最快，功能最全的版本（含工具箱Toolkit）；
-% \item 访问本模板\href{http://www.ctan.org/pkg/cquthesis}{CTAN官方镜像}下载发行版，这个版本定期从预发行版本同步（不含工具箱Toolkit\footnote{这是出于许可证方面的考虑。}）；
+%	\item 造访\cquthesis 的 \href{https://github.com/nanmu42/CQUThesis}{Github主页}下载最新的开发版本，这是更新最快，功能最全的版本（含工具箱Toolkit）；
+% \item 访问本模板\href{https://www.ctan.org/pkg/cquthesis}{CTAN官方镜像}下载发行版，这个版本定期从预发行版本同步（不含工具箱Toolkit\footnote{这是出于许可证方面的考虑。}）；
 % \item 使用Mik \TeX 或\TeX Live的宏包管理功能直接获得本模板，这个方式不含模板示例文件。
 % \end{itemize}
 %
@@ -192,6 +192,7 @@
 % contents/ & 示例文档章节具体内容\\
 % figures/ & 示例文档图片路径\\
 % ref/ & 示例文档参考文献目录\\
+% toolkit/ & 额外的写作工具箱\\
 % cquthesis.sty & 为示例文档加载其它宏包\\\midrule
 % README-English & 英文安装提示，推荐中高阶用户阅读\\
 % README.md & Readme\\
@@ -741,10 +742,10 @@
 %	遇到难以解决的问题了？欢迎您向我反馈，您可以：
 % \begin{itemize}
 %	\item 在Github上\href{https://github.com/nanmu42/cquthesis/issues}{提交Issue};
-%	\item 莅临重庆大学7117工作室垂询
+%	\item 加入\href{http://jq.qq.com/?_wv=1027&k=2HvYu95}{重庆大学\TeX 用户组}进行讨论\footnote{即使您不是重庆大学的学子，只要您对\TeX 足够热爱并且为人友善，我们也会热诚地欢迎您。}。
 %\end{itemize}
 % 
-% 大家的反馈是模板提高的机会。
+% 大家的反馈为模板提高带来机会。
 % \section{致谢}
 %  这个模板是站在巨人肩膀上的成果，感谢\LaTeXe{}计划，感谢CTeX开发组提供的中文解决方案，感谢薛瑞尼副教授(Github: xueruini/ThuThesis)，感谢WeiJianWen同学(Github: weijianwen/SJTUThesis)，感谢中国科学技术大学TeX用户组(Github: ustctug/gbt-7714-2015)。向你们致以真诚的问候和感激！
 %
@@ -759,14 +760,14 @@
 %<cls>\NeedsTeXFormat{LaTeX2e}[1999/12/01]
 %<cls>\ProvidesClass{cquthesis}
 %<cfg>\ProvidesFile{cquthesis.cfg}
-%<cls|cfg>[2016/08/18 v1.14 Chongqing University Thesis Template]
+%<cls|cfg>[2016/12/07 v1.16 Chongqing University Thesis Template]
 %    \end{macrocode}
 % 定义一些开发常量：
 %    \begin{macrocode}
 %<*cls>
 \hyphenation{Cqu-Thesis}
 \newcommand{\cquthesis}{\textsc{CquThesis}}
-\def\version{1.14}
+\def\version{1.16}
 %</cls>
 %    \end{macrocode}
 % \file{cquthesis.cfg}中，涉及文档部件的部分常量：
@@ -778,7 +779,7 @@
 \def\shorttablename							{表}
 \def\shorttablenameEN						{Table}
 \def\shortfigurename						{图}
-\def\shortfigurenameEN					{Figure}
+\def\shortfigurenameEN					{Fig.}
 \def\listofequationsname				{重要算式索引}
 \def\listofequationsnameEN			{\textbf{List of Equations}}
 \def\listoffiguresnameEN				{\textbf{List of Figures}}
@@ -1193,7 +1194,8 @@
 %    \end{macrocode}
 %
 % \subsection{各级标题}
-% 各级标题设置：
+% 各级标题设置，使用\option{fixskip}来抑制三级和四级标题的额外间距。这里的\option{beforeskip}和\option{afterskip}是与Word样例对比后通过尝试得出的。
+% \changes{v1.16}{2016/12/07}{去除了三级和四级标题的额外垂直间距。}
 %    \begin{macrocode}
 %<*cfg>
 \ctexset{%
@@ -1215,8 +1217,8 @@
 		titleformat = \zihao{-3},
 		aftername = \hskip\ccwd,
 		number = {\ifcqu@liberalformat\parenthesesthis{\chinese{section}}\else\thesection\fi},
-		beforeskip = 24bp \@plus 1ex \@minus .2ex,
-		afterskip = 6bp \@plus .2ex,
+		beforeskip = 24bp plus 1ex minus .2ex,
+		afterskip = 6bp plus .2ex,
 	},
 	subsection = {%
 		name = {},
@@ -1225,8 +1227,9 @@
 		titleformat = \zihao{4},
 		aftername = \hskip\ccwd,
 		number = {\ifcqu@liberalformat\arabic{subsection}\else\thesubsection\fi},
-		beforeskip = 16bp \@plus 1ex \@minus .2ex,
-		afterskip = 6bp \@plus .2ex,
+		beforeskip = 12bp plus 1bp,
+		afterskip = 10bp,
+		fixskip = true,
 	},
 	subsubsection = {
 		name = {},
@@ -1236,8 +1239,9 @@
 		numbering = true,
 		number = {\ifcqu@liberalformat\parenthesesthis{\arabic{subsubsection}}\else\@circlenum{subsubsection}\fi},
 		numberformat+ = {\ifcqu@liberalformat\relax\else\zihao{4}\fi},
-		beforeskip = 1ex plus 0.5ex minus .2ex,
-		afterskip = 1bp \@plus .1ex,
+		beforeskip = 10bp plus .5bp,
+		afterskip = 10bp,
+		fixskip = true,
 	},
 	appendix = {%
 		numbering = false,
@@ -1441,16 +1445,17 @@
 %
 % \subsubsection{浮动对象}
 % 设定浮动对象与文字的间距
+% \changes{v1.16}{2016/12/07}{优化浮动对象与文字的间距。}
 %    \begin{macrocode}
 %<*cls>
-\setlength{\floatsep}{20bp \@plus4pt \@minus1pt}
-\setlength{\intextsep}{24bp \@plus4pt \@minus2pt}
-\setlength{\textfloatsep}{20bp \@plus4pt \@minus2pt}
-\setlength{\@fptop}{6bp \@plus2bp}
-\setlength{\@fpsep}{12bp \@plus2bp}
-\setlength{\@fpbot}{6bp \@plus2bp}
+\setlength{\floatsep}{20bp plus2bp minus2bp}
+\setlength{\intextsep}{20bp plus2bp minus2bp}
+\setlength{\textfloatsep}{20bp plus2bp minus2bp}
+\setlength{\@fptop}{6bp plus2bp}
+\setlength{\@fpsep}{12bp plus2bp}
+\setlength{\@fpbot}{6bp plus2bp}
 %    \end{macrocode}
-% 让浮动对象缺省值更宽松
+% 让浮动对象的页面缺省值更宽松
 %    \begin{macrocode}
 \renewcommand{\textfraction}{0.15}
 \renewcommand{\topfraction}{0.85}
@@ -1489,16 +1494,17 @@
 % \end{macro}
 % \end{macro}
 % \end{macro}
-% 定制表格和插图的题注样式：
+% 定制表格和插图的题注样式，这里注意\pkg{caption}宏包在设置表格的\option{position}为\option{top}时，\option{aboveskip}和\option{belowskip}的定义会相互调换，即\option{top}时反义，\option{bottom}时字面义。
 % \changes{v1.12}{2016/07/06}{题注的字体设置对中英文都进行了适配。}
+% \changes{v1.16}{2016/12/07}{正文中的题注的名称和序号不再加粗，同时优化了题注和插图（插表）的垂直距离。}
 %    \begin{macrocode}
 \def\cqu@tabular{\zihao{5}\@tabular}
-\DeclareCaptionLabelFormat{cqu}{{\zihao{5}\rmfamily\songti \textbf{#1~#2}}}
+\DeclareCaptionLabelFormat{cqu}{{\zihao{5}\rmfamily\songti #1~#2}}
 \DeclareCaptionLabelSeparator{cqu}{\hspace{\ccwd}}
 \DeclareCaptionFont{cqu}{\zihao{5}\rmfamily\songti}
 \captionsetup{labelformat=cqu,labelsep=cqu,font=cqu}
-\captionsetup[table]{position=top,belowskip={12bp-\intextsep},aboveskip=6bp}
-\captionsetup[figure]{position=bottom,belowskip={12bp-\intextsep},aboveskip=6bp}
+\captionsetup[table]{position=top,belowskip=6bp,aboveskip=0bp}
+\captionsetup[figure]{position=bottom,belowskip=0bp,aboveskip=6bp}
 \captionsetup[sub]{font=cqu,skip=6bp}
 \renewcommand{\thesubfigure}{(\alph{subfigure})}
 \renewcommand{\thesubtable}{(\alph{subtable})}
@@ -1620,10 +1626,12 @@
 	language=Python}
 %    \end{macrocode}
 % \end{environment}
-% \begin{environment}{Cplus}
+% \begin{environment}{C++}
+% \changes{v1.16}{2016/12/07}{出于简明的考虑，\env{Cplus}环境现在已经更名为\env{C++}环境。\env{Cplus}环境为历史兼容而保留定义。}
 % \begin{environment}{Python}
-% \cquthesis 内置了两个代码环境，\env{Cplus}和\env{Python}，您可以参照代码在\file{cquthesis.sty}中定义自己的环境。
+% \cquthesis 内置了两个代码环境，\env{C++}和\env{Python}，您可以参照代码在\file{cquthesis.sty}中定义自己的环境。\env{Cplus}环境为历史兼容而保留定义。
 %    \begin{macrocode}
+\lstnewenvironment{C++}{\lstset{style=lstStylePython}}{}
 \lstnewenvironment{Cplus}{\lstset{style=lstStylePython}}{}
 \lstnewenvironment{Python}{\lstset{style=lstStyleCplus}}{}
 %    \end{macrocode}
@@ -1869,6 +1877,7 @@
 % \begin{macro}{\make@cover@EN}
 % 英文封面由于不需要汉字两端对齐，相对来说排版难度低一些：
 % \changes{v1.14}{2016/08/18}{“助理指导教师”“校外指导教师”的英文字段也相应添加，同样自动判定是否有输入来决定是否显示。}
+% \changes{v1.16}{2016/12/07}{修正英文封面的指导教师的表达。另外，让“by”加粗了。}
 %    \begin{macrocode}
 \newcommand{\make@cover@EN}{%
 	\cleardoublepage
@@ -1884,7 +1893,7 @@
 			\includegraphics[width=5cm]{CQUbadge.pdf}
 			\\	\vspace{\stretch{2}}
 			\zihao{3}\textbf{\cqu@studentEN\cqu@title@separatorEN\mbox{\cqu@eauthor}}\\
-			\cqu@supervisorEN\cqu@title@separatorEN\mbox{\cqu@esupervisor}\\
+			\cqu@supervisorEN\mbox{\cqu@esupervisor}\\
 			\ifdefstring{\cqu@eassistsupervisor}{}{\relax}{\cqu@assistsupervisorEN\cqu@title@separatorEN\mbox{\cqu@eassistsupervisor}\\}
 			\cqu@majorEN\cqu@title@separatorEN\mbox{\cqu@emajor}
 		\else
@@ -1894,11 +1903,11 @@
 			\\	\vspace{\stretch{2}}
 			\zihao{3}\cqu@thesistypenameEN
 			\\[1mm]
-			\cqu@workby
+			\textbf{\cqu@workby}
 			\\[2mm]
 			\zihao{3}\mbox{\textbf{\cqu@eauthor}}
 			\\	\vspace{\stretch{1}}
-			\textbf{\cqu@supervisorEN\cqu@title@separatorEN}\textbf{\cqu@esupervisor}\\
+			\textbf{\cqu@supervisorEN}\textbf{\cqu@esupervisor}\\
 			\ifcqu@academic\relax\else\textbf{\cqu@psupervisorEN\cqu@title@separatorEN\cqu@epsupervisor}\\\fi
 			\textbf{\cqu@majorEN\cqu@title@separatorEN}\mbox{\textbf{\cqu@emajor}}
 		\fi
@@ -2047,7 +2056,7 @@
 	\def\cqu@studentEN{Undergraduate}
 	\def\cqu@studentnumCN{学号}
 	\def\cqu@supervisorCN{指导教师}
-	\def\cqu@supervisorEN{Supervisor}
+	\def\cqu@supervisorEN{Supervised by{ }}
 	\def\cqu@assistsupervisorCN{助理指导教师}
 	\def\cqu@extrasupervisorCN{校外指导教师}
 	\def\cqu@assistsupervisorEN{Assistant Supervisor}
@@ -2063,7 +2072,7 @@
 		\ifcqu@academic{ }the\fi\\\cqu@edgree}
 		\def\cqu@studentCN{学生姓名}
 		\def\cqu@supervisorCN{指导教师}
-		\def\cqu@supervisorEN{Supervisor}
+		\def\cqu@supervisorEN{Supervised by{ }}
 		\def\cqu@psupervisorCN{兼职导师}
 		\def\cqu@psupervisorEN{Pluralistic~Supervisor}
 		\def\cqu@majorCN{专业}
@@ -2085,7 +2094,7 @@
 			\def\cqu@studentCN{学生姓名}
 			\def\cqu@studentEN{Ph.D. Candidate}
 			\def\cqu@supervisorCN{指导教师}
-			\def\cqu@supervisorEN{Supervisor}
+			\def\cqu@supervisorEN{Supervised by{ }}
 			\def\cqu@majorCN{学科专业}
 			\def\cqu@majorclassCN{学科门类}
 			\def\cqu@majorEN{Specialty}
@@ -2314,6 +2323,7 @@
 %    \begin{macrocode}
 %<*dtx-style>
 \ProvidesPackage{dtx-style}
+\RequirePackage[bottom,perpage,hang,]{footmisc}
 \RequirePackage{hypdoc}
 \RequirePackage[UTF8,scheme=chinese]{ctex}
 \RequirePackage{newpxtext}
@@ -2331,6 +2341,17 @@ headsep=3mm]{geometry}
 \RequirePackage{metalogo}
 \RequirePackage{graphicx}
 \RequirePackage{xspace}
+\RequirePackage{pifont}
+
+\def\footnoterule{\vskip-3\p@\hrule\@width0.3\textwidth\@height0.4\p@\vskip2.6\p@}
+\let\cqu@footnotesize\footnotesize
+\renewcommand{\footnotesize}{\cqu@footnotesize\zihao{-5}}
+\footnotemargin1.5em\relax
+
+\let\cqu@makefnmark\@makefnmark
+\def\cqu@@makefnmark{\mbox{{\normalfont\@thefnmark}}}
+\pretocmd{\@makefntext}{\let\@makefnmark\cqu@@makefnmark}{}{}
+\apptocmd{\@makefntext}{\let\@makefnmark\cqu@makefnmark}{}{}
 
 \colorlet{cqu@macro}{blue!60!black}
 \colorlet{cqu@env}{blue!70!black}
