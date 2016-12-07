@@ -1886,7 +1886,7 @@
 			\includegraphics[width=5cm]{CQUbadge.pdf}
 			\\	\vspace{\stretch{2}}
 			\zihao{3}\textbf{\cqu@studentEN\cqu@title@separatorEN\mbox{\cqu@eauthor}}\\
-			\cqu@supervisorEN\cqu@title@separatorEN\mbox{\cqu@esupervisor}\\
+			\cqu@supervisorEN\mbox{\cqu@esupervisor}\\
 			\ifdefstring{\cqu@eassistsupervisor}{}{\relax}{\cqu@assistsupervisorEN\cqu@title@separatorEN\mbox{\cqu@eassistsupervisor}\\}
 			\cqu@majorEN\cqu@title@separatorEN\mbox{\cqu@emajor}
 		\else
@@ -1896,11 +1896,11 @@
 			\\	\vspace{\stretch{2}}
 			\zihao{3}\cqu@thesistypenameEN
 			\\[1mm]
-			\cqu@workby
+			\textbf{\cqu@workby}
 			\\[2mm]
 			\zihao{3}\mbox{\textbf{\cqu@eauthor}}
 			\\	\vspace{\stretch{1}}
-			\textbf{\cqu@supervisorEN\cqu@title@separatorEN}\textbf{\cqu@esupervisor}\\
+			\textbf{\cqu@supervisorEN}\textbf{\cqu@esupervisor}\\
 			\ifcqu@academic\relax\else\textbf{\cqu@psupervisorEN\cqu@title@separatorEN\cqu@epsupervisor}\\\fi
 			\textbf{\cqu@majorEN\cqu@title@separatorEN}\mbox{\textbf{\cqu@emajor}}
 		\fi
@@ -2049,7 +2049,7 @@
 	\def\cqu@studentEN{Undergraduate}
 	\def\cqu@studentnumCN{学号}
 	\def\cqu@supervisorCN{指导教师}
-	\def\cqu@supervisorEN{Supervisor}
+	\def\cqu@supervisorEN{Supervised by{ }}
 	\def\cqu@assistsupervisorCN{助理指导教师}
 	\def\cqu@extrasupervisorCN{校外指导教师}
 	\def\cqu@assistsupervisorEN{Assistant Supervisor}
@@ -2065,7 +2065,7 @@
 		\ifcqu@academic{ }the\fi\\\cqu@edgree}
 		\def\cqu@studentCN{学生姓名}
 		\def\cqu@supervisorCN{指导教师}
-		\def\cqu@supervisorEN{Supervisor}
+		\def\cqu@supervisorEN{Supervised by{ }}
 		\def\cqu@psupervisorCN{兼职导师}
 		\def\cqu@psupervisorEN{Pluralistic~Supervisor}
 		\def\cqu@majorCN{专业}
@@ -2087,7 +2087,7 @@
 			\def\cqu@studentCN{学生姓名}
 			\def\cqu@studentEN{Ph.D. Candidate}
 			\def\cqu@supervisorCN{指导教师}
-			\def\cqu@supervisorEN{Supervisor}
+			\def\cqu@supervisorEN{Supervised by{ }}
 			\def\cqu@majorCN{学科专业}
 			\def\cqu@majorclassCN{学科门类}
 			\def\cqu@majorEN{Specialty}
