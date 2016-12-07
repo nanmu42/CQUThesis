@@ -16,7 +16,7 @@
 %
 % \iffalse
 %<*driver>
-\ProvidesFile{cquthesis.dtx}[2016/08/18 v1.14 Chongqing University Thesis Template]
+\ProvidesFile{cquthesis.dtx}[2016/12/07 v1.16 Chongqing University Thesis Template]
 \documentclass{ltxdoc}
 \usepackage{dtx-style}
 
@@ -759,14 +759,14 @@
 %<cls>\NeedsTeXFormat{LaTeX2e}[1999/12/01]
 %<cls>\ProvidesClass{cquthesis}
 %<cfg>\ProvidesFile{cquthesis.cfg}
-%<cls|cfg>[2016/08/18 v1.14 Chongqing University Thesis Template]
+%<cls|cfg>[2016/12/07 v1.16 Chongqing University Thesis Template]
 %    \end{macrocode}
 % 定义一些开发常量：
 %    \begin{macrocode}
 %<*cls>
 \hyphenation{Cqu-Thesis}
 \newcommand{\cquthesis}{\textsc{CquThesis}}
-\def\version{1.14}
+\def\version{1.16}
 %</cls>
 %    \end{macrocode}
 % \file{cquthesis.cfg}中，涉及文档部件的部分常量：
@@ -1194,6 +1194,7 @@
 %
 % \subsection{各级标题}
 % 各级标题设置，使用\option{fixskip}来抑制三级和四级标题的额外间距。这里的\option{beforeskip}和\option{afterskip}是与Word样例对比后通过尝试得出的。
+% \changes{v1.16}{2016/12/07}{去除了三级和四级标题的额外垂直间距。}
 %    \begin{macrocode}
 %<*cfg>
 \ctexset{%
@@ -1873,6 +1874,7 @@
 % \begin{macro}{\make@cover@EN}
 % 英文封面由于不需要汉字两端对齐，相对来说排版难度低一些：
 % \changes{v1.14}{2016/08/18}{“助理指导教师”“校外指导教师”的英文字段也相应添加，同样自动判定是否有输入来决定是否显示。}
+% \changes{v1.16}{2016/12/07}{修正英文封面的指导教师的表达。另外，让“by”加粗了。}
 %    \begin{macrocode}
 \newcommand{\make@cover@EN}{%
 	\cleardoublepage
