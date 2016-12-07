@@ -1193,7 +1193,7 @@
 %    \end{macrocode}
 %
 % \subsection{各级标题}
-% 各级标题设置：
+% 各级标题设置，使用\option{fixskip}来抑制三级和四级标题的额外间距。这里的\option{beforeskip}和\option{afterskip}是与Word样例对比后通过尝试得出的。
 %    \begin{macrocode}
 %<*cfg>
 \ctexset{%
@@ -1215,8 +1215,8 @@
 		titleformat = \zihao{-3},
 		aftername = \hskip\ccwd,
 		number = {\ifcqu@liberalformat\parenthesesthis{\chinese{section}}\else\thesection\fi},
-		beforeskip = 24bp \@plus 1ex \@minus .2ex,
-		afterskip = 6bp \@plus .2ex,
+		beforeskip = 24bp plus 1ex minus .2ex,
+		afterskip = 6bp plus .2ex,
 	},
 	subsection = {%
 		name = {},
@@ -1225,8 +1225,9 @@
 		titleformat = \zihao{4},
 		aftername = \hskip\ccwd,
 		number = {\ifcqu@liberalformat\arabic{subsection}\else\thesubsection\fi},
-		beforeskip = 16bp \@plus 1ex \@minus .2ex,
-		afterskip = 6bp \@plus .2ex,
+		beforeskip = 12bp plus 1bp,
+		afterskip = 10bp,
+		fixskip = true,
 	},
 	subsubsection = {
 		name = {},
@@ -1236,8 +1237,9 @@
 		numbering = true,
 		number = {\ifcqu@liberalformat\parenthesesthis{\arabic{subsubsection}}\else\@circlenum{subsubsection}\fi},
 		numberformat+ = {\ifcqu@liberalformat\relax\else\zihao{4}\fi},
-		beforeskip = 1ex plus 0.5ex minus .2ex,
-		afterskip = 1bp \@plus .1ex,
+		beforeskip = 10bp plus .5bp,
+		afterskip = 10bp,
+		fixskip = true,
 	},
 	appendix = {%
 		numbering = false,
@@ -1443,12 +1445,12 @@
 % 设定浮动对象与文字的间距
 %    \begin{macrocode}
 %<*cls>
-\setlength{\floatsep}{20bp \@plus4pt \@minus1pt}
-\setlength{\intextsep}{24bp \@plus4pt \@minus2pt}
-\setlength{\textfloatsep}{20bp \@plus4pt \@minus2pt}
-\setlength{\@fptop}{6bp \@plus2bp}
-\setlength{\@fpsep}{12bp \@plus2bp}
-\setlength{\@fpbot}{6bp \@plus2bp}
+\setlength{\floatsep}{20bp plus4pt minus1pt}
+\setlength{\intextsep}{24bp plus4pt minus2pt}
+\setlength{\textfloatsep}{20bp plus4pt minus2pt}
+\setlength{\@fptop}{6bp plus2bp}
+\setlength{\@fpsep}{12bp plus2bp}
+\setlength{\@fpbot}{6bp plus2bp}
 %    \end{macrocode}
 % 让浮动对象缺省值更宽松
 %    \begin{macrocode}
