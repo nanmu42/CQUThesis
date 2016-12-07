@@ -778,7 +778,7 @@
 \def\shorttablename							{表}
 \def\shorttablenameEN						{Table}
 \def\shortfigurename						{图}
-\def\shortfigurenameEN					{Figure}
+\def\shortfigurenameEN					{Fig.}
 \def\listofequationsname				{重要算式索引}
 \def\listofequationsnameEN			{\textbf{List of Equations}}
 \def\listoffiguresnameEN				{\textbf{List of Figures}}
@@ -1443,16 +1443,17 @@
 %
 % \subsubsection{浮动对象}
 % 设定浮动对象与文字的间距
+% \changes{v1.16}{2016/12/07}{优化浮动对象与文字的间距。}
 %    \begin{macrocode}
 %<*cls>
-\setlength{\floatsep}{20bp plus4pt minus1pt}
-\setlength{\intextsep}{24bp plus4pt minus2pt}
-\setlength{\textfloatsep}{20bp plus4pt minus2pt}
+\setlength{\floatsep}{20bp plus2bp minus2bp}
+\setlength{\intextsep}{20bp plus2bp minus2bp}
+\setlength{\textfloatsep}{20bp plus2bp minus2bp}
 \setlength{\@fptop}{6bp plus2bp}
 \setlength{\@fpsep}{12bp plus2bp}
 \setlength{\@fpbot}{6bp plus2bp}
 %    \end{macrocode}
-% 让浮动对象缺省值更宽松
+% 让浮动对象的页面缺省值更宽松
 %    \begin{macrocode}
 \renewcommand{\textfraction}{0.15}
 \renewcommand{\topfraction}{0.85}
@@ -1491,16 +1492,17 @@
 % \end{macro}
 % \end{macro}
 % \end{macro}
-% 定制表格和插图的题注样式：
+% 定制表格和插图的题注样式，这里注意\pkg{caption}宏包在设置表格的\option{position}为\option{top}时，\option{aboveskip}和\option{belowskip}的定义会相互调换，即\option{top}时反义，\option{bottom}时字面义。
 % \changes{v1.12}{2016/07/06}{题注的字体设置对中英文都进行了适配。}
+% \changes{v1.16}{2016/12/07}{正文中的题注的名称和序号不再加粗，同时优化了题注和插图（插表）的垂直距离。}
 %    \begin{macrocode}
 \def\cqu@tabular{\zihao{5}\@tabular}
-\DeclareCaptionLabelFormat{cqu}{{\zihao{5}\rmfamily\songti \textbf{#1~#2}}}
+\DeclareCaptionLabelFormat{cqu}{{\zihao{5}\rmfamily\songti #1~#2}}
 \DeclareCaptionLabelSeparator{cqu}{\hspace{\ccwd}}
 \DeclareCaptionFont{cqu}{\zihao{5}\rmfamily\songti}
 \captionsetup{labelformat=cqu,labelsep=cqu,font=cqu}
-\captionsetup[table]{position=top,belowskip={12bp-\intextsep},aboveskip=6bp}
-\captionsetup[figure]{position=bottom,belowskip={12bp-\intextsep},aboveskip=6bp}
+\captionsetup[table]{position=top,belowskip=6bp,aboveskip=0bp}
+\captionsetup[figure]{position=bottom,belowskip=0bp,aboveskip=6bp}
 \captionsetup[sub]{font=cqu,skip=6bp}
 \renewcommand{\thesubfigure}{(\alph{subfigure})}
 \renewcommand{\thesubtable}{(\alph{subtable})}
