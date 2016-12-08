@@ -1627,13 +1627,13 @@
 %    \end{macrocode}
 % \end{environment}
 % \begin{environment}{C++}
-% \changes{v1.16}{2016/12/07}{出于简明的考虑，\env{Cplus}环境现在已经更名为\env{C++}环境。\env{Cplus}环境为历史兼容而保留定义。}
+% \changes{v1.16}{2016/12/07}{出于简明的考虑，\env{Cplus}环境现在已经更名为\env{C++}环境。\env{Cplus}环境为历史兼容而保留定义。修改了语言环境定义中的一个错误，现在C++和Python环境能够正确地进行代码上色了。}
 % \begin{environment}{Python}
 % \cquthesis 内置了两个代码环境，\env{C++}和\env{Python}，您可以参照代码在\file{cquthesis.sty}中定义自己的环境。\env{Cplus}环境为历史兼容而保留定义。
 %    \begin{macrocode}
-\lstnewenvironment{C++}{\lstset{style=lstStylePython}}{}
-\lstnewenvironment{Cplus}{\lstset{style=lstStylePython}}{}
-\lstnewenvironment{Python}{\lstset{style=lstStyleCplus}}{}
+\lstnewenvironment{C++}{\lstset{style=lstStyleCplus}}{}
+\lstnewenvironment{Cplus}{\lstset{style=lstStyleCplus}}{}
+\lstnewenvironment{Python}{\lstset{style=lstStylePython}}{}
 %    \end{macrocode}
 % \end{environment}
 % \end{environment}
