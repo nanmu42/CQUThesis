@@ -1,9 +1,9 @@
 # About CQUThesis
 [![CTAN release](https://img.shields.io/ctan/v/cquthesis.svg?label=CTAN)](https://www.ctan.org/pkg/cquthesis)
 [![GitHub release](https://img.shields.io/github/release/nanmu42/cquthesis.svg?label=Github)](https://github.com/nanmu42/CQUThesis/releases/latest)
-[![GitHub commits](https://img.shields.io/github/commits-since/nanmu42/CQUThesis/v1.14.svg)](https://github.com/nanmu42/CQUThesis/commits/master)
+[![GitHub commits](https://img.shields.io/github/commits-since/nanmu42/CQUThesis/v1.16.svg)](https://github.com/nanmu42/CQUThesis/commits/master)
 
-CQUThesis stands for Chongqing University Thesis Template for LaTeX, bearing the ability to support bachelor, master, doctor dissertations with grace and speed.
+**CQUThesis** stands for Chongqing University Thesis Template for LaTeX, bearing the ability to support bachelor, master, doctor dissertations with grace and speed.
 
 ![CQUThesis-Poster](https://cloud.githubusercontent.com/assets/8143068/15363773/68c6b380-1d4c-11e6-9627-4d892facb333.png)
 

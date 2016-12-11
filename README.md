@@ -1,7 +1,7 @@
 # 嗨，这里是CQUThesis！
 [![CTAN release](https://img.shields.io/ctan/v/cquthesis.svg?label=CTAN)](https://www.ctan.org/pkg/cquthesis)
 [![GitHub release](https://img.shields.io/github/release/nanmu42/cquthesis.svg?label=Github)](https://github.com/nanmu42/CQUThesis/releases/latest)
-[![GitHub commits](https://img.shields.io/github/commits-since/nanmu42/CQUThesis/v1.14.svg)](https://github.com/nanmu42/CQUThesis/commits/master)
+[![GitHub commits](https://img.shields.io/github/commits-since/nanmu42/CQUThesis/v1.16.svg)](https://github.com/nanmu42/CQUThesis/commits/master)
 
 CQUThesis表示的是**C**hong**Q**ing **U**niversity **Thesis**.
 
@@ -98,6 +98,10 @@ The author would like to acknowledge these contributors for their efforts and, e
 * [The CTeX Community](https://github.com/CTeX-org/ctex-kit)
 * [XUE, Ruini](https://github.com/xueruini/thuthesis)
 * [USTC TeX User Group](https://github.com/ustctug/gbt-7714-2015)
+
+# 论文写作规范
+- [重庆大学本科毕业设计（论文）撰写规范化要求（2007修订）.pdf](https://github.com/nanmu42/CQUThesis/files/644308/2007.pdf)
+- [重庆大学博士、硕士学位论文撰写格式标准（2007修订）.pdf](https://github.com/nanmu42/CQUThesis/files/644309/2007.pdf)
 
 # 关于CQUThesis Toolkit
 重庆大学LaTeX模板工具箱（CQUThesis Toolkit）是为了增强CQUThesis而提供的额外文件和程序，这些内容往往是对CQUThesis易用性或功能的增强，没有它们，CQUThesis仍然可以良好地独立运行。
