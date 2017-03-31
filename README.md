@@ -21,6 +21,7 @@ CQUThesis根据重庆大学《重庆大学本科设计（论文）撰写规范�
 
 # 获取CQUThesis
 ## 下载
+
 版本	|	下载地址	|	描述
 ---	|	---		|	---
 开发版	|[点我下载](https://github.com/nanmu42/cquthesis/zipball/master)	|	推荐，最新的功能，最快的BugFix
@@ -71,10 +72,10 @@ make cls
 #  文档 
 文档涵盖了CQUThesis的使用方法、注意事项、实现方式，推荐阅读以快速上手：
 
-	文档 | 描述
-	--- | ---
- 排版示例 |	请编译`main.tex`获得
- 用户文档 |	随模板发布，也可[点我下载](https://github.com/nanmu42/CQUThesis/raw/master/cquthesis.pdf)
+文档 | 描述
+--- | ---
+排版示例 |	请编译`main.tex`获得
+用户文档 |	随模板发布，也可[点我下载](https://github.com/nanmu42/CQUThesis/raw/master/cquthesis.pdf)
  
  此外，如果您需要向导师或学院征求使用TeX进行论文排版的理解和肯定，[重庆大学TeX用户组](http://jq.qq.com/?_wv=1027&k=2HvYu95)为您提供[《关于推荐重庆大学开设TeX相关课程并推广其运用的提议》](https://github.com/CQUtug/TeXProposal)，希望这份文档能帮到您。目前，我们正在学校范围内推动这一提案。
 

@@ -38,3 +38,5 @@ dtx-style.sty
 cquthesis.cls
 cquthesis.cfg
 main.pdf
+
+*.xdv
