@@ -1,5 +1,13 @@
 @echo off
 
+:: if started with Administrative Privileges
+:: we need to change directory to where this script exists
+echo Current path is %cd%
+echo Changing directory to the path of the current script
+cd %~dp0
+echo Current path is %cd%
+
+
 set flag=%1
 if %flag%x == x (
   set flag=thesis
@@ -86,7 +94,7 @@ goto:EOF
 :thesis
   call:checkfiles
   latexmk -xelatex main.tex
-goto:EOF
+goto pauseIfDoubleClicked
 
 :thesisx
   call:checkfiles
@@ -134,3 +142,9 @@ goto:EOF
   xelatex cquthesis.dtx
   xelatex cquthesis.dtx
 goto:EOF
+
+:pauseIfDoubleClicked
+  setlocal enabledelayedexpansion
+  set testl=%cmdcmdline:"=%
+  set testr=!testl:%~nx0=!
+  if not "%testl%" == "%testr%" pause
