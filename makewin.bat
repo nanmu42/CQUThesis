@@ -4,7 +4,7 @@
 :: we need to change directory to where this script exists
 echo Current path is %cd%
 echo Changing directory to the path of the current script
-cd %~dp0
+cd /d %~dp0
 echo Current path is %cd%
 
 
