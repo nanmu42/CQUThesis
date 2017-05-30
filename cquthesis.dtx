@@ -2230,7 +2230,7 @@
 % 目录和索引标题居中，包含\cs{fixhead}
 % \changes{v0.9.0}{2016/05/16}{把目录加到了PDF书签中。}
 % \changes{v1.12}{2016/07/06}{现在，目录、图录、表录、公式表的英文字体也采用了无衬线字。}
-% \changes{v1.20}{2017/05/30}{现在，目录中的章节层级也有了尾随圆点。}
+% \changes{v1.20}{2017/05/30}{现在，目录中的章节层级也有了尾随圆点，并且，圆点的间距更近了。}
 %    \begin{macrocode}
 %<*cls>
 \renewcommand{\cfttoctitlefont}{%
@@ -2244,8 +2244,11 @@
 \renewcommand{\cftafterlottitle}{\hfill}
 \renewcommand{\cftafterequtitle}{\hfill}
 \renewcommand{\cftafterequENtitle}{\hfill}
+\renewcommand{\cftdot}{…}
+\renewcommand{\cftdotsep}{0}
 \renewcommand{\cftchapdotsep}{\cftdotsep}
 \renewcommand{\cftchapleader}{\cftdotfill{\cftchapdotsep}}
+\renewcommand{\cftsecleader}{\cftdotfill{\cftdotsep}}
 %    \end{macrocode}
 %
 % 重写使用tocloft宏包情况下的目录和索引生成，每次生成新开一页
