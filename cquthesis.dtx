@@ -1091,11 +1091,12 @@
 % \subsubsection{页面设置}
 % 定义页面，页眉页脚，先建立页面环境，完成分页再决定单双面打印
 %    \begin{macrocode}
+% \changes{v1.20}{2017/05/30}{页眉页脚高度以及垂直间距向Word版本靠拢。}
 \RequirePackage{geometry}
 \geometry{
 	a4paper, ignoreall, nomarginpar,
-	inner=25mm, outer=25mm, top=30mm, bottom=25mm,
-	bindingoffset=10mm, head=16mm, headsep=5mm, foot=15mm, footnotesep=5mm}
+	inner=25mm, outer=25mm, top=30mm, bottom=28mm,
+	bindingoffset=10mm, head=16mm, headsep=11mm, foot=12mm, footnotesep=5mm}
 %    \end{macrocode}
 %
 % \subsubsection{单双页打印的自动判定}
