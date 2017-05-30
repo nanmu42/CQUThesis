@@ -1,12 +1,9 @@
 @echo off
 
-:: if started with Administrative Privileges
-:: we need to change directory to where this script exists
-echo Current path is %cd%
-echo Changing directory to the path of the current script
-cd /d %~dp0
-echo Current path is %cd%
+rem 避免在管理员身份下的路径问题
+cd /d %~dp0 
 
+title CQUThesis自动化编译程序
 
 set flag=%1
 if %flag%x == x (
@@ -15,125 +12,138 @@ if %flag%x == x (
 
 if %flag%x == thesisx (
   call:thesis
-  goto:EOF
+  goto :EOF
 )
 if %flag%x == thesisxx (
   call:thesisx
-  goto:EOF
+  goto :EOF
 )
 if %flag%x == docx (
   call:extract
   call:document
-  goto:EOF
+  goto :EOF
 )
 if %flag%x == cleanx (
   call:cleanaux
-  goto:EOF
+  goto :EOF
 )
 if %flag%x == cleanpdfx (
   call:cleanpdf
-  goto:EOF
+  goto :EOF
 )
 if %flag%x == cleanallx (
   call:cleanaux
   call:cleanpdf
-  goto:EOF
+  goto :EOF
 )
 if %flag%x == extractx (
   call:extract
-  goto:EOF
+  goto :EOF
 )
 if %flag%x == allx (
   call:thesis
   call:document
-  goto:EOF
+  goto :EOF
 )
 if %flag%x == buildx (
   call:extract
   call:thesis
-  goto:EOF
+  goto :EOF
 )
 if %flag%x == buildxx (
   call:extract
   call:thesis
   call:document
-  goto:EOF
+  goto :EOF
 )
 
 :help
   echo *************************************************************
-  echo This is the Makefile script for CQUThesis on Windows.
-  echo For CQUThesis: https://github.com/nanmu42/CQUThesis
-  echo by Zhennan Li (C) 2016 under LPPL 1.3
-  echo The idea comes from Github Liam0205/sduthesis, Many thanks!
+  echo CQUThesis自动化编译程序（Windows）
+  echo 重庆大学毕业设计LaTeX模板： https://github.com/nanmu42/CQUThesis
+  echo (C) 2016-2017 李振楠 依据LPPL 1.3协议开源
+  echo 本程序的灵感来源：Github：Liam0205/sduthesis，在此致谢。
   echo *************************************************************
   echo *
-  echo USAGE:
-  echo        makewin [param]
-  echo param:
-  echo   help      Display this help text
-  echo   thesis    (default)Compile the thesis via latexmk
-  echo   thesisx   Compile the thesis via XeLaTeX(only if latexmk is not installed.)
-  echo   doc       Compile the documentation of CQUThesis
-  echo   clean     Clean all aux files
-  echo   cleanpdf  Clean all PDFs
-  echo   cleanall  Clean all aux files and all PDFs
-  echo   extract   Extract the Thesis Template from .dtx files.
+  echo 命令用法：
+  echo        makewin [参数]
+  echo 参数：
+  echo   help      展示本帮助信息
+  echo   thesis    通过latexmk智能，快速地编译论文（双击或无参数时默认运行）
+  echo   thesisx   进行一次完整的论文编译（如果你的系统上没安装latexmk就用这一项，否则推荐用上面的）
+  echo   doc       编译CQUThesis用户文档
+  echo   clean     清理所有.aux文件
+  echo   cleanpdf  清理所有.pdf文件
+  echo   cleanall  清理所有.aux文件以及.pdf文件
+  echo   extract   从.dtx文件中提取模板
   echo   all       thesis + doc
   echo   build     extract + thesis
   echo   buildx    extract + thesis + doc
   echo *
   echo ***********************Happy TeXing**************************
-goto:EOF
+  echo ************************写作愉快！***************************
+goto :EOF
 
 :checkfiles
   IF NOT EXIST cquthesis.cls call:extract
   IF NOT EXIST cquthesis.cfg call:extract
-goto:EOF
+goto :EOF
 
 :thesis
   call:checkfiles
+  echo 请确认您的系统已正确配置latexmk...
+  echo 使用latexmk智能编译论文中...
   latexmk -xelatex main.tex
-goto pauseIfDoubleClicked
+  echo *                                       *
+  echo *********太棒了！论文编译完成！**********
+  echo *                                       *
+  goto pauseIfDoubleClicked
 
 :thesisx
   call:checkfiles
+  echo 论文编译中......
   xelatex main.tex
   bibtex main.tex
   xelatex main.tex
   xelatex main.tex
   xelatex main.tex
-goto:EOF
+  echo *                                                    *
+  echo ***************太棒了！论文编译完成！*****************
+  echo 提示：本方案速度较慢，推荐使用makewin thesis进行编译。
+  echo *                                                    *
+goto :EOF
 
 :cleanaux
-  echo clean aux...
+  echo 清理所有.aux文件中...
   for %%i in (*.aux *.bbl *.equ *.glo *.gls *.hd *.idx *.ilg *.ind *.lof *.lot *.out *.blg *.log *.thm *.toc *.synctex.gz *.lofEN *.lotEN *.equEN) do (
     del %%i
   )
-  echo Done.
-goto:EOF
+  echo .aux文件清理完成。
+goto :EOF
 
 :cleanpdf
-  echo clean pdf...
+  echo 清理所有.pdf文件中...
   for %%i in (*.pdf) do (
     del %%i
   )
-  echo Done.
-goto:EOF
+  echo .pdf文件清理完成。
+goto :EOF
 
 :clean_all
   call:cleanaux
   call:cleanpdf
-goto:EOF
+goto :EOF
 
 :extract
-  echo extracting...
+  echo 正在提取CQUThesis模板文件...
   latex cquthesis.ins
-  echo *******CQUThesis has been extracted.********
-goto:EOF
+  echo *                             *
+  echo *******模板文件提取完成********
+  echo *                             *
+goto :EOF
 
 :document
-  echo building documents...
+  echo 编译CQUThesis用户文档中...
   set cmode=-interaction=batchmode
   xelatex cquthesis.dtx
   makeindex -s gind.ist -o cquthesis.ind cquthesis.idx
@@ -141,10 +151,14 @@ goto:EOF
   xelatex cquthesis.dtx
   xelatex cquthesis.dtx
   xelatex cquthesis.dtx
-goto:EOF
+  echo *                             *
+  echo *******用户文档编译完成********
+  echo *                             *
+goto :EOF
 
 :pauseIfDoubleClicked
   setlocal enabledelayedexpansion
   set testl=%cmdcmdline:"=%
   set testr=!testl:%~nx0=!
-  if not "%testl%" == "%testr%" pause
+  if not "%testl%" == "%testr%" pause                           *
+goto :EOF
