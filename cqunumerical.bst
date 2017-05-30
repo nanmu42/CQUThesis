@@ -387,7 +387,7 @@ FUNCTION {format.mark}
   media empty$
     { url empty$
         'skip$
-        { "/OL" * }
+        { "" * }
       if$
     }
     { "/" * media * }
@@ -1209,7 +1209,7 @@ FUNCTION {misc}
   author format.key output
   new.block
   format.series.volume.title "title" output.check
-  "M" format.mark "" output.after
+  "EB" format.mark "" output.after
   new.block
   format.translators output
   new.block
@@ -1264,7 +1264,8 @@ FUNCTION {phdthesis}
   author format.key output
   new.block
   format.series.volume.title "title" output.check
-  "D" format.mark ": [PhD]" * "" output.after
+  "D" format.mark "" * "" output.after
+  %%"D" format.mark ": [PhD]" * "" output.after
   new.block
   format.translators output
   new.block
