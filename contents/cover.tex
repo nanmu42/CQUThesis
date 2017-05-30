@@ -11,17 +11,18 @@
   etitle = {To Use \LaTeX{} in the Typeseting of\\Graduating Work for CQU},
 % ===================
 % 作者部分的信息
+% \secretize{}为盲审标记点，在打开盲审开关时内容会自动被替换为***输出，盲审开关默认关闭
 % ===================
-  cauthor = 李振楠,	% 你的姓名，以下每项都以英文逗号结束
-  eauthor = Zhennan~Li,	% 姓名拼音，~代表不会断行的空格
-  studentid = 20128888,	% 仅本科生，学号
-  csupervisor = 孙麟~~教授,	% 导师的姓名
-  esupervisor = {Prof.~Lin Sun},	% 导师的姓名拼音
-  cassistsupervisor = {}, % 本科生可选，助理指导教师姓名，不用时请留空为{}
-  cextrasupervisor = {}, % 本科生可选，校外指导教师姓名，不用时请留空为{}
-  eassistsupervisor = {}, % 本科生可选，助理指导教师或/和校外指导教师姓名拼音，不用时请留空为{}
-  cpsupervisor = 丁小明~~工程师, % 仅专硕，兼职导师姓名
-  epsupervisor = Eng.~Xiaoming~Ding,	% 仅专硕，兼职导师姓名拼音
+  cauthor = \secretize{李振楠},	% 你的姓名，以下每项都以英文逗号结束
+  eauthor = \secretize{Zhennan~Li},	% 姓名拼音，~代表不会断行的空格
+  studentid = \secretize{20128888},	% 仅本科生，学号
+  csupervisor = \secretize{孙麟~~教授},	% 导师的姓名
+  esupervisor = \secretize{{Prof.~Lin Sun}},	% 导师的姓名拼音
+  cassistsupervisor = \secretize{}, % 本科生可选，助理指导教师姓名，不用时请留空为{}
+  cextrasupervisor = \secretize{}, % 本科生可选，校外指导教师姓名，不用时请留空为{}
+  eassistsupervisor = \secretize{}, % 本科生可选，助理指导教师或/和校外指导教师姓名拼音，不用时请留空为{}
+  cpsupervisor = \secretize{丁小明~~工程师}, % 仅专硕，兼职导师姓名
+  epsupervisor = \secretize{Eng.~Xiaoming~Ding},	% 仅专硕，兼职导师姓名拼音
   cclass = 工学,	% 博士生和学硕填学科门类，学硕填学科类型
   edgree = {Degree of Master of Enginnering},	% 专硕填Professional Degree，其他按实情填写
 % 提示：如果内容太长，可以用\zihao{}命令控制字号，作用范围：{}内
