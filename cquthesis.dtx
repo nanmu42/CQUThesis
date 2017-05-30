@@ -30,7 +30,7 @@
 %</driver>
 % \fi
 %
-% \CheckSum{1852}
+% \CheckSum{0}
 %
 % \CharacterTable
 %  {Upper-case    \A\B\C\D\E\F\G\H\I\J\K\L\M\N\O\P\Q\R\S\T\U\V\W\X\Y\Z
@@ -87,6 +87,7 @@
 % \changes{v1.14}{2016/08/18}{改进了\file{makewin.bat}，默认的thesis选项加入了自动判定，如果dtx没有解包，程序会自动解包。这也就是说，新手可以在几乎所有情况下放心地通过双击makewin.bat来完成编译了。}
 % \changes{v1.20}{2017/05/30}{新增选项blankleft，可选目录和章节右开时空白的左页是否让页眉页脚空白。}
 % \changes{v1.20}{2017/05/30}{调整了几个可选项的默认值，现在，openright默认开启。}
+% \changes{v1.20}{2017/05/30}{新功能：盲审模式，由开关blindtrail和\cs{secretize}宏以及\env{secretizeEnv}环境构成。}
 % \changes{v1.20}{2017/05/30}{再次改进了\file{makewin.bat}，现在，Windows用户以管理员身份运行\file{makewin.bat}时不再会遭遇路径错误了。此外，\file{makewin.bat}有中英文两个版本了。}
 %
 % \def\indexname{代码索引}
@@ -366,6 +367,14 @@
 %
 % \DescribeOption{abstractopenright}
 % 开启此项，双页打印模式时中英文摘要右开，这算是开发中的一个彩蛋。本选项默认关闭。
+%
+% \DescribeOption{blindtrail}
+% 盲审模式开关，盲审模式由宏\cs{secretize}和环境\env{secretizeEnv}构成，在盲审模式开启时：
+% \begin{itemize}
+%		\item 宏\cs{secretize}内的内容会被三个星号***替代；
+%		\item 环境\env{secretizeEnv}的内容会输出为一片空白。
+% \end{itemize}
+% \cquthesis 默认为封面作者及导师姓名配置宏\cs{secretize}，为致谢的内容部分配置环境\env{secretize}，如果您有更多需求，可以自行配置。
 %
 % \DescribeOption{draft}
 % 草稿模式，推荐在写作时开启。这个模式下，\LaTeX 不会加载图片，不会渲染文档内超链接，部分宏包会跳过一些工作以降低编译难度，结合\cs{includeonly}命令可以大大提高预览速度，例如：
@@ -836,6 +845,10 @@
 %    \begin{macrocode}
 \DeclareBoolOption[false]{abstractopenright}
 %    \end{macrocode}
+% 盲审模式开关
+%    \begin{macrocode}
+\DeclareBoolOption[false]{blindtrail}
+%    \end{macrocode}
 % 论文是单面打印还是双面打印（默认：自动，手动模式一般不用）
 %    \begin{macrocode}
 \newif\if@onesideprint
@@ -1090,8 +1103,8 @@
 %
 % \subsubsection{页面设置}
 % 定义页面，页眉页脚，先建立页面环境，完成分页再决定单双面打印
-%    \begin{macrocode}
 % \changes{v1.20}{2017/05/30}{页眉页脚高度以及垂直间距向Word版本靠拢。}
+%    \begin{macrocode}
 \RequirePackage{geometry}
 \geometry{
 	a4paper, ignoreall, nomarginpar,
@@ -1710,6 +1723,35 @@
 % \end{macro}
 % \end{macro}
 % \end{macro}
+%
+% \subsection{盲审模式}
+% 
+% \begin{macro}{\secretize}
+% 定义盲审模式工具宏\cs{secretize}：
+%    \begin{macrocode}
+\newcommand{\secretize}[1]{%
+	\ifcqu@blindtrail
+		{***}
+	\else
+		{#1}
+	\fi
+}
+%    \end{macrocode}
+% \end{macro}
+%
+% \begin{environment}{secretizeEnv}
+% 定义盲审模式工具环境\env{secretizeEnv}：
+%    \begin{macrocode}
+\newcommand{\cqu@@secretizeenv}[1]{\long\gdef\cqu@secretizeenv{#1}}
+\newenvironment{secretizeEnv}{\Collect@Body\cqu@@secretizeenv}{%
+	\ifcqu@blindtrail
+		\relax
+	\else
+		\cqu@secretizeenv
+	\fi
+}
+%    \end{macrocode}
+% \end{environment}
 %
 % \subsection{封面绘制}
 % \subsubsection{信息录入}
