@@ -1,7 +1,7 @@
 @echo off
 
 rem 避免在管理员身份下的路径问题
-cd /d %~dp0 
+cd /d "%~dp0" 
 
 title CQUThesis自动化编译程序
 
