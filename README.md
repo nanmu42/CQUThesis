@@ -89,7 +89,6 @@ make cls
 
 * [Github Issues](https://github.com/nanmu42/CQUThesis/issues)
 * 加入[重庆大学TeX用户组](http://jq.qq.com/?_wv=1027&k=2HvYu95)寻求支持
-* [重庆大学开源镜像](http://mirrors.cqu.edu.cn/)提供了[CTAN镜像](https://mirrors.cqu.edu.cn/ctan/)，您可以在这里进行发行版以及宏包的获取以及更新。
 
 # 用户协议
 
@@ -103,8 +102,6 @@ CQUThesis stands for Chongqing University Thesis Template for LaTeX, bearing the
 # 致谢 / Acknowledgements
 
 这个模板是站在巨人肩膀上的成果，感谢LaTeX 2e计划，感谢[CTeX社区](https://github.com/CTeX-org/ctex-kit)提供的中文解决方案，感谢薛瑞尼副教授的[先驱之作](https://github.com/xueruini/thuthesis)，感谢[中国科学技术大学TeX用户组](https://github.com/ustctug/gbt-7714-2015)。向你们致以真诚的问候和感激！
-
-感谢我的母校重庆大学无偿提供[CTAN镜像](https://mirrors.cqu.edu.cn/ctan/)服务，这对于中国西南地区的TeX用户而言是极大的利好。感谢[CQU Mirror Site Dev. Task Force](https://github.com/cqumirror)和[重庆大学蓝盟](http://lanunion.cqu.edu.cn/)的维护支持！
 
 特别感谢参与CQUThesis的开发和维护的诸位[**直接贡献者**](https://github.com/nanmu42/CQUThesis/blob/master/CONTRIBUTORS.md)，向你们致以真诚的敬意和感激！
 
