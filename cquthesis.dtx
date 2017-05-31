@@ -30,7 +30,7 @@
 %</driver>
 % \fi
 %
-% \CheckSum{0}
+% \CheckSum{1893}
 %
 % \CharacterTable
 %  {Upper-case    \A\B\C\D\E\F\G\H\I\J\K\L\M\N\O\P\Q\R\S\T\U\V\W\X\Y\Z
@@ -1521,11 +1521,13 @@
 % 定制表格和插图的题注样式，这里注意\pkg{caption}宏包在设置表格的\option{position}为\option{top}时，\option{aboveskip}和\option{belowskip}的定义会相互调换，即\option{top}时反义，\option{bottom}时字面义。
 % \changes{v1.12}{2016/07/06}{题注的字体设置对中英文都进行了适配。}
 % \changes{v1.16}{2016/12/07}{正文中的题注的名称和序号不再加粗，同时优化了题注和插图（插表）的垂直距离。}
+% \changes{v1.20}{2017/05/30}{现在，题注有多行时，最后一行会进行居中处理。}
 %    \begin{macrocode}
 \def\cqu@tabular{\zihao{5}\@tabular}
 \DeclareCaptionLabelFormat{cqu}{{\zihao{5}\rmfamily\songti #1~#2}}
 \DeclareCaptionLabelSeparator{cqu}{\hspace{0.5\ccwd}}
 \DeclareCaptionFont{cqu}{\zihao{5}\rmfamily\songti}
+\captionsetup{justification=centerlast}
 \captionsetup{labelformat=cqu,labelsep=cqu,font=cqu}
 \captionsetup[table]{position=top,belowskip=6bp,aboveskip=0bp}
 \captionsetup[figure]{position=bottom,belowskip=0bp,aboveskip=6bp}
