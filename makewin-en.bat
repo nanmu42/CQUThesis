@@ -1,5 +1,6 @@
 @echo off
 
+
 cd /d "%~dp0" 
 
 title CQUThesis Build Helper
