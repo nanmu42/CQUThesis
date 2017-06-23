@@ -90,15 +90,6 @@ make cls
 * [Github Issues](https://github.com/nanmu42/CQUThesis/issues)
 * 加入[重庆大学TeX用户组](http://jq.qq.com/?_wv=1027&k=2HvYu95)寻求支持
 
-# 用户协议
-
-1. 本模板按照[LaTeX Project Public License](https://latex-project.org/lppl/lppl-1-3.txt)发布，协议版本号为1.3或以后的任何版本（随你意）。本条款不适用于重庆大学LaTeX模板工具箱（CQUThesis Toolkit）；
-1. 截止本文档编译时，重庆大学教务处和研究生院只提供了毕业论文写作指南，没有提供官方模板，也没有授权或认证任何第三方模板为官方模板。本模板是按照写作指南的参考实现，模板作者自当尽力，但不保证审查老师不提意见。在开始使用前，您同意，任何由于本模板而引起的论文格式审查问题与本模板作者无关。
-
-# About CQUThesis
-
-CQUThesis stands for Chongqing University Thesis Template for LaTeX, bearing the ability to support bachelor, master, doctor dissertations with grace and speed.
-
 # 致谢 / Acknowledgements
 
 这个模板是站在巨人肩膀上的成果，感谢LaTeX 2e计划，感谢[CTeX社区](https://github.com/CTeX-org/ctex-kit)提供的中文解决方案，感谢薛瑞尼副教授的[先驱之作](https://github.com/xueruini/thuthesis)，感谢[中国科学技术大学TeX用户组](https://github.com/ustctug/gbt-7714-2015)。向你们致以真诚的问候和感激！
@@ -116,13 +107,23 @@ The author would like to acknowledge these contributors for their efforts and, e
 * [CQU Mirror Site Dev. Task Force](https://github.com/cqumirror)
 * [Chongqing University Lan-Union for Computer and Network](http://lanunion.cqu.edu.cn/)
 
-# 论文写作规范
-
-- [重庆大学本科毕业设计（论文）撰写规范化要求（2007修订）.pdf](https://github.com/nanmu42/CQUThesis/files/644308/2007.pdf)
-- [重庆大学博士、硕士学位论文撰写格式标准（2007修订）.pdf](https://github.com/nanmu42/CQUThesis/files/644309/2007.pdf)
-
-# 关于CQUThesis Toolkit
+# CQUThesis Toolkit
 
 重庆大学LaTeX模板工具箱（CQUThesis Toolkit）是为了增强CQUThesis而提供的额外文件和程序，这些内容往往是对CQUThesis易用性或功能的增强，没有它们，CQUThesis仍然可以良好地独立运行。
 
 这些内容有着自己的授权方式和简单的用户协议，不会随本模板的CTAN版本发布，CQUThesis的Github源是这些内容唯一的官方源，程序的更新和修正都会在这里进行。
+
+# 用户协议
+
+1. 本模板按照[LaTeX Project Public License](https://latex-project.org/lppl/lppl-1-3.txt)发布，协议版本号为1.3或以后的任何版本（随你意）。本条款不适用于重庆大学LaTeX模板工具箱（CQUThesis Toolkit）；
+1. 截止本文档编译时，重庆大学教务处和研究生院只提供了毕业论文写作指南，没有提供官方模板，也没有授权或认证任何第三方模板为官方模板。本模板是按照写作指南的参考实现，模板作者自当尽力，但不保证审查老师不提意见。在开始使用前，您同意，任何由于本模板而引起的论文格式审查问题与本模板作者无关。
+
+# 论文写作规范
+
+- [重庆大学本科毕业设计（论文）撰写规范化要求（2007修订）.pdf](https://github.com/nanmu42/CQUThesis/files/644308/2007.pdf)
+- [重庆大学博士、硕士学位论文撰写格式标准（2007修订）.pdf](https://github.com/nanmu42/CQUThesis/files/644309/2007.pdf)
+- [GB/T 7714-2015 信息与文献 参考文献著录规则.pdf](https://github.com/nanmu42/CQUThesis/files/1096886/GBT.7714-2015.pdf)
+
+# About CQUThesis
+
+CQUThesis stands for Chongqing University Thesis Template for LaTeX, bearing the ability to support bachelor, master, doctor dissertations with grace and speed.
