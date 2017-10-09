@@ -1,5 +1,5 @@
 # 嗨，这里是CQUThesis！
-[![CI Building State](https://api.travis-ci.org/nanmu42/CQUThesis.svg)](https://travis-ci.org/nanmu42/CQUThesis)
+[![CI Building State](https://api.travis-ci.org/nanmu42/CQUThesis.svg?branch=master)](https://travis-ci.org/nanmu42/CQUThesis)
 [![CTAN release](https://img.shields.io/ctan/v/cquthesis.svg?label=CTAN)](https://www.ctan.org/pkg/cquthesis)
 [![GitHub release](https://img.shields.io/github/release/nanmu42/cquthesis.svg?label=Github)](https://github.com/nanmu42/CQUThesis/releases/latest)
 [![GitHub commits](https://img.shields.io/github/commits-since/nanmu42/CQUThesis/v1.20.svg)](https://github.com/nanmu42/CQUThesis/commits/master)
@@ -17,7 +17,8 @@ CQUThesis根据重庆大学《重庆大学本科设计（论文）撰写规范�
 * 内置封面、目录、索引、授权书等论文部件，可按需自动生成；
 * 自动侦测文档页数，生成相应的单面打印/双面打印PDF文件；
 * 预置一批优化过的宏包和小功能，包含中英双语题注及配套图录、表录，国际标准单位、化学式支持、三线表等，可按需开启；
-* 支持基于cwl文件的代码着色和补全，makefile功能能够在Linux, Mac, Windows三平台通用。
+* 支持基于cwl文件的代码着色和补全，makefile功能能够在Linux, Mac, Windows三平台通用；
+* 每周自动进行持续集成测试，保证模板在最新宏包环境下能够正常运行。
 
 ![CQUThesis-Poster](https://cloud.githubusercontent.com/assets/8143068/15363773/68c6b380-1d4c-11e6-9627-4d892facb333.png)
 
@@ -94,6 +95,8 @@ make cls
 
 这个模板是站在巨人肩膀上的成果，感谢LaTeX 2e计划，感谢[CTeX社区](https://github.com/CTeX-org/ctex-kit)提供的中文解决方案，感谢薛瑞尼副教授的[先驱之作](https://github.com/xueruini/thuthesis)，感谢[中国科学技术大学TeX用户组](https://github.com/ustctug/gbt-7714-2015)。向你们致以真诚的问候和感激！
 
+持续集成构建服务由[Travis CI](https://travis-ci.org/)提供，在构建中，CQUThesis使用了由Christian Schenk开发的[MiKTeX](https://miktex.org)，使用[Docker](https://www.docker.com/)进行了[虚拟化](https://github.com/nanmu42/TeXPackageTestBench)，镜像中包含[Ubuntu发行版](https://www.ubuntu.com)，作者在此特别致谢。
+
 特别感谢参与CQUThesis的开发和维护的诸位[**直接贡献者**](https://github.com/nanmu42/CQUThesis/blob/master/CONTRIBUTORS.md)，向你们致以真诚的敬意和感激！
 
 世界因你们更美好。
@@ -106,6 +109,10 @@ The author would like to acknowledge these contributors for their efforts and, e
 * [Chongqing University Opensource Mirror](https://github.com/cqumirror)
 * [CQU Mirror Site Dev. Task Force](https://github.com/cqumirror)
 * [Chongqing University Lan-Union for Computer and Network](http://lanunion.cqu.edu.cn/)
+* [Travis CI](https://travis-ci.org/)
+* [MiKTeX](https://miktex.org)
+* [Docker](https://www.docker.com/)
+* [Ubuntu](https://www.ubuntu.com)
 
 # CQUThesis Toolkit
 
