@@ -13,8 +13,9 @@ before_install:
 before_script:
   - ls -lsa
   - echo $(pwd)
+  - sudo chmod -R 777 .
   
 script:
-  - docker run -it --user travis -v packages:/miktex/.miktex -v $(pwd):/miktex/work nanmu42/tex-package-test-bench make cls
-  - docker run -it --user travis -v packages:/miktex/.miktex -v $(pwd):/miktex/work nanmu42/tex-package-test-bench make thesis
-  - docker run -it --user travis -v packages:/miktex/.miktex -v $(pwd):/miktex/work nanmu42/tex-package-test-bench make doc
+  - docker run -it -v packages:/miktex/.miktex -v $(pwd):/miktex/work nanmu42/tex-package-test-bench make cls
+  - docker run -it -v packages:/miktex/.miktex -v $(pwd):/miktex/work nanmu42/tex-package-test-bench make thesis
+  - docker run -it -v packages:/miktex/.miktex -v $(pwd):/miktex/work nanmu42/tex-package-test-bench make doc
