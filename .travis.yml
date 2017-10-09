@@ -15,6 +15,6 @@ before_script:
   - echo $(pwd)
   
 script:
-  - docker run -it --user miktex -v packages:/miktex/.miktex -v $(pwd):/miktex/work nanmu42/tex-package-test-bench make cls
-  - docker run -it --user miktex -v packages:/miktex/.miktex -v $(pwd):/miktex/work nanmu42/tex-package-test-bench make thesis
-  - docker run -it --user miktex -v packages:/miktex/.miktex -v $(pwd):/miktex/work nanmu42/tex-package-test-bench make doc
+  - docker run -it --user travis -v packages:/miktex/.miktex -v $(pwd):/miktex/work nanmu42/tex-package-test-bench make cls
+  - docker run -it --user travis -v packages:/miktex/.miktex -v $(pwd):/miktex/work nanmu42/tex-package-test-bench make thesis
+  - docker run -it --user travis -v packages:/miktex/.miktex -v $(pwd):/miktex/work nanmu42/tex-package-test-bench make doc
