@@ -4,7 +4,7 @@
 # Compiling method: latexmk/xelatex/pdflatex
 METHOD = latexmk
 # Set opts for latexmk if you use it
-LATEXMKOPTS = -xelatex
+LATEXMKOPTS = -xelatex -quiet -halt-on-error -interaction=nonstopmode
 # Basename of thesis
 THESISMAIN = main
 
@@ -28,7 +28,7 @@ else
 	OPEN = open
 endif
 
-.PHONY: all clean cls check doc distclean thesis viewthesis viewdoc FORCE_MAKE
+.PHONY: all clean cleanall cls check doc distclean thesis viewthesis viewdoc FORCE_MAKE
 
 all: doc thesis
 
