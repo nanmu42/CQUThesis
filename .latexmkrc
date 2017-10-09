@@ -1,5 +1,5 @@
 # vim: set ft=perl:
-$pdflatex = 'xelatex %O %S';
+$pdflatex = 'xelatex -halt-on-error -interaction=nonstopmode %O %S';
 $pdf_mode = 1;
 $postscript_mode = $dvi_mode = 0;
 $clean_ext = '.aux .bbl equ glo gls hd idx ilg ind lof lot out blg log thm toc synctex.gz lofEN lotEN equEN';

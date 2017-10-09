@@ -28,7 +28,7 @@ else
 	OPEN = open
 endif
 
-.PHONY: all clean cls check doc distclean thesis viewthesis viewdoc FORCE_MAKE
+.PHONY: all clean cleanall cls check doc distclean thesis viewthesis viewdoc FORCE_MAKE
 
 all: doc thesis
 
