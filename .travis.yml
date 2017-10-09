@@ -16,6 +16,105 @@ before_script:
   - sudo chmod -R 777 .
   
 script:
+  # 提取宏包
   - docker run -it -v packages:/miktex/.miktex -v $(pwd):/miktex/work nanmu42/tex-package-test-bench make cls
+  # 以下所有编译都需要指定fontset=fandol，这个是MikTeX和CTeX宏包搭配时无法正常判断系统为Linux所致
+  # 这违背了CI不侵入代码的初衷，既然如此，我们也可以进行多个版本/选项的测试了。
+  # ===本科论文===
+  # 0.最少选项基准
+  - sed -i 's/\[.*\]{cquthesis}%/[fontset=fandol, type=bachelor,]{cquthesis}%/' main.tex
   - docker run -it -v packages:/miktex/.miktex -v $(pwd):/miktex/work nanmu42/tex-package-test-bench make thesis
+  # 1.图录表录等分别按双语题注混编(combined)，分开编录(apart)，默认关(off)
+  - sed -i 's/\[.*\]{cquthesis}%/[fontset=fandol, type=bachelor, bilinguallist=apart,]{cquthesis}%/' main.tex
+  - docker run -it -v packages:/miktex/.miktex -v $(pwd):/miktex/work nanmu42/tex-package-test-bench make thesis
+  - sed -i 's/\[.*\]{cquthesis}%/[fontset=fandol, type=bachelor, bilinguallist=combined,]{cquthesis}%/' main.tex
+  - docker run -it -v packages:/miktex/.miktex -v $(pwd):/miktex/work nanmu42/tex-package-test-bench make thesis
+  - sed -i 's/\[.*\]{cquthesis}%/[fontset=fandol, type=bachelor, bilinguallist=off,]{cquthesis}%/' main.tex
+  - docker run -it -v packages:/miktex/.miktex -v $(pwd):/miktex/work nanmu42/tex-package-test-bench make thesis
+  # 2.盲审模式，开启后封面姓名和致谢部分会隐藏，详情请参阅用户文档，默认关
+  - sed -i 's/\[.*\]{cquthesis}%/[fontset=fandol, type=bachelor, blindtrail, ]{cquthesis}%/' main.tex
+  - docker run -it -v packages:/miktex/.miktex -v $(pwd):/miktex/work nanmu42/tex-package-test-bench make thesis
+  # 3.双面打印时每章的第一页仅右页开启，默认右页开启(openright)
+  - sed -i 's/\[.*\]{cquthesis}%/[fontset=fandol, type=bachelor, openany, ]{cquthesis}%/' main.tex
+  - docker run -it -v packages:/miktex/.miktex -v $(pwd):/miktex/work nanmu42/tex-package-test-bench make thesis
+  - sed -i 's/\[.*\]{cquthesis}%/[fontset=fandol, type=bachelor, openright, ]{cquthesis}%/' main.tex
+  - docker run -it -v packages:/miktex/.miktex -v $(pwd):/miktex/work nanmu42/tex-package-test-bench make thesis
+  # 4.论文打印方式，默认采用auto按页数要求自动判定
+  - sed -i 's/\[.*\]{cquthesis}%/[fontset=fandol, type=bachelor, printmode=oneside, ]{cquthesis}%/' main.tex
+  - docker run -it -v packages:/miktex/.miktex -v $(pwd):/miktex/work nanmu42/tex-package-test-bench make thesis
+  - sed -i 's/\[.*\]{cquthesis}%/[fontset=fandol, type=bachelor, printmode=twoside, ]{cquthesis}%/' main.tex
+  - docker run -it -v packages:/miktex/.miktex -v $(pwd):/miktex/work nanmu42/tex-package-test-bench make thesis
+  - sed -i 's/\[.*\]{cquthesis}%/[fontset=fandol, type=bachelor, printmode=auto, ]{cquthesis}%/' main.tex
+  - docker run -it -v packages:/miktex/.miktex -v $(pwd):/miktex/work nanmu42/tex-package-test-bench make thesis
+  # 5.草稿模式
+  - sed -i 's/\[.*\]{cquthesis}%/[fontset=fandol, type=bachelor, draft, ]{cquthesis}%/' main.tex
+  - docker run -it -v packages:/miktex/.miktex -v $(pwd):/miktex/work nanmu42/tex-package-test-bench make thesis
+  # 6.仅适用本科生，使用文学类论文标题格式，默认未打开
+  - sed -i 's/\[.*\]{cquthesis}%/[fontset=fandol, type=bachelor, liberalformat, ]{cquthesis}%/' main.tex
+  - docker run -it -v packages:/miktex/.miktex -v $(pwd):/miktex/work nanmu42/tex-package-test-bench make thesis
+  # ===研究生论文===
+  # 0.最少选项基准
+  - sed -i 's/\[.*\]{cquthesis}%/[fontset=fandol, type=master,]{cquthesis}%/' main.tex
+  - docker run -it -v packages:/miktex/.miktex -v $(pwd):/miktex/work nanmu42/tex-package-test-bench make thesis
+  # 1.图录表录等分别按双语题注混编(combined)，分开编录(apart)，默认关(off)
+  - sed -i 's/\[.*\]{cquthesis}%/[fontset=fandol, type=master, bilinguallist=apart,]{cquthesis}%/' main.tex
+  - docker run -it -v packages:/miktex/.miktex -v $(pwd):/miktex/work nanmu42/tex-package-test-bench make thesis
+  - sed -i 's/\[.*\]{cquthesis}%/[fontset=fandol, type=master, bilinguallist=combined,]{cquthesis}%/' main.tex
+  - docker run -it -v packages:/miktex/.miktex -v $(pwd):/miktex/work nanmu42/tex-package-test-bench make thesis
+  - sed -i 's/\[.*\]{cquthesis}%/[fontset=fandol, type=master, bilinguallist=off,]{cquthesis}%/' main.tex
+  - docker run -it -v packages:/miktex/.miktex -v $(pwd):/miktex/work nanmu42/tex-package-test-bench make thesis
+  # 2.盲审模式，开启后封面姓名和致谢部分会隐藏，详情请参阅用户文档，默认关
+  - sed -i 's/\[.*\]{cquthesis}%/[fontset=fandol, type=master, blindtrail, ]{cquthesis}%/' main.tex
+  - docker run -it -v packages:/miktex/.miktex -v $(pwd):/miktex/work nanmu42/tex-package-test-bench make thesis
+  # 3.双面打印时每章的第一页仅右页开启，默认右页开启(openright)
+  - sed -i 's/\[.*\]{cquthesis}%/[fontset=fandol, type=master, openany, ]{cquthesis}%/' main.tex
+  - docker run -it -v packages:/miktex/.miktex -v $(pwd):/miktex/work nanmu42/tex-package-test-bench make thesis
+  - sed -i 's/\[.*\]{cquthesis}%/[fontset=fandol, type=master, openright, ]{cquthesis}%/' main.tex
+  - docker run -it -v packages:/miktex/.miktex -v $(pwd):/miktex/work nanmu42/tex-package-test-bench make thesis
+  # 4.论文打印方式，默认采用auto按页数要求自动判定
+  - sed -i 's/\[.*\]{cquthesis}%/[fontset=fandol, type=master, printmode=oneside, ]{cquthesis}%/' main.tex
+  - docker run -it -v packages:/miktex/.miktex -v $(pwd):/miktex/work nanmu42/tex-package-test-bench make thesis
+  - sed -i 's/\[.*\]{cquthesis}%/[fontset=fandol, type=master, printmode=twoside, ]{cquthesis}%/' main.tex
+  - docker run -it -v packages:/miktex/.miktex -v $(pwd):/miktex/work nanmu42/tex-package-test-bench make thesis
+  - sed -i 's/\[.*\]{cquthesis}%/[fontset=fandol, type=master, printmode=auto, ]{cquthesis}%/' main.tex
+  - docker run -it -v packages:/miktex/.miktex -v $(pwd):/miktex/work nanmu42/tex-package-test-bench make thesis
+  # 5.草稿模式
+  - sed -i 's/\[.*\]{cquthesis}%/[fontset=fandol, type=master, draft, ]{cquthesis}%/' main.tex
+  - docker run -it -v packages:/miktex/.miktex -v $(pwd):/miktex/work nanmu42/tex-package-test-bench make thesis
+  # 6.仅适用研究生，是(true)否(false)专业硕士，默认为否
+  - sed -i 's/\[.*\]{cquthesis}%/[fontset=fandol, type=master, proffesionalmaster=true, ]{cquthesis}%/' main.tex
+  - docker run -it -v packages:/miktex/.miktex -v $(pwd):/miktex/work nanmu42/tex-package-test-bench make thesis
+  - sed -i 's/\[.*\]{cquthesis}%/[fontset=fandol, type=master, proffesionalmaster=false, ]{cquthesis}%/' main.tex
+  - docker run -it -v packages:/miktex/.miktex -v $(pwd):/miktex/work nanmu42/tex-package-test-bench make thesis
+  # ===博士生论文===
+  # 0.最少选项基准
+  - sed -i 's/\[.*\]{cquthesis}%/[fontset=fandol, type=doctor,]{cquthesis}%/' main.tex
+  - docker run -it -v packages:/miktex/.miktex -v $(pwd):/miktex/work nanmu42/tex-package-test-bench make thesis
+  # 1.图录表录等分别按双语题注混编(combined)，分开编录(apart)，默认关(off)
+  - sed -i 's/\[.*\]{cquthesis}%/[fontset=fandol, type=doctor, bilinguallist=apart,]{cquthesis}%/' main.tex
+  - docker run -it -v packages:/miktex/.miktex -v $(pwd):/miktex/work nanmu42/tex-package-test-bench make thesis
+  - sed -i 's/\[.*\]{cquthesis}%/[fontset=fandol, type=doctor, bilinguallist=combined,]{cquthesis}%/' main.tex
+  - docker run -it -v packages:/miktex/.miktex -v $(pwd):/miktex/work nanmu42/tex-package-test-bench make thesis
+  - sed -i 's/\[.*\]{cquthesis}%/[fontset=fandol, type=doctor, bilinguallist=off,]{cquthesis}%/' main.tex
+  - docker run -it -v packages:/miktex/.miktex -v $(pwd):/miktex/work nanmu42/tex-package-test-bench make thesis
+  # 2.盲审模式，开启后封面姓名和致谢部分会隐藏，详情请参阅用户文档，默认关
+  - sed -i 's/\[.*\]{cquthesis}%/[fontset=fandol, type=doctor, blindtrail, ]{cquthesis}%/' main.tex
+  - docker run -it -v packages:/miktex/.miktex -v $(pwd):/miktex/work nanmu42/tex-package-test-bench make thesis
+  # 3.双面打印时每章的第一页仅右页开启，默认右页开启(openright)
+  - sed -i 's/\[.*\]{cquthesis}%/[fontset=fandol, type=doctor, openany, ]{cquthesis}%/' main.tex
+  - docker run -it -v packages:/miktex/.miktex -v $(pwd):/miktex/work nanmu42/tex-package-test-bench make thesis
+  - sed -i 's/\[.*\]{cquthesis}%/[fontset=fandol, type=doctor, openright, ]{cquthesis}%/' main.tex
+  - docker run -it -v packages:/miktex/.miktex -v $(pwd):/miktex/work nanmu42/tex-package-test-bench make thesis
+  # 4.论文打印方式，默认采用auto按页数要求自动判定
+  - sed -i 's/\[.*\]{cquthesis}%/[fontset=fandol, type=doctor, printmode=oneside, ]{cquthesis}%/' main.tex
+  - docker run -it -v packages:/miktex/.miktex -v $(pwd):/miktex/work nanmu42/tex-package-test-bench make thesis
+  - sed -i 's/\[.*\]{cquthesis}%/[fontset=fandol, type=doctor, printmode=twoside, ]{cquthesis}%/' main.tex
+  - docker run -it -v packages:/miktex/.miktex -v $(pwd):/miktex/work nanmu42/tex-package-test-bench make thesis
+  - sed -i 's/\[.*\]{cquthesis}%/[fontset=fandol, type=doctor, printmode=auto, ]{cquthesis}%/' main.tex
+  - docker run -it -v packages:/miktex/.miktex -v $(pwd):/miktex/work nanmu42/tex-package-test-bench make thesis
+  # 5.草稿模式
+  - sed -i 's/\[.*\]{cquthesis}%/[fontset=fandol, type=doctor, draft, ]{cquthesis}%/' main.tex
+  - docker run -it -v packages:/miktex/.miktex -v $(pwd):/miktex/work nanmu42/tex-package-test-bench make thesis
+  # ===用户文档===
+  - sed -i 's/\\RequirePackage\[UTF8,scheme=chinese\]{ctex}/\\RequirePackage[UTF8,scheme=chinese,fontset=fandol]{ctex}/' dtx-style.sty
   - docker run -it -v packages:/miktex/.miktex -v $(pwd):/miktex/work nanmu42/tex-package-test-bench make doc
