@@ -99,6 +99,8 @@ make cls
 
 特别感谢参与CQUThesis的开发和维护的诸位[**直接贡献者**](https://github.com/nanmu42/CQUThesis/blob/master/CONTRIBUTORS.md)，向你们致以真诚的敬意和感激！
 
+特别感谢我的母校重庆大学无偿提供[CTAN镜像](https://mirrors.cqu.edu.cn/ctan/)服务，这对于中国西南地区的TeX用户而言是极大的利好。感谢[CQU Mirror Site Dev. Task Force](https://github.com/cqumirror)和[重庆大学蓝盟](http://lanunion.cqu.edu.cn/)的维护支持！
+
 世界因你们更美好。
 
 The author would like to acknowledge these contributors for their efforts and, essentially, beautiful mind:
