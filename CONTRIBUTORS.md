@@ -11,7 +11,8 @@ CQUThesis是一个绵薄的开源项目，自从2016年5月份上线以来，很
 * **craneaow**（[Issue #20](https://github.com/nanmu42/CQUThesis/issues/20)，这带来了一个新功能！）
 * **交换団**（重庆大学TeX用户组成员，他发现了.bat文件中由Git引入的换行符的问题。这里有[解决方法](https://stackoverflow.com/questions/19551037/git-how-to-keep-crlf-endings-for-specific-files-only)）
 * **Zousiyu**（重庆大学TeX用户组成员，他贡献了开发思路）
-* **Lotus**（重庆大学TeX用户组成员，他在群里各种--瞎--带节奏）
+* **Lotus**（重庆大学TeX用户组成员，他在群里各种 ~~瞎~~ 带节奏）
+* **珍惜拥有**（重庆大学TeX用户组成员，他反馈了`bst`文件过时的问题）
 
 还有，
 * 我的母校，**重庆大学**

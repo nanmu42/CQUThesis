@@ -1,4 +1,5 @@
 DEV/
+.vscode
 .DS_Store
 *~
 *.aux
