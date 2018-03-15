@@ -17,10 +17,13 @@ before_script:
   - ls -lsa
   - echo $(pwd)
   - sudo chmod -R 777 .
-  # 预先编译三遍main.tex，因为MikTeX有可能会在下宏包时报诡异的错误
   - sed -i 's/\[.*\]{cquthesis}%/[fontset=fandol, type=bachelor,]{cquthesis}%/' main.tex
-  # 提取宏包
+  # 提取宏包，在提取宏包时也有可能出现诡异的错误
+  - docker run -it -v packages:/miktex/.miktex -v $(pwd):/miktex/work nanmu42/tex-package-test-bench make cls || true
+  - docker run -it -v packages:/miktex/.miktex -v $(pwd):/miktex/work nanmu42/tex-package-test-bench make cls || true
+  - docker run -it -v packages:/miktex/.miktex -v $(pwd):/miktex/work nanmu42/tex-package-test-bench make cls || true
   - docker run -it -v packages:/miktex/.miktex -v $(pwd):/miktex/work nanmu42/tex-package-test-bench make cls
+  # 预先编译三遍main.tex，因为MikTeX有可能会在下宏包时报诡异的错误
   - docker run -it -v packages:/miktex/.miktex -v $(pwd):/miktex/work nanmu42/tex-package-test-bench make thesis || true
   - docker run -it -v packages:/miktex/.miktex -v $(pwd):/miktex/work nanmu42/tex-package-test-bench make cleanall
   - docker run -it -v packages:/miktex/.miktex -v $(pwd):/miktex/work nanmu42/tex-package-test-bench make thesis || true
