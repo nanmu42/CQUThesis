@@ -19,6 +19,8 @@ before_script:
   - sudo chmod -R 777 .
   # 预先编译三遍main.tex，因为MikTeX有可能会在下宏包时报诡异的错误
   - sed -i 's/\[.*\]{cquthesis}%/[fontset=fandol, type=bachelor,]{cquthesis}%/' main.tex
+  # 提取宏包
+  - docker run -it -v packages:/miktex/.miktex -v $(pwd):/miktex/work nanmu42/tex-package-test-bench make cls
   - docker run -it -v packages:/miktex/.miktex -v $(pwd):/miktex/work nanmu42/tex-package-test-bench make thesis || true
   - docker run -it -v packages:/miktex/.miktex -v $(pwd):/miktex/work nanmu42/tex-package-test-bench make cleanall
   - docker run -it -v packages:/miktex/.miktex -v $(pwd):/miktex/work nanmu42/tex-package-test-bench make thesis || true
@@ -26,8 +28,6 @@ before_script:
   - docker run -it -v packages:/miktex/.miktex -v $(pwd):/miktex/work nanmu42/tex-package-test-bench make thesis || true
   - docker run -it -v packages:/miktex/.miktex -v $(pwd):/miktex/work nanmu42/tex-package-test-bench make cleanall
 script:
-  # 提取宏包
-  - docker run -it -v packages:/miktex/.miktex -v $(pwd):/miktex/work nanmu42/tex-package-test-bench make cls
   # 以下所有编译都需要指定fontset=fandol，这个是MikTeX和CTeX宏包搭配时无法正常判断系统为Linux所致
   # 这违背了CI不侵入代码的初衷，既然如此，我们也可以进行多个版本/选项的测试了。
   # ===本科论文===
