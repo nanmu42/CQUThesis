@@ -15,17 +15,14 @@ before_install:
 
 before_script:
   - sed -i 's/\[.*\]{cquthesis}%/[fontset=fandol, type=bachelor,]{cquthesis}%/' main.tex
-  # 提取宏包，在提取宏包时也有可能出现诡异的错误
-  - docker run --rm -ti  -v miktex:/miktex/.miktex  -v $(pwd):/miktex/work  -e MIKTEX_GID=$(id -g)  -e MIKTEX_UID=$(id -u) nanmu42/miktex-docker make cls || true
-  - docker run --rm -ti  -v miktex:/miktex/.miktex  -v $(pwd):/miktex/work  -e MIKTEX_GID=$(id -g)  -e MIKTEX_UID=$(id -u) nanmu42/miktex-docker make cls || true
-  - docker run --rm -ti  -v miktex:/miktex/.miktex  -v $(pwd):/miktex/work  -e MIKTEX_GID=$(id -g)  -e MIKTEX_UID=$(id -u) nanmu42/miktex-docker make cls || true
-  - docker run --rm -ti  -v miktex:/miktex/.miktex  -v $(pwd):/miktex/work  -e MIKTEX_GID=$(id -g)  -e MIKTEX_UID=$(id -u) nanmu42/miktex-docker make cls
-  # 预先编译三遍main.tex，因为MikTeX有可能会在下宏包时报诡异的错误
-  - docker run --rm -ti  -v miktex:/miktex/.miktex  -v $(pwd):/miktex/work  -e MIKTEX_GID=$(id -g)  -e MIKTEX_UID=$(id -u) nanmu42/miktex-docker make thesis || true
+  # 预先编译几遍main.tex，因为MikTeX有可能会在下宏包时报诡异的错误
+  - docker run --rm -ti  -v miktex:/miktex/.miktex  -v $(pwd):/miktex/work  -e MIKTEX_GID=$(id -g)  -e MIKTEX_UID=$(id -u) nanmu42/miktex-docker make all || true
   - docker run --rm -ti  -v miktex:/miktex/.miktex  -v $(pwd):/miktex/work  -e MIKTEX_GID=$(id -g)  -e MIKTEX_UID=$(id -u) nanmu42/miktex-docker make cleanall
-  - docker run --rm -ti  -v miktex:/miktex/.miktex  -v $(pwd):/miktex/work  -e MIKTEX_GID=$(id -g)  -e MIKTEX_UID=$(id -u) nanmu42/miktex-docker make thesis || true
+  - docker run --rm -ti  -v miktex:/miktex/.miktex  -v $(pwd):/miktex/work  -e MIKTEX_GID=$(id -g)  -e MIKTEX_UID=$(id -u) nanmu42/miktex-docker make all || true
   - docker run --rm -ti  -v miktex:/miktex/.miktex  -v $(pwd):/miktex/work  -e MIKTEX_GID=$(id -g)  -e MIKTEX_UID=$(id -u) nanmu42/miktex-docker make cleanall
-  - docker run --rm -ti  -v miktex:/miktex/.miktex  -v $(pwd):/miktex/work  -e MIKTEX_GID=$(id -g)  -e MIKTEX_UID=$(id -u) nanmu42/miktex-docker make thesis || true
+  - docker run --rm -ti  -v miktex:/miktex/.miktex  -v $(pwd):/miktex/work  -e MIKTEX_GID=$(id -g)  -e MIKTEX_UID=$(id -u) nanmu42/miktex-docker make all || true
+  - docker run --rm -ti  -v miktex:/miktex/.miktex  -v $(pwd):/miktex/work  -e MIKTEX_GID=$(id -g)  -e MIKTEX_UID=$(id -u) nanmu42/miktex-docker make cleanall
+  - docker run --rm -ti  -v miktex:/miktex/.miktex  -v $(pwd):/miktex/work  -e MIKTEX_GID=$(id -g)  -e MIKTEX_UID=$(id -u) nanmu42/miktex-docker make all || true
   - docker run --rm -ti  -v miktex:/miktex/.miktex  -v $(pwd):/miktex/work  -e MIKTEX_GID=$(id -g)  -e MIKTEX_UID=$(id -u) nanmu42/miktex-docker make cleanall
 script:
   # 以下所有编译都需要指定fontset=fandol，这个是MikTeX和CTeX宏包搭配时无法正常判断系统为Linux所致
