@@ -16,7 +16,7 @@
 %
 % \iffalse
 %<*driver>
-\ProvidesFile{cquthesis.dtx}[2018/02/23 v1.30 Chongqing University Thesis Template]
+\ProvidesFile{cquthesis.dtx}[2019/10/12 v1.40 Chongqing University Thesis Template]
 \documentclass{ltxdoc}
 \usepackage{dtx-style}
 
@@ -89,7 +89,8 @@
 % \changes{v1.20}{2017/05/30}{调整了几个可选项的默认值，现在，openright默认开启。}
 % \changes{v1.20}{2017/05/30}{新功能：盲审模式，由开关blindtrail和\cs{secretize}宏以及\env{secretizeEnv}环境构成。}
 % \changes{v1.20}{2017/05/30}{再次改进了\file{makewin.bat}，现在，Windows用户以管理员身份运行\file{makewin.bat}时不再会遭遇路径错误了。此外，\file{makewin.bat}有中英文两个版本了。}
-% \changes{v1.30}{2017/05/30}{从\href{https://github.com/zepinglee/gbt7714-bibtex-style}{上游供应商zepinglee/gbt7714-bibtex-style}更新了\file{cqunumerical.bst}。}
+% \changes{v1.30}{2018/02/23}{从\href{https://github.com/zepinglee/gbt7714-bibtex-style}{上游供应商zepinglee/gbt7714-bibtex-style}更新了\file{cqunumerical.bst}。}
+% \changes{v1.40}{2019/10/12}{修复了\href{https://github.com/nanmu42/CQUThesis/issues/44}{Issue 44}。}
 %
 %
 % \def\indexname{代码索引}
@@ -777,7 +778,7 @@
 %<cls>\NeedsTeXFormat{LaTeX2e}[1999/12/01]
 %<cls>\ProvidesClass{cquthesis}
 %<cfg>\ProvidesFile{cquthesis.cfg}
-%<cls|cfg>[2018/02/23 v1.30 Chongqing University Thesis Template]
+%<cls|cfg>[2019/10/12 v1.40 Chongqing University Thesis Template]
 %    \end{macrocode}
 % 定义一些开发常量：
 %    \begin{macrocode}
