@@ -1,4 +1,5 @@
 DEV/
+/.idea
 .vscode
 .DS_Store
 *~
