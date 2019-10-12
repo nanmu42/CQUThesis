@@ -24,6 +24,10 @@ before_script:
   - docker run --rm -ti  -v miktex:/miktex/.miktex  -v $(pwd):/miktex/work  -e MIKTEX_GID=$(id -g)  -e MIKTEX_UID=$(id -u) nanmu42/miktex-docker make cleanall
   - docker run --rm -ti  -v miktex:/miktex/.miktex  -v $(pwd):/miktex/work  -e MIKTEX_GID=$(id -g)  -e MIKTEX_UID=$(id -u) nanmu42/miktex-docker make all || true
   - docker run --rm -ti  -v miktex:/miktex/.miktex  -v $(pwd):/miktex/work  -e MIKTEX_GID=$(id -g)  -e MIKTEX_UID=$(id -u) nanmu42/miktex-docker make cleanall
+  - docker run --rm -ti  -v miktex:/miktex/.miktex  -v $(pwd):/miktex/work  -e MIKTEX_GID=$(id -g)  -e MIKTEX_UID=$(id -u) nanmu42/miktex-docker make all || true
+  - docker run --rm -ti  -v miktex:/miktex/.miktex  -v $(pwd):/miktex/work  -e MIKTEX_GID=$(id -g)  -e MIKTEX_UID=$(id -u) nanmu42/miktex-docker make cleanall
+  - docker run --rm -ti  -v miktex:/miktex/.miktex  -v $(pwd):/miktex/work  -e MIKTEX_GID=$(id -g)  -e MIKTEX_UID=$(id -u) nanmu42/miktex-docker make all || true
+  - docker run --rm -ti  -v miktex:/miktex/.miktex  -v $(pwd):/miktex/work  -e MIKTEX_GID=$(id -g)  -e MIKTEX_UID=$(id -u) nanmu42/miktex-docker make cleanall
 script:
   # 以下所有编译都需要指定fontset=fandol，这个是MikTeX和CTeX宏包搭配时无法正常判断系统为Linux所致
   # 这违背了CI不侵入代码的初衷，既然如此，我们也可以进行多个版本/选项的测试了。

@@ -50,12 +50,12 @@ thesis: $(THESISMAIN).pdf
 ifeq ($(METHOD),latexmk)
 
 $(PACKAGE).pdf: $(CLSFILES)
-	xelatex $(PACKAGE).dtx
+	xelatex -quiet -halt-on-error -interaction=nonstopmode $(PACKAGE).dtx
 	makeindex -s gind.ist -o $(PACKAGE).ind $(PACKAGE).idx
 	makeindex -s gglo.ist -o $(PACKAGE).gls $(PACKAGE).glo
-	xelatex $(PACKAGE).dtx
-	xelatex $(PACKAGE).dtx
-	xelatex $(PACKAGE).dtx
+	xelatex -quiet -halt-on-error -interaction=nonstopmode $(PACKAGE).dtx
+	xelatex -quiet -halt-on-error -interaction=nonstopmode $(PACKAGE).dtx
+	xelatex -quiet -halt-on-error -interaction=nonstopmode $(PACKAGE).dtx
 
 $(THESISMAIN).pdf: $(CLSFILES)
 	$(METHOD) $(LATEXMKOPTS) $(THESISMAIN)
