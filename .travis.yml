@@ -16,6 +16,7 @@ before_install:
 before_script:
   # 需要确保依赖是最新的
   - docker run --rm -ti -v miktex:/miktex/.miktex -v $(pwd):/miktex/work nanmu42/miktex-docker mpm --admin --update
+  - docker run --rm -ti -v miktex:/miktex/.miktex -v $(pwd):/miktex/work nanmu42/miktex-docker initexmf --admin --update
   - sed -i 's/\[.*\]{cquthesis}%/[fontset=fandol, type=bachelor,]{cquthesis}%/' main.tex
   # 预先编译几遍main.tex，因为MikTeX有可能会在下宏包时报诡异的错误
   - docker run --rm -ti  -v miktex:/miktex/.miktex  -v $(pwd):/miktex/work  -e MIKTEX_GID=$(id -g)  -e MIKTEX_UID=$(id -u) nanmu42/miktex-docker make all || true
