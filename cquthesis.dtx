@@ -962,7 +962,7 @@
 %    \begin{macrocode}
 \RequirePackage[defaultsups]{newtxtext}
 \RequirePackage{pifont}
-\RequirePackage{CJKfntef}
+\RequirePackage{xeCJKfntef}
 %    \end{macrocode}
 %
 % 解决各种文档部件需求，如表格、题注、插图等
@@ -1540,16 +1540,16 @@
 % \begin{macro}{\bicaption}
 % 这里对\cs{bicaption}这个命令进行设置，题注的第二语言默认为英文，用户可以重定义\cs{shorttablenameEN}和\cs{shortfigurenameEN}
 %    \begin{macrocode}
-\captionsetup[bi-first]{bi-first}
-\captionsetup[bi-second]{bi-second}
 \DeclareCaptionOption{bi-first}[]{%
 \def\tablename{\shorttablename}
 \def\figurename{\shortfigurename}
 }%bi-first
 \DeclareCaptionOption{bi-second}[]{%
-	\def\tablename{\shorttablenameEN}
-	\def\figurename{\shortfigurenameEN}
+\def\tablename{\shorttablenameEN}
+\def\figurename{\shortfigurenameEN}
 }%bi-second
+\captionsetup[bi-first]{bi-first}
+\captionsetup[bi-second]{bi-second}
 %    \end{macrocode}
 % \end{macro}
 % \begin{macro}{\listoffiguresEN}
