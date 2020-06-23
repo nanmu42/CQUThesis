@@ -14,6 +14,7 @@ before_install:
   - docker volume create --name miktex
 
 before_script:
+  - docker run --rm -ti  -v miktex:/miktex/.miktex  -v $(pwd):/miktex/work  nanmu42/miktex-docker mpm --admin --update
   - sed -i 's/\[.*\]{cquthesis}%/[fontset=fandol, type=bachelor,]{cquthesis}%/' main.tex
   # 预先编译几遍main.tex，因为MikTeX有可能会在下宏包时报诡异的错误
   - docker run --rm -ti  -v miktex:/miktex/.miktex  -v $(pwd):/miktex/work  -e MIKTEX_GID=$(id -g)  -e MIKTEX_UID=$(id -u) nanmu42/miktex-docker make all || true
@@ -28,7 +29,10 @@ before_script:
   - docker run --rm -ti  -v miktex:/miktex/.miktex  -v $(pwd):/miktex/work  -e MIKTEX_GID=$(id -g)  -e MIKTEX_UID=$(id -u) nanmu42/miktex-docker make cleanall
   - docker run --rm -ti  -v miktex:/miktex/.miktex  -v $(pwd):/miktex/work  -e MIKTEX_GID=$(id -g)  -e MIKTEX_UID=$(id -u) nanmu42/miktex-docker make all || true
   - docker run --rm -ti  -v miktex:/miktex/.miktex  -v $(pwd):/miktex/work  -e MIKTEX_GID=$(id -g)  -e MIKTEX_UID=$(id -u) nanmu42/miktex-docker make cleanall
+
 script:
+  # 出现错误就可以停下了。
+  - set -e
   # 以下所有编译都需要指定fontset=fandol，这个是MikTeX和CTeX宏包搭配时无法正常判断系统为Linux所致
   # 这违背了CI不侵入代码的初衷，既然如此，我们也可以进行多个版本/选项的测试了。
   # ===本科论文===
@@ -166,3 +170,7 @@ script:
   - docker run --rm -ti  -v miktex:/miktex/.miktex  -v $(pwd):/miktex/work  -e MIKTEX_GID=$(id -g)  -e MIKTEX_UID=$(id -u) nanmu42/miktex-docker make cls
   - sed -i 's/\\RequirePackage\[UTF8,scheme=chinese\]{ctex}/\\RequirePackage[UTF8,scheme=chinese,fontset=fandol]{ctex}/' dtx-style.sty
   - docker run --rm -ti  -v miktex:/miktex/.miktex  -v $(pwd):/miktex/work  -e MIKTEX_GID=$(id -g)  -e MIKTEX_UID=$(id -u) nanmu42/miktex-docker make doc
+
+after_failure:
+  # 如果编译失败了，输出log到日志里
+  - echo '===== tail from cquthesis.log =====' && tail -n 50 cquthesis.log
