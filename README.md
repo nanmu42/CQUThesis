@@ -1,4 +1,5 @@
-# 嗨，这里是CQUThesis！
+# CQUThesis：重庆大学毕业论文LaTeX模板
+
 [![CI Building State](https://api.travis-ci.org/nanmu42/CQUThesis.svg?branch=master)](https://travis-ci.org/nanmu42/CQUThesis)
 [![CTAN release](https://img.shields.io/ctan/v/cquthesis.svg?label=CTAN)](https://www.ctan.org/pkg/cquthesis)
 [![GitHub release](https://img.shields.io/github/release/nanmu42/cquthesis.svg?label=Github)](https://github.com/nanmu42/CQUThesis/releases/latest)
@@ -7,7 +8,7 @@
 
 CQUThesis表示的是**C**hong**Q**ing **U**niversity **Thesis**.
 
-本宏包是重庆大学毕业论文的`\LaTeX{}`模板，支持学士、硕士、博士论文的排版。合理使用本宏包可以大大减轻重庆大学毕业生在毕业论文撰写过程中的排版工作量。
+本宏包是重庆大学毕业论文的`\LaTeX{}`模板，支持学士、硕士、博士论文的排版，熟悉LaTeX的同学在合理使用本宏包的情况下可以减轻毕业论文撰写过程中的排版工作量。
 	
 CQUThesis根据重庆大学《重庆大学本科设计（论文）撰写规范化要求（2007年修订版）》和《重庆大学博士、硕士论文撰写格式标准（2007年修订版）》编写，力求合规，简洁，易于实现，用户友好。
 
@@ -18,11 +19,17 @@ CQUThesis根据重庆大学《重庆大学本科设计（论文）撰写规范�
 * 自动侦测文档页数，生成相应的单面打印/双面打印PDF文件；
 * 预置一批优化过的宏包和小功能，包含中英双语题注及配套图录、表录，国际标准单位、化学式支持、三线表等，可按需开启；
 * 支持基于cwl文件的代码着色和补全，makefile功能能够在Linux, Mac, Windows三平台通用；
-* 每周自动进行持续集成测试，保证模板在最新宏包环境下能够正常运行。
+* 每周自动进行持续集成测试，保证模板在最新宏包环境下能够正常运行，当前状态：[![CI Building State](https://api.travis-ci.org/nanmu42/CQUThesis.svg?branch=master)](https://travis-ci.org/nanmu42/CQUThesis)
 
 ![CQUThesis-Poster](https://cloud.githubusercontent.com/assets/8143068/15363773/68c6b380-1d4c-11e6-9627-4d892facb333.png)
 
+# 用户协议
+
+1. 本模板按照[LaTeX Project Public License](https://latex-project.org/lppl/lppl-1-3.txt)发布，协议版本号为1.3或以后的任何版本（随你意）。本条款不适用于重庆大学LaTeX模板工具箱（CQUThesis Toolkit）；
+1. 截止本文档编辑时，重庆大学教务处和研究生院只提供了毕业论文写作指南，没有提供官方模板，也没有授权或认证任何第三方模板为官方模板。本模板是按照写作指南的参考实现，模板作者自当尽力，但不保证审查老师不提意见。在开始使用前，您同意，任何由于本模板而引起的论文格式审查问题与本模板作者无关。
+
 # 获取CQUThesis
+
 ## 下载
 
 版本	|	下载地址	|	描述
@@ -81,7 +88,7 @@ make cls
 
 文档 | 描述
 --- | ---
-排版示例 |	请编译`main.tex`获得
+排版示例 |	编译`main.tex`获得，也可 [点我下载](https://github.com/nanmu42/CQUThesis/files/4817714/main.pdf)
 用户文档 |	随模板发布，也可[点我下载](https://github.com/nanmu42/CQUThesis/raw/master/cquthesis.pdf)
  
  此外，如果您需要向导师或学院征求使用TeX进行论文排版的理解和肯定，[重庆大学TeX用户组](http://jq.qq.com/?_wv=1027&k=2HvYu95)为您提供[《关于推荐重庆大学开设TeX相关课程并推广其运用的提议》](https://github.com/CQUtug/TeXProposal)，希望这份文档能帮到您。目前，我们正在学校范围内推动这一提案。
@@ -121,11 +128,6 @@ The author would like to acknowledge these contributors for their efforts and, e
 重庆大学LaTeX模板工具箱（CQUThesis Toolkit）是为了增强CQUThesis而提供的额外文件和程序，这些内容往往是对CQUThesis易用性或功能的增强，没有它们，CQUThesis仍然可以良好地独立运行。
 
 这些内容有着自己的授权方式和简单的用户协议，不会随本模板的CTAN版本发布，CQUThesis的Github源是这些内容唯一的官方源，程序的更新和修正都会在这里进行。
-
-# 用户协议
-
-1. 本模板按照[LaTeX Project Public License](https://latex-project.org/lppl/lppl-1-3.txt)发布，协议版本号为1.3或以后的任何版本（随你意）。本条款不适用于重庆大学LaTeX模板工具箱（CQUThesis Toolkit）；
-1. 截止本文档编译时，重庆大学教务处和研究生院只提供了毕业论文写作指南，没有提供官方模板，也没有授权或认证任何第三方模板为官方模板。本模板是按照写作指南的参考实现，模板作者自当尽力，但不保证审查老师不提意见。在开始使用前，您同意，任何由于本模板而引起的论文格式审查问题与本模板作者无关。
 
 # 论文写作规范
 

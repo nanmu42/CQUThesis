@@ -1,4 +1,5 @@
 # About CQUThesis
+
 [![CI Building State](https://api.travis-ci.org/nanmu42/CQUThesis.svg?branch=master)](https://travis-ci.org/nanmu42/CQUThesis)
 [![CTAN release](https://img.shields.io/ctan/v/cquthesis.svg?label=CTAN)](https://www.ctan.org/pkg/cquthesis)
 [![GitHub release](https://img.shields.io/github/release/nanmu42/cquthesis.svg?label=Github)](https://github.com/nanmu42/CQUThesis/releases/latest)
@@ -10,7 +11,9 @@
 ![CQUThesis-Poster](https://cloud.githubusercontent.com/assets/8143068/15363773/68c6b380-1d4c-11e6-9627-4d892facb333.png)
 
 # Deployment
+
 ## Download
+
 Version	|	Link	|	Description
 ---	|	---		|	---
 Dev.	|[Click Here](https://github.com/nanmu42/cquthesis/zipball/master)	|	Recommend with new features and bug fixes
@@ -18,6 +21,7 @@ Pre-release | [Github Link](https://github.com/nanmu42/CQUThesis/releases) | Acc
 Release	|[CTAN Page](https://www.ctan.org/pkg/cquthesis)|	Scheduled updates for CTAN, MikTeX and TeX Live
 
 ## Installation
+
 Unzip all files to a new folder as your future work folder:
 * Windows users may easily double-click on `makewin.bat`;
 * Linux or Mac users may start the terminal:
@@ -28,6 +32,7 @@ make thesis
 If everything goes smoothly, CQUThesis is ready for work, with typeseting example named `main.pdf` in your work folder.
 
 # Question, Contribution and Contact
+
 Feel free to raise any question, and any possible contribution is highly appreciated.
 * [Github Issues](https://github.com/nanmu42/CQUThesis/issues);
 * Join [CQU TeX QQ Group](http://jq.qq.com/?_wv=1027&k=2HvYu95)
@@ -35,6 +40,7 @@ Feel free to raise any question, and any possible contribution is highly appreci
 Writing in English or Chinese is needed.
 
 # Acknowledgements
+
 The author would like to acknowledge these contributors for their efforts and, essentially, beautiful mind:
 
 * [The CTeX Community](https://github.com/CTeX-org/ctex-kit)
@@ -42,9 +48,11 @@ The author would like to acknowledge these contributors for their efforts and, e
 * [USTC TeX User Group](https://github.com/ustctug/gbt-7714-2015)
 
 # About the Author
-Zhennan Li (i at nanmu dot me) proudly presents this work for you.
+
+LI Zhennan (i at nanmu dot me) proudly presents this work for you.
 
 # License
+
 This whole project may be distributed and/or modified under the conditions of the LaTeX Project Public License, either version 1.3 of this license or (at your option) any later version. The latest version of this license is in: 
 
 http://www.latex-project.org/lppl.txt
