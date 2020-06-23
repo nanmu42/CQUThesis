@@ -16,7 +16,7 @@
 %
 % \iffalse
 %<*driver>
-\ProvidesFile{cquthesis.dtx}[2019/10/12 v1.40 Chongqing University Thesis Template]
+\ProvidesFile{cquthesis.dtx}[2020/06/23 v1.50 Chongqing University Thesis Template]
 \documentclass{ltxdoc}
 \usepackage{dtx-style}
 
@@ -99,7 +99,7 @@
 % \GlossaryPrologue{\section{\glossaryname}}
 %
 % \title{\bfseries\color{blue!50!black}\cquthesis：重庆大学毕业论文\LaTeX 模板}
-% \author{{\fangsong 李振楠}\\[5pt]\texttt{i@nanmu.me}}
+% \author{{\fangsong 李振楠\footnote{\href{https://nanmu.me/zh-cn/about/}{中文页面}，\href{https://nanmu.me/en/about}{About in English}}}\\[5pt]\texttt{i@nanmu.me}}
 % \date{\fileversion\ (\filedate)}
 % \maketitle\thispagestyle{empty}
 % \vspace{\stretch{1}}
@@ -115,7 +115,7 @@
 % \begin{abstract}\noindent
 % \begin{enumerate}
 % \item 本模板按照LaTeX Project Public License发布，协议版本号为1.3或以后的任何版本（随你意）；
-% \item 截止本文档编译时，重庆大学教务处和研究生院只提供了\href{https://github.com/nanmu42/CQUThesis/tree/master/toolkit}{毕业论文写作指南}，没有提供官方模板，也没有授权或认证任何第三方模板为官方模板\footnote{\href{http://jq.qq.com/?_wv=1027&k=2HvYu95}{重庆大学\TeX 用户组}正在推动学校\href{https://github.com/CQUtug/TeXProposal}{认证\cquthesis} 。}。本模板是按照写作指南的参考实现，模板作者自当尽力，但不保证审查老师不提意见。在开始使用前，您同意，任何由于本模板而引起的论文格式审查问题与本模板作者无关。
+% \item 截止本文档编译时，重庆大学教务处和研究生院只提供了\href{https://github.com/nanmu42/CQUThesis/tree/master/toolkit}{毕业论文写作指南}，没有提供官方模板，也没有授权或认证任何第三方模板为官方模板\footnote{\href{http://jq.qq.com/?_wv=1027&k=2HvYu95}{重庆大学\TeX 用户组}做过推动学校\href{https://github.com/CQUtug/TeXProposal}{认证\cquthesis}的努力。}。本模板是按照写作指南的参考实现，模板作者自当尽力，但不保证审查老师不提意见。在开始使用前，您同意，任何由于本模板而引起的论文格式审查问题与本模板作者无关。
 % \end{enumerate}
 % \vskip2cm
 % \end{abstract}
@@ -1540,6 +1540,7 @@
 \renewcommand{\thesubtable}{(\alph{subtable})}
 %    \end{macrocode}
 % \begin{macro}{\bicaption}
+% \changes{v1.50}{2020/06/23}{修改了双语图注的声明顺序，以适应新版\cs{bicaption}的变更。}
 % 这里对\cs{bicaption}这个命令进行设置，题注的第二语言默认为英文，用户可以重定义\cs{shorttablenameEN}和\cs{shortfigurenameEN}
 %    \begin{macrocode}
 \DeclareCaptionOption{bi-first}[]{%
