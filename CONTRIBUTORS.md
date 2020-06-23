@@ -13,11 +13,10 @@ CQUThesis是一个绵薄的开源项目，自从2016年5月份上线以来，很
 * **Zousiyu**（重庆大学TeX用户组成员，他贡献了开发思路）
 * **Lotus**（重庆大学TeX用户组成员，他在群里各种 ~~瞎~~ 带节奏）
 * **珍惜拥有**（重庆大学TeX用户组成员，他反馈了`bst`文件过时的问题）
+* **@Neuromancer43** （他贡献了[这些PR](https://github.com/nanmu42/CQUThesis/pulls?q=is%3Apr+author%3ANeuromancer43)）
 
 还有，
 * 我的母校，**重庆大学**
 * 最后，当然是[重庆大学TeX用户组](http://jq.qq.com/?_wv=1027&k=2HvYu95)的全体同仁
 
-在此，向诸位致以最真诚的谢意，因为你们，CQUThesis才能够越走越稳，直到今天！
-
-2017年5月30日 —— CQUThesis 一岁整
+在此，向诸位致以最真诚的谢意。
