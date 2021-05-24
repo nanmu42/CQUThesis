@@ -102,7 +102,7 @@ make cls
 
 这个模板是站在巨人肩膀上的成果，感谢LaTeX 2e计划，感谢[CTeX社区](https://github.com/CTeX-org/ctex-kit)提供的中文解决方案，感谢薛瑞尼副教授的[先驱之作](https://github.com/xueruini/thuthesis)，感谢[中国科学技术大学TeX用户组](https://github.com/ustctug/gbt-7714-2015)。向你们致以真诚的问候和感激！
 
-持续集成构建服务由[Travis CI](https://travis-ci.org/)提供，在构建中，CQUThesis使用了由Christian Schenk开发的[MiKTeX](https://miktex.org)，使用[Docker](https://www.docker.com/)进行了[虚拟化](https://github.com/nanmu42/TeXPackageTestBench)，镜像中包含[Ubuntu发行版](https://www.ubuntu.com)，作者在此特别致谢。
+持续集成构建服务由[Travis CI](https://travis-ci.org/)提供，在构建中，CQUThesis使用了由Christian Schenk开发的[MiKTeX](https://miktex.org)，使用[Docker](https://www.docker.com/)进行了[容器化](https://github.com/nanmu42/TeXPackageTestBench)，镜像中包含[Ubuntu发行版](https://www.ubuntu.com)，作者在此特别致谢。
 
 特别感谢参与CQUThesis的开发和维护的诸位[**直接贡献者**](https://github.com/nanmu42/CQUThesis/blob/master/CONTRIBUTORS.md)，向你们致以真诚的敬意和感激！
 
