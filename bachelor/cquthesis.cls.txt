@@ -729,6 +729,7 @@ itemindent = 0mm,
 \zihao{-4}\begin{cqu@denotation}[labelindent = #1,labelwidth=#2,]
 }{
 \end{cqu@denotation}}%\denotation
+% 目录
 \setcounter{tocdepth}{2}
 \setcounter{secnumdepth}{3}
 \setlength{\cftbeforechapskip}{1mm}
@@ -737,10 +738,11 @@ itemindent = 0mm,
 \cftsetindents{section}{1.9em}{0.9em}
 \cftsetindents{subsection}{4.0em}{1.5em}
 \else
-\cftsetindents{chapter}{0em}{1.5em}
-\cftsetindents{section}{1.5em}{2.2em}
-\cftsetindents{subsection}{3.7em}{2.9em}
+\cftsetindents{chapter}{0em}{1.4em}     %根据本科毕业设计的word模板调整
+\cftsetindents{section}{1.1em}{1.7em}
+\cftsetindents{subsection}{1.7em}{2.3em}
 \fi
+% 目录字体      %bachelor需要打开seriftoc
 \ifcqu@seriftoc
 \renewcommand{\cftchapleader}{\cftdotfill{\cftdotsep}}
 \renewcommand{\cftchapfont}{\zihao{4}\sffamily\heiti}
