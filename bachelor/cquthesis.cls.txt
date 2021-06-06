@@ -107,7 +107,7 @@ bilinguallist=[off|combined|apart]}{}
 \RequirePackage{amsmath}
 \RequirePackage{amssymb}
 \RequirePackage{amsfonts}
-\RequirePackage[defaultsups]{newtxtext}
+% \RequirePackage[defaultsups]{newtxtext}
 \RequirePackage{pifont}
 \RequirePackage{xeCJKfntef}
 \RequirePackage{newfloat}
