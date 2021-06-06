@@ -195,16 +195,18 @@ subsection/number = \CTEXthesection{}\arabic{subsection},}%
 \RequirePackage{geometry}
 \geometry{
 a4paper, ignoreall, nomarginpar,
-inner=25mm, outer=25mm, top=30mm, bottom=28mm,
-bindingoffset=10mm, head=16mm, headsep=11mm, foot=12mm, footnotesep=5mm}
+inner=25mm, outer=25mm, top=30mm, bottom=25mm,
+bindingoffset=10mm, head=5mm, headsep=9mm, foot=10mm, footnotesep=5mm}    %bootom - footskip(foot) = foot in word
+                                                                          %top - headheight(head) - headsep = head in word
+% 上边距（天头）为：30 mm；下边距（地脚）25mm；左边距和右边距为：25mm；装订线：10mm；页眉：16mm；页脚：15mm。
 \RequirePackage{totcount}
 \regtotcounter[auxfile=maxpage.aux]{page}
 \if@autoprint
-\ifcqu@bachelor
-\ifnum\totvalue{page}>70 \@twosideprinttrue\else\@onesideprinttrue\fi 
-\else
-\ifnum \totvalue{page}>60 \@twosideprinttrue\else\@onesideprinttrue\fi
-\fi
+    \ifcqu@bachelor
+        \ifnum\totvalue{page}>30 \@twosideprinttrue\else\@onesideprinttrue\fi 
+    \else
+        \ifnum \totvalue{page}>60 \@twosideprinttrue\else\@onesideprinttrue\fi
+    \fi
 \fi
 \if@onesideprint
 \ClassWarning{cquthesis}{Printing under oneside mode.}{}
