@@ -39,6 +39,6 @@ cquthesis.Rproj
 *.xdv
 *.tmp
 dtx-style.sty
-cquthesis.cls
-cquthesis.cfg
+/cquthesis.cls
+/cquthesis.cfg
 main.pdf

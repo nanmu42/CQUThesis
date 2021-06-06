@@ -1,0 +1,281 @@
+%%
+%% This is file `cquthesis.cfg',
+%% generated with the docstrip utility.
+%%
+%% The original source files were:
+%%
+%% cquthesis.dtx  (with options: `cfg')
+%% 
+%% This is a generated file.
+%% 
+%% Copyright (C) 2016-2021 by Zhennan Li <i@nanmu.me>
+%% This file may be distributed and/or modified under the
+%% conditions of the LaTeX Project Public License, either
+%% version 1.3 of this license or (at your option) any later
+%% version. The latest version of this license is in:
+%% 
+%% http://www.latex-project.org/lppl.txt
+%% 
+%% and version 1.3 or later is part of all distributions of
+%% LaTeX version 2005/12/01 or later.
+%% 
+%% This is the configuration file of the cquthesis package with LaTeX2e.
+%% 
+\ProvidesFile{cquthesis.cfg}
+[2019/10/12 v1.40 Chongqing University Thesis Template]
+\def\cqueqshortname {式} 
+\def\cqu@denotation@name {主要符号对照表}
+\def\shorttablename {表}
+\def\shorttablenameEN {Table}
+\def\shortfigurename {图}
+\def\shortfigurenameEN {Fig.}
+\def\listofequationsname {重要算式索引}
+\def\listofequationsnameEN {\textbf{List of Equations}}
+\def\listoffiguresnameEN {\textbf{List of Figures}}
+\def\listoftablesnameEN {\textbf{List of Tables}}
+\def\cqu@bib@name {参考文献}
+\def\cqu@tocnameinbkmark {目{ }录}
+\newcommand{\parenthesesthis}[1]{（#1）}
+\ctexset{%
+chapter = {%
+pagestyle = style@normal,
+name = {},
+format = \sffamily\heiti\centering,
+nameformat = \zihao{3},
+titleformat = \zihao{3},
+aftername = \hskip\ccwd,
+number = {\ifcqu@liberalformat\chinese{chapter}\else\thechapter\fi},
+beforeskip = 13bp,
+afterskip = 24bp,
+},
+section = {%
+name = {},
+format = \sffamily\heiti\raggedright,
+nameformat = \bfseries\zihao{-3},
+titleformat = \zihao{-3},
+aftername = \hskip\ccwd,
+number = {\ifcqu@liberalformat\parenthesesthis{\chinese{section}}\else\thesection\fi},
+beforeskip = 24bp plus 1ex minus .2ex,
+afterskip = 6bp plus .2ex,
+},
+subsection = {%
+name = {},
+format = \sffamily\heiti\raggedright,
+nameformat = \bfseries\zihao{4},
+titleformat = \zihao{4},
+aftername = \hskip\ccwd,
+number = {\ifcqu@liberalformat\arabic{subsection}\else\thesubsection\fi},
+beforeskip = 12bp plus 1bp,
+afterskip = 10bp,
+fixskip = true,
+},
+subsubsection = {
+name = {},
+runin = false,
+indent = \parindent,
+aftertitle = {},
+numbering = true,
+number = {\ifcqu@liberalformat\parenthesesthis{\arabic{subsubsection}}\else\@circlenum{subsubsection}\fi},
+numberformat+ = {\ifcqu@liberalformat\relax\else\zihao{4}\fi},
+beforeskip = 10bp plus .5bp,
+afterskip = 10bp,
+fixskip = true,
+},
+appendix = {%
+numbering = false,
+name = {},
+},
+paragraph = {
+name = {},
+runin = true,
+aftertitle = {\ClassError{cquthesis}%
+{Level-5 and below sections are unsupported intentionally.}{}},
+beforeskip = 1ex plus 0.5ex minus .2ex,
+afterskip = 1em,
+},
+subparagraph = {
+name = {},
+runin = true,
+indent = \parindent,
+indent = 0pt,
+aftertitle = {\ClassError{cquthesis}%
+{Level-5 and below sections are unsupported intentionally.}{}},
+beforeskip = 1ex plus 0.5ex minus .2ex,
+afterskip = 1em,
+},
+appendixname=附录,
+contentsname={目\hskip\ccwd 录},
+listfigurename={插图索引},
+listtablename={表格索引},
+figurename=图,
+tablename=表,
+bibname=参考文献,
+indexname=索引,
+}
+\DefineFNsymbols{cqufnsymbol}{
+{\ding{172}} {\ding{173}}
+{\ding{174}} {\ding{175}}
+{\ding{176}} {\ding{177}}
+{\ding{178}} {\ding{179}}
+{\ding{180}} {\ding{181}}
+}%cqufnsymbol
+\setfnsymbol{cqufnsymbol}
+\renewcommand\thempfootnote{\fnsymbol{mpfootnote}}
+\pretocmd{\thefootnote}{%
+\ifnum \value{footnote} >10
+\ClassError{cquthesis}%
+{More than 10 footnotes in a single page are not supported.}{}
+\fi
+}{}{}
+\pretocmd{\thempfootnote}{%
+\ifnum \value{mpfootnote} >10
+\ClassError{cquthesis}%
+{More than 10 footnotes in a single page are not supported.}{}
+\fi
+}{}{}
+\theoremsymbol{\ensuremath{\ding{110}}}
+\newtheorem*{proof}{证明}
+\theoremstyle{plain}
+\theoremsymbol{}
+\theoremseparator{：}
+\newtheorem{assumption}{假设}[chapter]
+\newtheorem{definition}{定义}[chapter]
+\newtheorem{proposition}{命题}[chapter]
+\newtheorem{lemma}{引理}[chapter]
+\newtheorem{theorem}{定理}[chapter]
+\newtheorem{axiom}{公理}[chapter]
+\newtheorem{corollary}{推论}[chapter]
+\newtheorem{exercise}{练习}[chapter]
+\newtheorem{example}{例}[chapter]
+\newtheorem{remark}{注释}[chapter]
+\newtheorem{problem}{问题}[chapter]
+\newtheorem{conjecture}{猜想}[chapter]
+\sisetup{%
+list-final-separator = { 和 },
+list-pair-separator = { 和 },
+range-phrase = {～},
+}%\sisetup
+\AtBeginDocument{%
+\def\figureautorefname{图}
+\def\tableautorefname{表}
+\def\partautorefname{卷}
+\def\appendixautorefname{附录}
+\def\equationautorefname{式}
+\def\Itemautorefname{列表}
+\def\chapterautorefname{章}
+\def\sectionautorefname{节}
+\def\subsectionautorefname{小节}
+\def\subsubsectionautorefname{条目}
+\def\paragraphautorefname{自然段}
+\def\Hfootnoteautorefname{脚注}
+\def\AMSautorefname{式}
+\def\theoremautorefname{理论}
+\def\pageautorefname{页}
+}%\AtBeginDocument
+\newcommand{\MONTH}{%
+\ifcase\the\month
+\or January% 1
+\or February% 2
+\or March% 3
+\or April% 4
+\or May% 5
+\or June% 6
+\or July% 7
+\or August% 8
+\or September% 9
+\or October% 10
+\or November% 11
+\or December% 12
+\fi}
+\def\cdate{\zhdigits{\the\year}年\zhnumber{\the\month}月}
+\def\edate{\MONTH{ }\the\year}
+\def\cqu@ckeywords@separator{，}
+\def\cqu@ekeywords@separator{, }
+\def\cqu@title@separatorCN{：}
+\def\cqu@title@separatorEN{:~}
+\def\cqu@cabstract@tocname{中文摘要}
+\def\cqu@eabstract@tocname{英文摘要}
+\def\cqu@cabstract@name{摘\hskip\ccwd{}要}
+\def\cqu@eabstract@name{ABSTRACT}
+\def\cqu@ckw@title{关键词}
+\def\cqu@ekw@title{Key words}
+\def\cqu@workby{by}
+\ifcqu@bachelor
+\def\cqu@thesistypenameCN{重庆大学本科学生毕业设计（论文）}
+\def\cqu@thesistypenameEN{Graduation Design(Thesis) of Chongqing University}
+\def\cqu@studentCN{学生}
+\def\cqu@studentEN{Undergraduate}
+\def\cqu@studentnumCN{学号}
+\def\cqu@supervisorCN{指导教师}
+\def\cqu@supervisorEN{Supervised by{ }}
+\def\cqu@assistsupervisorCN{助理指导教师}
+\def\cqu@extrasupervisorCN{校外指导教师}
+\def\cqu@assistsupervisorEN{Assistant Supervisor}
+\def\cqu@majorCN{专业}
+\def\cqu@majorEN{Major}
+\def\cqu@universitynameCN{重庆大学}
+\def\cqu@universitynameEN{Chongqing University}
+\else
+\ifcqu@master
+\def\cqu@thesistypenameCN{重庆大学硕士学位论文}
+\def\cqu@thesistypenameEN{A Thesis Submitted to Chongqing University\\%
+in Partial Fulfillment of the Requirement for%
+\ifcqu@academic{ }the\fi\\\cqu@edgree}
+\def\cqu@studentCN{学生姓名}
+\def\cqu@supervisorCN{指导教师}
+\def\cqu@supervisorEN{Supervised by{ }}
+\def\cqu@psupervisorCN{兼职导师}
+\def\cqu@psupervisorEN{Pluralistic~Supervisor}
+\def\cqu@majorCN{专业}
+\def\cqu@majorEN{Specialty}
+\ifcqu@academic
+\def\cqu@mastertype{(学术学位)}
+\def\cqu@majorclassCN{学科门类}
+\else
+\def\cqu@mastertype{(专业学位)}
+\def\cqu@majorclassCN{学位类型}
+\fi
+\def\cqu@universitynameCN{重庆大学}
+\def\cqu@universitynameEN{Chongqing University, Chongqing, China}
+\else
+\ifcqu@doctor
+\def\cqu@thesistypenameCN{重庆大学博士学位论文}
+\def\cqu@thesistypenameEN{A Thesis Submitted to Chongqing University\\%
+in Partial Fulfillment of the Requirement for the\\\cqu@edgree}
+\def\cqu@studentCN{学生姓名}
+\def\cqu@studentEN{Ph.D. Candidate}
+\def\cqu@supervisorCN{指导教师}
+\def\cqu@supervisorEN{Supervised by{ }}
+\def\cqu@majorCN{专业}
+\def\cqu@majorclassCN{学科门类}
+\def\cqu@majorEN{Specialty}
+\def\cqu@universitynameCN{重庆大学}
+\def\cqu@universitynameEN{Chongqing University}
+\else
+\ClassWarning{cquthesis}%
+{Specified thesis type is obligatory: \MessageBreak
+type=[bachelor|master|doctor](How did you bypass the type check?)}{}
+\fi
+\fi
+\fi
+\def\cqu@innotitle{独创性声明}
+\def\cqu@innobody{%
+本人声明所呈交的学位论文是本人在导师指导下进行的研究工作及取得的研究成果。据我所知，除了文中特别标注和致谢的地方外，论文中不包含其他人已经发表或撰写中的研究成果，也不包含为获得重庆大学或其他教育机构的学位或证书而使用过的材料。与我一同工作的同志对本文所做的任何贡献均已在论文中做了明确的说明并表示谢意。}
+\def\cqu@innosignature{学位论文作者签名：}
+\def\cqu@authtitle{学位论文版权使用授权书}
+\def\cqu@authcheckpart{%
+保\hskip\ccwd{}密(\hskip2\ccwd)，在\rule{3\ccwd}{0.15mm}年解密后适用本授权书。\\
+不保密(\hskip2\ccwd)。}
+\def\cqu@authbody{
+本学位论文作者完全了解重庆大学有关保留、使用学位论文的规定，有权保留并向国家有关部门或机构送交论文的复印件和磁盘，允许论文被查阅和借阅。本人授权重庆大学可以把学位论文的全部或部分内容编入有关数据库进行检索，可以采用影印、缩印或扫描等复制手段保存、汇编学位论文。
+\\[\baselineskip]
+\indent\parbox{7\ccwd}{本学位论文属于}\hskip\ccwd\parbox{.6\textwidth}{\cqu@authcheckpart}
+\\[\baselineskip]
+\indent(请只在上述一个括号内打“\ding{51}”)}
+\def\cqu@authsignaturestu{学位论文作者签名：}
+\def\cqu@authsignaturesup{导师签名：}
+\def\cqu@signdate{签字日期：\hskip3\ccwd{}年\hskip2\ccwd{}月\hskip2\ccwd{}日}
+\let\cqu@thesisname\cqu@thesistypenameCN
+\endinput
+%%
+%% End of file `cquthesis.cfg'.

@@ -1,0 +1,70 @@
+\ProvidesPackage{cquthesis}[2016/06/09 The place for your beloved packages and customization.]
+
+%=====你可以在这里使用\RequirePackage[包选项]{包名称}导入想用的Package=======
+%=====以及定义你自己的功能和常量=======
+\newcommand{\speakyourlove}[1][Mom]{\emph{#1, I Love You!}} 
+
+
+
+
+
+
+% 晶向指数支持，如果需要请取消下面两行注释：
+% \RequirePackage{miller}
+% \pretocmd{\hkl}{{ }}{}{}
+%
+% 物理符号宏包：
+%\RequirePackage{physics}
+%
+% 计算机算法宏包：
+%\RequirePackage{algorithm2e}
+%\RequirePackage{algorithmic}
+%
+% 绘图宏包：
+%\RequirePackage{tikz}
+%
+% 绘制电路图：
+%\RequirePackage{circuitikz} 
+
+% 这两个个宏包仅供参考，未必使用：
+% \RequirePackage{floatflt} % 图文混排用宏包
+% \RequirePackage{rotating} % 图形和表格的控制旋转
+
+%========一些推荐功能=========
+% 用中文双引号括起文字
+\newcommand{\qthis}[1]{{“}#1{”}}
+%交叉引用图X、表X、方程X（此处为向前兼容，强烈推荐使用\autoref{label}）
+\newcommand{\figref}[1]{图\ref{#1}}
+\newcommand{\tabref}[1]{表\ref{#1}}
+%\eqref已经改写过
+
+%================================
+%**********代码开发区域***********
+%================================
+
+% 借用 ltxdoc 里面的几个命令。
+\def\cmd#1{\cs{\expandafter\cmd@to@cs\string#1}}
+\def\cmd@to@cs#1#2{\char\number`#2\relax}
+\DeclareRobustCommand\cs[1]{\texttt{\char`\\#1}}
+\DeclareRobustCommand\csgo[2]{\cs{#1\{#2\}}}
+
+\newcommand*{\meta}[1]{{%
+		\ensuremath{\langle}\rmfamily\itshape#1\/\ensuremath{\rangle}}}
+\providecommand\marg[1]{%
+	{\ttfamily\char`\{}\meta{#1}{\ttfamily\char`\}}}
+\providecommand\oarg[1]{%
+	{\ttfamily[}\meta{#1}{\ttfamily]}}
+\providecommand\parg[1]{%
+	{\ttfamily(}\meta{#1}{\ttfamily)}}
+\providecommand\pkg[1]{{\sffamily#1}}
+
+% 文件夹列表
+\usepackage{dirtree}
+% The following is a dummy icon command
+\newcommand\myicon[1]{{\color{#1}\rule{2ex}{2ex}}}
+% If you have actual icon images, use \includegraphics to include them
+% If you are generating them, put in the appropriate code for them here
+% now we make a command for a folder/file which inserts the icon and its label
+% adjust this as needed. If you only have 2 icons, then you could create
+% a \myfile and \myfolder command with the icon fixed.
+\newcommand{\myfolder}[2]{\myicon{#1}\ {#2}}
