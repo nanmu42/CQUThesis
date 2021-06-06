@@ -512,112 +512,118 @@ language=Python}
 \cqu@parse@keywords{ckeywords}
 \cqu@parse@keywords{ekeywords}
 \def\cqusetup{\kvsetkeys{cqu}}
+% 中文题名页
 \newcommand{\make@cover@CN}{%
 \thispagestyle{style@empty}
 \begin{center}
 \rule{0mm}{15mm}
 \sffamily\heiti
 \ifcqu@bachelor
-\zihao{-2}\cqu@thesistypenameCN
-\\ \vspace{\stretch{1}}
-\zihao{2}\cqu@ctitle
-\\ \vspace{\stretch{2}}
-\includegraphics[width=6cm]{CQUbadge.pdf}
-\\ \vspace{\stretch{2}}
+    \zihao{-2}\cqu@thesistypenameCN
+    \\ \vspace{\stretch{1}}
+    \zihao{2}\cqu@ctitle
+    \\ \vspace{\stretch{2}}
+    \includegraphics[width=3.2cm]{CQUbadge.jpg} %重庆大学普通本科毕业设计（论文）撰写规范化要求2020文档里指定的是35mm，但是给的word模板是32mm
+    \\ \vspace{\stretch{2}}
 \else
-\zihao{2}\cqu@ctitle
-\\ \vspace{\stretch{1}}
-\includegraphics[width=6cm]{CQUbadge.pdf}
-\\ \vspace{\stretch{1}}
-\zihao{-2}\cqu@thesistypenameCN
-\ifcqu@master{}\\\cqu@mastertype\fi
-\\ \vspace{\stretch{2}} 
+    \zihao{2}\cqu@ctitle
+    \\ \vspace{\stretch{1}}
+    \includegraphics[width=6cm]{CQUbadge.pdf}
+    \\ \vspace{\stretch{1}}
+    \zihao{-2}\cqu@thesistypenameCN
+    \ifcqu@master{}\\\cqu@mastertype\fi
+    \\ \vspace{\stretch{2}} 
 \fi
 \ifcqu@bachelor
-\zihao{3}
-\begin{varwidth}{\textwidth}
-\begin{CJKfilltwosides}{4.5\ccwd}
-\cqu@studentCN\cqu@title@separatorCN\\
-\cqu@studentnumCN\cqu@title@separatorCN\\
-\cqu@supervisorCN\cqu@title@separatorCN\\
-\ifdefstring{\cqu@cassistsupervisor}{}{\relax}{{\zihao{5}\begin{CJKfilltwosides}{66bp}\cqu@assistsupervisorCN\end{CJKfilltwosides}}\hfill\cqu@title@separatorCN\\}
-\ifdefstring{\cqu@cextrasupervisor}{}{\relax}{{\zihao{5}\begin{CJKfilltwosides}{66bp}\cqu@extrasupervisorCN\end{CJKfilltwosides}}\hfill\cqu@title@separatorCN\\}
-\cqu@majorCN\cqu@title@separatorCN
-\end{CJKfilltwosides}
-\end{varwidth}
+    \zihao{3}
+    \begin{varwidth}{\textwidth}
+    \begin{CJKfilltwosides}{4.5\ccwd}
+    \cqu@studentCN\cqu@title@separatorCN\\
+    \cqu@studentnumCN\cqu@title@separatorCN\\
+    \cqu@supervisorCN\cqu@title@separatorCN\\
+    \ifdefstring{\cqu@cassistsupervisor}{}{\relax}{{\zihao{5}\begin{CJKfilltwosides}{66bp}\cqu@assistsupervisorCN\end{CJKfilltwosides}}\hfill\cqu@title@separatorCN\\}
+    \ifdefstring{\cqu@cextrasupervisor}{}{\relax}{{\zihao{5}\begin{CJKfilltwosides}{66bp}\cqu@extrasupervisorCN\end{CJKfilltwosides}}\hfill\cqu@title@separatorCN\\}
+    \cqu@majorCN\cqu@title@separatorCN
+    \end{CJKfilltwosides}
+    \end{varwidth}
 \else
-\zihao{3}
-\begin{varwidth}{\textwidth}
-\begin{CJKfilltwosides}{4.5\ccwd}
-\cqu@studentCN\cqu@title@separatorCN\\
-\cqu@supervisorCN\cqu@title@separatorCN\\
-\ifcqu@academic
-\cqu@majorCN\cqu@title@separatorCN\\
-\else
-\cqu@psupervisorCN\cqu@title@separatorCN\\
-\fi
-\cqu@majorclassCN\cqu@title@separatorCN
-\end{CJKfilltwosides}
-\end{varwidth}
+    \zihao{3}
+    \begin{varwidth}{\textwidth}
+    \begin{CJKfilltwosides}{4.5\ccwd}
+    \cqu@studentCN\cqu@title@separatorCN\\
+    \cqu@supervisorCN\cqu@title@separatorCN\\
+    \ifcqu@academic
+        \cqu@majorCN\cqu@title@separatorCN\\
+    \else
+        \cqu@psupervisorCN\cqu@title@separatorCN\\
+    \fi
+    \cqu@majorclassCN\cqu@title@separatorCN
+    \end{CJKfilltwosides}
+    \end{varwidth}
 \fi
 \hskip.5\ccwd
 \zihao{3}
 \begin{varwidth}{\textwidth}%
-\mbox{\cqu@cauthor}\\
-\ifcqu@bachelor\cqu@studentid\\\fi
-\cqu@csupervisor\\ %不要放在盒子里
-\ifcqu@academic %这里有点复杂
-\ifcqu@bachelor
-\ifdefstring{\cqu@cassistsupervisor}{}{\relax}{\cqu@cassistsupervisor\\}
-\ifdefstring{\cqu@cextrasupervisor}{}{\relax}{\cqu@cextrasupervisor\\}
-\fi
-\mbox{\cqu@cmajor}
-\ifcqu@bachelor\relax\else\\\cqu@cclass\fi
-\else
-\cqu@cpsupervisor\\
-\cqu@cclass
-\fi
+    \mbox{\cqu@cauthor}\\
+    \ifcqu@bachelor\cqu@studentid\\\fi
+    \cqu@csupervisor\\ %不要放在盒子里
+    \ifcqu@academic %这里有点复杂
+        \ifcqu@bachelor
+            \ifdefstring{\cqu@cassistsupervisor}{}{\relax}{\cqu@cassistsupervisor\\}
+            \ifdefstring{\cqu@cextrasupervisor}{}{\relax}{\cqu@cextrasupervisor\\}
+        \fi
+        \mbox{\cqu@cmajor}
+        \ifcqu@bachelor\relax\else\\\cqu@cclass\fi
+    \else
+        \cqu@cpsupervisor\\
+        \cqu@cclass
+    \fi
 \end{varwidth}
-\\ \vspace{\stretch{2}}
+\\ \vspace{\stretch{2.5}}
 \zihao{-2}\cqu@universitynameCN\cqu@cdepartment\\[1mm]
 \zihao{3}\ifdefempty{\cqu@mycdate}{\cdate}{\cqu@mycdate}
 \vspace{10mm}
 \end{center}}
+% 英文题名页
 \newcommand{\make@cover@EN}{%
 \cleardoublepage
 \thispagestyle{style@empty}
 \begin{center}
 \rule{0mm}{15mm}
-\sffamily
+\rmfamily
 \ifcqu@bachelor
-\zihao{-2}\cqu@thesistypenameEN
-\\ \vspace{\stretch{2}}
-\zihao{-1}\textbf{\cqu@etitle}
-\\ \vspace{\stretch{1}}
-\includegraphics[width=5cm]{CQUbadge.pdf}
-\\ \vspace{\stretch{2}}
-\zihao{3}\textbf{\cqu@studentEN\cqu@title@separatorEN\mbox{\cqu@eauthor}}\\
-\cqu@supervisorEN\mbox{\cqu@esupervisor}\\
-\ifdefstring{\cqu@eassistsupervisor}{}{\relax}{\cqu@assistsupervisorEN\cqu@title@separatorEN\mbox{\cqu@eassistsupervisor}\\}
-\cqu@majorEN\cqu@title@separatorEN\mbox{\cqu@emajor}
+    \zihao{3}\textbf\cqu@thesistypenameEN  %Graduation Design(Thesis) of Chongqing University
+    \\ \vspace{\stretch{2}}
+    \zihao{2}\textbf{\cqu@etitle}  %论文标题
+    \\ \vspace{\stretch{1}}
+    \includegraphics[width=3.2cm]{CQUbadge.jpg} %重庆大学普通本科毕业设计（论文）撰写规范化要求2020文档里指定的是35mm，但是给的word模板是32mm
+    \\ \vspace{\stretch{1}}
+    \zihao{3}
+    \makebox[15em][l]{\textbf{\cqu@studentEN\cqu@title@separatorEN\mbox{\cqu@eauthor}          }}\\
+    \makebox[15em][l]{\textbf{\cqu@supervisorEN\cqu@title@separatorEN\mbox{\cqu@esupervisor}   }}\\
+    \makebox[15em][l]{\textbf{\cqu@majorEN\cqu@title@separatorEN\mbox{\cqu@emajor}             }}
+    % \textbf{\cqu@studentEN\cqu@title@separatorEN\mbox{\cqu@eauthor}}\\
+    % \textbf{\cqu@supervisorEN\cqu@title@separatorEN\mbox{\cqu@esupervisor}}\\
+    % \ifdefstring{\cqu@eassistsupervisor}{}{\relax}{\cqu@assistsupervisorEN\cqu@title@separatorEN\mbox{\cqu@eassistsupervisor}\\}
+    % \textbf{\cqu@majorEN\cqu@title@separatorEN\mbox{\cqu@emajor}}
 \else
-\zihao{-1}\textbf{\cqu@etitle}
-\\ \vspace{\stretch{2}}
-\includegraphics[width=5cm]{CQUbadge.pdf}
-\\ \vspace{\stretch{2}}
-\zihao{3}\cqu@thesistypenameEN
-\\[1mm]
-\textbf{\cqu@workby}
-\\[2mm]
-\zihao{3}\mbox{\textbf{\cqu@eauthor}}
-\\ \vspace{\stretch{1}}
-\textbf{\cqu@supervisorEN}\textbf{\cqu@esupervisor}\\
-\ifcqu@academic\relax\else\textbf{\cqu@psupervisorEN\cqu@title@separatorEN\cqu@epsupervisor}\\\fi
-\textbf{\cqu@majorEN\cqu@title@separatorEN}\mbox{\textbf{\cqu@emajor}}
+    \zihao{-1}\textbf{\cqu@etitle}
+    \\ \vspace{\stretch{2}}
+    \includegraphics[width=5cm]{CQUbadge.pdf}
+    \\ \vspace{\stretch{2}}
+    \zihao{3}\cqu@thesistypenameEN
+    \\[1mm]
+    \textbf{\cqu@workby}
+    \\[2mm]
+    \zihao{3}\mbox{\textbf{\cqu@eauthor}}
+    \\ \vspace{\stretch{1}}
+    \textbf{\cqu@supervisorEN}\textbf{\cqu@esupervisor}\\
+    \ifcqu@academic\relax\else\textbf{\cqu@psupervisorEN\cqu@title@separatorEN\cqu@epsupervisor}\\\fi
+    \textbf{\cqu@majorEN\cqu@title@separatorEN}\mbox{\textbf{\cqu@emajor}}
 \fi
-\\ \vspace{\stretch{2}}
-\zihao{-2}\cqu@edepartment\\\cqu@universitynameEN\\[1mm]
-\ifdefempty{\cqu@myedate}{\textbf{\edate}}{\textbf{\cqu@myedate}}
+\\ \vspace{\stretch{3.5}}
+\zihao{-2}\textbf{\cqu@edepartment\\\cqu@universitynameEN\\[1mm]}
+\zihao{3}\ifdefempty{\cqu@myedate}{\textbf{\edate}}{\textbf{\cqu@myedate}}
 \vspace{10mm}
 \end{center}}
 \def\makecover{%

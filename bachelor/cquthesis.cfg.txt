@@ -207,7 +207,7 @@ range-phrase = {～},
 \def\cqu@studentEN{Undergraduate}
 \def\cqu@studentnumCN{学号}
 \def\cqu@supervisorCN{指导教师}
-\def\cqu@supervisorEN{Supervised by{ }}
+\def\cqu@supervisorEN{Supervisor}
 \def\cqu@assistsupervisorCN{助理指导教师}
 \def\cqu@extrasupervisorCN{校外指导教师}
 \def\cqu@assistsupervisorEN{Assistant Supervisor}
