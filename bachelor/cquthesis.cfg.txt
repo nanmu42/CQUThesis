@@ -194,7 +194,7 @@ range-phrase = {～},
 \def\cqu@title@separatorCN{：}
 \def\cqu@title@separatorEN{:~}
 \def\cqu@cabstract@tocname{中文摘要}
-\def\cqu@eabstract@tocname{英文摘要}
+\def\cqu@eabstract@tocname{\rmfamily{ABSTRACT}}
 \def\cqu@cabstract@name{摘\hskip\ccwd{}要}
 \def\cqu@eabstract@name{ABSTRACT}
 \def\cqu@ckw@title{关键词}

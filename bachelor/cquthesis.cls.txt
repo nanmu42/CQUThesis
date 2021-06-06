@@ -658,7 +658,7 @@ pdfcreator = {CQUThesis--v\version, a LaTeX template.}
 \vskip12bp
 \cqu@put@kw{\heiti\cqu@ckw@title\cqu@title@separatorCN}{\cqu@ckeywords}
 \if@twosideprint\ifcqu@openany\ifcqu@abstractopenright\cqu@addblankpage\fi\fi\fi
-\chapter[\cqu@eabstract@tocname]{\sffamily\textbf{\cqu@eabstract@name}}
+\chapter[\cqu@eabstract@tocname]{\rmfamily\textbf{\cqu@eabstract@name}}
 \cqu@fixhead
 \cqu@eabstract
 \vskip12bp
