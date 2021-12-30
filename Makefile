@@ -57,8 +57,9 @@ $(PACKAGE).pdf: $(CLSFILES)
 	xelatex -quiet -halt-on-error -interaction=nonstopmode $(PACKAGE).dtx
 	xelatex -quiet -halt-on-error -interaction=nonstopmode $(PACKAGE).dtx
 
-$(THESISMAIN).pdf: $(CLSFILES)
+$(THESISMAIN).pdf: $(CLSFILES) $(THESISCONTENTS) $(THESISMAIN).bbl $(BIBFILE)
 	$(METHOD) $(LATEXMKOPTS) $(THESISMAIN)
+	touch $(THESISMAIN).pdf
 
 else ifneq (,$(filter $(METHOD),xelatex pdflatex))
 
@@ -70,9 +71,10 @@ $(PACKAGE).pdf: $(CLSFILES)
 	$(METHOD) $(PACKAGE).dtx
 	$(METHOD) $(PACKAGE).dtx
 
-$(THESISMAIN).pdf: $(CLSFILES) $(THESISCONTENTS) $(THESISMAIN).bbl
+$(THESISMAIN).pdf: $(CLSFILES) $(THESISCONTENTS) $(THESISMAIN).bbl $(BIBFILE)
 	$(METHOD) $(THESISMAIN)
 	$(METHOD) $(THESISMAIN)
+	touch $(THESISMAIN).pdf
 
 $(THESISMAIN).bbl: $(BIBFILE)
 	$(METHOD) $(THESISMAIN)
