@@ -24,7 +24,8 @@ Release	|[CTAN Page](https://www.ctan.org/pkg/cquthesis)|	Scheduled updates for 
 
 Unzip all files to a new folder as your future work folder:
 * Windows users may easily double-click on `makewin.bat`;
-* Linux or Mac users may start the terminal:
+* macOS users may easily double-click on `makemac.command`;
+* Linux users may start the terminal:
 ```
 cd path/to/cquthesis
 make thesis
