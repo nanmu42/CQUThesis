@@ -127,6 +127,7 @@ The \textbf{words} in this sentences are \textit{processed} with three different
 
 \tabref{tab:parallel1}和\tabref{tab:parallel2}展示了\cs{xuhao}和\cs{xuhao}\texttt{[1]}的使用，可以达到自动编号的效果。不过要记得在每次使用之前使用\cs{resetxuhao}，或者\cs{xuhao}\texttt{[1]}。使用\cs{setxuhao}\oarg{1-6}可以更改序号的标记方式，如\tabref{tab:parallel2}所示。详细用法请参阅用户手册。
 
+\colsep[5pt]
 \begin{longtable}[c]{c*{6}{r}}
 	\bicaption[实验数据]{实验数据，这个题注是双语的，而且十分的长，注意这在索引中的处理方式}[Data in experiment]{Data in experiment, and this is a really long long long long long long long long long long text.}\label{tab:performance}\\
 	\toprule
@@ -199,20 +200,24 @@ The \textbf{words} in this sentences are \textit{processed} with three different
 
 \begin{assumption}
 	假设以下数学方程成立：
-	\begin{eqnarray}
-	\label{eq:eqnxmp}
-	c & = & a^2 - b^2\\
-	& = & (a+b)(a-b)
-	\end{eqnarray}
+\begin{equation}
+\label{eq:eqnxmp}
+\begin{split}
+c &= a^2 - b^2\\
+&= (a+b)(a-b)
+\end{split}
+\end{equation}
 \end{assumption}
 
 \begin{assumption}
 	依然假设以下数学方程成立，注意整个系统是自动编号的：
-	\begin{eqnarray}
-	\label{eq:eqnxmp2}
-	c & = & a^2 - b^2\\
-	& = & (a+b)(a-b)
-	\end{eqnarray}
+\begin{equation}
+\label{eq:eqnxmp2}
+\begin{split}
+c &= a^2 - b^2\\
+&= (a+b)(a-b)
+\end{split}
+\end{equation}
 \end{assumption}
 
 \begin{definition}
@@ -427,7 +432,7 @@ p(y|\mathbf{x}) = \frac{p(\mathbf{x},y)}{p(\mathbf{x})}=
 \cquthesis 采用\pkg{siunitx}作为国际单位制支持宏包，以下是一些使用例子，这个包的文档写得非常不错，请在命令行里输入\texttt{texdoc siunitx}察看。
 \begin{center}
 	\num{.3e45}\\
-	\num{1.654 x 2.34 x 3.430}\\
+	\num{1.654} $\times$ \num{2.34} $\times$ \num{3.430}\\
 	\si{\kilogram\metre\per\second}\\    
 	\SIlist{0.13;0.67;0.80}{\milli\metre}
 \end{center}
@@ -475,7 +480,7 @@ p(y|\mathbf{x}) = \frac{p(\mathbf{x},y)}{p(\mathbf{x})}=
 
 \begin{figure}[h]
 	\centering%
-	\subcaptionbox{第一个小图形\label{fig:subfig1}}[3cm] %标题的长度，超过则会换行，如下一个小图。
+	\subcaptionbox{第一个小图形\label{fig:subfig1}}[4cm] %标题的长度，超过则会换行，如下一个小图。
 	{\includegraphics[height=4cm]{CQUbadge.pdf}}%
 	\hspace{4em}%
 	\subcaptionbox{第二个小图形，注意这个图略矮些。如果标题很长的话，它会自动换行\label{fig:subfig2}}

@@ -982,8 +982,10 @@
 \RequirePackage{multirow}
 \RequirePackage{diagbox}
 \RequirePackage{tabu}
-\RequirePackage{courier}
+% 说明：XeLaTeX 下无需 courier 包，\ttfamily 默认即 Latin Modern Mono（如需 Courier New 可 \setmonofont）
 \RequirePackage{graphicx}
+% 让长 URL 可在任意位置断行，避免溢出 \hbox
+\RequirePackage{xurl}
 \RequirePackage{pdfpages}
 \RequirePackage[shortlabels,inline]{enumitem}
 \RequirePackage[amsmath,thmmarks,hyperref]{ntheorem}
@@ -1077,10 +1079,32 @@
 % 用来在\file{main.tex}中开启不同的文章部分：前置、主体、后置
 %    \begin{macrocode}
 \newif\if@backmatter
+% 2023版标准：前置部分页码用大写罗马数字字符（Ⅰ、Ⅱ、Ⅲ…），Times New Roman 无此字形，
+% Word 范本实际回退为宋体，这里同样用宋体输出，正文部分仍为 Times 数字。
+% U+2160–217F 罗马数字交由中文字体渲染（Times New Roman 无此字形，Word 亦回退宋体）
+\xeCJKDeclareCharClass{CJK}{"2160->"217F}
+\newcommand{\cqu@runit}[1]{%
+	\ifcase#1\relax\or Ⅰ\or Ⅱ\or Ⅲ\or Ⅳ\or Ⅴ\or Ⅵ\or Ⅶ\or Ⅷ\or Ⅸ\fi}
+\newcommand{\cqu@rtens}[1]{%
+	\ifcase#1\relax\or Ⅹ\or ⅩⅩ\or ⅩⅩⅩ\fi}
+\newcommand{\cqu@rnum}[1]{%
+	\ifnum#1<10 \cqu@runit{#1}%
+	\else\ifnum#1<40
+		\@tempcnta=#1\relax
+		\@tempcntb=\@tempcnta \divide\@tempcntb by 10
+		\cqu@rtens{\@tempcntb}%
+		\multiply\@tempcntb by 10 \advance\@tempcnta by -\@tempcntb
+		\cqu@runit{\@tempcnta}%
+	\else\Roman{#1}\fi\fi}
+\newcommand{\cqu@romanpage}{\texorpdfstring{\cqu@rnum{\value{page}}}{\Roman{page}}}
+\newcommand{\cqu@thepage@roman}{%
+	\renewcommand{\thepage}{\cqu@romanpage}}
+\newcommand{\cqu@thepage@arabic}{\renewcommand{\thepage}{\arabic{page}}}
 \renewcommand{\frontmatter}{%
 	\@backmatterfalse
 	\cleardoublepage
 	\pagenumbering{Roman}
+	\cqu@thepage@roman
 	\pagestyle{style@normal}
 	\ctexset{chapter/numbering = false,}
 }
@@ -1088,6 +1112,7 @@
 	\@backmatterfalse
 	\cleardoublepage
 	\pagenumbering{arabic}
+	\cqu@thepage@arabic
 	\pagestyle{style@normal}
 	\ctexset{chapter/numbering = true,}
 }
@@ -1112,8 +1137,8 @@
 \RequirePackage{geometry}
 \geometry{
 	a4paper, ignoreall, nomarginpar,
-	inner=25mm, outer=25mm, top=30mm, bottom=28mm,
-	bindingoffset=10mm, head=16mm, headsep=11mm, foot=12mm, footnotesep=5mm}
+	inner=25mm, outer=25mm, top=30mm, bottom=25mm,
+	bindingoffset=10mm, head=16mm, headsep=11mm, foot=10mm, footnotesep=5mm}
 %    \end{macrocode}
 %
 % \subsubsection{单双页打印的自动判定}
@@ -1125,7 +1150,7 @@
 	\ifcqu@bachelor
 		\ifnum\totvalue{page}>70 \@twosideprinttrue\else\@onesideprinttrue\fi	
 	\else
-		\ifnum \totvalue{page}>60 \@twosideprinttrue\else\@onesideprinttrue\fi 
+		\ifnum \totvalue{page}>70 \@twosideprinttrue\else\@onesideprinttrue\fi 
 	\fi
 \fi
 %    \end{macrocode}
@@ -1154,7 +1179,7 @@
 	\renewcommand{\footrulewidth}{0pt}}
 \fancypagestyle{style@fixhead}{%
 	\fancyhead{}
-	\fancyhead[C]{\zihao{-5}\songti\leftmark}
+	\fancyhead[C]{\zihao{5}\songti\leftmark}
 	\fancyfoot{}
 	\fancyfoot[C]{\zihao{-5}\thepage}
 	\renewcommand{\headrulewidth}{0.4pt}
@@ -1162,11 +1187,11 @@
 \fancypagestyle{style@normal}{%
 	\fancyhead{}
 	\if@twosideprint
-	\fancyhead[EC]{\zihao{-5}\songti\cqu@thesisname}
-	\fancyhead[OC]{\zihao{-5}\songti\leftmark}
+	\fancyhead[EC]{\zihao{5}\songti\cqu@thesisname}
+	\fancyhead[OC]{\zihao{5}\songti\leftmark}
 	\else
-	\fancyhead[L]{\zihao{-5}\songti\cqu@thesisname}
-	\fancyhead[R]{\zihao{-5}\songti\leftmark}
+	\fancyhead[L]{\zihao{5}\songti\cqu@thesisname}
+	\fancyhead[R]{\zihao{5}\songti\leftmark}
 	\fi
 	\fancyfoot{}
 	\fancyfoot[C]{\zihao{-5}\thepage}
@@ -1206,7 +1231,7 @@
 %    \end{macrocode}
 % 每个自然段之间空1/10行距，增加可读性
 %    \begin{macrocode}
-\setlength{\parskip}{0.1\baselineskip}
+\setlength{\parskip}{0pt}
 %    \end{macrocode}
 % 全文首行缩进两字符，全角标点，去掉列表中项目之间的额外间隔（enumitem）
 %    \begin{macrocode}
@@ -1230,17 +1255,17 @@
 	chapter = {%
 		pagestyle = style@normal,
 		name = {},
-		format = \sffamily\heiti\centering,
+		format = \heiti\centering,
 		nameformat = \zihao{3},
 		titleformat = \zihao{3},
 		aftername = \hskip\ccwd,
 		number = {\ifcqu@liberalformat\chinese{chapter}\else\thechapter\fi},
-		beforeskip = 13bp,
+		beforeskip = 0bp,
 		afterskip = 24bp,
 	},
 	section = {%
 		name = {},
-		format = \sffamily\heiti\raggedright,
+		format = \heiti\raggedright,
 		nameformat = \bfseries\zihao{-3},
 		titleformat = \zihao{-3},
 		aftername = \hskip\ccwd,
@@ -1250,14 +1275,14 @@
 	},
 	subsection = {%
 		name = {},
-		format = \sffamily\heiti\raggedright,
+		format = \heiti\raggedright,
 		nameformat = \bfseries\zihao{4},
 		titleformat = \zihao{4},
 		aftername = \hskip\ccwd,
 		number = {\ifcqu@liberalformat\arabic{subsection}\else\thesubsection\fi},
-		beforeskip = 12bp plus 1bp,
-		afterskip = 10bp,
-		fixskip = true,
+		beforeskip = 0bp plus 1bp,
+		afterskip = 0bp,
+		fixskip = false,
 	},
 	subsubsection = {
 		name = {},
@@ -1265,10 +1290,9 @@
 		indent = \parindent,
 		aftertitle = {},
 		numbering = true,
-		number = {\ifcqu@liberalformat\parenthesesthis{\arabic{subsubsection}}\else\@circlenum{subsubsection}\fi},
-		numberformat+ = {\ifcqu@liberalformat\relax\else\zihao{4}\fi},
-		beforeskip = 10bp plus .5bp,
-		afterskip = 10bp,
+		number = {\ifcqu@liberalformat\parenthesesthis{\arabic{subsubsection}}\else（\arabic{subsubsection}）\fi},
+		beforeskip = 0bp plus .5bp,
+		afterskip = 0bp,
 		fixskip = true,
 	},
 	appendix = {%
@@ -1427,12 +1451,7 @@
 %    \begin{macrocode}
 \RequirePackage{siunitx}
 \RequirePackage{upgreek}
-\ifxetex
-\sisetup{%
-	math-micro = {\upmu},
-	text-micro = {\textmu},
-}%\sisetup
-\fi
+% 注：siunitx v3 已移除 math-micro / text-micro 选项，\si{\micro\metre} 直接用数学字体即可。
 %</cls>
 %    \end{macrocode}
 %
@@ -1501,19 +1520,19 @@
 \AtBeginDocument{%
 	\renewcommand{\thefigure}{%
 		\if@backmatter
-			\CTEXthesection \@arabic \c@figure
+			\Alph{section}.\@arabic \c@figure
 		\else
 			\ifnum \c@chapter >\z@ \thechapter .\fi \@arabic \c@figure
 		\fi}
 	\renewcommand{\thetable}{%
 		\if@backmatter
-			\CTEXthesection \@arabic \c@table
+			\Alph{section}.\@arabic \c@table
 		\else
 			\ifnum \c@chapter >\z@ \thechapter .\fi \@arabic \c@table
 		\fi}
 	\renewcommand{\theequation}{%
 		\if@backmatter
-			\CTEXthesection \@arabic \c@equation
+			\Alph{section}.\@arabic \c@equation
 		\else
 			\ifnum \c@chapter >\z@ \thechapter .\fi \@arabic \c@equation
 		\fi}
@@ -1786,6 +1805,12 @@
 \cqu@def@term{eauthor}
 \cqu@def@term{studentid}
 \cqu@def@term{csupervisor}
+\cqu@def@term{ccosupervisor}
+\cqu@def@term{cfield}
+\cqu@def@term{cchair}
+\cqu@def@term{cphone}
+\cqu@def@term{cemail}
+\cqu@def@term{cgrant}
 \cqu@def@term{esupervisor}
 \cqu@def@term{cassistsupervisor}
 \cqu@def@term{cextrasupervisor}
@@ -1862,7 +1887,7 @@
 \newcommand{\make@cover@CN}{%
 	\thispagestyle{style@empty}
 	\begin{center}
-		\rule{0mm}{15mm}
+		\rule{0mm}{10mm}
 		\sffamily\heiti
 		\ifcqu@bachelor
 		\zihao{-2}\cqu@thesistypenameCN
@@ -1873,12 +1898,14 @@
 		\\	\vspace{\stretch{2}}
 		\else
 		\zihao{2}\cqu@ctitle
-		\\	\vspace{\stretch{1}}
-		\includegraphics[width=6cm]{CQUbadge.pdf}
-		\\	\vspace{\stretch{1}}
-		\zihao{-2}\cqu@thesistypenameCN
-		\ifcqu@master{}\\\cqu@mastertype\fi
-		\\	\vspace{\stretch{2}}		
+		\\	\vspace{8mm}
+		\includegraphics[width=5.5cm]{CQUbadge.pdf}
+		\\	\vspace{10mm}
+		% 2023版标准②：学位论文类型 一号黑体；③：申请学位类型 三号黑体，加括号单列一行
+		{\zihao{1}\cqu@thesistypenameCN}
+		\\	\vspace{2mm}
+		{\zihao{3}（\ifcqu@academic 学术学位\else 专业学位\fi）}
+		\\	\vspace{12mm}
 		\fi
 		\ifcqu@bachelor
 		\zihao{3}
@@ -1892,46 +1919,34 @@
 				\cqu@majorCN\cqu@title@separatorCN
 			\end{CJKfilltwosides}
 		\end{varwidth}
-		\else
-		\zihao{3}
-		\begin{varwidth}{\textwidth}
-			\begin{CJKfilltwosides}{4.5\ccwd}
-				\cqu@studentCN\cqu@title@separatorCN\\
-				\cqu@supervisorCN\cqu@title@separatorCN\\
-				\ifcqu@academic
-				\cqu@majorCN\cqu@title@separatorCN\\
-				\else
-				\cqu@psupervisorCN\cqu@title@separatorCN\\
-				\fi
-				\cqu@majorclassCN\cqu@title@separatorCN
-			\end{CJKfilltwosides}
-		\end{varwidth}
-		\fi
 		\hskip.5\ccwd
 		\zihao{3}
 		\begin{varwidth}{\textwidth}%
 			\mbox{\cqu@cauthor}\\
-			\ifcqu@bachelor\cqu@studentid\\\fi
+			\cqu@studentid\\
 			\cqu@csupervisor\\ %不要放在盒子里
-			\ifcqu@academic %这里有点复杂
-			\ifcqu@bachelor
-			\ifdefstring{\cqu@cassistsupervisor}{}{\relax}{\cqu@cassistsupervisor\\}
-			\ifdefstring{\cqu@cextrasupervisor}{}{\relax}{\cqu@cextrasupervisor\\}
-			\fi
+			\ifdefstring{\cqu@cassistsupervisor}{}{\relax}{\cqu@assistsupervisor\\}
+			\ifdefstring{\cqu@cextrasupervisor}{}{\relax}{\cqu@extrasupervisor\\}
 			\mbox{\cqu@cmajor}
-			\ifcqu@bachelor\relax\else\\\cqu@cclass\fi
-			\else
-			\cqu@cpsupervisor\\
-			\cqu@cclass
-			\fi
 		\end{varwidth}
 		\\	\vspace{\stretch{2}}
 		\zihao{-2}\cqu@universitynameCN\cqu@cdepartment\\[1mm]
 		\zihao{3}\ifdefempty{\cqu@mycdate}{\cdate}{\cqu@mycdate}
-		\vspace{10mm}
+		\else
+		% 2023版标准④-⑧：三号黑体，逐行居中，固定值40磅
+		{\zihao{3}\renewcommand{\arraystretch}{1.5}%
+		\begin{tabular}{@{}l@{}}
+			\cqu@studentCN：\cqu@cauthor \\
+			\cqu@supervisorCN：\cqu@csupervisor \\
+			\ifdefempty{\cqu@ccosupervisor}{}{\cqu@supervisorCN：\cqu@ccosupervisor \\}
+			\cqu@majorclassCN：\cqu@cclass \\
+			\cqu@majorCN：\cqu@cmajor \\
+			研究方向：\cqu@cfield \\
+			答辩委员会主席：\cqu@cchair \\
+			授位时间：\ifdefempty{\cqu@cgrant}{\cdate}{\cqu@cgrant} \\
+		\end{tabular}}
+		\fi
 	\end{center}}
-%    \end{macrocode}
-% \end{macro}
 %
 % \subsubsection{绘制英文封面}
 % \begin{macro}{\make@cover@EN}
@@ -1944,38 +1959,144 @@
 	\thispagestyle{style@empty}
 	\begin{center}
 		\rule{0mm}{15mm}
-		\sffamily
 		\ifcqu@bachelor
-			\zihao{-2}\cqu@thesistypenameEN
-			\\	\vspace{\stretch{2}}
-			\zihao{-1}\textbf{\cqu@etitle}
-			\\	\vspace{\stretch{1}}
-			\includegraphics[width=5cm]{CQUbadge.pdf}
-			\\	\vspace{\stretch{2}}
-			\zihao{3}\textbf{\cqu@studentEN\cqu@title@separatorEN\mbox{\cqu@eauthor}}\\
-			\cqu@supervisorEN\mbox{\cqu@esupervisor}\\
-			\ifdefstring{\cqu@eassistsupervisor}{}{\relax}{\cqu@assistsupervisorEN\cqu@title@separatorEN\mbox{\cqu@eassistsupervisor}\\}
-			\cqu@majorEN\cqu@title@separatorEN\mbox{\cqu@emajor}
+		\sffamily
+		\zihao{-2}\cqu@thesistypenameEN
+		\\	\vspace{\stretch{2}}
+		\zihao{-1}\textbf{\cqu@etitle}
+		\\	\vspace{\stretch{1}}
+		\includegraphics[width=5cm]{CQUbadge.pdf}
+		\\	\vspace{\stretch{2}}
+		\zihao{3}\textbf{\cqu@studentEN\cqu@title@separatorEN\mbox{\cqu@eauthor}}\\
+		\cqu@supervisorEN\mbox{\cqu@esupervisor}\\
+		\ifdefstring{\cqu@eassistsupervisor}{}{\relax}{\cqu@assistsupervisorEN\cqu@title@separatorEN\mbox{\cqu@eassistsupervisor}\\}
+		\cqu@majorEN\cqu@title@separatorEN\mbox{\cqu@emajor}
+		\\ \vspace{\stretch{2}}
+		\zihao{-2}\cqu@edepartment\\\cqu@universitynameEN\\[1mm]
+		\ifdefempty{\cqu@myedate}{\textbf{\edate}}{\textbf{\cqu@myedate}}
+		\vspace{6mm}
 		\else
-			\zihao{-1}\textbf{\cqu@etitle}
-			\\	\vspace{\stretch{2}}
-			\includegraphics[width=5cm]{CQUbadge.pdf}
-			\\	\vspace{\stretch{2}}
-			\zihao{3}\cqu@thesistypenameEN
-			\\[1mm]
-			\textbf{\cqu@workby}
-			\\[2mm]
-			\zihao{3}\mbox{\textbf{\cqu@eauthor}}
-			\\	\vspace{\stretch{1}}
-			\textbf{\cqu@supervisorEN}\textbf{\cqu@esupervisor}\\
-			\ifcqu@academic\relax\else\textbf{\cqu@psupervisorEN\cqu@title@separatorEN\cqu@epsupervisor}\\\fi
-			\textbf{\cqu@majorEN\cqu@title@separatorEN}\mbox{\textbf{\cqu@emajor}}
+		% 2023版 3.2.2②③：题名二号加粗；类型/申请学位/学科合并表述用小三；责任者与授位时间小二加粗
+		\zihao{2}\textbf{\cqu@etitle}
+		\\	\vspace{6mm}
+		\includegraphics[width=5cm]{CQUbadge.pdf}
+		\\	\vspace{6mm}
+		{\zihao{-3}%
+			A \cqu@thesisword\ submitted to Chongqing University\\
+			in partial fulfillment of the requirement\\
+			for the degree of\\
+			\cqu@edgree\\
+			in\\
+			\cqu@emajor}
+		\\	\vspace{6mm}
+		{\zihao{-2}\textbf{\cqu@workby}}
+		\\	\vspace{6mm}
+		{\zihao{-2}\textbf{\cqu@eauthor}}
+		\\	\vspace{6mm}
+		{\zihao{-2}\textbf{\cqu@supervisorEN\cqu@esupervisor}}
+		\\	\vspace{6mm}
+		{\zihao{-2}\textbf{\ifdefempty{\cqu@myedate}{\edate}{\cqu@myedate}}}
+		\vspace{6mm}
 		\fi
-			\\ \vspace{\stretch{2}}
-			\zihao{-2}\cqu@edepartment\\\cqu@universitynameEN\\[1mm]
-			\ifdefempty{\cqu@myedate}{\textbf{\edate}}{\textbf{\cqu@myedate}}
-			\vspace{10mm}
 	\end{center}}
+%    \end{macrocode}
+% \end{macro}
+%
+%
+% \subsubsection{学位论文数据集}
+% 2023版《重庆大学博士、硕士学位论文格式标准》3.5.4 新增，格式见附件4。
+% 数据由 \cs{cqusetup} 中 ds 开头的键提供，未提供时用封面/摘要信息或合理默认值。
+%    \begin{macrocode}
+%<*cls>
+\cqu@def@term{dssecret}
+\cqu@def@term{dsclc}
+\cqu@def@term{dsunit}
+\cqu@def@term{dsunitcode}
+\cqu@def@term{dsdegreecat}
+\cqu@def@term{dsdegreelevel}
+\cqu@def@term{dssubtitle}
+\cqu@def@term{dslanguage}
+\cqu@def@term{dsdept}
+\cqu@def@term{dsdeptcode}
+\cqu@def@term{dsmajor}
+\cqu@def@term{dsfield}
+\cqu@def@term{dsduration}
+\cqu@def@term{dsyear}
+\cqu@def@term{dssubmit}
+\cqu@def@term{dspages}
+\cqu@def@term{dssupervisor}
+\cqu@def@term{dssupertitle}
+\cqu@def@term{dschair}
+\cqu@def@term{dsformat}
+\cqu@def@term{dskeywords}
+% 默认值：
+\def\cqu@dssecret{公开}
+\def\cqu@dsunitcode{10611}
+\def\cqu@dslanguage{中文}
+\def\cqu@dsunit{\cqu@universitynameCN}
+\def\cqu@dsdept{\cqu@cdepartment}
+\def\cqu@dsmajor{\cqu@cmajor}
+\def\cqu@dssupervisor{\cqu@csupervisor}
+\def\cqu@dskeywords{\cqu@ckeywords}
+\def\cqu@dsformat{文本（$\surd$）\hspace{0.2em}图像（）\hspace{0.2em}视频（）\hspace{0.2em}音频（）\hspace{0.2em}多媒体（）\hspace{0.2em}其他（）}
+\def\cqu@datasetname{学位论文数据集}
+% 数据集表格：六列，列宽按附件4的网格比例（25:8.3:16.7:16.7:8.3:25）
+\newlength{\cqu@dsWone}\newlength{\cqu@dsWtwo}\newlength{\cqu@dsWthree}
+\newlength{\cqu@dsWfour}\newlength{\cqu@dsWfive}\newlength{\cqu@dsWsix}
+\newlength{\cqu@dsWAA}\newlength{\cqu@dsWBB}\newlength{\cqu@dsWCC}
+\newlength{\cqu@dsWDD}\newlength{\cqu@dsWEE}\newlength{\cqu@dsWall}
+\newcommand{\cqu@ds@widths}{%
+	\setlength{\cqu@dsWone}{\dimexpr0.2493\textwidth-1.2pt\relax}%
+	\setlength{\cqu@dsWtwo}{\dimexpr0.0833\textwidth-1.2pt\relax}%
+	\setlength{\cqu@dsWthree}{\dimexpr0.1666\textwidth-1.2pt\relax}%
+	\setlength{\cqu@dsWfour}{\cqu@dsWthree}%
+	\setlength{\cqu@dsWfive}{\cqu@dsWtwo}%
+	\setlength{\cqu@dsWsix}{\dimexpr0.2508\textwidth-1.2pt\relax}%
+	\setlength{\cqu@dsWAA}{\dimexpr\cqu@dsWone+\cqu@dsWtwo-0.4pt\relax}%
+	\setlength{\cqu@dsWBB}{\dimexpr\cqu@dsWthree+\cqu@dsWfour-0.4pt\relax}%
+	\setlength{\cqu@dsWCC}{\dimexpr\cqu@dsWfive+\cqu@dsWsix-0.4pt\relax}%
+	\setlength{\cqu@dsWDD}{\dimexpr\cqu@dsWone+\cqu@dsWtwo+\cqu@dsWthree-0.8pt\relax}%
+	\setlength{\cqu@dsWEE}{\dimexpr\cqu@dsWfour+\cqu@dsWfive+\cqu@dsWsix-0.8pt\relax}%
+	\setlength{\cqu@dsWall}{\dimexpr\cqu@dsWDD+\cqu@dsWEE-0.4pt\relax}%
+}
+\newcommand{\cqu@dsL}[3]{\multicolumn{#1}{|p{#2}|}{\centering #3}}
+\newcommand{\cqu@dsC}[3]{\multicolumn{#1}{p{#2}|}{\centering #3}}
+\newcommand{\cqu@dsR}[3]{\multicolumn{#1}{|p{#2}|}{\raggedright #3}}
+\newcommand{\cqu@makedataset}{%
+	\clearpage
+	\section{\cqu@datasetname}
+	\vspace{0.3\baselineskip}
+	\begingroup
+	\cqu@ds@widths
+	\zihao{-4}\heiti
+	\setlength{\tabcolsep}{0pt}%
+	\renewcommand{\arraystretch}{1.55}%
+	\noindent
+	\begin{tabular}{|p{\cqu@dsWone}|p{\cqu@dsWtwo}|p{\cqu@dsWthree}|p{\cqu@dsWfour}|p{\cqu@dsWfive}|p{\cqu@dsWsix}|}
+		\hline
+		\cqu@dsL{2}{\cqu@dsWAA}{关键词} & \cqu@dsC{2}{\cqu@dsWBB}{密级} & \cqu@dsC{2}{\cqu@dsWCC}{中图分类号} \\ \hline
+		\cqu@dsL{2}{\cqu@dsWAA}{\cqu@dskeywords} & \cqu@dsC{2}{\cqu@dsWBB}{\cqu@dssecret} & \cqu@dsC{2}{\cqu@dsWCC}{\cqu@dsclc} \\ \hline
+		\cqu@dsL{1}{\cqu@dsWone}{学位授予单位名称} & \cqu@dsC{2}{\cqu@dsWAA}{学位授予单位代码} & \cqu@dsC{2}{\cqu@dsWBB}{学位类别} & \cqu@dsC{1}{\cqu@dsWsix}{学位级别} \\ \hline
+		\cqu@dsL{1}{\cqu@dsWone}{\cqu@dsunit} & \cqu@dsC{2}{\cqu@dsWAA}{\cqu@dsunitcode} &
+		\cqu@dsC{2}{\cqu@dsWBB}{\ifdefempty{\cqu@dsdegreecat}{\ifcqu@academic 学术学位\else 专业学位\fi}{\cqu@dsdegreecat}} &
+		\cqu@dsC{1}{\cqu@dsWsix}{\ifdefempty{\cqu@dsdegreelevel}{\ifcqu@doctor 博士\else 硕士\fi}{\cqu@dsdegreelevel}} \\ \hline
+		\cqu@dsL{2}{\cqu@dsWAA}{论文题名} & \cqu@dsC{2}{\cqu@dsWBB}{并列题名} & \cqu@dsC{2}{\cqu@dsWCC}{论文语种} \\ \hline
+		\cqu@dsL{2}{\cqu@dsWAA}{\cqu@ctitle} & \cqu@dsC{2}{\cqu@dsWBB}{\cqu@dssubtitle} & \cqu@dsC{2}{\cqu@dsWCC}{\cqu@dslanguage} \\ \hline
+		\cqu@dsL{1}{\cqu@dsWone}{作者姓名} & \cqu@dsC{2}{\cqu@dsWAA}{\cqu@cauthor} & \cqu@dsC{2}{\cqu@dsWBB}{学号} & \cqu@dsC{1}{\cqu@dsWsix}{\cqu@studentid} \\ \hline
+		\cqu@dsL{3}{\cqu@dsWDD}{培养单位名称} & \cqu@dsC{3}{\cqu@dsWEE}{培养单位代码} \\ \hline
+		\cqu@dsL{3}{\cqu@dsWDD}{\cqu@dsdept} & \cqu@dsC{3}{\cqu@dsWEE}{\cqu@dsdeptcode} \\ \hline
+		\cqu@dsL{1}{\cqu@dsWone}{学科专业} & \cqu@dsC{2}{\cqu@dsWAA}{研究方向} & \cqu@dsC{2}{\cqu@dsWBB}{学制} & \cqu@dsC{1}{\cqu@dsWsix}{学位授予年} \\ \hline
+		\cqu@dsL{1}{\cqu@dsWone}{\cqu@dsmajor} & \cqu@dsC{2}{\cqu@dsWAA}{\cqu@dsfield} &
+		\cqu@dsC{2}{\cqu@dsWBB}{\cqu@dsduration} & \cqu@dsC{1}{\cqu@dsWsix}{\cqu@dsyear} \\ \hline
+		\cqu@dsL{1}{\cqu@dsWone}{论文提交日期} & \cqu@dsC{2}{\cqu@dsWAA}{\cqu@dssubmit} & \cqu@dsC{2}{\cqu@dsWBB}{论文总页数} & \cqu@dsC{1}{\cqu@dsWsix}{\cqu@dspages} \\ \hline
+		\cqu@dsL{1}{\cqu@dsWone}{导师姓名} & \cqu@dsC{2}{\cqu@dsWAA}{\cqu@dssupervisor} & \cqu@dsC{2}{\cqu@dsWBB}{职称} & \cqu@dsC{1}{\cqu@dsWsix}{\cqu@dssupertitle} \\ \hline
+		\cqu@dsL{3}{\cqu@dsWDD}{答辩委员会主席} & \cqu@dsC{3}{\cqu@dsWEE}{\cqu@dschair} \\ \hline
+		\cqu@dsR{6}{\cqu@dsWall}{电子版论文提交格式\par\cqu@dsformat} \\ \hline
+	\end{tabular}
+	\endgroup
+}
+\let\cqudataset\cqu@makedataset
+%</cls>
 %    \end{macrocode}
 % \end{macro}
 %
@@ -2024,14 +2145,15 @@
 	\pagestyle{style@normal}
 	\cqu@fixhead
 	\pagenumbering{Roman}
+	\cqu@thepage@roman
 	\cqu@cabstract
-	\vskip12bp
+	\vskip\baselineskip
 	\cqu@put@kw{\heiti\cqu@ckw@title\cqu@title@separatorCN}{\cqu@ckeywords}
 	\if@twosideprint\ifcqu@openany\ifcqu@abstractopenright\cqu@addblankpage\fi\fi\fi
 	\chapter[\cqu@eabstract@tocname]{\sffamily\textbf{\cqu@eabstract@name}}
 	\cqu@fixhead
 	\cqu@eabstract
-	\vskip12bp
+	\vskip\baselineskip
 	\cqu@put@kw{\textbf{\cqu@ekw@title\cqu@title@separatorEN}}{\cqu@ekeywords}
 }
 %    \end{macrocode}
@@ -2055,41 +2177,41 @@
 	\clearpage
 	\thispagestyle{style@empty}
 	\IfNoValueTF{#1}{%
-		\rule{0mm}{5mm}
-		\begin{center}
-			\zihao{3}
-			\begin{CJKfilltwosides}{6\ccwd}
-				\heiti{}\cqu@innotitle
-			\end{CJKfilltwosides}
-		\end{center}
-		\vspace{2mm}
 		\zihao{-4}
-		\par\cqu@innobody
-		\\[5mm]
-		\par\cqu@innosignature\hfill\cqu@signdate
-		\vspace{15mm}
-		\begin{center}
-			\zihao{3}\heiti
-			\cqu@authtitle
-		\end{center}
+		\begin{center}{\zihao{3}\heiti\cqu@innotitle}\end{center}
+		\vspace{\baselineskip}
+		\par\cqu@innobody\par
+		\vspace{8mm}
+		\noindent\cqu@innosignature\hskip\ccwd\cqu@signline{5\ccwd}%
+		\hfill\cqu@signdate\hskip\ccwd\cqu@signline{3\ccwd}\par
+		\vspace{6mm}
+		\noindent\cqu@supersignatureCN\hskip\ccwd\cqu@signline{6\ccwd}%
+		\hfill\cqu@signdate\hskip\ccwd\cqu@signline{3\ccwd}\par
+		\vspace{10mm}
+		\begin{center}{\zihao{3}\heiti\cqu@authtitle}\end{center}
+		\vspace{\baselineskip}
+		\par\cqu@authbody\par
+		\vspace{8mm}
+		\noindent\cqu@authsignaturestu\hskip\ccwd\cqu@signline{6\ccwd}%
+		\hfill\cqu@authsignaturesup\hskip\ccwd\cqu@signline{6\ccwd}\par
 		\vspace{2mm}
-		\zihao{-4}
-		\par\cqu@authbody
-		\\[15mm]
-		\begin{minipage}{\textwidth}
-			\begin{minipage}{15\ccwd}
-				\cqu@authsignaturestu\\[10mm]
-				\cqu@signdate
-			\end{minipage}
-			\hfill
-			\begin{minipage}{15\ccwd}
-				\cqu@authsignaturesup\\[10mm]
-				\cqu@signdate
-			\end{minipage}
-		\end{minipage}
-	}{
-	\includepdf{#1}
-}
+		\hfill\cqu@signdate\hskip\ccwd\cqu@signline{2.5\ccwd}\par
+		\vspace{8mm}
+		\noindent\cqu@authitem{研究生学号：}{\cqu@studentid}{8\ccwd}\par
+		\vspace{3mm}
+		\noindent\cqu@authitem{所属学院：}{\cqu@cdepartment}{8\ccwd}\par
+		\vspace{3mm}
+		\noindent\cqu@authitem{毕业院校：}{\cqu@universitynameCN}{4\ccwd}%
+		\hfill\cqu@authitem{毕业年月：}{\cqu@gradmonth}{3.5\ccwd}\par
+		\vspace{3mm}
+		\noindent\cqu@authitem{*作者联系电话：}{\cqu@cphone}{6\ccwd}\par
+		\vspace{3mm}
+		\noindent\cqu@authitem{*作者 E-mail：}{\cqu@cemail}{6\ccwd}\par
+		\vspace{8mm}
+		\par\cqu@authnote\par
+	}{%
+		\includepdf{#1}
+	}
 }%\cqu@makeauth
 \let\cquauthpage\cqu@makeauth
 %</cls>
@@ -2098,13 +2220,13 @@
 % 定义封面用到的文字常量
 %    \begin{macrocode}
 %<*cfg>
-\def\cqu@ckeywords@separator{，}
+\def\cqu@ckeywords@separator{；}
 \def\cqu@ekeywords@separator{, }
 \def\cqu@title@separatorCN{：}
 \def\cqu@title@separatorEN{:~}
 \def\cqu@cabstract@tocname{中文摘要}
 \def\cqu@eabstract@tocname{英文摘要}
-\def\cqu@cabstract@name{摘\hskip\ccwd{}要}
+\def\cqu@cabstract@name{摘\hskip\ccwd\hskip\ccwd{}要}
 \def\cqu@eabstract@name{ABSTRACT}
 \def\cqu@ckw@title{关键词}
 \def\cqu@ekw@title{Key words}
@@ -2116,7 +2238,7 @@
 	\def\cqu@studentEN{Undergraduate}
 	\def\cqu@studentnumCN{学号}
 	\def\cqu@supervisorCN{指导教师}
-	\def\cqu@supervisorEN{Supervised by{ }}
+	\def\cqu@supervisorEN{Supervisor:~}
 	\def\cqu@assistsupervisorCN{助理指导教师}
 	\def\cqu@extrasupervisorCN{校外指导教师}
 	\def\cqu@assistsupervisorEN{Assistant Supervisor}
@@ -2126,16 +2248,17 @@
 	\def\cqu@universitynameEN{Chongqing University}
 \else
 	\ifcqu@master
+		\def\cqu@thesisword{thesis}
 		\def\cqu@thesistypenameCN{重庆大学硕士学位论文}
 		\def\cqu@thesistypenameEN{A Thesis Submitted to Chongqing University\\%
 			in Partial Fulfillment of the Requirement for%
 		\ifcqu@academic{ }the\fi\\\cqu@edgree}
 		\def\cqu@studentCN{学生姓名}
 		\def\cqu@supervisorCN{指导教师}
-		\def\cqu@supervisorEN{Supervised by{ }}
+		\def\cqu@supervisorEN{Supervisor:~}
 		\def\cqu@psupervisorCN{兼职导师}
 		\def\cqu@psupervisorEN{Pluralistic~Supervisor}
-		\def\cqu@majorCN{专业}
+		\def\cqu@majorCN{学科名称}
 		\def\cqu@majorEN{Specialty}
 		\ifcqu@academic
 			\def\cqu@mastertype{(学术学位)}
@@ -2148,14 +2271,15 @@
 		\def\cqu@universitynameEN{Chongqing University, Chongqing, China}
 	\else
 		\ifcqu@doctor
+			\def\cqu@thesisword{dissertation}
 			\def\cqu@thesistypenameCN{重庆大学博士学位论文}
 			\def\cqu@thesistypenameEN{A Thesis Submitted to Chongqing University\\%
 				in Partial Fulfillment of the Requirement for the\\\cqu@edgree}
 			\def\cqu@studentCN{学生姓名}
 			\def\cqu@studentEN{Ph.D. Candidate}
 			\def\cqu@supervisorCN{指导教师}
-			\def\cqu@supervisorEN{Supervised by{ }}
-			\def\cqu@majorCN{专业}
+			\def\cqu@supervisorEN{Supervisor:~}
+			\def\cqu@majorCN{学科名称}
 			\def\cqu@majorclassCN{学科门类}
 			\def\cqu@majorEN{Specialty}
 			\def\cqu@universitynameCN{重庆大学}
@@ -2167,23 +2291,22 @@
 		\fi
 	\fi
 \fi
-\def\cqu@innotitle{独创性声明}
+\def\cqu@innotitle{学位论文独创性声明}
+\def\cqu@authtitle{学位论文使用授权书}
+\def\cqu@degreeCN{\ifcqu@doctor 博士\else 硕士\fi}
 \def\cqu@innobody{%
-	本人声明所呈交的学位论文是本人在导师指导下进行的研究工作及取得的研究成果。据我所知，除了文中特别标注和致谢的地方外，论文中不包含其他人已经发表或撰写中的研究成果，也不包含为获得重庆大学或其他教育机构的学位或证书而使用过的材料。与我一同工作的同志对本文所做的任何贡献均已在论文中做了明确的说明并表示谢意。}
+	本人声明所呈交的\cqu@degreeCN 学位论文《{\let\\\space\cqu@ctitle}》是我个人在导师指导下进行的研究工作及取得的研究成果。尽我所知，除了文中特别加以标注和致谢的地方外，论文中不包含其他人已经发表或撰写过的研究成果。与我一同工作的同志对本研究所做的任何贡献均已在论文中作了明确的说明并表示了谢意。}
+\def\cqu@authbody{%
+	本学位论文作者完全了解重庆大学有关保留、使用学位论文的规定。学校有权按有关规定向国家有关部门或机构送交论文的复印件和电子版，允许论文被查阅和借阅。本人授权重庆大学可以将学位论文的全部或部分内容编入有关数据库进行检索，可以采用影印、缩印或其他复制手段保存、汇编学位论文，可以以电子、网络及其他数字媒体形式公开出版。}
+\def\cqu@authnote{说明：本授权书用于学位论文电子版时“*”部分内容可不填写。}
+\def\cqu@authsignaturestu{作者签名：}
 \def\cqu@innosignature{学位论文作者签名：}
-\def\cqu@authtitle{学位论文版权使用授权书}
-\def\cqu@authcheckpart{%
-	保\hskip\ccwd{}密(\hskip2\ccwd)，在\rule{3\ccwd}{0.15mm}年解密后适用本授权书。\\
-	不保密(\hskip2\ccwd)。}
-\def\cqu@authbody{
-	本学位论文作者完全了解重庆大学有关保留、使用学位论文的规定，有权保留并向国家有关部门或机构送交论文的复印件和磁盘，允许论文被查阅和借阅。本人授权重庆大学可以把学位论文的全部或部分内容编入有关数据库进行检索，可以采用影印、缩印或扫描等复制手段保存、汇编学位论文。
-	\\[\baselineskip]
-	\indent\parbox{7\ccwd}{本学位论文属于}\hskip\ccwd\parbox{.6\textwidth}{\cqu@authcheckpart}
-	\\[\baselineskip]
-	\indent(请只在上述一个括号内打“\ding{51}”)}
-\def\cqu@authsignaturestu{学位论文作者签名：}
 \def\cqu@authsignaturesup{导师签名：}
-\def\cqu@signdate{签字日期：\hskip3\ccwd{}年\hskip2\ccwd{}月\hskip2\ccwd{}日}
+\def\cqu@supersignatureCN{导师签名：}
+\def\cqu@signdate{签字日期：}
+\def\cqu@gradmonth{\ifdefempty{\cqu@cgrant}{\cdate}{\cqu@cgrant}}
+\newcommand{\cqu@signline}[1]{\underline{\hspace{#1}}}
+\newcommand{\cqu@authitem}[3]{#1\ifdefempty{#2}{\cqu@signline{#3}}{#2}}
 %</cfg>
 %    \end{macrocode}
 % \subsection{主要符号对照表}
@@ -2227,18 +2350,29 @@
 	\cftsetindents{subsection}{4.0em}{1.5em}
 \else
 	\cftsetindents{chapter}{0em}{1.5em}
-	\cftsetindents{section}{1.5em}{2.2em}
-	\cftsetindents{subsection}{3.7em}{2.9em}
+	% 2023版标准：二级左缩进1字符、三级左缩进2字符
+	\cftsetindents{section}{1em}{1.9em}
+	\cftsetindents{subsection}{2em}{2.9em}
 \fi
 %    \end{macrocode}
 % 目录中的不同级别采用不同的字号和字体，这是按照学校word样例的实现，但是蹊跷的是，样例里的这些做法在官方文件里却没有体现，所以这里列为可选项，适用于三级标题很多的情况：
 %    \begin{macrocode}
+\renewcommand{\cftchapleader}{\cftdotfill{\cftdotsep}}
 \ifcqu@seriftoc
-	\renewcommand{\cftchapleader}{\cftdotfill{\cftdotsep}}
 	\renewcommand{\cftchapfont}{\zihao{4}\sffamily\heiti}
 	\renewcommand{\cftsecfont}{\zihao{5}\sffamily\heiti}
 	\renewcommand{\cftsubsecfont}{\zihao{5}}
+\else
+	% 2023版格式标准：一级四号加粗、二级五号加粗、三级五号，中文宋体、西文Times
+	\renewcommand{\cftchapfont}{\zihao{4}\bfseries\songti}
+	\renewcommand{\cftsecfont}{\zihao{5}\bfseries\songti}
+	\renewcommand{\cftsubsecfont}{\zihao{5}\songti}
 \fi
+% 图录、表录、公式录按标准用五号，无缩进
+\renewcommand{\cftfigfont}{\zihao{5}\songti}
+\renewcommand{\cfttabfont}{\zihao{5}\songti}
+\setlength{\cftfigindent}{0pt}
+\setlength{\cfttabindent}{0pt}
 %    \end{macrocode}
 % \subsubsection{公式索引}
 % \begin{macro}{\listofequationsEN}
